@@ -169,107 +169,107 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Outfit';
-  TextStyle get displayLarge => GoogleFonts.getFont(
-        'Outfit',
+  String get displayLargeFamily => 'Inter';
+  TextStyle get displayLarge => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Outfit';
-  TextStyle get displayMedium => GoogleFonts.getFont(
-        'Outfit',
+  String get displayMediumFamily => 'Inter';
+  TextStyle get displayMedium => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Outfit';
-  TextStyle get displaySmall => GoogleFonts.getFont(
-        'Outfit',
+  String get displaySmallFamily => 'Inter';
+  TextStyle get displaySmall => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Outfit';
-  TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Outfit',
+  String get headlineLargeFamily => 'Inter';
+  TextStyle get headlineLarge => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Outfit';
-  TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Outfit',
+  String get headlineMediumFamily => 'Inter';
+  TextStyle get headlineMedium => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 24.0,
       );
-  String get headlineSmallFamily => 'Outfit';
-  TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Outfit',
+  String get headlineSmallFamily => 'Inter';
+  TextStyle get headlineSmall => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Outfit';
-  TextStyle get titleLarge => GoogleFonts.getFont(
-        'Outfit',
+  String get titleLargeFamily => 'Inter';
+  TextStyle get titleLarge => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 22.0,
       );
-  String get titleMediumFamily => 'Readex Pro';
-  TextStyle get titleMedium => GoogleFonts.getFont(
-        'Readex Pro',
+  String get titleMediumFamily => 'Inter';
+  TextStyle get titleMedium => TextStyle(
+        fontFamily: 'Inter',
         color: theme.info,
         fontWeight: FontWeight.normal,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Readex Pro';
-  TextStyle get titleSmall => GoogleFonts.getFont(
-        'Readex Pro',
+  String get titleSmallFamily => 'Inter';
+  TextStyle get titleSmall => TextStyle(
+        fontFamily: 'Inter',
         color: theme.info,
         fontWeight: FontWeight.w500,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Readex Pro';
-  TextStyle get labelLarge => GoogleFonts.getFont(
-        'Readex Pro',
+  String get labelLargeFamily => 'Inter';
+  TextStyle get labelLarge => TextStyle(
+        fontFamily: 'Inter',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Readex Pro';
-  TextStyle get labelMedium => GoogleFonts.getFont(
-        'Readex Pro',
+  String get labelMediumFamily => 'Inter';
+  TextStyle get labelMedium => TextStyle(
+        fontFamily: 'Inter',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Readex Pro';
-  TextStyle get labelSmall => GoogleFonts.getFont(
-        'Readex Pro',
+  String get labelSmallFamily => 'Inter';
+  TextStyle get labelSmall => TextStyle(
+        fontFamily: 'Inter',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Readex Pro';
-  TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Readex Pro',
+  String get bodyLargeFamily => 'Inter';
+  TextStyle get bodyLarge => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Readex Pro';
-  TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Readex Pro',
+  String get bodyMediumFamily => 'Inter';
+  TextStyle get bodyMedium => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Readex Pro';
-  TextStyle get bodySmall => GoogleFonts.getFont(
-        'Readex Pro',
+  String get bodySmallFamily => 'Inter';
+  TextStyle get bodySmall => TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,

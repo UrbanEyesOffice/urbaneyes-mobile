@@ -36,23 +36,23 @@ class SurveysRecord extends FirestoreRecord {
   DocumentReference? get createdBy => _createdBy;
   bool hasCreatedBy() => _createdBy != null;
 
-  // "approximate_time_1" field.
-  int? _approximateTime1;
-  int get approximateTime1 => _approximateTime1 ?? 0;
-  bool hasApproximateTime1() => _approximateTime1 != null;
+  // "name_en" field.
+  String? _nameEn;
+  String get nameEn => _nameEn ?? '';
+  bool hasNameEn() => _nameEn != null;
 
-  // "approximate_time_2" field.
-  int? _approximateTime2;
-  int get approximateTime2 => _approximateTime2 ?? 0;
-  bool hasApproximateTime2() => _approximateTime2 != null;
+  // "name_kg" field.
+  String? _nameKg;
+  String get nameKg => _nameKg ?? '';
+  bool hasNameKg() => _nameKg != null;
 
   void _initializeFields() {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _name = snapshotData['name'] as String?;
     _description = snapshotData['description'] as String?;
     _createdBy = snapshotData['created_by'] as DocumentReference?;
-    _approximateTime1 = castToType<int>(snapshotData['approximate_time_1']);
-    _approximateTime2 = castToType<int>(snapshotData['approximate_time_2']);
+    _nameEn = snapshotData['name_en'] as String?;
+    _nameKg = snapshotData['name_kg'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -94,8 +94,8 @@ Map<String, dynamic> createSurveysRecordData({
   String? name,
   String? description,
   DocumentReference? createdBy,
-  int? approximateTime1,
-  int? approximateTime2,
+  String? nameEn,
+  String? nameKg,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -103,8 +103,8 @@ Map<String, dynamic> createSurveysRecordData({
       'name': name,
       'description': description,
       'created_by': createdBy,
-      'approximate_time_1': approximateTime1,
-      'approximate_time_2': approximateTime2,
+      'name_en': nameEn,
+      'name_kg': nameKg,
     }.withoutNulls,
   );
 
@@ -120,8 +120,8 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e1?.name == e2?.name &&
         e1?.description == e2?.description &&
         e1?.createdBy == e2?.createdBy &&
-        e1?.approximateTime1 == e2?.approximateTime1 &&
-        e1?.approximateTime2 == e2?.approximateTime2;
+        e1?.nameEn == e2?.nameEn &&
+        e1?.nameKg == e2?.nameKg;
   }
 
   @override
@@ -130,8 +130,8 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e?.name,
         e?.description,
         e?.createdBy,
-        e?.approximateTime1,
-        e?.approximateTime2
+        e?.nameEn,
+        e?.nameKg
       ]);
 
   @override

@@ -9,7 +9,7 @@ import 'schema/users_record.dart';
 import 'schema/surveys_record.dart';
 import 'schema/question_record.dart';
 import 'schema/answer_record.dart';
-import 'schema/question_option_record.dart';
+import 'schema/feedback_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +21,7 @@ export 'schema/users_record.dart';
 export 'schema/surveys_record.dart';
 export 'schema/question_record.dart';
 export 'schema/answer_record.dart';
-export 'schema/question_option_record.dart';
+export 'schema/feedback_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -171,38 +171,38 @@ Future<List<AnswerRecord>> queryAnswerRecordOnce({
       singleRecord: singleRecord,
     );
 
-/// Functions to query QuestionOptionRecords (as a Stream and as a Future).
-Future<int> queryQuestionOptionRecordCount({
+/// Functions to query FeedbackRecords (as a Stream and as a Future).
+Future<int> queryFeedbackRecordCount({
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) =>
     queryCollectionCount(
-      QuestionOptionRecord.collection,
+      FeedbackRecord.collection,
       queryBuilder: queryBuilder,
       limit: limit,
     );
 
-Stream<List<QuestionOptionRecord>> queryQuestionOptionRecord({
+Stream<List<FeedbackRecord>> queryFeedbackRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      QuestionOptionRecord.collection,
-      QuestionOptionRecord.fromSnapshot,
+      FeedbackRecord.collection,
+      FeedbackRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 
-Future<List<QuestionOptionRecord>> queryQuestionOptionRecordOnce({
+Future<List<FeedbackRecord>> queryFeedbackRecordOnce({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      QuestionOptionRecord.collection,
-      QuestionOptionRecord.fromSnapshot,
+      FeedbackRecord.collection,
+      FeedbackRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -344,7 +344,9 @@ Future maybeCreateUser(User user) async {
   }
 
   final userData = createUsersRecordData(
-    email: user.email,
+    email: user.email ??
+        FirebaseAuth.instance.currentUser?.email ??
+        user.providerData.firstOrNull?.email,
     displayName:
         user.displayName ?? FirebaseAuth.instance.currentUser?.displayName,
     photoUrl: user.photoURL,

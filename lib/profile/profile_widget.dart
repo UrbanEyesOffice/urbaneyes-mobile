@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_model.dart';
@@ -37,6 +38,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
@@ -76,9 +88,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .headlineSmall
                                   .override(
-                                    fontFamily: 'Outfit',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
+                                    useGoogleFonts: false,
                                   ),
                             ),
                           ),
@@ -112,7 +125,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               onPressed: () async {
                 context.pushNamed('EditProfile');
               },
-              text: 'Редактировать профиль',
+              text: FFLocalizations.of(context).getText(
+                '898n1ej4' /* Редактировать профиль */,
+              ),
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 60.0,
@@ -120,9 +135,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: Colors.white,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'Inter',
                       color: FlutterFlowTheme.of(context).primaryText,
                       fontWeight: FontWeight.w300,
+                      useGoogleFonts: false,
                     ),
                 borderSide: BorderSide(
                   color: FlutterFlowTheme.of(context).primaryText,
@@ -135,62 +151,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
             child: FFButtonWidget(
-              onPressed: () {
-                print('Button pressed ...');
+              onPressed: () async {
+                context.pushNamed('Feedback');
               },
-              text: 'Сменить пароль',
-              options: FFButtonOptions(
-                width: double.infinity,
-                height: 60.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: Colors.white,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: 'Readex Pro',
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontWeight: FontWeight.w300,
-                    ),
-                borderSide: BorderSide(
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  width: 1.0,
-                ),
-                borderRadius: BorderRadius.circular(0.0),
+              text: FFLocalizations.of(context).getText(
+                'b7er5pp3' /* Форма обратной связи */,
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
-            child: FFButtonWidget(
-              onPressed: () {
-                print('Button pressed ...');
-              },
-              text: 'Настройки уведомлений',
-              options: FFButtonOptions(
-                width: double.infinity,
-                height: 60.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: Colors.white,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: 'Readex Pro',
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontWeight: FontWeight.w300,
-                    ),
-                borderSide: BorderSide(
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  width: 1.0,
-                ),
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
-            child: FFButtonWidget(
-              onPressed: () {
-                print('Button pressed ...');
-              },
-              text: 'Форма обратной связи',
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 60.0,
@@ -198,9 +164,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'Inter',
                       color: FlutterFlowTheme.of(context).primaryText,
                       fontWeight: FontWeight.w300,
+                      useGoogleFonts: false,
                     ),
                 borderSide: BorderSide(
                   color: FlutterFlowTheme.of(context).primaryText,
@@ -218,7 +185,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   onPressed: () async {
                     context.pushNamed('AdmiPannel');
                   },
-                  text: 'Админ панель',
+                  text: FFLocalizations.of(context).getText(
+                    'r26iwyuy' /* Админ панель */,
+                  ),
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 60.0,
@@ -227,9 +196,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'Inter',
                           color: FlutterFlowTheme.of(context).primaryText,
                           fontWeight: FontWeight.w300,
+                          useGoogleFonts: false,
                         ),
                     borderSide: BorderSide(
                       color: FlutterFlowTheme.of(context).primaryText,
@@ -248,9 +218,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 await authManager.signOut();
                 GoRouter.of(context).clearRedirectLocation();
 
-                context.goNamedAuth('Autentification', context.mounted);
+                context.goNamedAuth('MainAuth', context.mounted);
               },
-              text: 'Выход',
+              text: FFLocalizations.of(context).getText(
+                'ef4p4cwl' /* Выход */,
+              ),
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 50.0,
@@ -258,8 +230,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).primaryText,
                 textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'Inter',
                       color: FlutterFlowTheme.of(context).primaryBtnText,
+                      useGoogleFonts: false,
                     ),
                 elevation: 3.0,
                 borderSide: BorderSide(

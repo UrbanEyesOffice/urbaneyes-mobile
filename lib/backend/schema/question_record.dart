@@ -21,20 +21,10 @@ class QuestionRecord extends FirestoreRecord {
   String get question => _question ?? '';
   bool hasQuestion() => _question != null;
 
-  // "question_type" field.
-  int? _questionType;
-  int get questionType => _questionType ?? 0;
-  bool hasQuestionType() => _questionType != null;
-
   // "survey_id" field.
   DocumentReference? _surveyId;
   DocumentReference? get surveyId => _surveyId;
   bool hasSurveyId() => _surveyId != null;
-
-  // "option" field.
-  List<String>? _option;
-  List<String> get option => _option ?? const [];
-  bool hasOption() => _option != null;
 
   // "status" field.
   String? _status;
@@ -46,13 +36,38 @@ class QuestionRecord extends FirestoreRecord {
   DocumentReference? get creatorId => _creatorId;
   bool hasCreatorId() => _creatorId != null;
 
+  // "question_en" field.
+  String? _questionEn;
+  String get questionEn => _questionEn ?? '';
+  bool hasQuestionEn() => _questionEn != null;
+
+  // "question_kg" field.
+  String? _questionKg;
+  String get questionKg => _questionKg ?? '';
+  bool hasQuestionKg() => _questionKg != null;
+
+  // "question_order" field.
+  int? _questionOrder;
+  int get questionOrder => _questionOrder ?? 0;
+  bool hasQuestionOrder() => _questionOrder != null;
+
+  // "options" field.
+  List<OptionStruct>? _options;
+  List<OptionStruct> get options => _options ?? const [];
+  bool hasOptions() => _options != null;
+
   void _initializeFields() {
     _question = snapshotData['question'] as String?;
-    _questionType = castToType<int>(snapshotData['question_type']);
     _surveyId = snapshotData['survey_id'] as DocumentReference?;
-    _option = getDataList(snapshotData['option']);
     _status = snapshotData['status'] as String?;
     _creatorId = snapshotData['creator_id'] as DocumentReference?;
+    _questionEn = snapshotData['question_en'] as String?;
+    _questionKg = snapshotData['question_kg'] as String?;
+    _questionOrder = castToType<int>(snapshotData['question_order']);
+    _options = getStructList(
+      snapshotData['options'],
+      OptionStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -91,18 +106,22 @@ class QuestionRecord extends FirestoreRecord {
 
 Map<String, dynamic> createQuestionRecordData({
   String? question,
-  int? questionType,
   DocumentReference? surveyId,
   String? status,
   DocumentReference? creatorId,
+  String? questionEn,
+  String? questionKg,
+  int? questionOrder,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'question': question,
-      'question_type': questionType,
       'survey_id': surveyId,
       'status': status,
       'creator_id': creatorId,
+      'question_en': questionEn,
+      'question_kg': questionKg,
+      'question_order': questionOrder,
     }.withoutNulls,
   );
 
@@ -116,21 +135,25 @@ class QuestionRecordDocumentEquality implements Equality<QuestionRecord> {
   bool equals(QuestionRecord? e1, QuestionRecord? e2) {
     const listEquality = ListEquality();
     return e1?.question == e2?.question &&
-        e1?.questionType == e2?.questionType &&
         e1?.surveyId == e2?.surveyId &&
-        listEquality.equals(e1?.option, e2?.option) &&
         e1?.status == e2?.status &&
-        e1?.creatorId == e2?.creatorId;
+        e1?.creatorId == e2?.creatorId &&
+        e1?.questionEn == e2?.questionEn &&
+        e1?.questionKg == e2?.questionKg &&
+        e1?.questionOrder == e2?.questionOrder &&
+        listEquality.equals(e1?.options, e2?.options);
   }
 
   @override
   int hash(QuestionRecord? e) => const ListEquality().hash([
         e?.question,
-        e?.questionType,
         e?.surveyId,
-        e?.option,
         e?.status,
-        e?.creatorId
+        e?.creatorId,
+        e?.questionEn,
+        e?.questionKg,
+        e?.questionOrder,
+        e?.options
       ]);
 
   @override

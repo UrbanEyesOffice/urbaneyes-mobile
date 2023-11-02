@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>8078048766-1ne9fjahggrkou36p11uepgdrvh86h5a.apps.googleusercontent.com</string>
+	<string>8078048766-3djbbg75si3ulakohftqn7hm29l75nj9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.8078048766-1ne9fjahggrkou36p11uepgdrvh86h5a</string>
+	<string>com.googleusercontent.apps.8078048766-3djbbg75si3ulakohftqn7hm29l75nj9</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>8078048766-71rab6g0hf1ikl3qa1gg4p33f3rjamnt.apps.googleusercontent.com</string>
+	<string>8078048766-ird74p3kpa27jr5vfsh1l2dc7upeb8h5.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBSx7pmqmIT5n3p4P2FsDwe0P6qiqqG_b4</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mycompany.urbaneyes</string>
+	<string>kg.urbaneyes.urbanapp</string>
 	<key>PROJECT_ID</key>
 	<string>urbaneyes-a6d94</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:8078048766:ios:9fd30416140bff399194af</string>
+	<string>1:8078048766:ios:b66ffbdebc35ffa69194af</string>
 </dict>
 </plist>

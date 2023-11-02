@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:8078048766:android:cab4b292e81038e69194af",
+        "mobilesdk_app_id": "1:8078048766:android:87833514b6be0c729194af",
         "android_client_info": {
-          "package_name": "com.mycompany.urbaneyes"
+          "package_name": "kg.urbaneyes.urbanapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "8078048766-71rab6g0hf1ikl3qa1gg4p33f3rjamnt.apps.googleusercontent.com",
+          "client_id": "8078048766-ird74p3kpa27jr5vfsh1l2dc7upeb8h5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.mycompany.urbaneyes",
+            "package_name": "kg.urbaneyes.urbanapp",
             "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
           }
         },
@@ -39,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "8078048766-1ne9fjahggrkou36p11uepgdrvh86h5a.apps.googleusercontent.com",
+              "client_id": "8078048766-3djbbg75si3ulakohftqn7hm29l75nj9.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.mycompany.urbaneyes"
+                "bundle_id": "kg.urbaneyes.urbanapp"
               }
             }
           ]

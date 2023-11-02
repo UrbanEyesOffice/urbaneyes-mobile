@@ -31,11 +31,6 @@ class AnswerRecord extends FirestoreRecord {
   DocumentReference? get userId => _userId;
   bool hasUserId() => _userId != null;
 
-  // "answer" field.
-  String? _answer;
-  String get answer => _answer ?? '';
-  bool hasAnswer() => _answer != null;
-
   // "time" field.
   DateTime? _time;
   DateTime? get time => _time;
@@ -46,13 +41,18 @@ class AnswerRecord extends FirestoreRecord {
   LatLng? get location => _location;
   bool hasLocation() => _location != null;
 
+  // "answer" field.
+  OptionStruct? _answer;
+  OptionStruct get answer => _answer ?? OptionStruct();
+  bool hasAnswer() => _answer != null;
+
   void _initializeFields() {
     _surveyId = snapshotData['survey_id'] as DocumentReference?;
     _questionId = snapshotData['question_id'] as DocumentReference?;
     _userId = snapshotData['user_id'] as DocumentReference?;
-    _answer = snapshotData['answer'] as String?;
     _time = snapshotData['time'] as DateTime?;
     _location = snapshotData['location'] as LatLng?;
+    _answer = OptionStruct.maybeFromMap(snapshotData['answer']);
   }
 
   static CollectionReference get collection =>
@@ -92,20 +92,23 @@ Map<String, dynamic> createAnswerRecordData({
   DocumentReference? surveyId,
   DocumentReference? questionId,
   DocumentReference? userId,
-  String? answer,
   DateTime? time,
   LatLng? location,
+  OptionStruct? answer,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'survey_id': surveyId,
       'question_id': questionId,
       'user_id': userId,
-      'answer': answer,
       'time': time,
       'location': location,
+      'answer': OptionStruct().toMap(),
     }.withoutNulls,
   );
+
+  // Handle nested data for "answer" field.
+  addOptionStructData(firestoreData, answer, 'answer');
 
   return firestoreData;
 }
@@ -118,14 +121,14 @@ class AnswerRecordDocumentEquality implements Equality<AnswerRecord> {
     return e1?.surveyId == e2?.surveyId &&
         e1?.questionId == e2?.questionId &&
         e1?.userId == e2?.userId &&
-        e1?.answer == e2?.answer &&
         e1?.time == e2?.time &&
-        e1?.location == e2?.location;
+        e1?.location == e2?.location &&
+        e1?.answer == e2?.answer;
   }
 
   @override
   int hash(AnswerRecord? e) => const ListEquality().hash(
-      [e?.surveyId, e?.questionId, e?.userId, e?.answer, e?.time, e?.location]);
+      [e?.surveyId, e?.questionId, e?.userId, e?.time, e?.location, e?.answer]);
 
   @override
   bool isValidKey(Object? o) => o is AnswerRecord;

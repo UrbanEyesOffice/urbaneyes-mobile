@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
-import '../../auth/base_auth_user_provider.dart';
+import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
 import '/main.dart';
@@ -78,53 +80,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : AutentificationWidget(),
+          appStateNotifier.loggedIn ? HomePageCopyWidget() : MainAuthWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? NavBarPage()
-              : AutentificationWidget(),
-        ),
-        FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'HomePage')
-              : HomePageWidget(),
-        ),
-        FFRoute(
-          name: 'Autentification',
-          path: '/autentification',
-          builder: (context, params) => AutentificationWidget(),
-        ),
-        FFRoute(
-          name: 'Survey',
-          path: '/survey',
-          builder: (context, params) => SurveyWidget(
-            survey: params.getParam(
-                'survey', ParamType.DocumentReference, false, ['surveys']),
-          ),
-        ),
-        FFRoute(
-          name: 'question',
-          path: '/question',
-          builder: (context, params) => QuestionWidget(
-            survey: params.getParam(
-                'survey', ParamType.DocumentReference, false, ['surveys']),
-            questionRef: params.getParam('questionRef',
-                ParamType.DocumentReference, false, ['question']),
-            question: params.getParam('question', ParamType.String),
-            ord: params.getParam('ord', ParamType.int),
-          ),
+              ? HomePageCopyWidget()
+              : MainAuthWidget(),
         ),
         FFRoute(
           name: 'Profile',
           path: '/profile',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Profile')
-              : ProfileWidget(),
+          builder: (context, params) => ProfileWidget(),
         ),
         FFRoute(
           name: 'EditProfile',
@@ -140,14 +108,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'AllSurveysStat',
           path: '/allSurveysStat',
           builder: (context, params) => AllSurveysStatWidget(),
-        ),
-        FFRoute(
-          name: 'QuestionStatistics',
-          path: '/questionStatistics',
-          builder: (context, params) => QuestionStatisticsWidget(
-            question: params.getParam(
-                'question', ParamType.DocumentReference, false, ['question']),
-          ),
         ),
         FFRoute(
           name: 'EditQuestion',
@@ -171,6 +131,77 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'AskGeo',
           path: '/askGeo',
           builder: (context, params) => AskGeoWidget(),
+        ),
+        FFRoute(
+          name: 'Feedback',
+          path: '/feedback',
+          builder: (context, params) => FeedbackWidget(),
+        ),
+        FFRoute(
+          name: 'HomePageCopy',
+          path: '/homePageCopy',
+          requireAuth: true,
+          builder: (context, params) => HomePageCopyWidget(
+            firstLogin: params.getParam('firstLogin', ParamType.bool),
+          ),
+        ),
+        FFRoute(
+          name: 'CompleteRegistration',
+          path: '/CompleteRegistration',
+          builder: (context, params) => CompleteRegistrationWidget(),
+        ),
+        FFRoute(
+          name: 'questionCopy',
+          path: '/questionCopy',
+          builder: (context, params) => QuestionCopyWidget(
+            survey: params.getParam(
+                'survey', ParamType.DocumentReference, false, ['surveys']),
+            questionRef: params.getParam('questionRef',
+                ParamType.DocumentReference, false, ['question']),
+            question: params.getParam('question', ParamType.String),
+            ord: params.getParam('ord', ParamType.int),
+            location: params.getParam('location', ParamType.LatLng),
+            answers: params.getParam(
+                'answers', ParamType.DocumentReference, false, ['answer']),
+            address: params.getParam('address', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'complete',
+          path: '/complete',
+          builder: (context, params) => CompleteWidget(),
+        ),
+        FFRoute(
+          name: 'MainAuth',
+          path: '/MainAuth',
+          builder: (context, params) => MainAuthWidget(),
+        ),
+        FFRoute(
+          name: 'CreateAccount',
+          path: '/createAccount',
+          builder: (context, params) => CreateAccountWidget(),
+        ),
+        FFRoute(
+          name: 'Verification',
+          path: '/verification',
+          builder: (context, params) => VerificationWidget(),
+        ),
+        FFRoute(
+          name: 'Login',
+          path: '/login',
+          builder: (context, params) => LoginWidget(),
+        ),
+        FFRoute(
+          name: 'SelectLocation',
+          path: '/selectLocation',
+          builder: (context, params) => SelectLocationWidget(
+            survey: params.getParam(
+                'survey', ParamType.DocumentReference, false, ['surveys']),
+            questionRef: params.getParam('questionRef',
+                ParamType.DocumentReference, false, ['question']),
+            ord: params.getParam('ord', ParamType.int),
+            location: params.getParam('location', ParamType.LatLng),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -337,7 +368,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/autentification';
+            return '/MainAuth';
           }
           return null;
         },
@@ -397,4 +428,24 @@ class TransitionInfo {
   final Alignment? alignment;
 
   static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+}
+
+class RootPageContext {
+  const RootPageContext(this.isRootPage, [this.errorRoute]);
+  final bool isRootPage;
+  final String? errorRoute;
+
+  static bool isInactiveRootPage(BuildContext context) {
+    final rootPageContext = context.read<RootPageContext?>();
+    final isRootPage = rootPageContext?.isRootPage ?? false;
+    final location = GoRouter.of(context).location;
+    return isRootPage &&
+        location != '/' &&
+        location != rootPageContext?.errorRoute;
+  }
+
+  static Widget wrap(Widget child, {String? errorRoute}) => Provider.value(
+        value: RootPageContext(true, errorRoute),
+        child: child,
+      );
 }

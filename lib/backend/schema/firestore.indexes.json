@@ -1,18 +1,3 @@
 {
-  "indexes": [
-    {
-      "collectionGroup": "question",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "survey_id",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "question",
-          "order": "ASCENDING"
-        }
-      ]
-    }
-  ]
+  "indexes": []
 }

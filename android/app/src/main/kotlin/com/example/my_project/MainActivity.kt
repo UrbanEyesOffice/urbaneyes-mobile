@@ -1,4 +1,4 @@
-package com.mycompany.urbaneyes
+package kg.urbaneyes.urbanapp
 
 import io.flutter.embedding.android.FlutterActivity
 
