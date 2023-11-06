@@ -53,11 +53,23 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       await Future.delayed(const Duration(milliseconds: 300));
       if (widget.location != null) {
-        _model.addressOnLoad = await actions.getAddressFromLatLngGoogleMaps(
-          widget.location,
-        );
+        if (widget.location != null) {
+          await actions.getAddressFromLatLngGoogleMaps(
+            widget.location,
+          );
+        } else if (!functions.isLatLongEqualNull(currentUserLocationValue)!) {
+          await actions.getAddressFromLatLngGoogleMaps(
+            currentUserLocationValue,
+          );
+        } else {
+          _model.locationName = await actions.getAddressFromLatLngGoogleMaps(
+            widget.location,
+          );
+        }
       }
     });
 
@@ -414,8 +426,8 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                               children: [
                                 if ((widget.address != null &&
                                         widget.address != '') ||
-                                    (_model.addressOnLoad != null &&
-                                        _model.addressOnLoad != ''))
+                                    (_model.locationName != null &&
+                                        _model.locationName != ''))
                                   Align(
                                     alignment: AlignmentDirectional(0.00, 1.00),
                                     child: Padding(
@@ -441,11 +453,10 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                     widget.address != '') {
                                                   return widget.address!;
                                                 } else if (_model
-                                                            .addressOnLoad !=
+                                                            .locationName !=
                                                         null &&
-                                                    _model.addressOnLoad !=
-                                                        '') {
-                                                  return _model.addressOnLoad!;
+                                                    _model.locationName != '') {
+                                                  return _model.locationName!;
                                                 } else {
                                                   return widget.location!
                                                       .toString();

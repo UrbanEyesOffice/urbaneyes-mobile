@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -90,17 +91,24 @@ class _CompleteRegistrationWidgetState
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(30.0, 16.0, 30.0, 0.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'ehi1pwqu' /* Мы обезличиваем все результаты... */,
+                    child: AuthUserStreamWidget(
+                      builder: (context) => Text(
+                        FFLocalizations.of(context).getVariableText(
+                          ruText:
+                              '${currentUserDisplayName}, мы обезличиваем все результаты опросов и не делимся личными данными пользователей.',
+                          enText:
+                              '${currentUserDisplayName}, we anonymise all results of completed surveys and do not share the personal details of individual users. ',
+                          kyText:
+                              '${currentUserDisplayName}, биз толтурулган сурамжылоонун бардык натыйжаларын анонимдүү кылабыз жана жеке колдонуучулардын жеке маалыматтарын бөлүшпөйбүз.',
+                        ),
+                        textAlign: TextAlign.start,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Golos',
+                              color: Color(0xFF06112E),
+                              fontSize: 16.0,
+                              useGoogleFonts: false,
+                            ),
                       ),
-                      textAlign: TextAlign.start,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Golos',
-                            color: Color(0xFF06112E),
-                            fontSize: 16.0,
-                            useGoogleFonts: false,
-                          ),
                     ),
                   ),
                 ),

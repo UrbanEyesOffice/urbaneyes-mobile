@@ -38,6 +38,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
             ? currentUserDisplayName
             : '');
     _model.nameCreateFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

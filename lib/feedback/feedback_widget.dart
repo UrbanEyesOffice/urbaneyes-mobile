@@ -31,8 +31,10 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
     _model.nicknameCreateController1 ??=
         TextEditingController(text: currentUserEmail);
     _model.nicknameCreateFocusNode1 ??= FocusNode();
+
     _model.nicknameCreateController2 ??= TextEditingController();
     _model.nicknameCreateFocusNode2 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

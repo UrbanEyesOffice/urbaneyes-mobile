@@ -29,8 +29,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
 
     _model.emailCreateController ??= TextEditingController();
     _model.emailCreateFocusNode ??= FocusNode();
+
     _model.passwordController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

@@ -36,8 +36,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _model.displayNameController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.displayNameFocusNode ??= FocusNode();
+
     _model.emailController ??= TextEditingController(text: currentUserEmail);
     _model.emailFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
