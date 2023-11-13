@@ -6,25 +6,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'ask_geo_model.dart';
-export 'ask_geo_model.dart';
+import 'ask_push_notifications_model.dart';
+export 'ask_push_notifications_model.dart';
 
-class AskGeoWidget extends StatefulWidget {
-  const AskGeoWidget({Key? key}) : super(key: key);
+class AskPushNotificationsWidget extends StatefulWidget {
+  const AskPushNotificationsWidget({Key? key}) : super(key: key);
 
   @override
-  _AskGeoWidgetState createState() => _AskGeoWidgetState();
+  _AskPushNotificationsWidgetState createState() =>
+      _AskPushNotificationsWidgetState();
 }
 
-class _AskGeoWidgetState extends State<AskGeoWidget> {
-  late AskGeoModel _model;
+class _AskPushNotificationsWidgetState
+    extends State<AskPushNotificationsWidget> {
+  late AskPushNotificationsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AskGeoModel());
+    _model = createModel(context, () => AskPushNotificationsModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -66,14 +68,14 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                 Align(
                   alignment: AlignmentDirectional(-1.00, 0.00),
                   child: Container(
-                    width: 48.0,
-                    height: 64.0,
+                    width: 65.0,
+                    height: 65.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: Image.asset(
-                          'assets/images/Geo.png',
+                          'assets/images/Frame_452.png',
                         ).image,
                       ),
                     ),
@@ -86,7 +88,9 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
-                        'vtmdto4u' /* Включи геолокацию и проходи бо... */,
+                        'nxwehmig' /* Разреши 
+пуш-уведомления и оце... */
+                        ,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Gerbera',
@@ -105,7 +109,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
-                        'nhp57jdr' /* Включенная геолокация позволяе... */,
+                        't6qshem1' /* Наглядно оценивайте качество у... */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Golos',
@@ -120,12 +124,12 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      await requestPermission(locationPermission);
+                      await requestPermission(notificationsPermission);
 
-                      context.goNamed('AskPushNotifications');
+                      context.goNamed('RewardsPage');
                     },
                     text: FFLocalizations.of(context).getText(
-                      'ppjhqxbl' /* Разрешить доступ */,
+                      '75xs578i' /* Разрешить доступ */,
                     ),
                     options: FFButtonOptions(
                       width: MediaQuery.sizeOf(context).width * 1.0,
@@ -158,10 +162,10 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          context.goNamed('AskPushNotifications');
+                          context.goNamed('RewardsPage');
                         },
                         text: FFLocalizations.of(context).getText(
-                          '0oh1ew0n' /* Пропустить */,
+                          'k7yuiw19' /* Пропустить */,
                         ),
                         options: FFButtonOptions(
                           width: MediaQuery.sizeOf(context).width * 1.0,

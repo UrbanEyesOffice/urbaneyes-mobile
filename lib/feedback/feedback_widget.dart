@@ -89,18 +89,28 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                         size: 30.0,
                       ),
                     ),
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        '2tortty5' /* Форма обратной связи */,
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.safePop();
+                      },
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          '2tortty5' /* Форма обратной связи */,
+                        ),
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Golos',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                              useGoogleFonts: false,
+                            ),
                       ),
-                      style:
-                          FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: 'Golos',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500,
-                                useGoogleFonts: false,
-                              ),
                     ),
                   ],
                 ),

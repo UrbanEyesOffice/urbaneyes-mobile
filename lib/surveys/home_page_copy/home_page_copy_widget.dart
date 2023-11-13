@@ -124,7 +124,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                             },
                             child: Icon(
                               Icons.question_answer_outlined,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: Color(0xFF06112E),
                               size: 24.0,
                             ),
                           ),
@@ -143,7 +143,25 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                         },
                         child: Icon(
                           Icons.settings_outlined,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: Color(0xFF06112E),
+                          size: 24.0,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('Rewards');
+                        },
+                        child: Icon(
+                          Icons.card_giftcard_rounded,
+                          color: Color(0xFF06112E),
                           size: 24.0,
                         ),
                       ),

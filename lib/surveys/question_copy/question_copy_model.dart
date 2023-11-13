@@ -21,6 +21,10 @@ class QuestionCopyModel extends FlutterFlowModel<QuestionCopyWidget> {
   List<QuestionRecord>? questionCopyPreviousSnapshot;
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in questionCopy widget.
   String? locationName;
+  // State field(s) for comment widget.
+  FocusNode? commentFocusNode;
+  TextEditingController? commentController;
+  String? Function(BuildContext, String?)? commentControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -28,6 +32,8 @@ class QuestionCopyModel extends FlutterFlowModel<QuestionCopyWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    commentFocusNode?.dispose();
+    commentController?.dispose();
   }
 
   /// Action blocks are added here.

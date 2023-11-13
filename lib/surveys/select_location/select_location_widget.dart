@@ -1,15 +1,17 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:provider/provider.dart';
 import 'select_location_model.dart';
 export 'select_location_model.dart';
@@ -21,12 +23,26 @@ class SelectLocationWidget extends StatefulWidget {
     this.questionRef,
     this.ord,
     this.location,
+    this.optionId,
+    this.titleRu,
+    required this.titleKg,
+    required this.titleEn,
+    this.comment,
+    required this.questionCount,
+    required this.question,
   }) : super(key: key);
 
   final DocumentReference? survey;
   final DocumentReference? questionRef;
   final int? ord;
   final LatLng? location;
+  final int? optionId;
+  final String? titleRu;
+  final String? titleKg;
+  final String? titleEn;
+  final String? comment;
+  final int? questionCount;
+  final String? question;
 
   @override
   _SelectLocationWidgetState createState() => _SelectLocationWidgetState();
@@ -47,23 +63,9 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
-      if (!functions.isMapNotMoved(_model.googleMapsCenter)!) {
-        await actions.getAddressFromLatLngGoogleMaps(
-          _model.googleMapsCenter,
-        );
-      } else if (!functions.isLatLongEqualNull(currentUserLocationValue)!) {
-        await actions.getAddressFromLatLngGoogleMaps(
-          currentUserLocationValue,
-        );
-      } else if (widget.location != null) {
-        await actions.getAddressFromLatLngGoogleMaps(
-          widget.location,
-        );
-      } else {
-        _model.locationName = await actions.getAddressFromLatLngGoogleMaps(
-          _model.googleMapsCenter,
-        );
-      }
+      _model.locationName = await actions.getAddressFromLatLngGoogleMaps(
+        _model.googleMapsCenter,
+      );
     });
 
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
@@ -155,10 +157,10 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                           alignment: AlignmentDirectional(-1.00, 0.00),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                30.0, 30.0, 30.0, 0.0),
+                                30.0, 12.0, 30.0, 0.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
-                                'hb8ugwsz' /* Укажите ваше местоположение */,
+                                'hb8ugwsz' /* Отметьте свою геолокацию для т... */,
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -171,78 +173,12 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                             ),
                           ),
                         ),
-                        if (functions
-                                .isLatLongEqualNull(currentUserLocationValue) ==
-                            true)
-                          Flexible(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(-1.00, 0.00),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        30.0, 20.0, 30.0, 0.0),
-                                    child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'ejl6trna' /* Мы можем определить ваше место... */,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Golos',
-                                            fontSize: 16.0,
-                                            useGoogleFonts: false,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      30.0, 20.0, 30.0, 0.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      await requestPermission(
-                                          locationPermission);
-                                    },
-                                    text: FFLocalizations.of(context).getText(
-                                      'apba59bf' /* Разрешить */,
-                                    ),
-                                    options: FFButtonOptions(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      height: 48.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: Color(0xFFCEEFCD),
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Golos',
-                                            color: Color(0xFF0A8D09),
-                                            useGoogleFonts: false,
-                                          ),
-                                      elevation: 0.0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                       ],
                     ),
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.00, -1.00),
+                  alignment: AlignmentDirectional(0.00, 1.00),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
@@ -278,7 +214,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                     markerColor: GoogleMarkerColor.violet,
                                     mapType: MapType.normal,
                                     style: GoogleMapStyle.standard,
-                                    initialZoom: 13.0,
+                                    initialZoom: 16.0,
                                     allowInteraction: true,
                                     allowZoom: true,
                                     showZoomControls: false,
@@ -291,16 +227,20 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional(0.00, 0.00),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 5.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(
-                                        'assets/images/Geo.png',
-                                        width: 24.0,
-                                        height: 32.0,
-                                        fit: BoxFit.cover,
+                                  child: PointerInterceptor(
+                                    intercepting: isWeb,
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 5.0),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.asset(
+                                          'assets/images/Geo.png',
+                                          width: 24.0,
+                                          height: 32.0,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -330,13 +270,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           40.0, 10.0, 40.0, 10.0),
                                       child: Text(
-                                        valueOrDefault<String>(
-                                          _model.locationName != null &&
-                                                  _model.locationName != ''
-                                              ? _model.locationName
-                                              : false.toString(),
-                                          'Not found',
-                                        ),
+                                        _model.locationName!,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -358,31 +292,83 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                 30.0, 0.0, 30.0, 30.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                context.goNamed(
-                                  'questionCopy',
-                                  queryParameters: {
-                                    'location': serializeParam(
-                                      _model.googleMapsCenter,
-                                      ParamType.LatLng,
-                                    ),
-                                    'survey': serializeParam(
-                                      widget.survey,
-                                      ParamType.DocumentReference,
-                                    ),
-                                    'questionRef': serializeParam(
-                                      widget.questionRef,
-                                      ParamType.DocumentReference,
-                                    ),
-                                    'ord': serializeParam(
-                                      widget.ord,
-                                      ParamType.int,
-                                    ),
-                                  }.withoutNulls,
-                                );
+                                currentUserLocationValue =
+                                    await getCurrentUserLocation(
+                                        defaultLocation: LatLng(0.0, 0.0));
+
+                                await AnswerRecord.collection
+                                    .doc()
+                                    .set(createAnswerRecordData(
+                                      surveyId: widget.survey,
+                                      questionId: widget.questionRef,
+                                      userId: currentUserReference,
+                                      answer: createOptionStruct(
+                                        id: widget.optionId,
+                                        titleRu: widget.titleRu,
+                                        titleEn: widget.titleEn,
+                                        titleKg: widget.titleKg,
+                                        clearUnsetFields: false,
+                                        create: true,
+                                      ),
+                                      time: dateTimeFromSecondsSinceEpoch(
+                                          getCurrentTimestamp
+                                              .secondsSinceEpoch),
+                                      location: _model.googleMapsCenter,
+                                      comment: widget.comment,
+                                    ));
+                                if (widget.ord! < widget.questionCount!
+                                    ? true
+                                    : false) {
+                                  context.pushNamed(
+                                    'questionCopy',
+                                    queryParameters: {
+                                      'survey': serializeParam(
+                                        widget.survey,
+                                        ParamType.DocumentReference,
+                                      ),
+                                      'questionRef': serializeParam(
+                                        widget.questionRef,
+                                        ParamType.DocumentReference,
+                                      ),
+                                      'question': serializeParam(
+                                        widget.questionRef?.id,
+                                        ParamType.String,
+                                      ),
+                                      'ord': serializeParam(
+                                        widget.ord! + 1,
+                                        ParamType.int,
+                                      ),
+                                      'location': serializeParam(
+                                        widget.location != null
+                                            ? widget.location
+                                            : _model.googleMapsCenter,
+                                        ParamType.LatLng,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                } else {
+                                  context.goNamed(
+                                    'complete',
+                                    queryParameters: {
+                                      'survey': serializeParam(
+                                        widget.survey,
+                                        ParamType.DocumentReference,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                }
                               },
-                              text: FFLocalizations.of(context).getText(
-                                'uvixwoll' /* Перейти к опросу */,
-                              ),
+                              text: widget.ord! < widget.questionCount!
+                                  ? FFLocalizations.of(context).getVariableText(
+                                      ruText: 'Перейти к следующему вопросу',
+                                      enText: 'Move on to the next question',
+                                      kyText: 'Кийинки суроого өтүңүз',
+                                    )
+                                  : FFLocalizations.of(context).getVariableText(
+                                      ruText: 'Завершить опрос',
+                                      enText: 'Complete the survey',
+                                      kyText: 'Толук сурамжылоо',
+                                    ),
                               options: FFButtonOptions(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 height: 48.0,

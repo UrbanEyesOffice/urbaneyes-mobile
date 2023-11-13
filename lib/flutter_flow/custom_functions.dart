@@ -101,3 +101,18 @@ String? showGenderValue(int gender) {
 String? getAddress(LatLng position) {
   return null;
 }
+
+OptionStruct? returnOption(
+  int? id,
+  String? titleRu,
+  String? titleEn,
+  String? titleKg,
+) {
+  // Create Option object and return it
+  return createOptionStruct(
+    id: id,
+    titleRu: titleRu,
+    titleEn: titleEn,
+    titleKg: titleKg,
+  );
+}

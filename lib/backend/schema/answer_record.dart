@@ -46,6 +46,11 @@ class AnswerRecord extends FirestoreRecord {
   OptionStruct get answer => _answer ?? OptionStruct();
   bool hasAnswer() => _answer != null;
 
+  // "comment" field.
+  String? _comment;
+  String get comment => _comment ?? '';
+  bool hasComment() => _comment != null;
+
   void _initializeFields() {
     _surveyId = snapshotData['survey_id'] as DocumentReference?;
     _questionId = snapshotData['question_id'] as DocumentReference?;
@@ -53,6 +58,7 @@ class AnswerRecord extends FirestoreRecord {
     _time = snapshotData['time'] as DateTime?;
     _location = snapshotData['location'] as LatLng?;
     _answer = OptionStruct.maybeFromMap(snapshotData['answer']);
+    _comment = snapshotData['comment'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -95,6 +101,7 @@ Map<String, dynamic> createAnswerRecordData({
   DateTime? time,
   LatLng? location,
   OptionStruct? answer,
+  String? comment,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -104,6 +111,7 @@ Map<String, dynamic> createAnswerRecordData({
       'time': time,
       'location': location,
       'answer': OptionStruct().toMap(),
+      'comment': comment,
     }.withoutNulls,
   );
 
@@ -123,12 +131,20 @@ class AnswerRecordDocumentEquality implements Equality<AnswerRecord> {
         e1?.userId == e2?.userId &&
         e1?.time == e2?.time &&
         e1?.location == e2?.location &&
-        e1?.answer == e2?.answer;
+        e1?.answer == e2?.answer &&
+        e1?.comment == e2?.comment;
   }
 
   @override
-  int hash(AnswerRecord? e) => const ListEquality().hash(
-      [e?.surveyId, e?.questionId, e?.userId, e?.time, e?.location, e?.answer]);
+  int hash(AnswerRecord? e) => const ListEquality().hash([
+        e?.surveyId,
+        e?.questionId,
+        e?.userId,
+        e?.time,
+        e?.location,
+        e?.answer,
+        e?.comment
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is AnswerRecord;

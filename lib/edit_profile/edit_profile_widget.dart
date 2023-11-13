@@ -96,19 +96,28 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     ),
                     Align(
                       alignment: AlignmentDirectional(0.00, 0.00),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          'affu9s3j' /* Настройки */,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.safePop();
+                        },
+                        child: Text(
+                          FFLocalizations.of(context).getText(
+                            'affu9s3j' /* Настройки */,
+                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
+                                fontFamily: 'Golos',
+                                color: Color(0xFF06112E),
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                useGoogleFonts: false,
+                              ),
                         ),
-                        style: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .override(
-                              fontFamily: 'Golos',
-                              color: Color(0xFF06112E),
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                              useGoogleFonts: false,
-                            ),
                       ),
                     ),
                     Expanded(
@@ -218,7 +227,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     builder: (context) => TextFormField(
                       controller: _model.displayNameController,
                       focusNode: _model.displayNameFocusNode,
-                      autofocus: true,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelStyle: FlutterFlowTheme.of(context).labelMedium,
@@ -288,7 +296,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   child: TextFormField(
                     controller: _model.emailController,
                     focusNode: _model.emailFocusNode,
-                    autofocus: true,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelStyle: FlutterFlowTheme.of(context).labelMedium,

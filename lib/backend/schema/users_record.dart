@@ -66,6 +66,16 @@ class UsersRecord extends FirestoreRecord {
   bool get isNotFirstLogin => _isNotFirstLogin ?? false;
   bool hasIsNotFirstLogin() => _isNotFirstLogin != null;
 
+  // "score" field.
+  int? _score;
+  int get score => _score ?? 0;
+  bool hasScore() => _score != null;
+
+  // "collected_rewards" field.
+  List<DocumentReference>? _collectedRewards;
+  List<DocumentReference> get collectedRewards => _collectedRewards ?? const [];
+  bool hasCollectedRewards() => _collectedRewards != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -77,6 +87,8 @@ class UsersRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _gender = castToType<int>(snapshotData['gender']);
     _isNotFirstLogin = snapshotData['is_not_first_login'] as bool?;
+    _score = castToType<int>(snapshotData['score']);
+    _collectedRewards = getDataList(snapshotData['collected_rewards']);
   }
 
   static CollectionReference get collection =>
@@ -123,6 +135,7 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   int? gender,
   bool? isNotFirstLogin,
+  int? score,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -136,6 +149,7 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'gender': gender,
       'is_not_first_login': isNotFirstLogin,
+      'score': score,
     }.withoutNulls,
   );
 
@@ -147,6 +161,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.photoUrl == e2?.photoUrl &&
         e1?.createdTime == e2?.createdTime &&
@@ -156,7 +171,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.displayName == e2?.displayName &&
         e1?.uid == e2?.uid &&
         e1?.gender == e2?.gender &&
-        e1?.isNotFirstLogin == e2?.isNotFirstLogin;
+        e1?.isNotFirstLogin == e2?.isNotFirstLogin &&
+        e1?.score == e2?.score &&
+        listEquality.equals(e1?.collectedRewards, e2?.collectedRewards);
   }
 
   @override
@@ -170,7 +187,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.displayName,
         e?.uid,
         e?.gender,
-        e?.isNotFirstLogin
+        e?.isNotFirstLogin,
+        e?.score,
+        e?.collectedRewards
       ]);
 
   @override

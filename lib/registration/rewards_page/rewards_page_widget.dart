@@ -1,30 +1,29 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'ask_geo_model.dart';
-export 'ask_geo_model.dart';
+import 'rewards_page_model.dart';
+export 'rewards_page_model.dart';
 
-class AskGeoWidget extends StatefulWidget {
-  const AskGeoWidget({Key? key}) : super(key: key);
+class RewardsPageWidget extends StatefulWidget {
+  const RewardsPageWidget({Key? key}) : super(key: key);
 
   @override
-  _AskGeoWidgetState createState() => _AskGeoWidgetState();
+  _RewardsPageWidgetState createState() => _RewardsPageWidgetState();
 }
 
-class _AskGeoWidgetState extends State<AskGeoWidget> {
-  late AskGeoModel _model;
+class _RewardsPageWidgetState extends State<RewardsPageWidget> {
+  late RewardsPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AskGeoModel());
+    _model = createModel(context, () => RewardsPageModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -66,15 +65,18 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                 Align(
                   alignment: AlignmentDirectional(-1.00, 0.00),
                   child: Container(
-                    width: 48.0,
-                    height: 64.0,
+                    width: 67.0,
+                    height: 67.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          'assets/images/Geo.png',
-                        ).image,
+                    ),
+                    alignment: AlignmentDirectional(0.00, 0.00),
+                    child: Align(
+                      alignment: AlignmentDirectional(0.00, 0.00),
+                      child: Icon(
+                        Icons.bolt,
+                        color: Color(0xFF53B153),
+                        size: 68.0,
                       ),
                     ),
                   ),
@@ -86,7 +88,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
-                        'vtmdto4u' /* Включи геолокацию и проходи бо... */,
+                        'yawdppzf' /* Проходите опросы и получайте н... */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Gerbera',
@@ -105,7 +107,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
-                        'nhp57jdr' /* Включенная геолокация позволяе... */,
+                        'g85ffecm' /* Чем больше баллов, тем ценнее ... */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Golos',
@@ -113,40 +115,6 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                             fontSize: 16.0,
                             useGoogleFonts: false,
                           ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      await requestPermission(locationPermission);
-
-                      context.goNamed('AskPushNotifications');
-                    },
-                    text: FFLocalizations.of(context).getText(
-                      'ppjhqxbl' /* Разрешить доступ */,
-                    ),
-                    options: FFButtonOptions(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 48.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0xFFCEEFCD),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Golos',
-                                color: Color(0xFF0A8D09),
-                                useGoogleFonts: false,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(12.0),
                     ),
                   ),
                 ),
@@ -158,10 +126,10 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          context.goNamed('AskPushNotifications');
+                          context.goNamed('HomePageCopy');
                         },
                         text: FFLocalizations.of(context).getText(
-                          '0oh1ew0n' /* Пропустить */,
+                          '65w3o82e' /* Начать */,
                         ),
                         options: FFButtonOptions(
                           width: MediaQuery.sizeOf(context).width * 1.0,

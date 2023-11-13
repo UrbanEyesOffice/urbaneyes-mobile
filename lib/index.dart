@@ -28,3 +28,11 @@ export '/registration/verification/verification_widget.dart'
 export '/registration/login/login_widget.dart' show LoginWidget;
 export '/surveys/select_location/select_location_widget.dart'
     show SelectLocationWidget;
+export '/rewards/rewards/rewards_widget.dart' show RewardsWidget;
+export '/rewards/view_reward/view_reward_widget.dart' show ViewRewardWidget;
+export '/registration/ask_push_notifications/ask_push_notifications_widget.dart'
+    show AskPushNotificationsWidget;
+export '/registration/rewards_page/rewards_page_widget.dart'
+    show RewardsPageWidget;
+export '/rewards/collected_rewards/collected_rewards_widget.dart'
+    show CollectedRewardsWidget;

@@ -89,18 +89,22 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                  child: Text(
-                    FFLocalizations.of(context).getText(
-                      '0hdkv62k' /* Добро пожаловать в UrbanEyes */,
+                Align(
+                  alignment: AlignmentDirectional(-1.00, 0.00),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        '0hdkv62k' /* Добро пожаловать в UrbanEyes */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Gerbera',
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            useGoogleFonts: false,
+                          ),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Gerbera',
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
-                          useGoogleFonts: false,
-                        ),
                   ),
                 ),
                 Align(

@@ -36,6 +36,7 @@ Future<String?> getAddressFromLatLngGoogleMaps(LatLng? position) async {
   }).catchError((e) {
     completer.complete(null);
   });
+  FFAppState().update(() {});
   return completer.future;
 }
 // Set your action name, define your arguments and return parameter,

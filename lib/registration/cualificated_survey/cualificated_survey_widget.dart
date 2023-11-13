@@ -385,6 +385,13 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                               displayName: _model.nameCreateController.text,
                               isNotFirstLogin: true,
                             ));
+                            if (valueOrDefault(currentUserDocument?.score, 0) ==
+                                null) {
+                              await currentUserReference!
+                                  .update(createUsersRecordData(
+                                score: 0,
+                              ));
+                            }
 
                             context.goNamed('CompleteRegistration');
                           },

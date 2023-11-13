@@ -1,29 +1,22 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
-import 'select_location_widget.dart' show SelectLocationWidget;
+import 'dart:async';
+import 'rewards_widget.dart' show RewardsWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pointer_interceptor/pointer_interceptor.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-class SelectLocationModel extends FlutterFlowModel<SelectLocationWidget> {
+class RewardsModel extends FlutterFlowModel<RewardsWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in SelectLocation widget.
-  String? locationName;
-  // State field(s) for GoogleMap widget.
-  LatLng? googleMapsCenter;
-  final googleMapsController = Completer<GoogleMapController>();
 
   /// Initialization and disposal methods.
 

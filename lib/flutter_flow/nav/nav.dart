@@ -9,6 +9,8 @@ import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
+import '/backend/push_notifications/push_notifications_handler.dart'
+    show PushNotificationsHandler;
 import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -169,7 +171,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'complete',
           path: '/complete',
-          builder: (context, params) => CompleteWidget(),
+          builder: (context, params) => CompleteWidget(
+            survey: params.getParam(
+                'survey', ParamType.DocumentReference, false, ['surveys']),
+          ),
         ),
         FFRoute(
           name: 'MainAuth',
@@ -201,7 +206,42 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ParamType.DocumentReference, false, ['question']),
             ord: params.getParam('ord', ParamType.int),
             location: params.getParam('location', ParamType.LatLng),
+            optionId: params.getParam('optionId', ParamType.int),
+            titleRu: params.getParam('titleRu', ParamType.String),
+            titleKg: params.getParam('titleKg', ParamType.String),
+            titleEn: params.getParam('titleEn', ParamType.String),
+            comment: params.getParam('comment', ParamType.String),
+            questionCount: params.getParam('questionCount', ParamType.int),
+            question: params.getParam('question', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'Rewards',
+          path: '/rewards',
+          builder: (context, params) => RewardsWidget(),
+        ),
+        FFRoute(
+          name: 'ViewReward',
+          path: '/viewReward',
+          builder: (context, params) => ViewRewardWidget(
+            reward: params.getParam(
+                'reward', ParamType.DocumentReference, false, ['rewards']),
+          ),
+        ),
+        FFRoute(
+          name: 'AskPushNotifications',
+          path: '/askPushNotifications',
+          builder: (context, params) => AskPushNotificationsWidget(),
+        ),
+        FFRoute(
+          name: 'RewardsPage',
+          path: '/rewardsPage',
+          builder: (context, params) => RewardsPageWidget(),
+        ),
+        FFRoute(
+          name: 'CollectedRewards',
+          path: '/collectedRewards',
+          builder: (context, params) => CollectedRewardsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -392,7 +432,7 @@ class FFRoute {
                     ),
                   ),
                 )
-              : page;
+              : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

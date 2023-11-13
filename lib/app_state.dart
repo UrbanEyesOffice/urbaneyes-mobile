@@ -35,6 +35,12 @@ class FFAppState extends ChangeNotifier {
   set locationBishkek(LatLng? _value) {
     _locationBishkek = _value;
   }
+
+  DocumentReference? _reward;
+  DocumentReference? get reward => _reward;
+  set reward(DocumentReference? _value) {
+    _reward = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

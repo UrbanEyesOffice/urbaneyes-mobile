@@ -73,6 +73,9 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
       }
     });
 
+    _model.commentController ??= TextEditingController();
+    _model.commentFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -221,22 +224,31 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                     size: 30.0,
                                   ),
                                 ),
-                                Text(
-                                  FFLocalizations.of(context).getVariableText(
-                                    ruText: rowSurveysRecord.name,
-                                    enText: rowSurveysRecord.nameEn,
-                                    kyText: rowSurveysRecord.nameKg,
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.safePop();
+                                  },
+                                  child: Text(
+                                    FFLocalizations.of(context).getVariableText(
+                                      ruText: rowSurveysRecord.name,
+                                      enText: rowSurveysRecord.nameEn,
+                                      kyText: rowSurveysRecord.nameKg,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .override(
+                                          fontFamily: 'Golos',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.normal,
+                                          useGoogleFonts: false,
+                                        ),
                                   ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .headlineMedium
-                                      .override(
-                                        fontFamily: 'Golos',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.normal,
-                                        useGoogleFonts: false,
-                                      ),
                                 ),
                               ],
                             );
@@ -291,15 +303,52 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                 await getCurrentUserLocation(
                                                     defaultLocation:
                                                         LatLng(0.0, 0.0));
-                                            if (functions.isLatLongEqualNull(
-                                                    currentUserLocationValue)! &&
-                                                (widget.location == null)) {
+                                            if (widget.location == null) {
                                               context.pushNamed(
                                                 'SelectLocation',
                                                 queryParameters: {
                                                   'survey': serializeParam(
                                                     widget.survey,
                                                     ParamType.DocumentReference,
+                                                  ),
+                                                  'questionRef': serializeParam(
+                                                    widget.questionRef,
+                                                    ParamType.DocumentReference,
+                                                  ),
+                                                  'ord': serializeParam(
+                                                    widget.ord,
+                                                    ParamType.int,
+                                                  ),
+                                                  'optionId': serializeParam(
+                                                    optionIndex,
+                                                    ParamType.int,
+                                                  ),
+                                                  'titleRu': serializeParam(
+                                                    optionItem.titleRu,
+                                                    ParamType.String,
+                                                  ),
+                                                  'titleKg': serializeParam(
+                                                    optionItem.titleKg,
+                                                    ParamType.String,
+                                                  ),
+                                                  'titleEn': serializeParam(
+                                                    optionItem.titleEn,
+                                                    ParamType.String,
+                                                  ),
+                                                  'comment': serializeParam(
+                                                    _model
+                                                        .commentController.text,
+                                                    ParamType.String,
+                                                  ),
+                                                  'questionCount':
+                                                      serializeParam(
+                                                    columnCount,
+                                                    ParamType.int,
+                                                  ),
+                                                  'question': serializeParam(
+                                                    questionCopyQuestionRecord
+                                                        ?.question,
+                                                    ParamType.String,
                                                   ),
                                                 }.withoutNulls,
                                               );
@@ -333,6 +382,8 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                         return currentUserLocationValue;
                                                       }
                                                     }(),
+                                                    comment: _model
+                                                        .commentController.text,
                                                   ));
                                               if (widget.ord < columnCount
                                                   ? true
@@ -370,7 +421,16 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                   }.withoutNulls,
                                                 );
                                               } else {
-                                                context.goNamed('complete');
+                                                context.goNamed(
+                                                  'complete',
+                                                  queryParameters: {
+                                                    'survey': serializeParam(
+                                                      widget.survey,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
                                               }
                                             }
                                           },
@@ -417,13 +477,83 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                             ),
                           ],
                         ),
-                        Expanded(
+                        Flexible(
                           child: Align(
                             alignment: AlignmentDirectional(0.00, 1.00),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 16.0, 0.0, 12.0),
+                                  child: TextFormField(
+                                    controller: _model.commentController,
+                                    focusNode: _model.commentFocusNode,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText:
+                                          FFLocalizations.of(context).getText(
+                                        'p20zab1a' /* Поле для комментария */,
+                                      ),
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Golos',
+                                            fontSize: 16.0,
+                                            useGoogleFonts: false,
+                                          ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFA9ABAF),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFA9ABAF),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Golos',
+                                          color: Color(0xFF06112E),
+                                          fontSize: 16.0,
+                                          useGoogleFonts: false,
+                                        ),
+                                    validator: _model.commentControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
                                 if ((widget.address != null &&
                                         widget.address != '') ||
                                     (_model.locationName != null &&
@@ -473,60 +603,6 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                if (!FFAppState().showMAp)
-                                  Align(
-                                    alignment: AlignmentDirectional(0.00, 1.00),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        context.pushNamed(
-                                          'SelectLocation',
-                                          queryParameters: {
-                                            'survey': serializeParam(
-                                              widget.survey,
-                                              ParamType.DocumentReference,
-                                            ),
-                                            'ord': serializeParam(
-                                              widget.ord,
-                                              ParamType.int,
-                                            ),
-                                            'location': serializeParam(
-                                              widget.location,
-                                              ParamType.LatLng,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      },
-                                      text: FFLocalizations.of(context).getText(
-                                        '1m0n74wq' /* Выбрать точку на карте */,
-                                      ),
-                                      options: FFButtonOptions(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 48.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: Color(0xFF53B153),
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Golos',
-                                              color: Colors.white,
-                                              useGoogleFonts: false,
-                                            ),
-                                        elevation: 0.0,
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
                                       ),
                                     ),
                                   ),
