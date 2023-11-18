@@ -174,8 +174,8 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                         30.0, 40.0, 30.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
-                                        'bctulc5c' /* Опрос пройден!
-Спасибо за учас... */
+                                        'bctulc5c' /* Спасибо за участие! 
+Вы получи... */
                                         ,
                                       ),
                                       textAlign: TextAlign.center,

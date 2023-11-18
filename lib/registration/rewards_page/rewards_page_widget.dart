@@ -88,7 +88,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
-                        'yawdppzf' /* Проходите опросы и получайте н... */,
+                        'yawdppzf' /* Проходи опросы и получай награ... */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Gerbera',

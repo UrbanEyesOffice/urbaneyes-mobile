@@ -467,7 +467,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'gohqvhe4': {
       'ru': 'Пройти',
-      'en': 'Pass',
+      'en': 'Evaluate',
       'ky': 'Сурамжылоого катышуу',
     },
     'vsrcveq3': {
@@ -518,9 +518,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // complete
   {
     'bctulc5c': {
-      'ru': 'Опрос пройден!\nСпасибо за участие',
-      'en': 'Survey completed!\nThank you for participating',
-      'ky': 'Толук сурамжылоо!\nКатышканыңыз үчүн рахмат',
+      'ru': 'Спасибо за участие! \nВы получили +5 баллов',
+      'en': 'Thank you for participating!\nYou received +5 points',
+      'ky': 'Катышканыңыз үчүн рахмат!\nСиз +5 упай алдыңыз',
     },
     'du3woh2p': {
       'ru': '+5',
@@ -655,9 +655,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // Verification
   {
     'pb5q1mbe': {
-      'ru': 'На вашу почту мы отправили ссылку для активации',
-      'en': 'We have sent an activation link to your email',
-      'ky': 'Биз сиздин почтага активдештирүү үчүн кат жөнөттүк',
+      'ru': 'На указанную почту отправлена ссылка для подтверждения аккаунта.',
+      'en':
+          'A link to confirm your account has been sent to the specified email.',
+      'ky':
+          'Каттоо эсебиңизди ырастоо үчүн шилтеме көрсөтүлгөн электрондук почтага жөнөтүлдү.',
     },
     'wxvbji67': {
       'ru': 'Отправить повторно',
@@ -760,16 +762,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // AskPushNotifications
   {
     'nxwehmig': {
-      'ru': 'Разреши \nпуш-уведомления и оценивай места рядом',
-      'en': 'Turn on geolocation and take more surveys',
-      'ky': 'Геолокацияны күйгүзүп, көбүрөөк сурамжылоону өтсө болот',
-    },
-    't6qshem1': {
-      'ru': 'Наглядно оценивайте качество улиц вашего города',
-      'en':
-          'The included geolocation makes it easy to find places in the city and assess the quality and convenience of life.',
-      'ky':
-          'Камтылган геолокация шаардагы жерлерди оңой таап, жашоонун сапатын жана ыңгайлуулугун баалоону жеңилдетет.',
+      'ru': 'Разреши уведомления и оценивай места рядом.',
+      'en': 'Allow notifications and rate places nearby.',
+      'ky': 'Билдирмелерге уруксат берип, айланаңа баа бер.',
     },
     '75xs578i': {
       'ru': 'Разрешить доступ',
@@ -790,9 +785,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // RewardsPage
   {
     'yawdppzf': {
-      'ru': 'Проходите опросы и получайте награды',
-      'en': 'Take surveys and get rewards',
-      'ky': 'Сурамжылоого катышып, сыйлыктарды алыңыз',
+      'ru': 'Проходи опросы и получай награды.',
+      'en': 'Complete surveys and get rewards.',
+      'ky': 'Сурамжылоолорго жооп берип, сыйлыктарды ал.',
     },
     'g85ffecm': {
       'ru': 'Чем больше баллов, тем ценнее награды от наших партнеров',

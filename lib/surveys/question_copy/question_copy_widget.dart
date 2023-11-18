@@ -55,8 +55,10 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
-      await Future.delayed(const Duration(milliseconds: 300));
       if (widget.location != null) {
+        _model.addressOnLoad = await actions.getAddressFromLatLngGoogleMaps(
+          widget.location,
+        );
         if (widget.location != null) {
           await actions.getAddressFromLatLngGoogleMaps(
             widget.location,

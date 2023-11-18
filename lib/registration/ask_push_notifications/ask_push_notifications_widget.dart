@@ -88,33 +88,13 @@ class _AskPushNotificationsWidgetState
                         EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
-                        'nxwehmig' /* Разреши 
-пуш-уведомления и оце... */
-                        ,
+                        'nxwehmig' /* Разреши уведомления и оценивай... */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Gerbera',
                             color: Color(0xFF06112E),
                             fontSize: 28.0,
                             fontWeight: FontWeight.bold,
-                            useGoogleFonts: false,
-                          ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        't6qshem1' /* Наглядно оценивайте качество у... */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Golos',
-                            color: Color(0xFF06112E),
-                            fontSize: 16.0,
                             useGoogleFonts: false,
                           ),
                     ),

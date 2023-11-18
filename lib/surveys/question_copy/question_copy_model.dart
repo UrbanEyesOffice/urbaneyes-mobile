@@ -20,6 +20,8 @@ class QuestionCopyModel extends FlutterFlowModel<QuestionCopyWidget> {
   final unfocusNode = FocusNode();
   List<QuestionRecord>? questionCopyPreviousSnapshot;
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in questionCopy widget.
+  String? addressOnLoad;
+  // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in questionCopy widget.
   String? locationName;
   // State field(s) for comment widget.
   FocusNode? commentFocusNode;

@@ -4,8 +4,10 @@ import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -63,6 +65,28 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      unawaited(
+        () async {
+          await requestPermission(locationPermission);
+        }(),
+      );
+      if (functions.isLatLongEqualNull(currentUserLocationValue)!
+          ? true
+          : true) {
+        await _model.googleMapsController.future.then(
+          (c) => c.animateCamera(
+            CameraUpdate.newLatLng(
+                FFAppState().locationBishkek!.toGoogleMaps()),
+          ),
+        );
+      } else {
+        await _model.googleMapsController.future.then(
+          (c) => c.animateCamera(
+            CameraUpdate.newLatLng(currentUserLocationValue!.toGoogleMaps()),
+          ),
+        );
+      }
+
       _model.locationName = await actions.getAddressFromLatLngGoogleMaps(
         _model.googleMapsCenter,
       );

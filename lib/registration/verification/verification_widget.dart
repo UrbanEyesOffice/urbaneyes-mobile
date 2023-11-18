@@ -70,7 +70,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                   alignment: AlignmentDirectional(-1.00, 0.00),
                   child: Text(
                     FFLocalizations.of(context).getText(
-                      'pb5q1mbe' /* На вашу почту мы отправили ссы... */,
+                      'pb5q1mbe' /* На указанную почту отправлена ... */,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Gerbera',
