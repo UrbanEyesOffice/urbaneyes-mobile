@@ -400,7 +400,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                         ),
                       ),
                     ),
-                  ].addToEnd(SizedBox(height: 0.0)),
+                  ],
                 ),
               ),
             ],
