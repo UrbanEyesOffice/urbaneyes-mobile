@@ -59,15 +59,16 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Align(
                   alignment: AlignmentDirectional(-1.00, 0.00),
                   child: Container(
-                    width: 48.0,
-                    height: 64.0,
+                    width: 49.0,
+                    height: 65.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       image: DecorationImage(
@@ -81,73 +82,60 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                 ),
                 Align(
                   alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'vtmdto4u' /* Включи геолокацию и проходи бо... */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Gerbera',
-                            color: Color(0xFF06112E),
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.bold,
-                            useGoogleFonts: false,
-                          ),
+                  child: Text(
+                    FFLocalizations.of(context).getText(
+                      'vtmdto4u' /* Включи геолокацию и проходи бо... */,
                     ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Gerbera',
+                          color: Color(0xFF06112E),
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
+                          useGoogleFonts: false,
+                        ),
                   ),
                 ),
                 Align(
                   alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'nhp57jdr' /* Включенная геолокация позволяе... */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Golos',
-                            color: Color(0xFF06112E),
-                            fontSize: 16.0,
-                            useGoogleFonts: false,
-                          ),
+                  child: Text(
+                    FFLocalizations.of(context).getText(
+                      'nhp57jdr' /* Включенная геолокация позволяе... */,
                     ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Golos',
+                          color: Color(0xFF06112E),
+                          fontSize: 16.0,
+                          useGoogleFonts: false,
+                        ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      await requestPermission(locationPermission);
+                FFButtonWidget(
+                  onPressed: () async {
+                    await requestPermission(locationPermission);
 
-                      context.goNamed('AskPushNotifications');
-                    },
-                    text: FFLocalizations.of(context).getText(
-                      'ppjhqxbl' /* Разрешить доступ */,
+                    context.goNamed('AskPushNotifications');
+                  },
+                  text: FFLocalizations.of(context).getText(
+                    'ppjhqxbl' /* Разрешить доступ */,
+                  ),
+                  options: FFButtonOptions(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: 48.0,
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFFCEEFCD),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Golos',
+                          color: Color(0xFF0A8D09),
+                          useGoogleFonts: false,
+                        ),
+                    elevation: 0.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
                     ),
-                    options: FFButtonOptions(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 48.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0xFFCEEFCD),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Golos',
-                                color: Color(0xFF0A8D09),
-                                useGoogleFonts: false,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
                 ),
                 Expanded(
@@ -155,7 +143,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                     alignment: AlignmentDirectional(0.00, 1.00),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           context.goNamed('AskPushNotifications');
@@ -188,7 +176,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                     ),
                   ),
                 ),
-              ],
+              ].divide(SizedBox(height: 16.0)),
             ),
           ),
         ),

@@ -1,5 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -28,7 +30,7 @@ class QuestionCopyWidget extends StatefulWidget {
   })  : this.ord = ord ?? 1,
         super(key: key);
 
-  final DocumentReference? survey;
+  final SurveysRecord? survey;
   final DocumentReference? questionRef;
   final String? question;
   final int ord;
@@ -59,18 +61,18 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
         _model.addressOnLoad = await actions.getAddressFromLatLngGoogleMaps(
           widget.location,
         );
-        if (widget.location != null) {
-          await actions.getAddressFromLatLngGoogleMaps(
-            widget.location,
+        setState(() {
+          _model.locationAddress = _model.addressOnLoad;
+        });
+      } else {
+        if (!functions.isLatLongEqualNull(FFAppState().lastMapPoint)!) {
+          _model.lastMapPointAddress =
+              await actions.getAddressFromLatLngGoogleMaps(
+            FFAppState().lastMapPoint,
           );
-        } else if (!functions.isLatLongEqualNull(currentUserLocationValue)!) {
-          await actions.getAddressFromLatLngGoogleMaps(
-            currentUserLocationValue,
-          );
-        } else {
-          _model.locationName = await actions.getAddressFromLatLngGoogleMaps(
-            widget.location,
-          );
+          setState(() {
+            _model.locationAddress = _model.lastMapPointAddress;
+          });
         }
       }
     });
@@ -106,7 +108,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
         queryBuilder: (questionRecord) => questionRecord
             .where(
               'survey_id',
-              isEqualTo: widget.survey,
+              isEqualTo: widget.survey?.reference,
             )
             .where(
               'question_order',
@@ -159,15 +161,51 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Colors.white,
+            appBar: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+              automaticallyImplyLeading: true,
+              leading: FlutterFlowIconButton(
+                borderRadius: 20.0,
+                borderWidth: 1.0,
+                buttonSize: 40.0,
+                icon: Icon(
+                  Icons.chevron_left,
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  size: 40.0,
+                ),
+                onPressed: () async {
+                  context.safePop();
+                },
+              ),
+              title: Align(
+                alignment: AlignmentDirectional(-1.00, 0.00),
+                child: Text(
+                  FFLocalizations.of(context).getVariableText(
+                    ruText: widget.survey?.name,
+                    enText: widget.survey?.nameEn,
+                    kyText: widget.survey?.nameKg,
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        useGoogleFonts: false,
+                      ),
+                ),
+              ),
+              actions: [],
+              centerTitle: true,
+              elevation: 0.0,
+            ),
             body: SafeArea(
               top: true,
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(30.0, 50.0, 30.0, 30.0),
+                padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
                 child: FutureBuilder<int>(
                   future: queryQuestionRecordCount(
                     queryBuilder: (questionRecord) => questionRecord.where(
                       'survey_id',
-                      isEqualTo: widget.survey,
+                      isEqualTo: widget.survey?.reference,
                     ),
                   ),
                   builder: (context, snapshot) {
@@ -185,77 +223,11 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                         ),
                       );
                     }
-                    int columnCount = snapshot.data!;
-                    return Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    int listViewCount = snapshot.data!;
+                    return ListView(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
                       children: [
-                        StreamBuilder<SurveysRecord>(
-                          stream: SurveysRecord.getDocument(widget.survey!),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-                            final rowSurveysRecord = snapshot.data!;
-                            return Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.safePop();
-                                  },
-                                  child: Icon(
-                                    Icons.chevron_left,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 30.0,
-                                  ),
-                                ),
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.safePop();
-                                  },
-                                  child: Text(
-                                    FFLocalizations.of(context).getVariableText(
-                                      ruText: rowSurveysRecord.name,
-                                      enText: rowSurveysRecord.nameEn,
-                                      kyText: rowSurveysRecord.nameKg,
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineMedium
-                                        .override(
-                                          fontFamily: 'Golos',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.normal,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
                         Align(
                           alignment: AlignmentDirectional(-1.00, 0.00),
                           child: Padding(
@@ -311,7 +283,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                 queryParameters: {
                                                   'survey': serializeParam(
                                                     widget.survey,
-                                                    ParamType.DocumentReference,
+                                                    ParamType.Document,
                                                   ),
                                                   'questionRef': serializeParam(
                                                     widget.questionRef,
@@ -344,7 +316,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                   ),
                                                   'questionCount':
                                                       serializeParam(
-                                                    columnCount,
+                                                    listViewCount,
                                                     ParamType.int,
                                                   ),
                                                   'question': serializeParam(
@@ -353,12 +325,16 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                     ParamType.String,
                                                   ),
                                                 }.withoutNulls,
+                                                extra: <String, dynamic>{
+                                                  'survey': widget.survey,
+                                                },
                                               );
                                             } else {
                                               await AnswerRecord.collection
                                                   .doc()
                                                   .set(createAnswerRecordData(
-                                                    surveyId: widget.survey,
+                                                    surveyId: widget
+                                                        .survey?.reference,
                                                     questionId:
                                                         questionCopyQuestionRecord
                                                             ?.reference,
@@ -387,7 +363,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                     comment: _model
                                                         .commentController.text,
                                                   ));
-                                              if (widget.ord < columnCount
+                                              if (widget.ord < listViewCount
                                                   ? true
                                                   : false) {
                                                 context.pushNamed(
@@ -395,8 +371,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                   queryParameters: {
                                                     'survey': serializeParam(
                                                       widget.survey,
-                                                      ParamType
-                                                          .DocumentReference,
+                                                      ParamType.Document,
                                                     ),
                                                     'questionRef':
                                                         serializeParam(
@@ -421,17 +396,25 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                       ParamType.LatLng,
                                                     ),
                                                   }.withoutNulls,
+                                                  extra: <String, dynamic>{
+                                                    'survey': widget.survey,
+                                                  },
                                                 );
                                               } else {
+                                                FFAppState().lastMapPoint =
+                                                    null;
+
                                                 context.goNamed(
                                                   'complete',
                                                   queryParameters: {
                                                     'survey': serializeParam(
                                                       widget.survey,
-                                                      ParamType
-                                                          .DocumentReference,
+                                                      ParamType.Document,
                                                     ),
                                                   }.withoutNulls,
+                                                  extra: <String, dynamic>{
+                                                    'survey': widget.survey,
+                                                  },
                                                 );
                                               }
                                             }
@@ -479,137 +462,132 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                             ),
                           ],
                         ),
-                        Flexible(
-                          child: Align(
-                            alignment: AlignmentDirectional(0.00, 1.00),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 12.0),
-                                  child: TextFormField(
-                                    controller: _model.commentController,
-                                    focusNode: _model.commentFocusNode,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText:
-                                          FFLocalizations.of(context).getText(
-                                        'p20zab1a' /* Поле для комментария */,
-                                      ),
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Golos',
-                                            fontSize: 16.0,
-                                            useGoogleFonts: false,
-                                          ),
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFA9ABAF),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFA9ABAF),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
+                        Align(
+                          alignment: AlignmentDirectional(0.00, 1.00),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 16.0, 0.0, 12.0),
+                                child: TextFormField(
+                                  controller: _model.commentController,
+                                  focusNode: _model.commentFocusNode,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText:
+                                        FFLocalizations.of(context).getText(
+                                      'p20zab1a' /* Поле для комментария */,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
                                         .override(
                                           fontFamily: 'Golos',
-                                          color: Color(0xFF06112E),
                                           fontSize: 16.0,
                                           useGoogleFonts: false,
                                         ),
-                                    validator: _model.commentControllerValidator
-                                        .asValidator(context),
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFA9ABAF),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFA9ABAF),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Color(0xFF06112E),
+                                        fontSize: 16.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  validator: _model.commentControllerValidator
+                                      .asValidator(context),
                                 ),
-                                if ((widget.address != null &&
-                                        widget.address != '') ||
-                                    (_model.locationName != null &&
-                                        _model.locationName != ''))
-                                  Align(
-                                    alignment: AlignmentDirectional(0.00, 1.00),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 12.0),
-                                      child: Container(
-                                        width: 100.0,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFF1F3F3),
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                        ),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(0.00, 0.00),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    40.0, 10.0, 40.0, 10.0),
-                                            child: Text(
-                                              () {
-                                                if (widget.address != null &&
-                                                    widget.address != '') {
-                                                  return widget.address!;
-                                                } else if (_model
-                                                            .locationName !=
-                                                        null &&
-                                                    _model.locationName != '') {
-                                                  return _model.locationName!;
-                                                } else {
-                                                  return widget.location!
-                                                      .toString();
-                                                }
-                                              }(),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Golos',
-                                                        fontSize: 16.0,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                            ),
+                              ),
+                              if ((widget.address != null &&
+                                      widget.address != '') ||
+                                  (_model.locationAddress != null &&
+                                      _model.locationAddress != ''))
+                                Align(
+                                  alignment: AlignmentDirectional(0.00, 1.00),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 12.0),
+                                    child: Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF1F3F3),
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.00, 0.00),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  40.0, 10.0, 40.0, 10.0),
+                                          child: Text(
+                                            () {
+                                              if (widget.address != null &&
+                                                  widget.address != '') {
+                                                return widget.address!;
+                                              } else if (_model
+                                                          .locationAddress !=
+                                                      null &&
+                                                  _model.locationAddress !=
+                                                      '') {
+                                                return _model.locationAddress!;
+                                              } else {
+                                                return widget.location!
+                                                    .toString();
+                                              }
+                                            }(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Golos',
+                                                  fontSize: 16.0,
+                                                  useGoogleFonts: false,
+                                                ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                              ],
-                            ),
+                                ),
+                            ],
                           ),
                         ),
                       ],

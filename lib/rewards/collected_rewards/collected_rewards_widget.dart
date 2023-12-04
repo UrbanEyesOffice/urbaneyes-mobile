@@ -1,10 +1,16 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/empty_collected_rewards_list/empty_collected_rewards_list_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'collected_rewards_model.dart';
@@ -26,6 +32,37 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CollectedRewardsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      // Load Promocodes
+      _model.loadedPromocodes = await queryPromocodesRecordOnce(
+        queryBuilder: (promocodesRecord) => promocodesRecord
+            .where(
+              'used_by',
+              isEqualTo: currentUserReference,
+            )
+            .orderBy('used_date'),
+        limit: 100,
+      );
+      // Update page promocodes
+      setState(() {
+        _model.pagePromocodes =
+            _model.loadedPromocodes!.toList().cast<PromocodesRecord>();
+      });
+      // Load rewards
+      _model.loadedRewards = await queryRewardsRecordOnce(
+        queryBuilder: (rewardsRecord) => rewardsRecord.where(
+          'used_by',
+          arrayContains: currentUserReference,
+        ),
+        limit: 100,
+      );
+      setState(() {
+        _model.pageRewards =
+            _model.loadedRewards!.toList().cast<RewardsRecord>();
+      });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -57,246 +94,266 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          automaticallyImplyLeading: true,
+          leading: FlutterFlowIconButton(
+            borderRadius: 20.0,
+            borderWidth: 1.0,
+            buttonSize: 40.0,
+            icon: Icon(
+              Icons.chevron_left,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 40.0,
+            ),
+            onPressed: () async {
+              context.safePop();
+            },
+          ),
+          title: Align(
+            alignment: AlignmentDirectional(-1.00, 0.00),
+            child: Text(
+              FFLocalizations.of(context).getText(
+                'je6fqy4w' /* Полученные промокоды */,
+              ),
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    fontFamily: 'Inter',
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                    useGoogleFonts: false,
+                  ),
+            ),
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 0.0,
+        ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.safePop();
-                      },
-                      child: Icon(
-                        Icons.chevron_left,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 30.0,
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+            child: Builder(
+              builder: (context) {
+                final rewards = _model.pageRewards.toList();
+                if (rewards.isEmpty) {
+                  return Container(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    child: EmptyCollectedRewardsListWidget(),
+                  );
+                }
+                return ListView.separated(
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.vertical,
+                  itemCount: rewards.length,
+                  separatorBuilder: (_, __) => SizedBox(height: 16.0),
+                  itemBuilder: (context, rewardsIndex) {
+                    final rewardsItem = rewards[rewardsIndex];
+                    return Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
-                    ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.safePop();
-                      },
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          'wcmvwr6f' /* Использованные промокоды */,
-                        ),
-                        style: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .override(
-                              fontFamily: 'Inter',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 0.0),
-                child: StreamBuilder<List<RewardsRecord>>(
-                  stream: queryRewardsRecord(
-                    queryBuilder: (rewardsRecord) => rewardsRecord.where(
-                      'used_by',
-                      isEqualTo: currentUserReference,
-                    ),
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(0.00, 0.00),
+                            child: Container(
+                              width: 50.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              child: Stack(
+                                children: [
+                                  if (_model.loadedPromocodes
+                                          ?.where((e) =>
+                                              e.reward == rewardsItem.reference)
+                                          .toList()
+                                          ?.first
+                                          ?.isExpired ??
+                                      true)
+                                    FaIcon(
+                                      FontAwesomeIcons.timesCircle,
+                                      color: Color(0xFFD81D1D),
+                                      size: 50.0,
+                                    ),
+                                  if (!_model.loadedPromocodes!
+                                      .where((e) =>
+                                          e.reward == rewardsItem.reference)
+                                      .toList()
+                                      .first
+                                      .isExpired)
+                                    FaIcon(
+                                      FontAwesomeIcons.checkCircle,
+                                      color: Color(0xFF13BE13),
+                                      size: 50.0,
+                                    ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }
-                    List<RewardsRecord> columnRewardsRecordList =
-                        snapshot.data!;
-                    return SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: List.generate(columnRewardsRecordList.length,
-                            (columnIndex) {
-                          final columnRewardsRecord =
-                              columnRewardsRecordList[columnIndex];
-                          return Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            height: 80.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
-                                  child: Container(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: Image.asset(
-                                          'assets/images/Group_48095568.png',
-                                        ).image,
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 6.0),
+                                    child: Text(
+                                      FFLocalizations.of(context)
+                                          .getVariableText(
+                                        ruText: rewardsItem.rewardName,
+                                        enText: rewardsItem.rewardNameEn,
+                                        kyText: rewardsItem.rewardNameKg,
                                       ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Golos',
+                                            color: Color(0xFFA9ABAF),
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
                                   ),
+                                ],
+                              ),
+                              Text(
+                                FFLocalizations.of(context).getVariableText(
+                                  ruText: rewardsItem.rewardDescription,
+                                  enText: rewardsItem.rewardDescription,
+                                  kyText: rewardsItem.rewardDescription,
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 0.0, 0.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 6.0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getVariableText(
-                                                ruText: columnRewardsRecord
-                                                    .rewardName,
-                                                enText: columnRewardsRecord
-                                                    .rewardNameEn,
-                                                kyText: columnRewardsRecord
-                                                    .rewardNameKg,
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Golos',
-                                                        color:
-                                                            Color(0xFFA9ABAF),
-                                                        useGoogleFonts: false,
-                                                      ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    3.0, 0.0, 0.0, 6.0),
-                                            child: Text(
-                                              '- ${dateTimeFormat(
-                                                'd/M/y',
-                                                columnRewardsRecord.usedDate,
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              )}',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Golos',
-                                                        color:
-                                                            Color(0xFFA9ABAF),
-                                                        useGoogleFonts: false,
-                                                      ),
-                                            ),
-                                          ),
-                                        ],
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Gerbera',
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed(
+                                    'ViewReward',
+                                    queryParameters: {
+                                      'reward': serializeParam(
+                                        rewardsItem,
+                                        ParamType.Document,
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 6.0),
-                                        child: Text(
-                                          FFLocalizations.of(context)
-                                              .getVariableText(
-                                            ruText: columnRewardsRecord
-                                                .rewardDescription,
-                                            enText: columnRewardsRecord
-                                                .rewardDescriptionEn,
-                                            kyText: columnRewardsRecord
-                                                .rewardDescriptionKg,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Gerbera',
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.bold,
-                                                useGoogleFonts: false,
-                                              ),
-                                        ),
+                                      'promocode': serializeParam(
+                                        _model.loadedPromocodes
+                                            ?.where((e) =>
+                                                e.reward ==
+                                                rewardsItem.reference)
+                                            .toList()
+                                            ?.first,
+                                        ParamType.Document,
                                       ),
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          context.pushNamed(
-                                            'ViewReward',
-                                            queryParameters: {
-                                              'reward': serializeParam(
-                                                columnRewardsRecord.reference,
-                                                ParamType.DocumentReference,
-                                              ),
-                                            }.withoutNulls,
-                                          );
-                                        },
-                                        child: Text(
-                                          FFLocalizations.of(context)
-                                              .getVariableText(
-                                            ruText: 'Посмотреть промокод',
-                                            enText: 'View promo code',
-                                            kyText: 'Промокодду көрүү',
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Golos',
-                                                color: Color(0xFF53B153),
-                                                useGoogleFonts: false,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
+                                    }.withoutNulls,
+                                    extra: <String, dynamic>{
+                                      'reward': rewardsItem,
+                                      'promocode': _model.loadedPromocodes
+                                          ?.where((e) =>
+                                              e.reward == rewardsItem.reference)
+                                          .toList()
+                                          ?.first,
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  FFLocalizations.of(context).getVariableText(
+                                    ruText: 'Посмотреть промокод',
+                                    enText: 'View promo code',
+                                    kyText: 'Промокодду көрүү',
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Color(0xFF13BE13),
+                                        useGoogleFonts: false,
+                                      ),
                                 ),
-                              ],
-                            ),
-                          );
-                        }),
+                              ),
+                              Text(
+                                () {
+                                  if (_model.loadedPromocodes!
+                                      .where((e) =>
+                                          e.reward == rewardsItem.reference)
+                                      .toList()
+                                      .first
+                                      .isActivated) {
+                                    return FFLocalizations.of(context)
+                                        .getVariableText(
+                                      ruText: 'Активирован',
+                                      enText: 'Activated',
+                                      kyText: 'Жандырылды',
+                                    );
+                                  } else if (_model.loadedPromocodes!
+                                      .where((e) =>
+                                          e.reward == rewardsItem.reference)
+                                      .toList()
+                                      .first
+                                      .isExpired) {
+                                    return FFLocalizations.of(context)
+                                        .getVariableText(
+                                      ruText: 'Истек',
+                                      enText: 'Expired',
+                                      kyText: 'Мөөнөтү бүттү',
+                                    );
+                                  } else {
+                                    return '';
+                                  }
+                                }(),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color: valueOrDefault<Color>(
+                                        () {
+                                          if (_model.loadedPromocodes!
+                                              .where((e) =>
+                                                  e.reward ==
+                                                  rewardsItem.reference)
+                                              .toList()
+                                              .first
+                                              .isActivated) {
+                                            return Color(0xFF13BE13);
+                                          } else if (_model.loadedPromocodes!
+                                              .where((e) =>
+                                                  e.reward ==
+                                                  rewardsItem.reference)
+                                              .toList()
+                                              .first
+                                              .isExpired) {
+                                            return Color(0xFFD81D1D);
+                                          } else {
+                                            return Color(0x00000000);
+                                          }
+                                        }(),
+                                        Colors.transparent,
+                                      ),
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ].divide(SizedBox(width: 8.0)),
                       ),
                     );
                   },
-                ),
-              ),
-            ],
+                );
+              },
+            ),
           ),
         ),
       ),

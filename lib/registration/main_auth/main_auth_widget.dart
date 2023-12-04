@@ -238,13 +238,13 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                           ),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 50.0, 0.0, 50.0),
+                                0.0, 32.0, 0.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      30.0, 0.0, 30.0, 0.0),
+                                      24.0, 0.0, 24.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       GoRouter.of(context).prepareAuthEvent();
@@ -253,9 +253,16 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                       if (user == null) {
                                         return;
                                       }
-
-                                      context.pushNamedAuth(
-                                          'HomePageCopy', context.mounted);
+                                      if (valueOrDefault<bool>(
+                                          currentUserDocument?.isNotFirstLogin,
+                                          false)) {
+                                        context.pushNamedAuth(
+                                            'CualificatedSurvey',
+                                            context.mounted);
+                                      } else {
+                                        context.pushNamedAuth(
+                                            'HomePageCopy', context.mounted);
+                                      }
                                     },
                                     text: FFLocalizations.of(context).getText(
                                       '979366sj' /* Войти через Google */,
@@ -290,26 +297,22 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 20.0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      '3szbi2zr' /* или */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Golos',
-                                          color: Color(0xFF7B7F87),
-                                          fontSize: 16.0,
-                                          useGoogleFonts: false,
-                                        ),
+                                Text(
+                                  FFLocalizations.of(context).getText(
+                                    '3szbi2zr' /* или */,
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Color(0xFF7B7F87),
+                                        fontSize: 16.0,
+                                        useGoogleFonts: false,
+                                      ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      30.0, 0.0, 30.0, 0.0),
+                                      24.0, 0.0, 24.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       context.pushNamed('CreateAccount');
@@ -344,57 +347,53 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        FFLocalizations.of(context).getText(
-                                          '61xk9ahq' /* Уже есть аккаунт? */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Golos',
-                                              color: Color(0xFF06112E),
-                                              fontSize: 18.0,
-                                              useGoogleFonts: false,
-                                            ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      FFLocalizations.of(context).getText(
+                                        '61xk9ahq' /* Уже есть аккаунт? */,
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 0.0, 0.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed('Login');
-                                          },
-                                          child: Text(
-                                            FFLocalizations.of(context).getText(
-                                              '0xh4b40q' /* Войти */,
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Golos',
-                                                  color: Color(0xFF06112E),
-                                                  fontSize: 18.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  useGoogleFonts: false,
-                                                ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Golos',
+                                            color: Color(0xFF06112E),
+                                            fontSize: 18.0,
+                                            useGoogleFonts: false,
                                           ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 0.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed('Login');
+                                        },
+                                        child: Text(
+                                          FFLocalizations.of(context).getText(
+                                            '0xh4b40q' /* Войти */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Golos',
+                                                color: Color(0xFF06112E),
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: false,
+                                              ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ].divide(SizedBox(height: 16.0)),
                             ),
                           ),
                         ),

@@ -65,6 +65,30 @@ bool? less5minutes(
     return false;
 }
 
+bool isTheSamePositionBool(
+  LatLng? latLng1,
+  LatLng? latLng2,
+) {
+  // get distance in meters between two latLng variables
+  if (latLng1 == null || latLng2 == null) {
+    return false;
+  }
+
+  double lat1 = latLng1.latitude;
+  double lon1 = latLng1.longitude;
+  double lat2 = latLng2.latitude;
+  double lon2 = latLng2.longitude;
+
+  const p = 0.017453292519943295;
+  const c = math.cos;
+
+  final a = 0.5 -
+      c((lat2 - lat1) * p) / 2 +
+      c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+  final distance = (12742 * math.asin(math.sqrt(a)) * 1000).round();
+  return distance <= 30;
+}
+
 String returnDate(DateTime dateTime) {
   // Get dateTime var and return date without time string
   final DateFormat formatter = DateFormat('dd-MM-yyyy');

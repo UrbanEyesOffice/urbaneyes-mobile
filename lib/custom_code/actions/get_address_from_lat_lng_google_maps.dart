@@ -30,8 +30,91 @@ Future<String?> getAddressFromLatLngGoogleMaps(LatLng? position) async {
     if (addresses.isEmpty) {
       completer.complete(null);
     } else {
-      Address place = addresses.first;
-      completer.complete('${place.addressLine}');
+      String? postalCode;
+      String? thoroughfare;
+      String? subThoroughfare;
+      String? locality;
+      String? adminArea;
+      String? countryName;
+      String? countryCode;
+
+      String completeAddress = "";
+
+      for (var address in addresses) {
+        if ((address.postalCode != null) && (postalCode == null)) {
+          postalCode = address.postalCode;
+        }
+        if ((address.thoroughfare != null) && (thoroughfare == null)) {
+          thoroughfare = address.thoroughfare;
+        }
+        if ((address.subThoroughfare != null) && (subThoroughfare == null)) {
+          subThoroughfare = address.subThoroughfare;
+        }
+        if ((address.locality != null) && (locality == null)) {
+          locality = address.locality;
+        }
+        if ((address.adminArea != null) && (adminArea == null)) {
+          adminArea = address.adminArea;
+        }
+        if ((address.countryName != null) && (countryName == null)) {
+          countryName = address.countryName;
+        }
+        if ((address.countryCode != null) && (countryCode == null)) {
+          countryCode = address.countryCode;
+        }
+      }
+
+      if (postalCode != null) {
+        completeAddress += postalCode;
+      }
+
+      if (thoroughfare != null) {
+        if (!completeAddress.isEmpty) {
+          completeAddress += ', ';
+        }
+        completeAddress += thoroughfare;
+      }
+
+      if (subThoroughfare != null) {
+        if (!completeAddress.isEmpty) {
+          completeAddress += ', ';
+        }
+        completeAddress += subThoroughfare;
+      }
+
+      if (locality != null) {
+        if (!completeAddress.isEmpty) {
+          completeAddress += ', ';
+        }
+        completeAddress += locality;
+      }
+
+      if (adminArea != null) {
+        if (!completeAddress.isEmpty) {
+          completeAddress += ', ';
+        }
+        completeAddress += adminArea;
+      }
+
+      if (countryName != null) {
+        if (!completeAddress.isEmpty) {
+          completeAddress += ', ';
+        }
+        completeAddress += countryName;
+      }
+
+      if (countryCode != null) {
+        if (!completeAddress.isEmpty) {
+          completeAddress += ', ';
+        }
+        completeAddress += countryCode;
+      }
+
+      if (completeAddress.isEmpty) {
+        completer.complete('${addresses.first.addressLine}');
+      } else {
+        completer.complete(completeAddress);
+      }
     }
   }).catchError((e) {
     completer.complete(null);

@@ -61,7 +61,7 @@ class _CompleteRegistrationWidgetState
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 65.0, 0.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [

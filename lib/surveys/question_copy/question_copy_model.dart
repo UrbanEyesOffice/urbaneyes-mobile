@@ -1,5 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -15,6 +17,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class QuestionCopyModel extends FlutterFlowModel<QuestionCopyWidget> {
+  ///  Local state fields for this page.
+
+  String? locationAddress = '';
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -22,7 +28,7 @@ class QuestionCopyModel extends FlutterFlowModel<QuestionCopyWidget> {
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in questionCopy widget.
   String? addressOnLoad;
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in questionCopy widget.
-  String? locationName;
+  String? lastMapPointAddress;
   // State field(s) for comment widget.
   FocusNode? commentFocusNode;
   TextEditingController? commentController;

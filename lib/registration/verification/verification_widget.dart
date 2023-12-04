@@ -62,9 +62,10 @@ class _VerificationWidgetState extends State<VerificationWidget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(30.0, 50.0, 30.0, 30.0),
+            padding: EdgeInsetsDirectional.fromSTEB(24.0, 95.0, 24.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Align(
                   alignment: AlignmentDirectional(-1.00, 0.00),
@@ -115,70 +116,75 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                 Expanded(
                   child: Align(
                     alignment: AlignmentDirectional(0.00, 1.00),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        if (!currentUserEmailVerified) {
-                          _model.apiResultsqj = await queryUsersRecordOnce(
-                            queryBuilder: (usersRecord) => usersRecord.where(
-                              'uid',
-                              isEqualTo: currentUserUid,
-                            ),
-                            singleRecord: true,
-                          ).then((s) => s.firstOrNull);
-                        }
-                        await Future.delayed(
-                            const Duration(milliseconds: 3000));
-                        if (currentUserEmailVerified) {
-                          context.goNamed('HomePageCopy');
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text(
-                                    FFLocalizations.of(context).getVariableText(
-                                  ruText: 'Ваш email еще не подтвержден',
-                                  enText:
-                                      'Your email has not yet been verified',
-                                  kyText: 'Сиздин email текшериле элек',
-                                )),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          await authManager.refreshUser();
+                          if (!currentUserEmailVerified) {
+                            _model.apiResultsqj = await queryUsersRecordOnce(
+                              queryBuilder: (usersRecord) => usersRecord.where(
+                                'uid',
+                                isEqualTo: currentUserUid,
+                              ),
+                              singleRecord: true,
+                            ).then((s) => s.firstOrNull);
+                          }
+                          await Future.delayed(
+                              const Duration(milliseconds: 3000));
+                          if (currentUserEmailVerified) {
+                            context.goNamed('HomePageCopy');
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text(FFLocalizations.of(context)
+                                      .getVariableText(
+                                    ruText: 'Ваш email еще не подтвержден',
+                                    enText:
+                                        'Your email has not yet been verified',
+                                    kyText: 'Сиздин email текшериле элек',
+                                  )),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
 
-                        setState(() {});
-                      },
-                      text: FFLocalizations.of(context).getText(
-                        'b3y3onzx' /* Продолжить */,
-                      ),
-                      options: FFButtonOptions(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: 48.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0xFF53B153),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Golos',
-                                  color: Colors.white,
-                                  useGoogleFonts: false,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                          setState(() {});
+                        },
+                        text: FFLocalizations.of(context).getText(
+                          'b3y3onzx' /* Продолжить */,
                         ),
-                        borderRadius: BorderRadius.circular(12.0),
+                        options: FFButtonOptions(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: 48.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Color(0xFF53B153),
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Golos',
+                                    color: Colors.white,
+                                    useGoogleFonts: false,
+                                  ),
+                          elevation: 0.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
                       ),
                     ),
                   ),

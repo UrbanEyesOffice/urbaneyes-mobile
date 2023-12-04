@@ -31,16 +31,6 @@ class RewardsRecord extends FirestoreRecord {
   int get pointsNeeded => _pointsNeeded ?? 0;
   bool hasPointsNeeded() => _pointsNeeded != null;
 
-  // "used" field.
-  bool? _used;
-  bool get used => _used ?? false;
-  bool hasUsed() => _used != null;
-
-  // "code" field.
-  String? _code;
-  String get code => _code ?? '';
-  bool hasCode() => _code != null;
-
   // "reward_name_en" field.
   String? _rewardNameEn;
   String get rewardNameEn => _rewardNameEn ?? '';
@@ -61,28 +51,32 @@ class RewardsRecord extends FirestoreRecord {
   String get rewardDescriptionKg => _rewardDescriptionKg ?? '';
   bool hasRewardDescriptionKg() => _rewardDescriptionKg != null;
 
-  // "used_date" field.
-  DateTime? _usedDate;
-  DateTime? get usedDate => _usedDate;
-  bool hasUsedDate() => _usedDate != null;
+  // "unused_codes" field.
+  List<String>? _unusedCodes;
+  List<String> get unusedCodes => _unusedCodes ?? const [];
+  bool hasUnusedCodes() => _unusedCodes != null;
+
+  // "has_codes" field.
+  bool? _hasCodes;
+  bool get hasCodes => _hasCodes ?? false;
+  bool hasHasCodes() => _hasCodes != null;
 
   // "used_by" field.
-  DocumentReference? _usedBy;
-  DocumentReference? get usedBy => _usedBy;
+  List<DocumentReference>? _usedBy;
+  List<DocumentReference> get usedBy => _usedBy ?? const [];
   bool hasUsedBy() => _usedBy != null;
 
   void _initializeFields() {
     _rewardName = snapshotData['reward_name'] as String?;
     _rewardDescription = snapshotData['reward_description'] as String?;
     _pointsNeeded = castToType<int>(snapshotData['points_needed']);
-    _used = snapshotData['used'] as bool?;
-    _code = snapshotData['code'] as String?;
     _rewardNameEn = snapshotData['reward_name_en'] as String?;
     _rewardNameKg = snapshotData['reward_name_kg'] as String?;
     _rewardDescriptionEn = snapshotData['reward_description_en'] as String?;
     _rewardDescriptionKg = snapshotData['reward_description_kg'] as String?;
-    _usedDate = snapshotData['used_date'] as DateTime?;
-    _usedBy = snapshotData['used_by'] as DocumentReference?;
+    _unusedCodes = getDataList(snapshotData['unused_codes']);
+    _hasCodes = snapshotData['has_codes'] as bool?;
+    _usedBy = getDataList(snapshotData['used_by']);
   }
 
   static CollectionReference get collection =>
@@ -123,28 +117,22 @@ Map<String, dynamic> createRewardsRecordData({
   String? rewardName,
   String? rewardDescription,
   int? pointsNeeded,
-  bool? used,
-  String? code,
   String? rewardNameEn,
   String? rewardNameKg,
   String? rewardDescriptionEn,
   String? rewardDescriptionKg,
-  DateTime? usedDate,
-  DocumentReference? usedBy,
+  bool? hasCodes,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'reward_name': rewardName,
       'reward_description': rewardDescription,
       'points_needed': pointsNeeded,
-      'used': used,
-      'code': code,
       'reward_name_en': rewardNameEn,
       'reward_name_kg': rewardNameKg,
       'reward_description_en': rewardDescriptionEn,
       'reward_description_kg': rewardDescriptionKg,
-      'used_date': usedDate,
-      'used_by': usedBy,
+      'has_codes': hasCodes,
     }.withoutNulls,
   );
 
@@ -156,17 +144,17 @@ class RewardsRecordDocumentEquality implements Equality<RewardsRecord> {
 
   @override
   bool equals(RewardsRecord? e1, RewardsRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.rewardName == e2?.rewardName &&
         e1?.rewardDescription == e2?.rewardDescription &&
         e1?.pointsNeeded == e2?.pointsNeeded &&
-        e1?.used == e2?.used &&
-        e1?.code == e2?.code &&
         e1?.rewardNameEn == e2?.rewardNameEn &&
         e1?.rewardNameKg == e2?.rewardNameKg &&
         e1?.rewardDescriptionEn == e2?.rewardDescriptionEn &&
         e1?.rewardDescriptionKg == e2?.rewardDescriptionKg &&
-        e1?.usedDate == e2?.usedDate &&
-        e1?.usedBy == e2?.usedBy;
+        listEquality.equals(e1?.unusedCodes, e2?.unusedCodes) &&
+        e1?.hasCodes == e2?.hasCodes &&
+        listEquality.equals(e1?.usedBy, e2?.usedBy);
   }
 
   @override
@@ -174,13 +162,12 @@ class RewardsRecordDocumentEquality implements Equality<RewardsRecord> {
         e?.rewardName,
         e?.rewardDescription,
         e?.pointsNeeded,
-        e?.used,
-        e?.code,
         e?.rewardNameEn,
         e?.rewardNameKg,
         e?.rewardDescriptionEn,
         e?.rewardDescriptionKg,
-        e?.usedDate,
+        e?.unusedCodes,
+        e?.hasCodes,
         e?.usedBy
       ]);
 

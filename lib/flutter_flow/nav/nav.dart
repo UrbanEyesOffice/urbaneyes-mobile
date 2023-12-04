@@ -155,9 +155,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'questionCopy',
           path: '/questionCopy',
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+          },
           builder: (context, params) => QuestionCopyWidget(
-            survey: params.getParam(
-                'survey', ParamType.DocumentReference, false, ['surveys']),
+            survey: params.getParam('survey', ParamType.Document),
             questionRef: params.getParam('questionRef',
                 ParamType.DocumentReference, false, ['question']),
             question: params.getParam('question', ParamType.String),
@@ -171,9 +173,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'complete',
           path: '/complete',
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+          },
           builder: (context, params) => CompleteWidget(
-            survey: params.getParam(
-                'survey', ParamType.DocumentReference, false, ['surveys']),
+            survey: params.getParam('survey', ParamType.Document),
           ),
         ),
         FFRoute(
@@ -199,9 +203,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'SelectLocation',
           path: '/selectLocation',
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+          },
           builder: (context, params) => SelectLocationWidget(
-            survey: params.getParam(
-                'survey', ParamType.DocumentReference, false, ['surveys']),
+            survey: params.getParam('survey', ParamType.Document),
             questionRef: params.getParam('questionRef',
                 ParamType.DocumentReference, false, ['question']),
             ord: params.getParam('ord', ParamType.int),
@@ -213,19 +219,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             comment: params.getParam('comment', ParamType.String),
             questionCount: params.getParam('questionCount', ParamType.int),
             question: params.getParam('question', ParamType.String),
+            onlyLocation: params.getParam('onlyLocation', ParamType.bool),
           ),
-        ),
-        FFRoute(
-          name: 'Rewards',
-          path: '/rewards',
-          builder: (context, params) => RewardsWidget(),
         ),
         FFRoute(
           name: 'ViewReward',
           path: '/viewReward',
+          asyncParams: {
+            'reward': getDoc(['rewards'], RewardsRecord.fromSnapshot),
+            'promocode': getDoc(['promocodes'], PromocodesRecord.fromSnapshot),
+          },
           builder: (context, params) => ViewRewardWidget(
-            reward: params.getParam(
-                'reward', ParamType.DocumentReference, false, ['rewards']),
+            reward: params.getParam('reward', ParamType.Document),
+            promocode: params.getParam('promocode', ParamType.Document),
           ),
         ),
         FFRoute(
@@ -242,6 +248,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'CollectedRewards',
           path: '/collectedRewards',
           builder: (context, params) => CollectedRewardsWidget(),
+        ),
+        FFRoute(
+          name: 'RewardsCopy',
+          path: '/rewardsCopy',
+          builder: (context, params) => RewardsCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

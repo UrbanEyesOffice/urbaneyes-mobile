@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -65,70 +66,58 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderRadius: 20.0,
+            borderWidth: 1.0,
+            buttonSize: 40.0,
+            icon: Icon(
+              Icons.chevron_left,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 40.0,
+            ),
+            onPressed: () async {
+              context.safePop();
+            },
+          ),
+          title: Align(
+            alignment: AlignmentDirectional(-1.00, 0.00),
+            child: Text(
+              FFLocalizations.of(context).getText(
+                'h9gm8p5r' /* Форма обратной связи */,
+              ),
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Inter',
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                    useGoogleFonts: false,
+                  ),
+            ),
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 0.0,
+        ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.safePop();
-                      },
-                      child: Icon(
-                        Icons.chevron_left,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 30.0,
-                      ),
-                    ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.safePop();
-                      },
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          '2tortty5' /* Форма обратной связи */,
-                        ),
-                        style: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .override(
-                              fontFamily: 'Golos',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
                 Align(
                   alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 16.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'qfiyjlxs' /* Электронная почта */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
-                            fontSize: 16.0,
-                            useGoogleFonts: false,
-                          ),
+                  child: Text(
+                    FFLocalizations.of(context).getText(
+                      'qfiyjlxs' /* Электронная почта */,
                     ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          fontSize: 16.0,
+                          useGoogleFonts: false,
+                        ),
                   ),
                 ),
                 TextFormField(
@@ -190,19 +179,15 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                 ),
                 Align(
                   alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 16.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'axyufzqo' /* Комментарий */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
-                            fontSize: 16.0,
-                            useGoogleFonts: false,
-                          ),
+                  child: Text(
+                    FFLocalizations.of(context).getText(
+                      'axyufzqo' /* Комментарий */,
                     ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          fontSize: 16.0,
+                          useGoogleFonts: false,
+                        ),
                   ),
                 ),
                 TextFormField(
@@ -265,98 +250,93 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                         fontSize: 16.0,
                         useGoogleFonts: false,
                       ),
-                  maxLines: 10,
+                  maxLines: null,
+                  minLines: 10,
                   validator: _model.nicknameCreateController2Validator
                       .asValidator(context),
                 ),
                 Expanded(
                   child: Align(
                     alignment: AlignmentDirectional(0.00, 1.00),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          if ((_model.nicknameCreateController1.text != null &&
-                                  _model.nicknameCreateController1.text !=
-                                      '') &&
-                              (_model.nicknameCreateController2.text != null &&
-                                  _model.nicknameCreateController2.text !=
-                                      '')) {
-                            await FeedbackRecord.collection
-                                .doc()
-                                .set(createFeedbackRecordData(
-                                  userEmail:
-                                      _model.nicknameCreateController1.text,
-                                  user: currentUserReference,
-                                  text: _model.nicknameCreateController2.text,
-                                ));
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Ваше сообщение принято '),
-                                  content: Text(
-                                      'В скором времени с вами свяжутся по предоставленному электронному адресу.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-
-                            context.pushNamed('HomePageCopy');
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Заполните все поля'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        },
-                        text: FFLocalizations.of(context).getText(
-                          'q58073g6' /* Продолжить */,
-                        ),
-                        options: FFButtonOptions(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: 48.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF53B153),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Golos',
-                                    color: Colors.white,
-                                    useGoogleFonts: false,
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        if ((_model.nicknameCreateController1.text != null &&
+                                _model.nicknameCreateController1.text != '') &&
+                            (_model.nicknameCreateController2.text != null &&
+                                _model.nicknameCreateController2.text != '')) {
+                          await FeedbackRecord.collection
+                              .doc()
+                              .set(createFeedbackRecordData(
+                                userEmail:
+                                    _model.nicknameCreateController1.text,
+                                user: currentUserReference,
+                                text: _model.nicknameCreateController2.text,
+                              ));
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('Ваше сообщение принято '),
+                                content: Text(
+                                    'В скором времени с вами свяжутся по предоставленному электронному адресу.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
                                   ),
-                          elevation: 0.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(12.0),
+                                ],
+                              );
+                            },
+                          );
+
+                          context.pushNamed('HomePageCopy');
+                        } else {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('Заполните все поля'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                      text: FFLocalizations.of(context).getText(
+                        'q58073g6' /* Продолжить */,
+                      ),
+                      options: FFButtonOptions(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: 48.0,
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0xFF53B153),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Golos',
+                                  color: Colors.white,
+                                  useGoogleFonts: false,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
                         ),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
                   ),
                 ),
-              ],
+              ].divide(SizedBox(height: 16.0)),
             ),
           ),
         ),
