@@ -190,22 +190,15 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                             ),
                           );
                         }
-                        List<SurveysRecord> gridViewSurveysRecordList =
+                        List<SurveysRecord> listViewSurveysRecordList =
                             snapshot.data!;
-                        return GridView.builder(
+                        return ListView.builder(
                           padding: EdgeInsets.zero,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            crossAxisSpacing: 20.0,
-                            mainAxisSpacing: 30.0,
-                            childAspectRatio: 1.57,
-                          ),
                           scrollDirection: Axis.vertical,
-                          itemCount: gridViewSurveysRecordList.length,
-                          itemBuilder: (context, gridViewIndex) {
-                            final gridViewSurveysRecord =
-                                gridViewSurveysRecordList[gridViewIndex];
+                          itemCount: listViewSurveysRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewSurveysRecord =
+                                listViewSurveysRecordList[listViewIndex];
                             return Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               decoration: BoxDecoration(
@@ -240,10 +233,10 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                               FFLocalizations.of(context)
                                                   .getVariableText(
                                                 ruText:
-                                                    gridViewSurveysRecord.name,
-                                                enText: gridViewSurveysRecord
+                                                    listViewSurveysRecord.name,
+                                                enText: listViewSurveysRecord
                                                     .nameEn,
-                                                kyText: gridViewSurveysRecord
+                                                kyText: listViewSurveysRecord
                                                     .nameKg,
                                               ),
                                               textAlign: TextAlign.start,
@@ -307,7 +300,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                               'questionCopy',
                                               queryParameters: {
                                                 'survey': serializeParam(
-                                                  gridViewSurveysRecord,
+                                                  listViewSurveysRecord,
                                                   ParamType.Document,
                                                 ),
                                                 'ord': serializeParam(
@@ -320,7 +313,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                                 ),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
-                                                'survey': gridViewSurveysRecord,
+                                                'survey': listViewSurveysRecord,
                                               },
                                             );
                                           },
