@@ -76,12 +76,12 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
         backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 0.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -169,37 +169,41 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                     ),
                   ],
                 ),
-                Expanded(
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                    child: StreamBuilder<List<SurveysRecord>>(
-                      stream: querySurveysRecord(),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                  child: StreamBuilder<List<SurveysRecord>>(
+                    stream: querySurveysRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
                               ),
                             ),
-                          );
-                        }
-                        List<SurveysRecord> listViewSurveysRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listViewSurveysRecordList.length,
-                          itemBuilder: (context, listViewIndex) {
-                            final listViewSurveysRecord =
-                                listViewSurveysRecordList[listViewIndex];
-                            return Container(
+                          ),
+                        );
+                      }
+                      List<SurveysRecord> listViewSurveysRecordList =
+                          snapshot.data!;
+                      return ListView.separated(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        itemCount: listViewSurveysRecordList.length,
+                        separatorBuilder: (_, __) => SizedBox(height: 16.0),
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewSurveysRecord =
+                              listViewSurveysRecordList[listViewIndex];
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
@@ -355,15 +359,15 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
