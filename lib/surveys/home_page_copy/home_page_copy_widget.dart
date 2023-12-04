@@ -207,8 +207,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                             final gridViewSurveysRecord =
                                 gridViewSurveysRecordList[gridViewIndex];
                             return Container(
-                              width: 100.0,
-                              height: 100.0,
+                              width: MediaQuery.sizeOf(context).width * 1.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
@@ -223,47 +222,49 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 16.0, 16.0, 16.0),
                                   child: Column(
-                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-1.00, -1.00),
-                                        child: Text(
-                                          FFLocalizations.of(context)
-                                              .getVariableText(
-                                            ruText: gridViewSurveysRecord.name,
-                                            enText:
-                                                gridViewSurveysRecord.nameEn,
-                                            kyText:
-                                                gridViewSurveysRecord.nameKg,
-                                          ),
-                                          textAlign: TextAlign.start,
-                                          maxLines: 3,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Gerbera',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 24.0,
-                                                fontWeight: FontWeight.bold,
-                                                useGoogleFonts: false,
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Align(
+                                            alignment: AlignmentDirectional(
+                                                -1.00, -1.00),
+                                            child: Text(
+                                              FFLocalizations.of(context)
+                                                  .getVariableText(
+                                                ruText:
+                                                    gridViewSurveysRecord.name,
+                                                enText: gridViewSurveysRecord
+                                                    .nameEn,
+                                                kyText: gridViewSurveysRecord
+                                                    .nameKg,
                                               ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(0.00, -1.00),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 12.0, 0.0, 0.0),
+                                              textAlign: TextAlign.start,
+                                              maxLines: 3,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Gerbera',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontSize: 24.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: AlignmentDirectional(
+                                                0.00, -1.00),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               crossAxisAlignment:
@@ -295,7 +296,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                               ],
                                             ),
                                           ),
-                                        ),
+                                        ].divide(SizedBox(height: 12.0)),
                                       ),
                                       Align(
                                         alignment:
@@ -357,7 +358,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                           ),
                                         ),
                                       ),
-                                    ],
+                                    ].divide(SizedBox(height: 40.0)),
                                   ),
                                 ),
                               ),
