@@ -205,7 +205,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                             listViewSurveysRecordList[listViewIndex];
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
+                              32.0, 0.0, 32.0, 0.0),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
                             decoration: BoxDecoration(
@@ -355,7 +355,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                         ),
                                       ),
                                     ),
-                                  ].divide(SizedBox(height: 40.0)),
+                                  ].divide(SizedBox(height: 60.0)),
                                 ),
                               ),
                             ),

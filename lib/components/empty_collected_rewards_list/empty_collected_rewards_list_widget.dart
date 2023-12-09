@@ -48,10 +48,14 @@ class _EmptyCollectedRewardsListWidgetState
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          Icons.card_giftcard_rounded,
-          color: FlutterFlowTheme.of(context).secondaryText,
-          size: 72.0,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/free-icon-gift-box-1039714.png',
+            width: 60.0,
+            height: 60.0,
+            fit: BoxFit.cover,
+          ),
         ),
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),

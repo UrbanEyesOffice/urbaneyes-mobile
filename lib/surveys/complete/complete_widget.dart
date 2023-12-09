@@ -359,7 +359,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                       children: [
                                         Text(
                                           FFLocalizations.of(context).getText(
-                                            'er7gf1xf' /* Перейти на  */,
+                                            'wnmp7p6k' /* Перейти на */,
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -387,7 +387,23 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                                 useGoogleFonts: false,
                                               ),
                                         ),
-                                      ],
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            'er7gf1xf' /*   */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Golos',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
+                                      ].divide(SizedBox(width: 4.0)),
                                     ),
                                   ),
                                 ),

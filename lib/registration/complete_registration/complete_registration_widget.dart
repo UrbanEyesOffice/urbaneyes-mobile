@@ -99,7 +99,7 @@ class _CompleteRegistrationWidgetState
                           enText:
                               '${currentUserDisplayName}, we anonymise all results of completed surveys and do not share the personal details of individual users. ',
                           kyText:
-                              '${currentUserDisplayName}, биз толтурулган сурамжылоонун бардык натыйжаларын анонимдүү кылабыз жана жеке колдонуучулардын жеке маалыматтарын бөлүшпөйбүз.',
+                              '${currentUserDisplayName}, биз толтурулган сурамжылоонун бардык натыйжаларын анонимдүү кылабыз жана колдонуучулардын жеке маалыматтарын бөлүшпөйбүз.',
                         ),
                         textAlign: TextAlign.start,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(

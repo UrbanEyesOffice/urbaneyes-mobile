@@ -377,9 +377,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // AskGeo
   {
     'vtmdto4u': {
-      'ru': 'Включи геолокацию и проходи больше опросов',
-      'en': 'Turn on geolocation and take more surveys',
-      'ky': 'Геолокацияны күйгүзүп, көбүрөөк сурамжылоону өтсө болот',
+      'ru': 'Включи геолокацию и проходи больше опросов.',
+      'en': 'Turn on geolocation and take more surveys.',
+      'ky': 'Геолокацияны күйгүзүп, көбүрөөк сурамжылоодон өтсө болот.',
     },
     'nhp57jdr': {
       'ru':
@@ -410,7 +410,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'qfiyjlxs': {
       'ru': 'Электронная почта',
       'en': 'Email',
-      'ky': 'Электронная почта',
+      'ky': 'Электрондук почта',
     },
     '09k44dpz': {
       'ru': '',
@@ -494,7 +494,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'rzmjj5t4': {
       'ru': 'Завершить регистрацию',
       'en': 'Complete registration',
-      'ky': 'Каттоону жыйынтыктоо',
+      'ky': 'Катталууну аяктоо',
     },
     '15xm6lvw': {
       'ru': 'Главная',
@@ -530,7 +530,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     '3349nkpy': {
       'ru': 'Оценки от других горожан на карте.',
       'en': 'Ratings from other citizens on the map.',
-      'ky': 'Картадагы башка жарандардын рейтинги.',
+      'ky': 'Башкалардын рейтингтеринин картадагы көрүнүшү.',
     },
     'aa8w9qnd': {
       'ru':
@@ -540,15 +540,20 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky':
           'Биз шаардын интерактивдүү картасына жашоо сапаты боюнча изилдөөлөрдүн жыйынтыктарын чогулттук.',
     },
-    'er7gf1xf': {
-      'ru': 'Перейти на ',
-      'en': 'Go to ',
-      'ky': 'Баруу ',
+    'wnmp7p6k': {
+      'ru': 'Перейти на',
+      'en': 'Go to',
+      'ky': '',
     },
     '6dqeazff': {
       'ru': 'urbaneyes.kg',
       'en': 'urbaneyes.kg',
       'ky': 'urbaneyes.kg',
+    },
+    'er7gf1xf': {
+      'ru': ' ',
+      'en': ' ',
+      'ky': 'ге өтүү',
     },
     'uugobmq5': {
       'ru': 'Доступна награда',
@@ -730,7 +735,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'ox3yj0gi': {
       'ru': 'Выбрать эту локацию',
       'en': 'Select this location',
-      'ky': 'Бул жерди тандаңыз',
+      'ky': 'Ушул жерди тандаңыз',
     },
     'ns3d5u6n': {
       'ru': 'Home',
@@ -756,7 +761,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'nxwehmig': {
       'ru': 'Разреши уведомления и оценивай места рядом.',
       'en': 'Allow notifications and rate places nearby.',
-      'ky': 'Билдирмелерге уруксат берип, айланаңа баа бер.',
+      'ky': 'Билдирмелерге уруксат берип, чөйрөң тууралуу пикир билдир.',
     },
     '75xs578i': {
       'ru': 'Разрешить доступ',
@@ -779,7 +784,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'yawdppzf': {
       'ru': 'Проходи опросы и получай награды.',
       'en': 'Complete surveys and get rewards.',
-      'ky': 'Сурамжылоолорго жооп берип, сыйлыктарды ал.',
+      'ky': 'Сурамжылоолордон өтүп, сыйлыктарды ал.',
     },
     'g85ffecm': {
       'ru': 'Чем больше баллов, тем ценнее награды от наших партнеров.',
