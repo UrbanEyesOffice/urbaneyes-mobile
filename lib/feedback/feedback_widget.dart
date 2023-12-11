@@ -104,159 +104,164 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
           top: true,
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Text(
-                    FFLocalizations.of(context).getText(
-                      'qfiyjlxs' /* Электронная почта */,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        'qfiyjlxs' /* Электронная почта */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            fontSize: 16.0,
+                            useGoogleFonts: false,
+                          ),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
-                          fontSize: 16.0,
-                          useGoogleFonts: false,
-                        ),
                   ),
-                ),
-                TextFormField(
-                  controller: _model.nicknameCreateController1,
-                  focusNode: _model.nicknameCreateFocusNode1,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelStyle: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Inter',
-                          fontSize: 16.0,
-                          useGoogleFonts: false,
-                        ),
-                    hintStyle: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Golos',
-                          color: Color(0xFF57636C),
-                          fontSize: 14.0,
-                          useGoogleFonts: false,
-                        ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFA9ABAF),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFA9ABAF),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
-                        fontSize: 16.0,
-                        useGoogleFonts: false,
-                      ),
-                  validator: _model.nicknameCreateController1Validator
-                      .asValidator(context),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Text(
-                    FFLocalizations.of(context).getText(
-                      'axyufzqo' /* Комментарий */,
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
-                          fontSize: 16.0,
-                          useGoogleFonts: false,
-                        ),
-                  ),
-                ),
-                TextFormField(
-                  controller: _model.nicknameCreateController2,
-                  focusNode: _model.nicknameCreateFocusNode2,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: FFLocalizations.of(context).getText(
-                      'eqalrq06' /*  */,
-                    ),
-                    labelStyle: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Inter',
-                          fontSize: 16.0,
-                          useGoogleFonts: false,
-                        ),
-                    hintText: FFLocalizations.of(context).getText(
-                      'kvl68h75' /* Что бы вы хотели добавить/улуч... */,
-                    ),
-                    hintStyle: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Inter',
+                  TextFormField(
+                    controller: _model.nicknameCreateController1,
+                    focusNode: _model.nicknameCreateFocusNode1,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Inter',
+                                fontSize: 16.0,
+                                useGoogleFonts: false,
+                              ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Golos',
+                                color: Color(0xFF57636C),
+                                fontSize: 14.0,
+                                useGoogleFonts: false,
+                              ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
                           color: Color(0xFFA9ABAF),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFA9ABAF),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsetsDirectional.fromSTEB(
+                          20.0, 24.0, 20.0, 24.0),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
                           fontSize: 16.0,
                           useGoogleFonts: false,
                         ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFA9ABAF),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFA9ABAF),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
+                    validator: _model.nicknameCreateController1Validator
+                        .asValidator(context),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
-                        fontSize: 16.0,
-                        useGoogleFonts: false,
+                  Align(
+                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        'axyufzqo' /* Комментарий */,
                       ),
-                  maxLines: null,
-                  minLines: 10,
-                  validator: _model.nicknameCreateController2Validator
-                      .asValidator(context),
-                ),
-                Expanded(
-                  child: Align(
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            fontSize: 16.0,
+                            useGoogleFonts: false,
+                          ),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: _model.nicknameCreateController2,
+                    focusNode: _model.nicknameCreateFocusNode2,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: FFLocalizations.of(context).getText(
+                        'eqalrq06' /*  */,
+                      ),
+                      labelStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Inter',
+                                fontSize: 16.0,
+                                useGoogleFonts: false,
+                              ),
+                      hintText: FFLocalizations.of(context).getText(
+                        'kvl68h75' /* Что бы вы хотели добавить/улуч... */,
+                      ),
+                      hintStyle: FlutterFlowTheme.of(context)
+                          .bodyMedium
+                          .override(
+                            fontFamily: 'Inter',
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            fontSize: 16.0,
+                            useGoogleFonts: false,
+                          ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFA9ABAF),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFA9ABAF),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsetsDirectional.fromSTEB(
+                          20.0, 24.0, 20.0, 24.0),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          fontSize: 16.0,
+                          useGoogleFonts: false,
+                        ),
+                    maxLines: null,
+                    minLines: 10,
+                    validator: _model.nicknameCreateController2Validator
+                        .asValidator(context),
+                  ),
+                  Align(
                     alignment: AlignmentDirectional(0.00, 1.00),
                     child: FFButtonWidget(
                       onPressed: () async {
@@ -335,8 +340,10 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                       ),
                     ),
                   ),
-                ),
-              ].divide(SizedBox(height: 16.0)),
+                ]
+                    .divide(SizedBox(height: 16.0))
+                    .addToStart(SizedBox(height: 50.0)),
+              ),
             ),
           ),
         ),

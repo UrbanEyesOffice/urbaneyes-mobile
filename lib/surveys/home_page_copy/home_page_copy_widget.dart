@@ -366,7 +366,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                   },
                 ),
               ),
-            ],
+            ].addToStart(SizedBox(height: 50.0)),
           ),
         ),
       ),

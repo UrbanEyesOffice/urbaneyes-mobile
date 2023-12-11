@@ -226,130 +226,127 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                         ),
                       ],
                     ),
-                    Align(
-                      alignment: AlignmentDirectional(0.00, 1.00),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(0.0),
-                            bottomRight: Radius.circular(0.0),
-                            topLeft: Radius.circular(40.0),
-                            topRight: Radius.circular(40.0),
-                          ),
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(0.0),
+                          bottomRight: Radius.circular(0.0),
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0),
                         ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 32.0, 0.0, 24.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    GoRouter.of(context).prepareAuthEvent();
-                                    final user = await authManager
-                                        .signInWithGoogle(context);
-                                    if (user == null) {
-                                      return;
-                                    }
-                                    if (valueOrDefault<bool>(
-                                        currentUserDocument?.isNotFirstLogin,
-                                        false)) {
-                                      context.pushNamedAuth(
-                                          'CualificatedSurvey',
-                                          context.mounted);
-                                    } else {
-                                      context.pushNamedAuth(
-                                          'HomePageCopy', context.mounted);
-                                    }
-                                  },
-                                  text: FFLocalizations.of(context).getText(
-                                    '979366sj' /* Войти через Google */,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 32.0, 0.0, 24.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  GoRouter.of(context).prepareAuthEvent();
+                                  final user = await authManager
+                                      .signInWithGoogle(context);
+                                  if (user == null) {
+                                    return;
+                                  }
+                                  if (valueOrDefault<bool>(
+                                      currentUserDocument?.isNotFirstLogin,
+                                      false)) {
+                                    context.pushNamedAuth(
+                                        'CualificatedSurvey', context.mounted);
+                                  } else {
+                                    context.pushNamedAuth(
+                                        'HomePageCopy', context.mounted);
+                                  }
+                                },
+                                text: FFLocalizations.of(context).getText(
+                                  '979366sj' /* Войти через Google */,
+                                ),
+                                icon: FaIcon(
+                                  FontAwesomeIcons.google,
+                                ),
+                                options: FFButtonOptions(
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  height: 56.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: Color(0xFF06112E),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  elevation: 0.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
                                   ),
-                                  icon: FaIcon(
-                                    FontAwesomeIcons.google,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height: 56.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: Color(0xFF06112E),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Golos',
-                                          color: Colors.white,
-                                          fontSize: 18.0,
-                                          useGoogleFonts: false,
-                                        ),
-                                    elevation: 0.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
                               ),
-                              Text(
-                                FFLocalizations.of(context).getText(
-                                  '3szbi2zr' /* или */,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Golos',
-                                      color: Color(0xFF7B7F87),
-                                      fontSize: 16.0,
-                                      useGoogleFonts: false,
-                                    ),
+                            ),
+                            Text(
+                              FFLocalizations.of(context).getText(
+                                '3szbi2zr' /* или */,
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    context.pushNamed('CreateAccount');
-                                  },
-                                  text: FFLocalizations.of(context).getText(
-                                    '5uy1dq7o' /* Создать аккаунт */,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Golos',
+                                    color: Color(0xFF7B7F87),
+                                    fontSize: 16.0,
+                                    useGoogleFonts: false,
                                   ),
-                                  options: FFButtonOptions(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height: 56.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: Color(0xFF53B153),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Golos',
-                                          color: Colors.white,
-                                          fontSize: 18.0,
-                                          useGoogleFonts: false,
-                                        ),
-                                    elevation: 0.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  context.pushNamed('CreateAccount');
+                                },
+                                text: FFLocalizations.of(context).getText(
+                                  '5uy1dq7o' /* Создать аккаунт */,
+                                ),
+                                options: FFButtonOptions(
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  height: 56.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: Color(0xFF53B153),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  elevation: 0.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
                                   ),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
                               ),
-                              Row(
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 80.0),
+                              child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -395,8 +392,8 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                   ),
                                 ],
                               ),
-                            ].divide(SizedBox(height: 16.0)),
-                          ),
+                            ),
+                          ].divide(SizedBox(height: 16.0)),
                         ),
                       ),
                     ),

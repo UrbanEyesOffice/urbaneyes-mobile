@@ -73,7 +73,7 @@ class _CompleteRegistrationWidgetState
                     child: Text(
                       FFLocalizations.of(context).getText(
                         '0sk7mlan' /* Мы заботимся 
-о вашей конфиден... */
+о конфиденциальн... */
                         ,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(

@@ -479,9 +479,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // CompleteRegistration
   {
     '0sk7mlan': {
-      'ru': 'Мы заботимся \nо вашей конфиденциальности',
-      'en': 'We care about your privacy',
-      'ky': 'Биз сиздин жеке маалыматыңыз жөнүндө кам көрөбүз',
+      'ru': 'Мы заботимся \nо конфиденциальности',
+      'en': 'We care\nabout confidentiality',
+      'ky': 'Биз кам көрөбүз\nкупуялуулук жөнүндө',
     },
     '8xh9n1sn': {
       'ru':
