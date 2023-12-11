@@ -176,8 +176,22 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 alignment: AlignmentDirectional(-1.00, 0.00),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => Text(
-                                    '${valueOrDefault(currentUserDocument?.score, 0).toString()}${FFLocalizations.of(context).getVariableText(
-                                      ruText: ' очков',
+                                    '${valueOrDefault<String>(
+                                      (valueOrDefault<int>(
+                                                _model.filteredRewards
+                                                    ?.sortedList(
+                                                        (e) => e.pointsNeeded)
+                                                    ?.first
+                                                    ?.pointsNeeded,
+                                                0,
+                                              ) -
+                                              valueOrDefault(
+                                                  currentUserDocument?.score,
+                                                  0))
+                                          .toString(),
+                                      '0',
+                                    )}${FFLocalizations.of(context).getVariableText(
+                                      ruText: 'баллов',
                                       enText: ' points',
                                       kyText: ' упай',
                                     )}',

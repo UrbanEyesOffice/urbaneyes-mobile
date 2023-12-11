@@ -155,29 +155,101 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
           top: true,
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Text(
-                    FFLocalizations.of(context).getText(
-                      'r54ydkcj' /* Имя */,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        'r54ydkcj' /* Имя */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Golos',
+                            color: Color(0xFF06112E),
+                            fontSize: 16.0,
+                            useGoogleFonts: false,
+                          ),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Golos',
-                          color: Color(0xFF06112E),
-                          fontSize: 16.0,
-                          useGoogleFonts: false,
-                        ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: AuthUserStreamWidget(
-                    builder: (context) => TextFormField(
-                      controller: _model.displayNameController,
-                      focusNode: _model.displayNameFocusNode,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                    child: AuthUserStreamWidget(
+                      builder: (context) => TextFormField(
+                        controller: _model.displayNameController,
+                        focusNode: _model.displayNameFocusNode,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFA9ABAF),
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFA9ABAF),
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Golos',
+                              color: Color(0xFF06112E),
+                              fontSize: 16.0,
+                              useGoogleFonts: false,
+                            ),
+                        validator: _model.displayNameControllerValidator
+                            .asValidator(context),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          '2x0tc9ee' /* Email */,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Golos',
+                              color: Color(0xFF06112E),
+                              fontSize: 16.0,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                    child: TextFormField(
+                      controller: _model.emailController,
+                      focusNode: _model.emailFocusNode,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelStyle: FlutterFlowTheme.of(context).labelMedium,
@@ -219,375 +291,312 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             fontSize: 16.0,
                             useGoogleFonts: false,
                           ),
-                      validator: _model.displayNameControllerValidator
-                          .asValidator(context),
+                      validator:
+                          _model.emailControllerValidator.asValidator(context),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        '2x0tc9ee' /* Email */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Golos',
-                            color: Color(0xFF06112E),
-                            fontSize: 16.0,
-                            useGoogleFonts: false,
-                          ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: TextFormField(
-                    controller: _model.emailController,
-                    focusNode: _model.emailFocusNode,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                      hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFA9ABAF),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFA9ABAF),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Golos',
-                          color: Color(0xFF06112E),
-                          fontSize: 16.0,
-                          useGoogleFonts: false,
-                        ),
-                    validator:
-                        _model.emailControllerValidator.asValidator(context),
-                  ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'zjhhppo5' /* Пол */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Golos',
-                            color: Color(0xFF06112E),
-                            fontSize: 16.0,
-                            useGoogleFonts: false,
-                          ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: AuthUserStreamWidget(
-                    builder: (context) => FlutterFlowDropDown<int>(
-                      controller: _model.dropDownValueController ??=
-                          FormFieldController<int>(
-                        _model.dropDownValue ??=
-                            valueOrDefault(currentUserDocument?.gender, 0),
-                      ),
-                      options: List<int>.from([0, 1, 2]),
-                      optionLabels: [
+                  Align(
+                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
+                      child: Text(
                         FFLocalizations.of(context).getText(
-                          '36ze9hen' /* Другой */,
+                          'zjhhppo5' /* Пол */,
                         ),
-                        FFLocalizations.of(context).getText(
-                          'sqcr0r76' /* Мужской */,
-                        ),
-                        FFLocalizations.of(context).getText(
-                          '81llvzrd' /* Женский */,
-                        )
-                      ],
-                      onChanged: (val) =>
-                          setState(() => _model.dropDownValue = val),
-                      width: double.infinity,
-                      height: 55.0,
-                      textStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Golos',
-                                color: Color(0xFF06112E),
-                                fontSize: 16.0,
-                                useGoogleFonts: false,
-                              ),
-                      hintText: FFLocalizations.of(context).getText(
-                        'hacoa4kz' /* Выбрать пол */,
-                      ),
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
-                      ),
-                      fillColor: Colors.white,
-                      elevation: 2.0,
-                      borderColor: Color(0xFFA9ABAF),
-                      borderWidth: 1.0,
-                      borderRadius: 8.0,
-                      margin:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 16.0, 4.0),
-                      hidesUnderline: true,
-                      isSearchable: false,
-                      isMultiSelect: false,
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'vvjvh66o' /* Дата рождения */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Golos',
-                            color: Color(0xFF06112E),
-                            fontSize: 16.0,
-                            useGoogleFonts: false,
-                          ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 55.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: Color(0xFFA9ABAF),
-                      ),
-                    ),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        final _datePickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: getCurrentTimestamp,
-                          firstDate: DateTime(1900),
-                          lastDate: getCurrentTimestamp,
-                        );
-
-                        if (_datePickedDate != null) {
-                          safeSetState(() {
-                            _model.datePicked = DateTime(
-                              _datePickedDate.year,
-                              _datePickedDate.month,
-                              _datePickedDate.day,
-                            );
-                          });
-                        }
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  15.0, 0.0, 0.0, 0.0),
-                              child: AuthUserStreamWidget(
-                                builder: (context) => Text(
-                                  valueOrDefault<String>(
-                                    () {
-                                      if (currentUserDocument?.dateOfBirth !=
-                                          null) {
-                                        return functions.returnDate(
-                                            currentUserDocument!.dateOfBirth!);
-                                      } else if (_model.datePicked == null) {
-                                        return 'Выберите дату';
-                                      } else {
-                                        return functions
-                                            .returnDate(_model.datePicked!);
-                                      }
-                                    }(),
-                                    'Выберите дату',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Golos',
-                                        color: Color(0xFF06112E),
-                                        fontSize: 16.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                              ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Golos',
+                              color: Color(0xFF06112E),
+                              fontSize: 16.0,
+                              useGoogleFonts: false,
                             ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(1.00, 0.00),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 15.0, 0.0),
-                                child: Icon(
-                                  Icons.calendar_month_outlined,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(0.00, 1.00),
-                  child: Padding(
+                  Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        if ((_model.displayNameController.text != null &&
-                                _model.displayNameController.text != '') &&
-                            (_model.displayNameController.text !=
-                                currentUserDisplayName)) {
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            displayName: _model.displayNameController.text,
-                          ));
-                        }
-                        if ((_model.emailController.text != currentUserEmail) &&
-                            (_model.emailController.text != null &&
-                                _model.emailController.text != '')) {
-                          if (_model.emailController.text.isEmpty) {
+                    child: AuthUserStreamWidget(
+                      builder: (context) => FlutterFlowDropDown<int>(
+                        controller: _model.dropDownValueController ??=
+                            FormFieldController<int>(
+                          _model.dropDownValue ??=
+                              valueOrDefault(currentUserDocument?.gender, 0),
+                        ),
+                        options: List<int>.from([0, 1, 2]),
+                        optionLabels: [
+                          FFLocalizations.of(context).getText(
+                            '36ze9hen' /* Другой */,
+                          ),
+                          FFLocalizations.of(context).getText(
+                            'sqcr0r76' /* Мужской */,
+                          ),
+                          FFLocalizations.of(context).getText(
+                            '81llvzrd' /* Женский */,
+                          )
+                        ],
+                        onChanged: (val) =>
+                            setState(() => _model.dropDownValue = val),
+                        width: double.infinity,
+                        height: 55.0,
+                        textStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Golos',
+                                  color: Color(0xFF06112E),
+                                  fontSize: 16.0,
+                                  useGoogleFonts: false,
+                                ),
+                        hintText: FFLocalizations.of(context).getText(
+                          'hacoa4kz' /* Выбрать пол */,
+                        ),
+                        icon: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 24.0,
+                        ),
+                        fillColor: Colors.white,
+                        elevation: 2.0,
+                        borderColor: Color(0xFFA9ABAF),
+                        borderWidth: 1.0,
+                        borderRadius: 8.0,
+                        margin:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 16.0, 4.0),
+                        hidesUnderline: true,
+                        isSearchable: false,
+                        isMultiSelect: false,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          'vvjvh66o' /* Дата рождения */,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Golos',
+                              color: Color(0xFF06112E),
+                              fontSize: 16.0,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 55.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: Color(0xFFA9ABAF),
+                        ),
+                      ),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          final _datePickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: getCurrentTimestamp,
+                            firstDate: DateTime(1900),
+                            lastDate: getCurrentTimestamp,
+                          );
+
+                          if (_datePickedDate != null) {
+                            safeSetState(() {
+                              _model.datePicked = DateTime(
+                                _datePickedDate.year,
+                                _datePickedDate.month,
+                                _datePickedDate.day,
+                              );
+                            });
+                          }
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    15.0, 0.0, 0.0, 0.0),
+                                child: AuthUserStreamWidget(
+                                  builder: (context) => Text(
+                                    valueOrDefault<String>(
+                                      () {
+                                        if (currentUserDocument?.dateOfBirth !=
+                                            null) {
+                                          return functions.returnDate(
+                                              currentUserDocument!
+                                                  .dateOfBirth!);
+                                        } else if (_model.datePicked == null) {
+                                          return 'Выберите дату';
+                                        } else {
+                                          return functions
+                                              .returnDate(_model.datePicked!);
+                                        }
+                                      }(),
+                                      'Выберите дату',
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Golos',
+                                          color: Color(0xFF06112E),
+                                          fontSize: 16.0,
+                                          useGoogleFonts: false,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(1.00, 0.00),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 15.0, 0.0),
+                                  child: Icon(
+                                    Icons.calendar_month_outlined,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(0.00, 1.00),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          if ((_model.displayNameController.text != null &&
+                                  _model.displayNameController.text != '') &&
+                              (_model.displayNameController.text !=
+                                  currentUserDisplayName)) {
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              displayName: _model.displayNameController.text,
+                            ));
+                          }
+                          if ((_model.emailController.text !=
+                                  currentUserEmail) &&
+                              (_model.emailController.text != null &&
+                                  _model.emailController.text != '')) {
+                            if (_model.emailController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Email required!',
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            await authManager.updateEmail(
+                              email: _model.emailController.text,
+                              context: context,
+                            );
+                            setState(() {});
+
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              email: _model.emailController.text,
+                            ));
+                            await authManager.sendEmailVerification();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'Email required!',
+                                  'Было отправлено письмо со ссылкой для верификации email адреса ',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
                                 ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor: Color(0xFF0AC706),
                               ),
                             );
-                            return;
                           }
-
-                          await authManager.updateEmail(
-                            email: _model.emailController.text,
-                            context: context,
-                          );
-                          setState(() {});
-
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            email: _model.emailController.text,
-                          ));
-                          await authManager.sendEmailVerification();
+                          if ((_model.datePicked != null) &&
+                              (_model.datePicked !=
+                                  currentUserDocument?.dateOfBirth)) {
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              dateOfBirth: _model.datePicked,
+                            ));
+                          }
+                          if ((_model.dropDownValue != null) &&
+                              (_model.dropDownValue !=
+                                  valueOrDefault(
+                                      currentUserDocument?.gender, 0))) {
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              gender: _model.dropDownValue,
+                            ));
+                          }
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Было отправлено письмо со ссылкой для верификации email адреса ',
+                                'Изменения сохранены',
                                 style: TextStyle(
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                 ),
                               ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor: Color(0xFF0AC706),
+                              duration: Duration(milliseconds: 1500),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
                             ),
                           );
-                        }
-                        if ((_model.datePicked != null) &&
-                            (_model.datePicked !=
-                                currentUserDocument?.dateOfBirth)) {
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            dateOfBirth: _model.datePicked,
-                          ));
-                        }
-                        if ((_model.dropDownValue != null) &&
-                            (_model.dropDownValue !=
-                                valueOrDefault(
-                                    currentUserDocument?.gender, 0))) {
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            gender: _model.dropDownValue,
-                          ));
-                        }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Изменения сохранены',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                            duration: Duration(milliseconds: 1500),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
-                        );
 
-                        context.pushNamed('HomePageCopy');
-                      },
-                      text: FFLocalizations.of(context).getText(
-                        'qdr5c66g' /* Сохранить изменения */,
-                      ),
-                      options: FFButtonOptions(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: 48.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0xFF53B153),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Golos',
-                                  color: Colors.white,
-                                  useGoogleFonts: false,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                          context.pushNamed('HomePageCopy');
+                        },
+                        text: FFLocalizations.of(context).getText(
+                          'qdr5c66g' /* Сохранить изменения */,
                         ),
-                        borderRadius: BorderRadius.circular(12.0),
+                        options: FFButtonOptions(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: 48.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Color(0xFF53B153),
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Golos',
+                                    color: Colors.white,
+                                    useGoogleFonts: false,
+                                  ),
+                          elevation: 0.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ].addToStart(SizedBox(height: 30.0)),
+              ),
             ),
           ),
         ),

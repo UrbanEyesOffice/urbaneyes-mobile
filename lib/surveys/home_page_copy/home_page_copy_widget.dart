@@ -160,10 +160,12 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                         onTap: () async {
                           context.pushNamed('RewardsCopy');
                         },
-                        child: Icon(
-                          Icons.card_giftcard_rounded,
-                          color: Color(0xFF06112E),
-                          size: 24.0,
+                        child: Image.asset(
+                          'assets/images/free-icon-gift-box-1039714.png',
+                          width: 24.0,
+                          height: 24.0,
+                          fit: BoxFit.fitWidth,
+                          alignment: Alignment(0.00, 0.00),
                         ),
                       ),
                     ),
