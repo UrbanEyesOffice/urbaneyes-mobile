@@ -819,9 +819,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // RewardsCopy
   {
     '2u9jp27b': {
-      'ru': 'до следующей награды',
-      'en': 'until the next reward',
-      'ky': 'кийинки сыйлыкка чейин',
+      'ru': 'сейчас накоплено',
+      'en': 'now accumulated',
+      'ky': 'азыр топтолгон',
     },
     'v0w111ix': {
       'ru': 'Награды',

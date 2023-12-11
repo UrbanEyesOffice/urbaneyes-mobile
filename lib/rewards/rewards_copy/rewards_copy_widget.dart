@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/empty_collected_rewards_list/empty_collected_rewards_list_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -176,21 +177,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 alignment: AlignmentDirectional(-1.00, 0.00),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => Text(
-                                    '${valueOrDefault<String>(
-                                      (valueOrDefault<int>(
-                                                _model.filteredRewards
-                                                    ?.sortedList(
-                                                        (e) => e.pointsNeeded)
-                                                    ?.first
-                                                    ?.pointsNeeded,
-                                                0,
-                                              ) -
-                                              valueOrDefault(
-                                                  currentUserDocument?.score,
-                                                  0))
-                                          .toString(),
-                                      '0',
-                                    )}${FFLocalizations.of(context).getVariableText(
+                                    '${valueOrDefault(currentUserDocument?.score, 0).toString()}${FFLocalizations.of(context).getVariableText(
                                       ruText: 'баллов',
                                       enText: ' points',
                                       kyText: ' упай',
@@ -210,7 +197,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 alignment: AlignmentDirectional(-1.00, 0.00),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
-                                    '2u9jp27b' /* до следующей награды */,
+                                    '2u9jp27b' /* сейчас накоплено */,
                                   ),
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,
@@ -227,6 +214,12 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                   child: Builder(
                     builder: (context) {
                       final rewards = _model.pageRewards.toList();
+                      if (rewards.isEmpty) {
+                        return Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          child: EmptyCollectedRewardsListWidget(),
+                        );
+                      }
                       return SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
