@@ -256,8 +256,8 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                           fontSize: 16.0,
                           useGoogleFonts: false,
                         ),
-                    maxLines: null,
-                    minLines: 10,
+                    maxLines: 10,
+                    minLines: 1,
                     validator: _model.nicknameCreateController2Validator
                         .asValidator(context),
                   ),

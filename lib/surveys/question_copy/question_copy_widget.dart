@@ -531,6 +531,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                         useGoogleFonts: false,
                                       ),
                                   maxLines: null,
+                                  minLines: 1,
                                   validator: _model.commentControllerValidator
                                       .asValidator(context),
                                 ),

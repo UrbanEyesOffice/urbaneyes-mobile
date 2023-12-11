@@ -834,6 +834,24 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': '',
     },
   },
+  // RewardsCopyCopy
+  {
+    'uc1qwk7c': {
+      'ru': 'сейчас накоплено',
+      'en': 'now accumulated',
+      'ky': 'азыр топтолгон',
+    },
+    '0jzic4da': {
+      'ru': 'Награды',
+      'en': 'Rewards',
+      'ky': 'Сыйлыктар',
+    },
+    '0jr5k3x8': {
+      'ru': 'Home',
+      'en': '',
+      'ky': '',
+    },
+  },
   // EmptyCollectedRewardsList
   {
     'p4bsixoc': {

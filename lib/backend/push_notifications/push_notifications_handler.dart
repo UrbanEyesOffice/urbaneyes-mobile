@@ -182,6 +182,7 @@ final parametersBuilderMap =
   'RewardsPage': ParameterData.none(),
   'CollectedRewards': ParameterData.none(),
   'RewardsCopy': ParameterData.none(),
+  'RewardsCopyCopy': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

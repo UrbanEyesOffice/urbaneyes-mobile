@@ -176,7 +176,9 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                     ),
                   ),
                 ),
-              ].divide(SizedBox(height: 16.0)),
+              ]
+                  .divide(SizedBox(height: 16.0))
+                  .addToStart(SizedBox(height: 32.0)),
             ),
           ),
         ),

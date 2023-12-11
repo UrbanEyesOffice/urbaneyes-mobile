@@ -229,13 +229,12 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                             final rewardsItem = rewards[rewardsIndex];
                             return Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
-                              height: 80.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                               ),
                               child: Row(
-                                mainAxisSize: MainAxisSize.max,
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Align(
                                     alignment:
@@ -286,9 +285,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 0.0, 0.0, 0.0),
+                                  Expanded(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment:
@@ -318,7 +315,8 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 6.0),
-                                          child: Text(
+                                          child: SelectionArea(
+                                              child: Text(
                                             FFLocalizations.of(context)
                                                 .getVariableText(
                                               ruText:
@@ -336,7 +334,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                                   fontWeight: FontWeight.bold,
                                                   useGoogleFonts: false,
                                                 ),
-                                          ),
+                                          )),
                                         ),
                                         AuthUserStreamWidget(
                                           builder: (context) => InkWell(
@@ -505,7 +503,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                       ],
                                     ),
                                   ),
-                                ],
+                                ].divide(SizedBox(width: 16.0)),
                               ),
                             );
                           }).divide(SizedBox(height: 16.0)),

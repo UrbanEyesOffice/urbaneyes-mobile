@@ -156,7 +156,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
                     ),
                   ),
                 ),
-              ],
+              ].addToStart(SizedBox(height: 32.0)),
             ),
           ),
         ),

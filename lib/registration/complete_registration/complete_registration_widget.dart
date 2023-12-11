@@ -168,7 +168,7 @@ class _CompleteRegistrationWidgetState
                     ),
                   ),
                 ),
-              ],
+              ].addToStart(SizedBox(height: 32.0)),
             ),
           ),
         ),
