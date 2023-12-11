@@ -253,11 +253,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'RewardsCopy',
           path: '/rewardsCopy',
           builder: (context, params) => RewardsCopyWidget(),
-        ),
-        FFRoute(
-          name: 'RewardsCopyCopy',
-          path: '/rewardsCopyCopy',
-          builder: (context, params) => RewardsCopyCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

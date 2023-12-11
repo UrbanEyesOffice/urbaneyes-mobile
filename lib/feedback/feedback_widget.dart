@@ -199,7 +199,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: FFLocalizations.of(context).getText(
-                        'eqalrq06' /*  */,
+                        'eqalrq06' /* Что бы вы хотели добавить/улуч... */,
                       ),
                       labelStyle:
                           FlutterFlowTheme.of(context).bodySmall.override(
@@ -207,17 +207,10 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                                 fontSize: 16.0,
                                 useGoogleFonts: false,
                               ),
+                      alignLabelWithHint: false,
                       hintText: FFLocalizations.of(context).getText(
-                        'kvl68h75' /* Что бы вы хотели добавить/улуч... */,
+                        'kvl68h75' /*  */,
                       ),
-                      hintStyle: FlutterFlowTheme.of(context)
-                          .bodyMedium
-                          .override(
-                            fontFamily: 'Inter',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: 16.0,
-                            useGoogleFonts: false,
-                          ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0xFFA9ABAF),
