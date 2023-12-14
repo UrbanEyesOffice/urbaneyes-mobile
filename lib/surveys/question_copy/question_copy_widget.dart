@@ -60,6 +60,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
       if (widget.location != null) {
         _model.addressOnLoad = await actions.getAddressFromLatLngGoogleMaps(
           widget.location,
+          FFLocalizations.of(context).languageCode,
         );
         setState(() {
           _model.locationAddress = _model.addressOnLoad;
@@ -69,6 +70,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
           _model.lastMapPointAddress =
               await actions.getAddressFromLatLngGoogleMaps(
             FFAppState().lastMapPoint,
+            FFLocalizations.of(context).languageCode,
           );
           setState(() {
             _model.locationAddress = _model.lastMapPointAddress;

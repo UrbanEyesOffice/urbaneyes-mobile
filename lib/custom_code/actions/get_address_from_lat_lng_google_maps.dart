@@ -13,7 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:location_geocoder/location_geocoder.dart';
 import 'dart:async';
 
-Future<String?> getAddressFromLatLngGoogleMaps(LatLng? position) async {
+Future<String?> getAddressFromLatLngGoogleMaps(
+    LatLng? position, String? lang) async {
   var completer = new Completer<String?>();
 
   if (position == null) {
@@ -22,7 +23,7 @@ Future<String?> getAddressFromLatLngGoogleMaps(LatLng? position) async {
   }
 
   final LocatitonGeocoder geocoder =
-      LocatitonGeocoder('AIzaSyC_dBFkadV44P88crfLTN4ymc4mHRzVzfY');
+      LocatitonGeocoder('AIzaSyC_dBFkadV44P88crfLTN4ymc4mHRzVzfY', lang: lang);
   await geocoder
       .findAddressesFromCoordinates(
           Coordinates(position.latitude, position.longitude))

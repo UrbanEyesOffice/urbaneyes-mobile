@@ -118,6 +118,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
 
       _model.locationName = await actions.getAddressFromLatLngGoogleMaps(
         _model.googleMapsCenter,
+        FFLocalizations.of(context).languageCode,
       );
       setState(() {
         _model.locationAddress = _model.locationAddress;
@@ -322,6 +323,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                     _model.location = await actions
                                         .getAddressFromLatLngGoogleMaps(
                                       _model.googleMapsCenter,
+                                      FFLocalizations.of(context).languageCode,
                                     );
                                     _model.locationAddress = _model.location;
 
