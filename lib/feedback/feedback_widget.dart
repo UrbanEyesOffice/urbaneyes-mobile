@@ -201,12 +201,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                       labelText: FFLocalizations.of(context).getText(
                         'eqalrq06' /* Что бы вы хотели добавить/улуч... */,
                       ),
-                      labelStyle:
-                          FlutterFlowTheme.of(context).bodySmall.override(
-                                fontFamily: 'Inter',
-                                fontSize: 16.0,
-                                useGoogleFonts: false,
-                              ),
+                      labelStyle: FlutterFlowTheme.of(context).bodySmall,
                       alignLabelWithHint: false,
                       hintText: FFLocalizations.of(context).getText(
                         'kvl68h75' /*  */,

@@ -131,7 +131,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
                         onPressed: () async {
                           await currentUserReference!
                               .update(createUsersRecordData(
-                            isNotFirstLogin: false,
+                            isNotFirstLogin: true,
                           ));
 
                           context.goNamed('HomePageCopy');

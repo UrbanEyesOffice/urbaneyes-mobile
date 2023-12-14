@@ -321,6 +321,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 email: _model.emailCreateController.text,
                                 createdTime: getCurrentTimestamp,
                                 isAdmin: false,
+                                isNotFirstLogin: false,
                               ));
 
                           await authManager.sendEmailVerification();
