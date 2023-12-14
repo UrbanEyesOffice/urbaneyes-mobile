@@ -111,7 +111,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                     ),
                     Expanded(
                       child: Align(
-                        alignment: AlignmentDirectional(1.00, 0.00),
+                        alignment: AlignmentDirectional(1.0, 0.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 10.0, 0.0),
@@ -133,7 +133,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(1.00, 0.00),
+                      alignment: AlignmentDirectional(1.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -165,7 +165,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                           width: 24.0,
                           height: 24.0,
                           fit: BoxFit.fitWidth,
-                          alignment: Alignment(0.00, 0.00),
+                          alignment: Alignment(0.0, 0.0),
                         ),
                       ),
                     ),
@@ -219,10 +219,9 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                               ),
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 16.0, 16.0, 16.0),
+                                padding: EdgeInsets.all(16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment:
@@ -235,8 +234,8 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Align(
-                                          alignment: AlignmentDirectional(
-                                              -1.00, -1.00),
+                                          alignment:
+                                              AlignmentDirectional(-1.0, -1.0),
                                           child: Text(
                                             FFLocalizations.of(context)
                                                 .getVariableText(
@@ -264,7 +263,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.00, -1.00),
+                                              AlignmentDirectional(0.0, -1.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             crossAxisAlignment:
@@ -298,8 +297,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                       ].divide(SizedBox(height: 12.0)),
                                     ),
                                     Align(
-                                      alignment:
-                                          AlignmentDirectional(0.00, 1.00),
+                                      alignment: AlignmentDirectional(0.0, 1.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           context.pushNamed(
@@ -332,9 +330,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                               MediaQuery.sizeOf(context).width *
                                                   1.0,
                                           height: 48.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
+                                          padding: EdgeInsets.all(0.0),
                                           iconPadding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),

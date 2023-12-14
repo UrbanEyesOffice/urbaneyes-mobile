@@ -81,7 +81,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
             },
           ),
           title: Align(
-            alignment: AlignmentDirectional(-1.00, 0.00),
+            alignment: AlignmentDirectional(-1.0, 0.0),
             child: Text(
               FFLocalizations.of(context).getText(
                 'akh99pls' /* Просмотр */,
@@ -104,10 +104,9 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 30.0),
+                  padding: EdgeInsets.all(30.0),
                   child: Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
@@ -117,17 +116,16 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                         color: Color(0xFFE5F5E4),
                       ),
                     ),
-                    alignment: AlignmentDirectional(0.00, -1.00),
+                    alignment: AlignmentDirectional(0.0, -1.0),
                     child: Align(
-                      alignment: AlignmentDirectional(0.00, -1.00),
+                      alignment: AlignmentDirectional(0.0, -1.0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 16.0),
+                        padding: EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(-1.00, 0.00),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: Text(
                                 dateTimeFormat(
                                   'd/M/y',
@@ -139,7 +137,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-1.00, -1.00),
+                              alignment: AlignmentDirectional(-1.0, -1.0),
                               child: Text(
                                 FFLocalizations.of(context).getVariableText(
                                   ruText: widget.reward?.rewardName,
@@ -157,7 +155,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-1.00, -1.00),
+                              alignment: AlignmentDirectional(-1.0, -1.0),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
@@ -224,8 +222,8 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                                         ),
                                         Expanded(
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                1.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(1.0, 0.0),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(

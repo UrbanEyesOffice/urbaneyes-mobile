@@ -102,7 +102,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
             },
           ),
           title: Align(
-            alignment: AlignmentDirectional(-1.00, 0.00),
+            alignment: AlignmentDirectional(-1.0, 0.0),
             child: Text(
               FFLocalizations.of(context).getText(
                 'v0w111ix' /* Награды */,
@@ -152,8 +152,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                     ),
                   ),
                   child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -174,7 +173,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(-1.00, 0.00),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => Text(
                                     '${valueOrDefault(currentUserDocument?.score, 0).toString()}${FFLocalizations.of(context).getVariableText(
@@ -194,7 +193,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(-1.00, 0.00),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     '2u9jp27b' /* сейчас накоплено */,
@@ -237,8 +236,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Align(
-                                    alignment:
-                                        AlignmentDirectional(-1.00, 0.00),
+                                    alignment: AlignmentDirectional(-1.0, 0.0),
                                     child: AuthUserStreamWidget(
                                       builder: (context) =>
                                           CircularPercentIndicator(

@@ -178,7 +178,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                 },
               ),
               title: Align(
-                alignment: AlignmentDirectional(-1.00, 0.00),
+                alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Text(
                   FFLocalizations.of(context).getVariableText(
                     ruText: widget.survey?.name,
@@ -229,7 +229,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                       scrollDirection: Axis.vertical,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.00, 0.00),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 30.0, 0.0, 20.0),
@@ -430,9 +430,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                     .width *
                                                 1.0,
                                             height: 48.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
+                                            padding: EdgeInsets.all(0.0),
                                             iconPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
@@ -463,7 +461,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                           ],
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 1.00),
+                          alignment: AlignmentDirectional(0.0, 1.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -541,7 +539,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                   (_model.locationAddress != null &&
                                       _model.locationAddress != ''))
                                 Align(
-                                  alignment: AlignmentDirectional(0.00, 1.00),
+                                  alignment: AlignmentDirectional(0.0, 1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 12.0),
@@ -555,7 +553,7 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                       ),
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(0.00, 0.00),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(

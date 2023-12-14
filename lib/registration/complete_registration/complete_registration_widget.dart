@@ -66,7 +66,7 @@ class _CompleteRegistrationWidgetState
               mainAxisSize: MainAxisSize.max,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
+                  alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
@@ -87,7 +87,7 @@ class _CompleteRegistrationWidgetState
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
+                  alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(30.0, 16.0, 30.0, 0.0),
@@ -114,7 +114,7 @@ class _CompleteRegistrationWidgetState
                 ),
                 Expanded(
                   child: Align(
-                    alignment: AlignmentDirectional(-1.00, 1.00),
+                    alignment: AlignmentDirectional(-1.0, 1.0),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(30.0, 16.0, 30.0, 0.0),
@@ -133,7 +133,7 @@ class _CompleteRegistrationWidgetState
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.00, 1.00),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(30.0, 20.0, 30.0, 30.0),
@@ -147,8 +147,7 @@ class _CompleteRegistrationWidgetState
                       options: FFButtonOptions(
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         height: 48.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        padding: EdgeInsets.all(0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: Color(0xFF53B153),

@@ -83,7 +83,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
             children: [
               Expanded(
                 child: Align(
-                  alignment: AlignmentDirectional(0.00, -1.00),
+                  alignment: AlignmentDirectional(0.0, -1.0),
                   child: StreamBuilder<List<QuestionRecord>>(
                     stream: queryQuestionRecord(),
                     builder: (context, snapshot) {
@@ -203,7 +203,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-1.00, 1.00),
+                                            AlignmentDirectional(-1.0, 1.0),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -219,8 +219,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                             options: FFButtonOptions(
                                               width: 300.0,
                                               height: 40.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              padding: EdgeInsets.all(0.0),
                                               iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color: Color(0xFFB5B5B5),
@@ -248,7 +247,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(1.00, -1.00),
+                                            AlignmentDirectional(1.0, -1.0),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -280,7 +279,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-1.00, 0.00),
+                                            AlignmentDirectional(-1.0, 0.0),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -293,7 +292,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                             ),
                                             child: Align(
                                               alignment: AlignmentDirectional(
-                                                  0.00, 0.00),
+                                                  0.0, 0.0),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(

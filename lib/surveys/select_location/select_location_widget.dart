@@ -199,12 +199,12 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(0.00, 1.00),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: Stack(
                   alignment: AlignmentDirectional(0.0, 1.0),
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.00, 1.00),
+                      alignment: AlignmentDirectional(0.0, 1.0),
                       child: Container(
                         width: double.infinity,
                         height: MediaQuery.sizeOf(context).height * 0.8,
@@ -212,7 +212,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                         child: Stack(
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: FlutterFlowGoogleMap(
                                 controller: _model.googleMapsController,
                                 onCameraIdle: (latLng) => setState(
@@ -244,7 +244,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: PointerInterceptor(
                                 intercepting: isWeb,
                                 child: Padding(
@@ -271,7 +271,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.00, 1.00),
+                          alignment: AlignmentDirectional(0.0, 1.0),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 24.0),
@@ -281,7 +281,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                 if (_model.locationAddress != null &&
                                     _model.locationAddress != '')
                                   Align(
-                                    alignment: AlignmentDirectional(0.00, 1.00),
+                                    alignment: AlignmentDirectional(0.0, 1.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(30.0),
                                       child: Container(
@@ -293,7 +293,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                         ),
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(0.00, 0.00),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -334,8 +334,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                     width:
                                         MediaQuery.sizeOf(context).width * 1.0,
                                     height: 48.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsets.all(0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: Color(0xFFCEEFCD),
@@ -460,8 +459,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                       width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       height: 48.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsets.all(0.0),
                                       iconPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),

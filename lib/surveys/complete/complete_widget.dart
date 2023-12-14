@@ -110,7 +110,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
             },
           ),
           title: Align(
-            alignment: AlignmentDirectional(-1.00, 0.00),
+            alignment: AlignmentDirectional(-1.0, 0.0),
             child: Text(
               FFLocalizations.of(context).getVariableText(
                 ruText: widget.survey?.name,
@@ -136,7 +136,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
             scrollDirection: Axis.vertical,
             children: [
               Align(
-                alignment: AlignmentDirectional(0.00, -1.00),
+                alignment: AlignmentDirectional(0.0, -1.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -166,7 +166,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.00, 0.00),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Icon(
                             Icons.bolt,
                             color: Color(0xFF53B153),
@@ -174,7 +174,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: AuthUserStreamWidget(
                             builder: (context) => Text(
                               valueOrDefault(currentUserDocument?.score, 0)
@@ -191,12 +191,12 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(1.00, 0.00),
+                          alignment: AlignmentDirectional(1.0, 0.0),
                           child: Container(
                             height: 110.0,
                             decoration: BoxDecoration(),
                             child: Align(
-                              alignment: AlignmentDirectional(1.00, -1.00),
+                              alignment: AlignmentDirectional(1.0, -1.0),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 10.0, 0.0),
@@ -207,7 +207,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                   children: [
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(0.00, -1.00),
+                                          AlignmentDirectional(0.0, -1.0),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 5.0, 0.0, 0.0),
@@ -219,10 +219,10 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                                 BorderRadius.circular(20.0),
                                           ),
                                           alignment:
-                                              AlignmentDirectional(0.00, 0.00),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(7.0, 0.0, 7.0, 0.0),
@@ -267,7 +267,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                 true,
               ))
                 Align(
-                  alignment: AlignmentDirectional(0.00, 1.00),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
@@ -285,14 +285,13 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 20.0, 20.0, 20.0),
+                        padding: EdgeInsets.all(20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(-1.00, -1.00),
+                              alignment: AlignmentDirectional(-1.0, -1.0),
                               child: Text(
                                 FFLocalizations.of(context).getText(
                                   '3349nkpy' /* Оценки от других горожан на ка... */,
@@ -309,13 +308,13 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-1.00, -1.00),
+                              alignment: AlignmentDirectional(-1.0, -1.0),
                               child: Container(
                                 width: 203.0,
                                 height: 100.0,
                                 decoration: BoxDecoration(),
                                 child: Align(
-                                  alignment: AlignmentDirectional(-1.00, -1.00),
+                                  alignment: AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
                                       'aa8w9qnd' /* Мы собрали результаты опросов ... */,
@@ -335,7 +334,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                             ),
                             Flexible(
                               child: Align(
-                                alignment: AlignmentDirectional(0.00, 1.00),
+                                alignment: AlignmentDirectional(0.0, 1.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -450,7 +449,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                   ),
                 ),
               Align(
-                alignment: AlignmentDirectional(0.00, 1.00),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   child: FFButtonWidget(
@@ -471,8 +470,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                     options: FFButtonOptions(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 48.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: EdgeInsets.all(0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: Color(0xFFCEEFCD),
@@ -508,8 +506,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                     options: FFButtonOptions(
                       width: 330.0,
                       height: 48.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: EdgeInsets.all(0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: Color(0xFF53B153),

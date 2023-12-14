@@ -110,7 +110,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
             },
           ),
           title: Align(
-            alignment: AlignmentDirectional(-1.00, 0.00),
+            alignment: AlignmentDirectional(-1.0, 0.0),
             child: Text(
               FFLocalizations.of(context).getText(
                 'je6fqy4w' /* Полученные промокоды */,
@@ -150,7 +150,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Container(
                               width: 50.0,
                               decoration: BoxDecoration(
