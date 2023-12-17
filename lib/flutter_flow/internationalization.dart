@@ -191,6 +191,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Save changes',
       'ky': 'Өзгөрүүлөрдү сактоо',
     },
+    'crlfku7o': {
+      'ru': 'Выйти',
+      'en': 'Logout',
+      'ky': 'Чыгуу',
+    },
     'ss8ftfo0': {
       'ru': 'Настройки',
       'en': 'Edit profile',

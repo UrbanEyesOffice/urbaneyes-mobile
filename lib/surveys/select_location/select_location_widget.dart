@@ -74,24 +74,25 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
           await requestPermission(locationPermission);
         }(),
       );
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            FFLocalizations.of(context).getVariableText(
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return AlertDialog(
+            content: Text(FFLocalizations.of(context).getVariableText(
               ruText:
                   'Отметьте свою геолокацию для точных результатов опроса 📍',
               enText: 'Mark your geolocation for accurate survey results 📍',
               kyText:
                   'Сурамжылоонун так натыйжалары үчүн геолокацияңызды белгилеңиз 📍',
-            ),
-            style: TextStyle(
-              color: FlutterFlowTheme.of(context).primaryText,
-            ),
-          ),
-          duration: Duration(milliseconds: 6000),
-          backgroundColor: FlutterFlowTheme.of(context).secondary,
-        ),
+            )),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
       );
       if (!functions.isLatLongEqualNull(FFAppState().lastMapPoint)!) {
         if (functions.isTheSamePositionBool(

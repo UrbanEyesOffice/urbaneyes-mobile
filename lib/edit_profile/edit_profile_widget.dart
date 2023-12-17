@@ -12,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'edit_profile_model.dart';
@@ -134,17 +135,55 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               borderRadius: 20.0,
               borderWidth: 1.0,
               buttonSize: 40.0,
-              icon: Icon(
-                Icons.logout,
-                color: FlutterFlowTheme.of(context).primaryText,
+              icon: FaIcon(
+                FontAwesomeIcons.trash,
+                color: FlutterFlowTheme.of(context).error,
                 size: 24.0,
               ),
               onPressed: () async {
-                GoRouter.of(context).prepareAuthEvent();
-                await authManager.signOut();
-                GoRouter.of(context).clearRedirectLocation();
+                var confirmDialogResponse = await showDialog<bool>(
+                      context: context,
+                      builder: (alertDialogContext) {
+                        return AlertDialog(
+                          content:
+                              Text(FFLocalizations.of(context).getVariableText(
+                            ruText:
+                                'Вы уверены, что хотите удалить свой профиль?',
+                            enText:
+                                'Are you sure you want to delete your profile?',
+                            kyText: 'Профилиңизди чын эле жок кылгыңыз келеби?',
+                          )),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext, false),
+                              child: Text(
+                                  FFLocalizations.of(context).getVariableText(
+                                ruText: 'Остаться в приложении',
+                                enText: ' Stay in the app',
+                                kyText: 'Колдонмодо калыңыз',
+                              )),
+                            ),
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext, true),
+                              child: Text(
+                                  FFLocalizations.of(context).getVariableText(
+                                ruText: 'Да',
+                                enText: 'Yes',
+                                kyText: 'Ооба',
+                              )),
+                            ),
+                          ],
+                        );
+                      },
+                    ) ??
+                    false;
+                if (confirmDialogResponse) {
+                  await authManager.deleteUser(context);
+                }
 
-                context.goNamedAuth('MainAuth', context.mounted);
+                context.goNamedAuth('HomePageCopy', context.mounted);
               },
             ),
           ],
@@ -600,7 +639,85 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ),
                     ),
                   ),
-                ].addToStart(SizedBox(height: 30.0)),
+                  Align(
+                    alignment: AlignmentDirectional(0.0, 1.0),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          var confirmDialogResponse = await showDialog<bool>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    content: Text(FFLocalizations.of(context)
+                                        .getVariableText(
+                                      ruText: 'Вы уверены, что хотите выйти?',
+                                      enText:
+                                          'Are you sure you want to logout?',
+                                      kyText: 'Чын эле чыгасызбы?',
+                                    )),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, false),
+                                        child: Text(FFLocalizations.of(context)
+                                            .getVariableText(
+                                          ruText: 'Остаться в приложении',
+                                          enText: ' Stay in the app',
+                                          kyText: 'Колдонмодо калыңыз',
+                                        )),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, true),
+                                        child: Text(FFLocalizations.of(context)
+                                            .getVariableText(
+                                          ruText: 'Да',
+                                          enText: 'Yes',
+                                          kyText: 'Ооба',
+                                        )),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ) ??
+                              false;
+                          if (confirmDialogResponse) {
+                            GoRouter.of(context).prepareAuthEvent();
+                            await authManager.signOut();
+                            GoRouter.of(context).clearRedirectLocation();
+                          }
+
+                          context.goNamedAuth('MainAuth', context.mounted);
+                        },
+                        text: FFLocalizations.of(context).getText(
+                          'crlfku7o' /* Выйти */,
+                        ),
+                        options: FFButtonOptions(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: 48.0,
+                          padding: EdgeInsets.all(0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Color(0xFFCEEFCD),
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Golos',
+                                    color: Color(0xFF0A8D09),
+                                    useGoogleFonts: false,
+                                  ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ].addToStart(SizedBox(height: 32.0)),
               ),
             ),
           ),
