@@ -432,16 +432,22 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   builder: (context) => Text(
                                     valueOrDefault<String>(
                                       () {
-                                        if (currentUserDocument?.dateOfBirth !=
+                                        if (_model.datePicked != null) {
+                                          return functions
+                                              .returnDate(_model.datePicked!);
+                                        } else if (currentUserDocument
+                                                ?.dateOfBirth !=
                                             null) {
                                           return functions.returnDate(
                                               currentUserDocument!
                                                   .dateOfBirth!);
-                                        } else if (_model.datePicked == null) {
-                                          return 'Выберите дату';
                                         } else {
-                                          return functions
-                                              .returnDate(_model.datePicked!);
+                                          return FFLocalizations.of(context)
+                                              .getVariableText(
+                                            ruText: 'Выберите дату',
+                                            enText: 'Choose date',
+                                            kyText: 'Туулган күндү тандаңыз',
+                                          );
                                         }
                                       }(),
                                       'Выберите дату',
