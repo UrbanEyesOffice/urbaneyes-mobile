@@ -249,8 +249,9 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     validator: _model.nicknameCreateController2Validator
                         .asValidator(context),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if ((_model.nicknameCreateController1.text != null &&

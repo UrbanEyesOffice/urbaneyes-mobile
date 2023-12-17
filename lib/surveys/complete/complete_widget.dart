@@ -60,6 +60,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
             .orderBy('points_needed'),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
+      FFAppState().lastMapPoint = null;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));

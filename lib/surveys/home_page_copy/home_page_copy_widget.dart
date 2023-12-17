@@ -160,12 +160,23 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                         onTap: () async {
                           context.pushNamed('RewardsCopy');
                         },
-                        child: Image.asset(
-                          'assets/images/free-icon-gift-box-1039714.png',
-                          width: 24.0,
-                          height: 24.0,
-                          fit: BoxFit.fitWidth,
-                          alignment: Alignment(0.0, 0.0),
+                        child: Container(
+                          constraints: BoxConstraints(
+                            maxWidth: 24.0,
+                            maxHeight: 24.0,
+                          ),
+                          decoration: BoxDecoration(),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                1.0, 1.0, 1.0, 1.0),
+                            child: Image.asset(
+                              'assets/images/free-icon-gift-box-1039714.png',
+                              width: 24.0,
+                              height: 24.0,
+                              fit: BoxFit.fitWidth,
+                              alignment: Alignment(0.0, 0.0),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -364,7 +375,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                   },
                 ),
               ),
-            ].addToStart(SizedBox(height: 50.0)),
+            ].addToStart(SizedBox(height: 32.0)),
           ),
         ),
       ),

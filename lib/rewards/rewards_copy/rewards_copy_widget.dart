@@ -129,6 +129,18 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                 context.pushNamed('CollectedRewards');
               },
             ),
+            FlutterFlowIconButton(
+              borderWidth: 0.0,
+              buttonSize: 40.0,
+              icon: Icon(
+                Icons.info_outline,
+                color: FlutterFlowTheme.of(context).primaryText,
+                size: 24.0,
+              ),
+              onPressed: () async {
+                await launchURL('http://urbaneyes.tilda.ws/promopolicy');
+              },
+            ),
           ],
           centerTitle: true,
           elevation: 0.0,
@@ -176,7 +188,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => Text(
-                                    '${valueOrDefault(currentUserDocument?.score, 0).toString()}${FFLocalizations.of(context).getVariableText(
+                                    '${valueOrDefault(currentUserDocument?.score, 0).toString()} ${FFLocalizations.of(context).getVariableText(
                                       ruText: 'баллов',
                                       enText: ' points',
                                       kyText: ' упай',
@@ -196,7 +208,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
-                                    '2u9jp27b' /* сейчас накоплено */,
+                                    '2u9jp27b' /* накоплено */,
                                   ),
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,

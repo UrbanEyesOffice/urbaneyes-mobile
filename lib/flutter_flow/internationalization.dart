@@ -480,8 +480,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   {
     '0sk7mlan': {
       'ru': 'Мы заботимся \nо конфиденциальности',
-      'en': 'We care\nabout confidentiality',
-      'ky': 'Биз кам көрөбүз\nкупуялуулук жөнүндө',
+      'en': 'We care about privacy',
+      'ky': 'Биз жеке маалымат жөнүндө кам көрөбүз',
     },
     '8xh9n1sn': {
       'ru':
@@ -819,9 +819,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // RewardsCopy
   {
     '2u9jp27b': {
-      'ru': 'сейчас накоплено',
-      'en': 'now accumulated',
-      'ky': 'азыр топтолгон',
+      'ru': 'накоплено',
+      'en': 'accumulated',
+      'ky': 'топтолгон',
     },
     'v0w111ix': {
       'ru': 'Награды',
