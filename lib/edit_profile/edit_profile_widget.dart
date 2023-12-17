@@ -159,9 +159,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   Navigator.pop(alertDialogContext, false),
                               child: Text(
                                   FFLocalizations.of(context).getVariableText(
-                                ruText: 'Остаться в приложении',
-                                enText: ' Stay in the app',
-                                kyText: 'Колдонмодо калыңыз',
+                                ruText: 'Нет',
+                                enText: 'No',
+                                kyText: 'Жок',
                               )),
                             ),
                             TextButton(
@@ -181,6 +181,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     false;
                 if (confirmDialogResponse) {
                   await authManager.deleteUser(context);
+                  return;
+                } else {
+                  return;
                 }
 
                 context.goNamedAuth('HomePageCopy', context.mounted);
@@ -646,7 +649,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          Function() _navigate = () {};
                           var confirmDialogResponse = await showDialog<bool>(
                                 context: context,
                                 builder: (alertDialogContext) {
@@ -689,26 +691,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             await authManager.signOut();
                             GoRouter.of(context).clearRedirectLocation();
 
-                            _navigate = () => context.goNamedAuth(
-                                'MainAuth', context.mounted);
+                            return;
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'test false',
-                                  style: TextStyle(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).secondary,
-                              ),
-                            );
+                            return;
                           }
 
-                          _navigate();
+                          context.goNamedAuth('MainAuth', context.mounted);
                         },
                         text: FFLocalizations.of(context).getText(
                           'crlfku7o' /* Выйти */,
