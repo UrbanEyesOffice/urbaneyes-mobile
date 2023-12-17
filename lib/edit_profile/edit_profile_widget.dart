@@ -181,7 +181,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     false;
                 if (confirmDialogResponse) {
                   await authManager.deleteUser(context);
-                  return;
                 } else {
                   return;
                 }
@@ -690,8 +689,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             GoRouter.of(context).prepareAuthEvent();
                             await authManager.signOut();
                             GoRouter.of(context).clearRedirectLocation();
-
-                            return;
                           } else {
                             return;
                           }
