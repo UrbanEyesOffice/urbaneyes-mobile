@@ -852,6 +852,24 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': 'Сурамжылоого катышып, упайларды алыңыз.',
     },
   },
+  // PrivacyBottomSheet
+  {
+    'fyn6s0hn': {
+      'ru': 'Политика конфиденциальности',
+      'en': 'Privacy Policy',
+      'ky': 'Купуялык саясаты',
+    },
+    '658o929i': {
+      'ru': 'Пользовательское соглашение',
+      'en': 'User agreement',
+      'ky': 'Пайдалануу шарттары',
+    },
+    'o1pvxft9': {
+      'ru': 'Закрыть',
+      'en': 'Close',
+      'ky': 'Жабуу',
+    },
+  },
   // Miscellaneous
   {
     'b183b2np': {

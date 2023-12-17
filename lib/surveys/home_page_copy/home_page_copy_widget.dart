@@ -151,7 +151,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -168,7 +168,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                           decoration: BoxDecoration(),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                1.0, 1.0, 1.0, 1.0),
+                                2.0, 2.0, 2.0, 2.0),
                             child: Image.asset(
                               'assets/images/free-icon-gift-box-1039714.png',
                               width: 24.0,

@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/privacy_bottom_sheet/privacy_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -118,16 +119,43 @@ class _CompleteRegistrationWidgetState
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(30.0, 16.0, 30.0, 0.0),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          '8xh9n1sn' /* Нажимая “Завершить регистрацию... */,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () => _model.unfocusNode.canRequestFocus
+                                    ? FocusScope.of(context)
+                                        .requestFocus(_model.unfocusNode)
+                                    : FocusScope.of(context).unfocus(),
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: PrivacyBottomSheetWidget(),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
+                        child: Text(
+                          FFLocalizations.of(context).getText(
+                            '8xh9n1sn' /* Нажимая “Завершить регистрацию... */,
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Golos',
+                                    color: Color(0xFF7B7F87),
+                                    fontSize: 12.0,
+                                    useGoogleFonts: false,
+                                  ),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Golos',
-                              color: Color(0xFF7B7F87),
-                              fontSize: 12.0,
-                              useGoogleFonts: false,
-                            ),
                       ),
                     ),
                   ),

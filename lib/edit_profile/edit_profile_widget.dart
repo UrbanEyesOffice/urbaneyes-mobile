@@ -137,8 +137,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               buttonSize: 40.0,
               icon: FaIcon(
                 FontAwesomeIcons.trash,
-                color: FlutterFlowTheme.of(context).error,
-                size: 24.0,
+                color: FlutterFlowTheme.of(context).secondaryText,
+                size: 20.0,
               ),
               onPressed: () async {
                 var confirmDialogResponse = await showDialog<bool>(

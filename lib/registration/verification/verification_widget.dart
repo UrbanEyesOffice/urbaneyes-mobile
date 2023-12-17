@@ -133,7 +133,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                           await Future.delayed(
                               const Duration(milliseconds: 3000));
                           if (currentUserEmailVerified) {
-                            context.goNamed('HomePageCopy');
+                            context.pushNamed('CualificatedSurvey');
                           } else {
                             await showDialog(
                               context: context,
