@@ -646,6 +646,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          Function() _navigate = () {};
                           var confirmDialogResponse = await showDialog<bool>(
                                 context: context,
                                 builder: (alertDialogContext) {
@@ -687,9 +688,27 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             GoRouter.of(context).prepareAuthEvent();
                             await authManager.signOut();
                             GoRouter.of(context).clearRedirectLocation();
+
+                            _navigate = () => context.goNamedAuth(
+                                'MainAuth', context.mounted);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'test false',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
                           }
 
-                          context.goNamedAuth('MainAuth', context.mounted);
+                          _navigate();
                         },
                         text: FFLocalizations.of(context).getText(
                           'crlfku7o' /* Выйти */,
