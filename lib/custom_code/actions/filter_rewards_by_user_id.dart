@@ -17,9 +17,12 @@ Future<List<RewardsRecord>> filterRewardsByUserId(
   DocumentReference userId,
 ) async {
   // Add your function code here!
-  var completer = new Completer<List<RewardsRecord>>();
-  final filteredRewards =
-      rewards.where((element) => !element.usedBy.contains(userId)).toList();
+  var completer = Completer<List<RewardsRecord>>();
+  final notEmptyRewards =
+      rewards.where((element) => element.unusedCodes.isNotEmpty);
+  final filteredRewards = notEmptyRewards
+      .where((element) => !element.usedBy.contains(userId))
+      .toList();
   completer.complete(filteredRewards);
   return completer.future;
 }
