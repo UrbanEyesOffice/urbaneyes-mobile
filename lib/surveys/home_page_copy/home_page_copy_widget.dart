@@ -208,7 +208,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                         0,
                         32.0,
                         0,
-                        0,
+                        32.0,
                       ),
                       scrollDirection: Axis.vertical,
                       itemCount: listViewSurveysRecordList.length,

@@ -249,267 +249,229 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 children: List.generate(rewards.length,
                                     (rewardsIndex) {
                                   final rewardsItem = rewards[rewardsIndex];
-                                  return Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
-                                          child: AuthUserStreamWidget(
-                                            builder: (context) =>
-                                                CircularPercentIndicator(
-                                              percent: () {
-                                                if (valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.score,
-                                                        0) <=
-                                                    rewardsItem.pointsNeeded) {
-                                                  return (valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.score,
-                                                              0)
-                                                          .toDouble() /
-                                                      rewardsItem.pointsNeeded
-                                                          .toDouble());
-                                                } else if (valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.score,
-                                                        0) >
-                                                    rewardsItem.pointsNeeded) {
-                                                  return 1.0;
-                                                } else {
-                                                  return 0.0;
-                                                }
-                                              }(),
-                                              radius: 25.0,
-                                              lineWidth: 4.0,
-                                              animation: true,
-                                              animateFromLastPercent: true,
-                                              progressColor: Color(0xFF53B153),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent4,
-                                              center: Text(
-                                                rewardsItem.pointsNeeded
-                                                    .toString(),
-                                                textAlign: TextAlign.center,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily: 'Golos',
-                                                          fontSize: 14.0,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 6.0),
-                                                child: Text(
-                                                  FFLocalizations.of(context)
-                                                      .getVariableText(
-                                                    ruText:
-                                                        rewardsItem.rewardName,
-                                                    enText: rewardsItem
-                                                        .rewardNameEn,
-                                                    kyText: rewardsItem
-                                                        .rewardNameKg,
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      if (rewardsItem.pointsNeeded <=
+                                          valueOrDefault(
+                                              currentUserDocument?.score, 0)) {
+                                        if (rewardsItem.hasCodes == true) {
+                                          var promocodesRecordReference =
+                                              PromocodesRecord.collection.doc();
+                                          await promocodesRecordReference
+                                              .set(createPromocodesRecordData(
+                                            code: rewardsItem.unusedCodes.first,
+                                            usedBy: currentUserReference,
+                                            usedDate: getCurrentTimestamp,
+                                            reward: rewardsItem.reference,
+                                          ));
+                                          _model.usedPromocode = PromocodesRecord
+                                              .getDocumentFromData(
+                                                  createPromocodesRecordData(
+                                                    code: rewardsItem
+                                                        .unusedCodes.first,
+                                                    usedBy:
+                                                        currentUserReference,
+                                                    usedDate:
+                                                        getCurrentTimestamp,
+                                                    reward:
+                                                        rewardsItem.reference,
                                                   ),
+                                                  promocodesRecordReference);
+
+                                          await rewardsItem.reference.update({
+                                            ...createRewardsRecordData(
+                                              hasCodes: rewardsItem
+                                                      .unusedCodes.length >
+                                                  1,
+                                            ),
+                                            ...mapToFirestore(
+                                              {
+                                                'unused_codes':
+                                                    FieldValue.arrayRemove([
+                                                  _model.usedPromocode?.code
+                                                ]),
+                                                'used_by':
+                                                    FieldValue.arrayUnion(
+                                                        [currentUserReference]),
+                                              },
+                                            ),
+                                          });
+
+                                          await currentUserReference!.update({
+                                            ...mapToFirestore(
+                                              {
+                                                'collected_rewards':
+                                                    FieldValue.arrayUnion([
+                                                  rewardsItem.reference
+                                                ]),
+                                              },
+                                            ),
+                                          });
+
+                                          await currentUserReference!
+                                              .update(createUsersRecordData(
+                                            score: valueOrDefault(
+                                                    currentUserDocument?.score,
+                                                    0) -
+                                                rewardsItem.pointsNeeded,
+                                          ));
+                                          setState(() {
+                                            _model.removeFromPageRewards(
+                                                rewardsItem);
+                                          });
+
+                                          context.pushNamed(
+                                            'ViewReward',
+                                            queryParameters: {
+                                              'reward': serializeParam(
+                                                rewardsItem,
+                                                ParamType.Document,
+                                              ),
+                                              'promocode': serializeParam(
+                                                _model.usedPromocode,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'reward': rewardsItem,
+                                              'promocode': _model.usedPromocode,
+                                            },
+                                          );
+                                        }
+                                      }
+
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-1.0, 0.0),
+                                            child: AuthUserStreamWidget(
+                                              builder: (context) =>
+                                                  CircularPercentIndicator(
+                                                percent: () {
+                                                  if (valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.score,
+                                                          0) <=
+                                                      rewardsItem
+                                                          .pointsNeeded) {
+                                                    return (valueOrDefault(
+                                                                currentUserDocument
+                                                                    ?.score,
+                                                                0)
+                                                            .toDouble() /
+                                                        rewardsItem.pointsNeeded
+                                                            .toDouble());
+                                                  } else if (valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.score,
+                                                          0) >
+                                                      rewardsItem
+                                                          .pointsNeeded) {
+                                                    return 1.0;
+                                                  } else {
+                                                    return 0.0;
+                                                  }
+                                                }(),
+                                                radius: 25.0,
+                                                lineWidth: 4.0,
+                                                animation: true,
+                                                animateFromLastPercent: true,
+                                                progressColor:
+                                                    Color(0xFF53B153),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
+                                                center: Text(
+                                                  rewardsItem.pointsNeeded
+                                                      .toString(),
+                                                  textAlign: TextAlign.center,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyMedium
+                                                      .headlineSmall
                                                       .override(
                                                         fontFamily: 'Golos',
-                                                        color:
-                                                            Color(0xFFA9ABAF),
+                                                        fontSize: 14.0,
                                                         useGoogleFonts: false,
                                                       ),
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 6.0),
-                                                child: SelectionArea(
-                                                    child: Text(
-                                                  FFLocalizations.of(context)
-                                                      .getVariableText(
-                                                    ruText: rewardsItem
-                                                        .rewardDescription,
-                                                    enText: rewardsItem
-                                                        .rewardDescriptionEn,
-                                                    kyText: rewardsItem
-                                                        .rewardDescriptionKg,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Gerbera',
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                )),
-                                              ),
-                                              AuthUserStreamWidget(
-                                                builder: (context) => InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    if (rewardsItem
-                                                            .pointsNeeded <=
-                                                        valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.score,
-                                                            0)) {
-                                                      if (rewardsItem
-                                                              .hasCodes ==
-                                                          true) {
-                                                        var promocodesRecordReference =
-                                                            PromocodesRecord
-                                                                .collection
-                                                                .doc();
-                                                        await promocodesRecordReference
-                                                            .set(
-                                                                createPromocodesRecordData(
-                                                          code: rewardsItem
-                                                              .unusedCodes
-                                                              .first,
-                                                          usedBy:
-                                                              currentUserReference,
-                                                          usedDate:
-                                                              getCurrentTimestamp,
-                                                          reward: rewardsItem
-                                                              .reference,
-                                                        ));
-                                                        _model.usedPromocode =
-                                                            PromocodesRecord
-                                                                .getDocumentFromData(
-                                                                    createPromocodesRecordData(
-                                                                      code: rewardsItem
-                                                                          .unusedCodes
-                                                                          .first,
-                                                                      usedBy:
-                                                                          currentUserReference,
-                                                                      usedDate:
-                                                                          getCurrentTimestamp,
-                                                                      reward: rewardsItem
-                                                                          .reference,
-                                                                    ),
-                                                                    promocodesRecordReference);
-
-                                                        await rewardsItem
-                                                            .reference
-                                                            .update({
-                                                          ...createRewardsRecordData(
-                                                            hasCodes: rewardsItem
-                                                                    .unusedCodes
-                                                                    .length >
-                                                                1,
-                                                          ),
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'unused_codes':
-                                                                  FieldValue
-                                                                      .arrayRemove([
-                                                                _model
-                                                                    .usedPromocode
-                                                                    ?.code
-                                                              ]),
-                                                              'used_by': FieldValue
-                                                                  .arrayUnion([
-                                                                currentUserReference
-                                                              ]),
-                                                            },
-                                                          ),
-                                                        });
-
-                                                        await currentUserReference!
-                                                            .update({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'collected_rewards':
-                                                                  FieldValue
-                                                                      .arrayUnion([
-                                                                rewardsItem
-                                                                    .reference
-                                                              ]),
-                                                            },
-                                                          ),
-                                                        });
-
-                                                        await currentUserReference!
-                                                            .update(
-                                                                createUsersRecordData(
-                                                          score: valueOrDefault(
-                                                                  currentUserDocument
-                                                                      ?.score,
-                                                                  0) -
-                                                              rewardsItem
-                                                                  .pointsNeeded,
-                                                        ));
-                                                        setState(() {
-                                                          _model
-                                                              .removeFromPageRewards(
-                                                                  rewardsItem);
-                                                        });
-
-                                                        context.pushNamed(
-                                                          'ViewReward',
-                                                          queryParameters: {
-                                                            'reward':
-                                                                serializeParam(
-                                                              rewardsItem,
-                                                              ParamType
-                                                                  .Document,
-                                                            ),
-                                                            'promocode':
-                                                                serializeParam(
-                                                              _model
-                                                                  .usedPromocode,
-                                                              ParamType
-                                                                  .Document,
-                                                            ),
-                                                          }.withoutNulls,
-                                                          extra: <String,
-                                                              dynamic>{
-                                                            'reward':
-                                                                rewardsItem,
-                                                            'promocode': _model
-                                                                .usedPromocode,
-                                                          },
-                                                        );
-                                                      }
-                                                    }
-
-                                                    setState(() {});
-                                                  },
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 6.0),
                                                   child: Text(
+                                                    FFLocalizations.of(context)
+                                                        .getVariableText(
+                                                      ruText: rewardsItem
+                                                          .rewardName,
+                                                      enText: rewardsItem
+                                                          .rewardNameEn,
+                                                      kyText: rewardsItem
+                                                          .rewardNameKg,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Golos',
+                                                          color:
+                                                              Color(0xFFA9ABAF),
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 6.0),
+                                                  child: SelectionArea(
+                                                      child: Text(
+                                                    FFLocalizations.of(context)
+                                                        .getVariableText(
+                                                      ruText: rewardsItem
+                                                          .rewardDescription,
+                                                      enText: rewardsItem
+                                                          .rewardDescriptionEn,
+                                                      kyText: rewardsItem
+                                                          .rewardDescriptionKg,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Gerbera',
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  )),
+                                                ),
+                                                AuthUserStreamWidget(
+                                                  builder: (context) => Text(
                                                     rewardsItem.pointsNeeded >
                                                             valueOrDefault(
                                                                 currentUserDocument
@@ -554,11 +516,11 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                                         ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ].divide(SizedBox(width: 16.0)),
+                                        ].divide(SizedBox(width: 16.0)),
+                                      ),
                                     ),
                                   );
                                 }).divide(SizedBox(height: 16.0)),

@@ -36,7 +36,7 @@ class RewardsCopyModel extends FlutterFlowModel<RewardsCopyWidget> {
   List<RewardsRecord>? loadedRewards;
   // Stores action output result for [Custom Action - filterRewardsByUserId] action in RewardsCopy widget.
   List<RewardsRecord>? filteredRewards;
-  // Stores action output result for [Backend Call - Create Document] action in Text widget.
+  // Stores action output result for [Backend Call - Create Document] action in Container widget.
   PromocodesRecord? usedPromocode;
 
   /// Initialization and disposal methods.
