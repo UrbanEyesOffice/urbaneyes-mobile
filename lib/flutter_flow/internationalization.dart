@@ -488,13 +488,30 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'We care about privacy',
       'ky': 'Биз жеке маалымат жөнүндө кам көрөбүз',
     },
-    '8xh9n1sn': {
-      'ru':
-          'Нажимая “Завершить регистрацию”, вы соглашаетесь с политикой конфиденциальности и пользовательским соглашением сервиса.',
-      'en':
-          'By clicking \"Complete registration\" you agree with the privacy policy and user agreement of the service.',
-      'ky':
-          '\"Каттоону аяктоо\" баскычын басуу менен сиз кызматтын купуялык саясаты жана колдонуучу келишими менен макул болосуз.',
+    'kxb29fbg': {
+      'ru': 'Нажимая “Завершить регистрацию”, вы соглашаетесь с ',
+      'en': 'By clicking \"Complete registration\" you agree with ',
+      'ky': '\"Каттоону аяктоо\" баскычын басуу менен сиз кызматтын ',
+    },
+    '8k8ft00r': {
+      'ru': 'политикой конфиденциальности',
+      'en': 'privacy policy',
+      'ky': 'купуялык саясаты',
+    },
+    'mtg8f6ke': {
+      'ru': ' и  ',
+      'en': ' and ',
+      'ky': ' жана ',
+    },
+    'uxhsgpxc': {
+      'ru': 'пользовательским соглашением',
+      'en': 'user agreement',
+      'ky': 'колдонуучу келишими',
+    },
+    'nq7aftly': {
+      'ru': ' сервиса.',
+      'en': ' of the service.',
+      'ky': ' менен макул болосуз.',
     },
     'rzmjj5t4': {
       'ru': 'Завершить регистрацию',

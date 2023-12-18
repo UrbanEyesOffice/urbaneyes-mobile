@@ -166,7 +166,6 @@ final parametersBuilderMap =
           'titleEn': getParameter<String>(data, 'titleEn'),
           'comment': getParameter<String>(data, 'comment'),
           'questionCount': getParameter<int>(data, 'questionCount'),
-          'question': getParameter<String>(data, 'question'),
           'onlyLocation': getParameter<bool>(data, 'onlyLocation'),
         },
       ),

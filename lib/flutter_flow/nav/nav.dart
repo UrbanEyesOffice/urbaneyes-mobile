@@ -218,7 +218,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             titleEn: params.getParam('titleEn', ParamType.String),
             comment: params.getParam('comment', ParamType.String),
             questionCount: params.getParam('questionCount', ParamType.int),
-            question: params.getParam('question', ParamType.String),
             onlyLocation: params.getParam('onlyLocation', ParamType.bool),
           ),
         ),

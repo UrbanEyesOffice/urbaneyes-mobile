@@ -32,7 +32,6 @@ class SelectLocationWidget extends StatefulWidget {
     required this.titleEn,
     this.comment,
     required this.questionCount,
-    required this.question,
     bool? onlyLocation,
   })  : this.onlyLocation = onlyLocation ?? false,
         super(key: key);
@@ -47,7 +46,6 @@ class SelectLocationWidget extends StatefulWidget {
   final String? titleEn;
   final String? comment;
   final int? questionCount;
-  final String? question;
   final bool onlyLocation;
 
   @override
@@ -405,10 +403,6 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                               'questionRef': serializeParam(
                                                 widget.questionRef,
                                                 ParamType.DocumentReference,
-                                              ),
-                                              'question': serializeParam(
-                                                widget.questionRef?.id,
-                                                ParamType.String,
                                               ),
                                               'ord': serializeParam(
                                                 widget.ord! + 1,

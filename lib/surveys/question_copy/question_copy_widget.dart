@@ -288,7 +288,8 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                     ParamType.Document,
                                                   ),
                                                   'questionRef': serializeParam(
-                                                    widget.questionRef,
+                                                    questionCopyQuestionRecord
+                                                        ?.reference,
                                                     ParamType.DocumentReference,
                                                   ),
                                                   'ord': serializeParam(
@@ -320,11 +321,6 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                       serializeParam(
                                                     listViewCount,
                                                     ParamType.int,
-                                                  ),
-                                                  'question': serializeParam(
-                                                    questionCopyQuestionRecord
-                                                        ?.question,
-                                                    ParamType.String,
                                                   ),
                                                 }.withoutNulls,
                                                 extra: <String, dynamic>{

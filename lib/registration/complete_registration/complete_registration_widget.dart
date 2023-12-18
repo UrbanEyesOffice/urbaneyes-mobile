@@ -3,6 +3,7 @@ import '/components/privacy_bottom_sheet/privacy_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -115,10 +116,10 @@ class _CompleteRegistrationWidgetState
                 ),
                 Expanded(
                   child: Align(
-                    alignment: AlignmentDirectional(-1.0, 1.0),
+                    alignment: AlignmentDirectional(0.0, 1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(30.0, 16.0, 30.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -144,17 +145,67 @@ class _CompleteRegistrationWidgetState
                             },
                           ).then((value) => safeSetState(() {}));
                         },
-                        child: Text(
-                          FFLocalizations.of(context).getText(
-                            '8xh9n1sn' /* Нажимая “Завершить регистрацию... */,
+                        child: RichText(
+                          textScaleFactor:
+                              MediaQuery.of(context).textScaleFactor,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: FFLocalizations.of(context).getText(
+                                  'kxb29fbg' /* Нажимая “Завершить регистрацию... */,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color: Color(0xFF7B7F87),
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: FFLocalizations.of(context).getText(
+                                  '8k8ft00r' /* политикой конфиденциальности */,
+                                ),
+                                style: TextStyle(
+                                  color: Color(0xFF53B153),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: FFLocalizations.of(context).getText(
+                                  'mtg8f6ke' /*  и   */,
+                                ),
+                                style: TextStyle(),
+                              ),
+                              TextSpan(
+                                text: FFLocalizations.of(context).getText(
+                                  'uxhsgpxc' /* пользовательским соглашением */,
+                                ),
+                                style: TextStyle(
+                                  color: Color(0xFF53B153),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: FFLocalizations.of(context).getText(
+                                  'nq7aftly' /*  сервиса. */,
+                                ),
+                                style: TextStyle(),
+                              )
+                            ],
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  color: Color(0xFF7B7F87),
+                                  fontSize: 12.0,
+                                  useGoogleFonts: false,
+                                ),
                           ),
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Golos',
-                                    color: Color(0xFF7B7F87),
-                                    fontSize: 12.0,
-                                    useGoogleFonts: false,
-                                  ),
+                          textAlign: TextAlign.center,
+                          maxLines: 0,
                         ),
                       ),
                     ),
