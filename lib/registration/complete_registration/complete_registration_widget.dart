@@ -205,7 +205,6 @@ class _CompleteRegistrationWidgetState
                                 ),
                           ),
                           textAlign: TextAlign.center,
-                          maxLines: 0,
                         ),
                       ),
                     ),
