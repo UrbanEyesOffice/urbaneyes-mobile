@@ -294,6 +294,71 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                 ),
                               ),
                             ),
+                            if (isiOS)
+                              isAndroid
+                                  ? Container()
+                                  : Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          GoRouter.of(context)
+                                              .prepareAuthEvent();
+                                          final user = await authManager
+                                              .signInWithApple(context);
+                                          if (user == null) {
+                                            return;
+                                          }
+                                          if (!valueOrDefault<bool>(
+                                              currentUserDocument
+                                                  ?.isNotFirstLogin,
+                                              false)) {
+                                            context.pushNamedAuth(
+                                                'CualificatedSurvey',
+                                                context.mounted);
+                                          } else {
+                                            context.pushNamedAuth(
+                                                'HomePageCopy',
+                                                context.mounted);
+                                          }
+                                        },
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          'b5vady0x' /* Войти через Apple */,
+                                        ),
+                                        icon: Icon(
+                                          Icons.apple,
+                                          size: 15.0,
+                                        ),
+                                        options: FFButtonOptions(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          height: 56.0,
+                                          padding: EdgeInsets.all(0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: Color(0xFF06112E),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Golos',
+                                                    color: Colors.white,
+                                                    fontSize: 18.0,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                          elevation: 0.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
                             Text(
                               FFLocalizations.of(context).getText(
                                 '3szbi2zr' /* или */,

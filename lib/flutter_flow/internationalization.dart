@@ -625,6 +625,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Login with Google',
       'ky': 'Google менен кириңиз',
     },
+    'b5vady0x': {
+      'ru': 'Войти через Apple',
+      'en': 'Sign in with Apple',
+      'ky': 'Apple менен кириңиз',
+    },
     '3szbi2zr': {
       'ru': 'или',
       'en': 'or',

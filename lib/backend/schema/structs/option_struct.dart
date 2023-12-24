@@ -54,7 +54,7 @@ class OptionStruct extends FFFirebaseStruct {
       );
 
   static OptionStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? OptionStruct.fromMap(data) : null;
+      data is Map ? OptionStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'id': _id,
