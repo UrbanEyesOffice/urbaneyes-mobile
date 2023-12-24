@@ -326,9 +326,8 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                             FFLocalizations.of(context).getText(
                                           'b5vady0x' /* Войти через Apple */,
                                         ),
-                                        icon: Icon(
-                                          Icons.apple,
-                                          size: 15.0,
+                                        icon: FaIcon(
+                                          FontAwesomeIcons.apple,
                                         ),
                                         options: FFButtonOptions(
                                           width:
