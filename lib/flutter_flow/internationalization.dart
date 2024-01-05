@@ -395,9 +395,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
           'Камтылган геолокация шаардагы жерлерди оңой таап, жашоонун сапатын жана ыңгайлуулугун баалоону жеңилдетет.',
     },
     'ppjhqxbl': {
-      'ru': 'Разрешить доступ',
-      'en': 'Allow access',
-      'ky': 'Уруксат берүү',
+      'ru': 'Продолжить',
+      'en': 'Continue',
+      'ky': 'Улантуу',
     },
     '0oh1ew0n': {
       'ru': 'Пропустить',
@@ -627,7 +627,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'b5vady0x': {
       'ru': 'Войти через Apple',
-      'en': 'Sign in with Apple',
+      'en': 'Login with Apple',
       'ky': 'Apple менен кириңиз',
     },
     '3szbi2zr': {
@@ -791,9 +791,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': 'Билдирмелерге уруксат берип, чөйрөң тууралуу пикир билдир.',
     },
     '75xs578i': {
-      'ru': 'Разрешить доступ',
-      'en': 'Allow access',
-      'ky': 'Уруксат берүү',
+      'ru': 'Продолжить',
+      'en': 'Continue',
+      'ky': 'Улантуу',
     },
     'k7yuiw19': {
       'ru': 'Пропустить',

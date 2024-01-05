@@ -116,7 +116,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                     context.goNamed('AskPushNotifications');
                   },
                   text: FFLocalizations.of(context).getText(
-                    'ppjhqxbl' /* Разрешить доступ */,
+                    'ppjhqxbl' /* Продолжить */,
                   ),
                   options: FFButtonOptions(
                     width: MediaQuery.sizeOf(context).width * 1.0,

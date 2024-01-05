@@ -104,7 +104,7 @@ class _AskPushNotificationsWidgetState
                     context.goNamed('RewardsPage');
                   },
                   text: FFLocalizations.of(context).getText(
-                    '75xs578i' /* Разрешить доступ */,
+                    '75xs578i' /* Продолжить */,
                   ),
                   options: FFButtonOptions(
                     width: MediaQuery.sizeOf(context).width * 1.0,

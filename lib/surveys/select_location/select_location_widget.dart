@@ -405,7 +405,7 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                                 ParamType.DocumentReference,
                                               ),
                                               'ord': serializeParam(
-                                                widget.ord! + 1,
+                                                (widget.ord!) + 1,
                                                 ParamType.int,
                                               ),
                                               'location': serializeParam(
