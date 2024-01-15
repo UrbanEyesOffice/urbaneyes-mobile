@@ -39,7 +39,8 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
       if (!currentUserEmailVerified) {
         context.goNamed('Verification');
       }
-      if (!valueOrDefault<bool>(currentUserDocument?.isNotFirstLogin, false)) {
+      if (valueOrDefault<bool>(currentUserDocument?.isNotFirstLogin, false) !=
+          true) {
         context.goNamed('CualificatedSurvey');
       }
     });

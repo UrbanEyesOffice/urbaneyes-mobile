@@ -254,14 +254,15 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                   if (user == null) {
                                     return;
                                   }
-                                  if (!valueOrDefault<bool>(
-                                      currentUserDocument?.isNotFirstLogin,
-                                      false)) {
-                                    context.pushNamedAuth(
-                                        'CualificatedSurvey', context.mounted);
-                                  } else {
+                                  if (valueOrDefault<bool>(
+                                          currentUserDocument?.isNotFirstLogin,
+                                          false) ==
+                                      true) {
                                     context.pushNamedAuth(
                                         'HomePageCopy', context.mounted);
+                                  } else {
+                                    context.pushNamedAuth(
+                                        'CualificatedSurvey', context.mounted);
                                   }
                                 },
                                 text: FFLocalizations.of(context).getText(
@@ -307,16 +308,17 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                         if (user == null) {
                                           return;
                                         }
-                                        if (!valueOrDefault<bool>(
-                                            currentUserDocument
-                                                ?.isNotFirstLogin,
-                                            false)) {
+                                        if (valueOrDefault<bool>(
+                                                currentUserDocument
+                                                    ?.isNotFirstLogin,
+                                                false) ==
+                                            true) {
+                                          context.pushNamedAuth(
+                                              'HomePageCopy', context.mounted);
+                                        } else {
                                           context.pushNamedAuth(
                                               'CualificatedSurvey',
                                               context.mounted);
-                                        } else {
-                                          context.pushNamedAuth(
-                                              'HomePageCopy', context.mounted);
                                         }
                                       },
                                       text: FFLocalizations.of(context).getText(
