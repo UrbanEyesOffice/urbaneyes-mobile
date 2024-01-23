@@ -531,6 +531,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Comment field',
       'ky': 'Комментарий талаасы',
     },
+    '0wl2f4b4': {
+      'ru': 'Далее',
+      'en': 'Next',
+      'ky': 'Андан ары',
+    },
     'rke2k16j': {
       'ru': 'Главная',
       'en': 'Home',

@@ -21,6 +21,10 @@ class QuestionCopyModel extends FlutterFlowModel<QuestionCopyWidget> {
 
   String? locationAddress = '';
 
+  OptionStruct? selectedOption;
+  void updateSelectedOptionStruct(Function(OptionStruct) updateFn) =>
+      updateFn(selectedOption ??= OptionStruct());
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

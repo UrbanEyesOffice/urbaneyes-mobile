@@ -296,156 +296,14 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                 await getCurrentUserLocation(
                                                     defaultLocation:
                                                         LatLng(0.0, 0.0));
-                                            if (widget.location == null) {
-                                              logFirebaseEvent(
-                                                  'Button_navigate_to');
-
-                                              context.pushNamed(
-                                                'SelectLocation',
-                                                queryParameters: {
-                                                  'survey': serializeParam(
-                                                    widget.survey,
-                                                    ParamType.Document,
-                                                  ),
-                                                  'questionRef': serializeParam(
-                                                    questionCopyQuestionRecord
-                                                        ?.reference,
-                                                    ParamType.DocumentReference,
-                                                  ),
-                                                  'ord': serializeParam(
-                                                    widget.ord,
-                                                    ParamType.int,
-                                                  ),
-                                                  'optionId': serializeParam(
-                                                    optionIndex,
-                                                    ParamType.int,
-                                                  ),
-                                                  'titleRu': serializeParam(
-                                                    optionItem.titleRu,
-                                                    ParamType.String,
-                                                  ),
-                                                  'titleKg': serializeParam(
-                                                    optionItem.titleKg,
-                                                    ParamType.String,
-                                                  ),
-                                                  'titleEn': serializeParam(
-                                                    optionItem.titleEn,
-                                                    ParamType.String,
-                                                  ),
-                                                  'comment': serializeParam(
-                                                    _model
-                                                        .commentController.text,
-                                                    ParamType.String,
-                                                  ),
-                                                  'questionCount':
-                                                      serializeParam(
-                                                    listViewCount,
-                                                    ParamType.int,
-                                                  ),
-                                                }.withoutNulls,
-                                                extra: <String, dynamic>{
-                                                  'survey': widget.survey,
-                                                },
-                                              );
-                                            } else {
-                                              logFirebaseEvent(
-                                                  'Button_backend_call');
-
-                                              await AnswerRecord.collection
-                                                  .doc()
-                                                  .set(createAnswerRecordData(
-                                                    surveyId: widget
-                                                        .survey?.reference,
-                                                    questionId:
-                                                        questionCopyQuestionRecord
-                                                            ?.reference,
-                                                    userId:
-                                                        currentUserReference,
-                                                    answer: updateOptionStruct(
-                                                      optionItem,
-                                                      clearUnsetFields: false,
-                                                      create: true,
-                                                    ),
-                                                    time: dateTimeFromSecondsSinceEpoch(
-                                                        getCurrentTimestamp
-                                                            .secondsSinceEpoch),
-                                                    location: () {
-                                                      if (widget.location !=
-                                                          null) {
-                                                        return widget.location;
-                                                      } else if (!functions
-                                                          .isLatLongEqualNull(
-                                                              currentUserLocationValue)!) {
-                                                        return currentUserLocationValue;
-                                                      } else {
-                                                        return currentUserLocationValue;
-                                                      }
-                                                    }(),
-                                                    comment: _model
-                                                        .commentController.text,
-                                                  ));
-                                              if (widget.ord < listViewCount
-                                                  ? true
-                                                  : false) {
-                                                logFirebaseEvent(
-                                                    'Button_navigate_to');
-
-                                                context.pushNamed(
-                                                  'questionCopy',
-                                                  queryParameters: {
-                                                    'survey': serializeParam(
-                                                      widget.survey,
-                                                      ParamType.Document,
-                                                    ),
-                                                    'questionRef':
-                                                        serializeParam(
-                                                      questionCopyQuestionRecord
-                                                          ?.reference,
-                                                      ParamType
-                                                          .DocumentReference,
-                                                    ),
-                                                    'question': serializeParam(
-                                                      questionCopyQuestionRecord
-                                                          ?.question,
-                                                      ParamType.String,
-                                                    ),
-                                                    'ord': serializeParam(
-                                                      widget.ord + 1,
-                                                      ParamType.int,
-                                                    ),
-                                                    'location': serializeParam(
-                                                      widget.location != null
-                                                          ? widget.location
-                                                          : currentUserLocationValue,
-                                                      ParamType.LatLng,
-                                                    ),
-                                                  }.withoutNulls,
-                                                  extra: <String, dynamic>{
-                                                    'survey': widget.survey,
-                                                  },
-                                                );
-                                              } else {
-                                                logFirebaseEvent(
-                                                    'Button_update_app_state');
-                                                FFAppState().lastMapPoint =
-                                                    null;
-                                                logFirebaseEvent(
-                                                    'Button_navigate_to');
-
-                                                context.goNamed(
-                                                  'complete',
-                                                  queryParameters: {
-                                                    'survey': serializeParam(
-                                                      widget.survey,
-                                                      ParamType.Document,
-                                                    ),
-                                                  }.withoutNulls,
-                                                  extra: <String, dynamic>{
-                                                    'survey': widget.survey,
-                                                  },
-                                                );
-                                              }
-                                            }
+                                            logFirebaseEvent(
+                                                'Button_not_defined');
+                                            logFirebaseEvent(
+                                                'Button_update_page_state');
+                                            setState(() {
+                                              _model.selectedOption =
+                                                  optionItem;
+                                            });
                                           },
                                           text: FFLocalizations.of(context)
                                               .getVariableText(
@@ -462,18 +320,39 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                             iconPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
-                                            color: Color(0xFFCEEFCD),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Golos',
-                                                      color: Color(0xFF0A8D09),
-                                                      useGoogleFonts: false,
-                                                    ),
+                                            color: valueOrDefault<bool>(
+                                              optionItem.id ==
+                                                  valueOrDefault<int>(
+                                                    _model.selectedOption?.id,
+                                                    -1,
+                                                  ),
+                                              false,
+                                            )
+                                                ? Color(0xFF53B153)
+                                                : Color(0x0053B153),
+                                            textStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .titleSmall
+                                                .override(
+                                                  fontFamily: 'Golos',
+                                                  color: valueOrDefault<bool>(
+                                                    optionItem.id ==
+                                                        valueOrDefault<int>(
+                                                          _model.selectedOption
+                                                              ?.id,
+                                                          -1,
+                                                        ),
+                                                    false,
+                                                  )
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryBackground
+                                                      : Color(0xFF0A8D09),
+                                                  useGoogleFonts: false,
+                                                ),
                                             elevation: 0.0,
                                             borderSide: BorderSide(
-                                              color: Colors.transparent,
+                                              color: Color(0xFF53B153),
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -618,6 +497,173 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                             ],
                           ),
                         ),
+                        if (valueOrDefault<bool>(
+                          _model.selectedOption != null,
+                          false,
+                        ))
+                          FFButtonWidget(
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'QUESTION_COPY_PAGE_ДАЛЕЕ_BTN_ON_TAP');
+                              currentUserLocationValue =
+                                  await getCurrentUserLocation(
+                                      defaultLocation: LatLng(0.0, 0.0));
+                              if (widget.location == null) {
+                                logFirebaseEvent('Button_navigate_to');
+
+                                context.pushNamed(
+                                  'SelectLocation',
+                                  queryParameters: {
+                                    'survey': serializeParam(
+                                      widget.survey,
+                                      ParamType.Document,
+                                    ),
+                                    'questionRef': serializeParam(
+                                      questionCopyQuestionRecord?.reference,
+                                      ParamType.DocumentReference,
+                                    ),
+                                    'ord': serializeParam(
+                                      widget.ord,
+                                      ParamType.int,
+                                    ),
+                                    'optionId': serializeParam(
+                                      _model.selectedOption?.id,
+                                      ParamType.int,
+                                    ),
+                                    'titleRu': serializeParam(
+                                      _model.selectedOption?.titleRu,
+                                      ParamType.String,
+                                    ),
+                                    'titleKg': serializeParam(
+                                      _model.selectedOption?.titleKg,
+                                      ParamType.String,
+                                    ),
+                                    'titleEn': serializeParam(
+                                      _model.selectedOption?.titleEn,
+                                      ParamType.String,
+                                    ),
+                                    'comment': serializeParam(
+                                      _model.commentController.text,
+                                      ParamType.String,
+                                    ),
+                                    'questionCount': serializeParam(
+                                      listViewCount,
+                                      ParamType.int,
+                                    ),
+                                  }.withoutNulls,
+                                  extra: <String, dynamic>{
+                                    'survey': widget.survey,
+                                  },
+                                );
+                              } else {
+                                logFirebaseEvent('Button_backend_call');
+
+                                await AnswerRecord.collection
+                                    .doc()
+                                    .set(createAnswerRecordData(
+                                      surveyId: widget.survey?.reference,
+                                      questionId:
+                                          questionCopyQuestionRecord?.reference,
+                                      userId: currentUserReference,
+                                      answer: updateOptionStruct(
+                                        _model.selectedOption,
+                                        clearUnsetFields: false,
+                                        create: true,
+                                      ),
+                                      time: dateTimeFromSecondsSinceEpoch(
+                                          getCurrentTimestamp
+                                              .secondsSinceEpoch),
+                                      location: () {
+                                        if (widget.location != null) {
+                                          return widget.location;
+                                        } else if (!functions
+                                            .isLatLongEqualNull(
+                                                currentUserLocationValue)!) {
+                                          return currentUserLocationValue;
+                                        } else {
+                                          return currentUserLocationValue;
+                                        }
+                                      }(),
+                                      comment: _model.commentController.text,
+                                    ));
+                                if (widget.ord < listViewCount ? true : false) {
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.pushNamed(
+                                    'questionCopy',
+                                    queryParameters: {
+                                      'survey': serializeParam(
+                                        widget.survey,
+                                        ParamType.Document,
+                                      ),
+                                      'questionRef': serializeParam(
+                                        questionCopyQuestionRecord?.reference,
+                                        ParamType.DocumentReference,
+                                      ),
+                                      'question': serializeParam(
+                                        questionCopyQuestionRecord?.question,
+                                        ParamType.String,
+                                      ),
+                                      'ord': serializeParam(
+                                        widget.ord + 1,
+                                        ParamType.int,
+                                      ),
+                                      'location': serializeParam(
+                                        widget.location != null
+                                            ? widget.location
+                                            : currentUserLocationValue,
+                                        ParamType.LatLng,
+                                      ),
+                                    }.withoutNulls,
+                                    extra: <String, dynamic>{
+                                      'survey': widget.survey,
+                                    },
+                                  );
+                                } else {
+                                  logFirebaseEvent('Button_update_app_state');
+                                  FFAppState().lastMapPoint = null;
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.goNamed(
+                                    'complete',
+                                    queryParameters: {
+                                      'survey': serializeParam(
+                                        widget.survey,
+                                        ParamType.Document,
+                                      ),
+                                    }.withoutNulls,
+                                    extra: <String, dynamic>{
+                                      'survey': widget.survey,
+                                    },
+                                  );
+                                }
+                              }
+                            },
+                            text: FFLocalizations.of(context).getText(
+                              '0wl2f4b4' /* Далее */,
+                            ),
+                            options: FFButtonOptions(
+                              width: 330.0,
+                              height: 48.0,
+                              padding: EdgeInsets.all(0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0xFF53B153),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Golos',
+                                    color: Colors.white,
+                                    useGoogleFonts: false,
+                                  ),
+                              elevation: 3.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
                       ],
                     );
                   },
