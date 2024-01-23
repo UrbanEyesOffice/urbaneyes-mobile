@@ -582,11 +582,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': ' ',
       'ky': 'ге өтүү',
     },
-    'uugobmq5': {
-      'ru': 'Доступна награда',
-      'en': '',
-      'ky': '',
-    },
     'ipv4ebva': {
       'ru': 'Завершить опрос',
       'en': 'Complete survey',

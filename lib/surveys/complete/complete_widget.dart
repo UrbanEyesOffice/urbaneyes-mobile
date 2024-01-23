@@ -68,27 +68,6 @@ class _CompleteWidgetState extends State<CompleteWidget> {
       ).then((s) => s.firstOrNull);
       logFirebaseEvent('complete_update_app_state');
       FFAppState().lastMapPoint = null;
-      logFirebaseEvent('complete_show_snack_bar');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            ((valueOrDefault<int>(
-                      getCurrentTimestamp.secondsSinceEpoch,
-                      0,
-                    ) -
-                    valueOrDefault<int>(
-                      FFAppState().lastTimeFeedbackShown?.secondsSinceEpoch,
-                      0,
-                    )))
-                .toString(),
-            style: TextStyle(
-              color: FlutterFlowTheme.of(context).primaryText,
-            ),
-          ),
-          duration: Duration(milliseconds: 4000),
-          backgroundColor: FlutterFlowTheme.of(context).secondary,
-        ),
-      );
       if ((valueOrDefault<int>(
                 getCurrentTimestamp.secondsSinceEpoch,
                 0,
@@ -480,40 +459,6 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                         ),
                       ),
                     ),
-                  ),
-                ),
-              if (valueOrDefault<bool>(
-                _model.availableReward?.reference != null,
-                false,
-              ))
-                Container(
-                  width: 100.0,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        FFLocalizations.of(context).getText(
-                          'uugobmq5' /* Доступна награда */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
-                              fontSize: 24.0,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                      Text(
-                        FFLocalizations.of(context).getVariableText(
-                          ruText: _model.availableReward?.rewardName,
-                          enText: _model.availableReward?.rewardNameEn,
-                          kyText: _model.availableReward?.rewardNameKg,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
-                      ),
-                    ],
                   ),
                 ),
               Align(
