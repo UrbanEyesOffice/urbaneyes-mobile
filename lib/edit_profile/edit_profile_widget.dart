@@ -35,6 +35,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     super.initState();
     _model = createModel(context, () => EditProfileModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'EditProfile'});
     _model.displayNameController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.displayNameFocusNode ??= FocusNode();
@@ -83,6 +84,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               size: 40.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('EDIT_PROFILE_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -104,6 +107,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
           actions: [
             FFButtonWidget(
               onPressed: () async {
+                logFirebaseEvent('EDIT_PROFILE_PAGE_РУС_BTN_ON_TAP');
+                logFirebaseEvent('Button_action_block');
                 await action_blocks.changeLanguage(context);
               },
               text: FFLocalizations.of(context).getText(
@@ -141,6 +146,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 size: 20.0,
               ),
               onPressed: () async {
+                logFirebaseEvent('EDIT_PROFILE_PAGE_trash_ICN_ON_TAP');
+                logFirebaseEvent('IconButton_alert_dialog');
                 var confirmDialogResponse = await showDialog<bool>(
                       context: context,
                       builder: (alertDialogContext) {
@@ -180,6 +187,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     ) ??
                     false;
                 if (confirmDialogResponse) {
+                  logFirebaseEvent('IconButton_auth');
                   await authManager.deleteUser(context);
                 } else {
                   return;
@@ -445,6 +453,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          logFirebaseEvent(
+                              'EDIT_PROFILE_PAGE_Row_5wbnatre_ON_TAP');
+                          logFirebaseEvent('Row_date_time_picker');
                           final _datePickedDate = await showDatePicker(
                             context: context,
                             initialDate: getCurrentTimestamp,
@@ -532,10 +543,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'EDIT_PROFILE_СОХРАНИТЬ_ИЗМЕНЕНИЯ_BTN_ON_');
                           if ((_model.displayNameController.text != null &&
                                   _model.displayNameController.text != '') &&
                               (_model.displayNameController.text !=
                                   currentUserDisplayName)) {
+                            logFirebaseEvent('Button_backend_call');
+
                             await currentUserReference!
                                 .update(createUsersRecordData(
                               displayName: _model.displayNameController.text,
@@ -545,6 +560,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   currentUserEmail) &&
                               (_model.emailController.text != null &&
                                   _model.emailController.text != '')) {
+                            logFirebaseEvent('Button_auth');
                             if (_model.emailController.text.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -562,11 +578,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             );
                             setState(() {});
 
+                            logFirebaseEvent('Button_backend_call');
+
                             await currentUserReference!
                                 .update(createUsersRecordData(
                               email: _model.emailController.text,
                             ));
+                            logFirebaseEvent('Button_auth');
                             await authManager.sendEmailVerification();
+                            logFirebaseEvent('Button_show_snack_bar');
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
@@ -581,9 +601,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               ),
                             );
                           }
+                          logFirebaseEvent('Button_not_defined');
                           if ((_model.datePicked != null) &&
                               (_model.datePicked !=
                                   currentUserDocument?.dateOfBirth)) {
+                            logFirebaseEvent('Button_backend_call');
+
                             await currentUserReference!
                                 .update(createUsersRecordData(
                               dateOfBirth: _model.datePicked,
@@ -593,11 +616,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               (_model.dropDownValue !=
                                   valueOrDefault(
                                       currentUserDocument?.gender, 0))) {
+                            logFirebaseEvent('Button_backend_call');
+
                             await currentUserReference!
                                 .update(createUsersRecordData(
                               gender: _model.dropDownValue,
                             ));
                           }
+                          logFirebaseEvent('Button_show_snack_bar');
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
@@ -612,6 +638,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   FlutterFlowTheme.of(context).secondary,
                             ),
                           );
+                          logFirebaseEvent('Button_navigate_to');
 
                           context.pushNamed('HomePageCopy');
                         },
@@ -648,6 +675,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'EDIT_PROFILE_PAGE_ВЫЙТИ_BTN_ON_TAP');
+                          logFirebaseEvent('Button_alert_dialog');
                           var confirmDialogResponse = await showDialog<bool>(
                                 context: context,
                                 builder: (alertDialogContext) {
@@ -686,6 +716,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               ) ??
                               false;
                           if (confirmDialogResponse) {
+                            logFirebaseEvent('Button_auth');
                             GoRouter.of(context).prepareAuthEvent();
                             await authManager.signOut();
                             GoRouter.of(context).clearRedirectLocation();

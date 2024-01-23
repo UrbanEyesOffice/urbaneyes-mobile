@@ -28,6 +28,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
     super.initState();
     _model = createModel(context, () => MainAuthModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'MainAuth'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -136,6 +137,9 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'MAIN_AUTH_PAGE_Row_6mj312h8_ON_TAP');
+                                    logFirebaseEvent('Row_action_block');
                                     await action_blocks.changeLanguage(context);
                                   },
                                   child: Row(
@@ -248,6 +252,9 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                   24.0, 0.0, 24.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'MAIN_AUTH_ВОЙТИ_ЧЕРЕЗ_GOOGLE_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_auth');
                                   GoRouter.of(context).prepareAuthEvent();
                                   final user = await authManager
                                       .signInWithGoogle(context);
@@ -258,9 +265,13 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                           currentUserDocument?.isNotFirstLogin,
                                           false) ==
                                       true) {
+                                    logFirebaseEvent('Button_navigate_to');
+
                                     context.pushNamedAuth(
                                         'HomePageCopy', context.mounted);
                                   } else {
+                                    logFirebaseEvent('Button_navigate_to');
+
                                     context.pushNamedAuth(
                                         'CualificatedSurvey', context.mounted);
                                   }
@@ -302,6 +313,9 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                         24.0, 0.0, 24.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
+                                        logFirebaseEvent(
+                                            'MAIN_AUTH_ВОЙТИ_ЧЕРЕЗ_APPLE_BTN_ON_TAP');
+                                        logFirebaseEvent('Button_auth');
                                         GoRouter.of(context).prepareAuthEvent();
                                         final user = await authManager
                                             .signInWithApple(context);
@@ -313,9 +327,15 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                                     ?.isNotFirstLogin,
                                                 false) ==
                                             true) {
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
                                           context.pushNamedAuth(
                                               'HomePageCopy', context.mounted);
                                         } else {
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
                                           context.pushNamedAuth(
                                               'CualificatedSurvey',
                                               context.mounted);
@@ -373,6 +393,10 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                   24.0, 0.0, 24.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'MAIN_AUTH_PAGE_Button-Login_ON_TAP');
+                                  logFirebaseEvent('Button-Login_navigate_to');
+
                                   context.pushNamed('CreateAccount');
                                 },
                                 text: FFLocalizations.of(context).getText(
@@ -431,6 +455,10 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        logFirebaseEvent(
+                                            'MAIN_AUTH_PAGE_Text_3yh8nidz_ON_TAP');
+                                        logFirebaseEvent('Text_navigate_to');
+
                                         context.pushNamed('Login');
                                       },
                                       child: Text(

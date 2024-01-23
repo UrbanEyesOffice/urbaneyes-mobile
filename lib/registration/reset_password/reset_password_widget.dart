@@ -27,6 +27,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
     super.initState();
     _model = createModel(context, () => ResetPasswordModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'resetPassword'});
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
@@ -74,6 +76,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
               size: 40.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('RESET_PASSWORD_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -164,6 +168,9 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        logFirebaseEvent(
+                            'RESET_PASSWORD_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                        logFirebaseEvent('Button_auth');
                         if (_model.emailAddressController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -178,6 +185,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           email: _model.emailAddressController.text,
                           context: context,
                         );
+                        logFirebaseEvent('Button_show_snack_bar');
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -191,6 +199,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 FlutterFlowTheme.of(context).secondary,
                           ),
                         );
+                        logFirebaseEvent('Button_navigate_to');
                       },
                       text: FFLocalizations.of(context).getText(
                         '44ewba3m' /* Продолжить */,

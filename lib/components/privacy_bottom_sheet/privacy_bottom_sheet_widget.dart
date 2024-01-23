@@ -70,6 +70,8 @@ class _PrivacyBottomSheetWidgetState extends State<PrivacyBottomSheetWidget> {
           children: [
             FFButtonWidget(
               onPressed: () async {
+                logFirebaseEvent('PRIVACY_BOTTOM_SHEET_ПОЛИТИКА_КОНФИДЕНЦИ');
+                logFirebaseEvent('Button_launch_u_r_l');
                 await launchURL('http://urbaneyes.tilda.ws/privacypolicy');
               },
               text: FFLocalizations.of(context).getText(
@@ -93,6 +95,8 @@ class _PrivacyBottomSheetWidgetState extends State<PrivacyBottomSheetWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('PRIVACY_BOTTOM_SHEET_ПОЛЬЗОВАТЕЛЬСКОЕ_СО');
+                  logFirebaseEvent('Button_launch_u_r_l');
                   await launchURL('http://urbaneyes.tilda.ws/useragreement');
                 },
                 text: FFLocalizations.of(context).getText(
@@ -118,6 +122,8 @@ class _PrivacyBottomSheetWidgetState extends State<PrivacyBottomSheetWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('PRIVACY_BOTTOM_SHEET_ЗАКРЫТЬ_BTN_ON_TAP');
+                  logFirebaseEvent('Button_navigate_back');
                   context.pop();
                 },
                 text: FFLocalizations.of(context).getText(

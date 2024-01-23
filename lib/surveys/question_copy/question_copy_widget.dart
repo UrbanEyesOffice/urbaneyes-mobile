@@ -53,30 +53,41 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
     super.initState();
     _model = createModel(context, () => QuestionCopyModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'questionCopy'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('QUESTION_COPY_questionCopy_ON_INIT_STATE');
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      logFirebaseEvent('questionCopy_wait__delay');
       if (widget.location != null) {
+        logFirebaseEvent('questionCopy_custom_action');
         _model.addressOnLoad = await actions.getAddressFromLatLngGoogleMaps(
           widget.location,
           FFLocalizations.of(context).languageCode,
         );
+        logFirebaseEvent('questionCopy_update_page_state');
         setState(() {
           _model.locationAddress = _model.addressOnLoad;
         });
+        logFirebaseEvent('questionCopy_not_defined');
       } else {
         if (!functions.isLatLongEqualNull(FFAppState().lastMapPoint)!) {
+          logFirebaseEvent('questionCopy_custom_action');
           _model.lastMapPointAddress =
               await actions.getAddressFromLatLngGoogleMaps(
             FFAppState().lastMapPoint,
             FFLocalizations.of(context).languageCode,
           );
+          logFirebaseEvent('questionCopy_update_page_state');
           setState(() {
             _model.locationAddress = _model.lastMapPointAddress;
           });
         }
       }
+
+      logFirebaseEvent('questionCopy_show_snack_bar');
     });
 
     _model.commentController ??= TextEditingController();
@@ -127,6 +138,8 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
               !const ListEquality(QuestionRecordDocumentEquality()).equals(
                   questionCopyQuestionRecordList,
                   _model.questionCopyPreviousSnapshot)) {
+            logFirebaseEvent('QUESTION_COPY_questionCopy_ON_DATA_CHANG');
+            logFirebaseEvent('questionCopy_update_app_state');
             setState(() {});
 
             setState(() {});
@@ -176,6 +189,8 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                   size: 40.0,
                 ),
                 onPressed: () async {
+                  logFirebaseEvent('QUESTION_COPY_chevron_left_ICN_ON_TAP');
+                  logFirebaseEvent('IconButton_navigate_back');
                   context.safePop();
                 },
               ),
@@ -275,11 +290,16 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                             0.0, 0.0, 0.0, 16.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
+                                            logFirebaseEvent(
+                                                'QUESTION_COPY_PAGE_BUTTON_BTN_ON_TAP');
                                             currentUserLocationValue =
                                                 await getCurrentUserLocation(
                                                     defaultLocation:
                                                         LatLng(0.0, 0.0));
                                             if (widget.location == null) {
+                                              logFirebaseEvent(
+                                                  'Button_navigate_to');
+
                                               context.pushNamed(
                                                 'SelectLocation',
                                                 queryParameters: {
@@ -328,6 +348,9 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                 },
                                               );
                                             } else {
+                                              logFirebaseEvent(
+                                                  'Button_backend_call');
+
                                               await AnswerRecord.collection
                                                   .doc()
                                                   .set(createAnswerRecordData(
@@ -364,6 +387,9 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                               if (widget.ord < listViewCount
                                                   ? true
                                                   : false) {
+                                                logFirebaseEvent(
+                                                    'Button_navigate_to');
+
                                                 context.pushNamed(
                                                   'questionCopy',
                                                   queryParameters: {
@@ -399,8 +425,12 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                   },
                                                 );
                                               } else {
+                                                logFirebaseEvent(
+                                                    'Button_update_app_state');
                                                 FFAppState().lastMapPoint =
                                                     null;
+                                                logFirebaseEvent(
+                                                    'Button_navigate_to');
 
                                                 context.goNamed(
                                                   'complete',

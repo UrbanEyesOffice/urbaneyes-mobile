@@ -26,6 +26,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
     _model = createModel(context, () => ProfileModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Profile'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -123,6 +124,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
             child: FFButtonWidget(
               onPressed: () async {
+                logFirebaseEvent('PROFILE_РЕДАКТИРОВАТЬ_ПРОФИЛЬ_BTN_ON_TAP');
+                logFirebaseEvent('Button_navigate_to');
+
                 context.pushNamed('EditProfile');
               },
               text: FFLocalizations.of(context).getText(
@@ -152,6 +156,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
             child: FFButtonWidget(
               onPressed: () async {
+                logFirebaseEvent('PROFILE_ФОРМА_ОБРАТНОЙ_СВЯЗИ_BTN_ON_TAP');
+                logFirebaseEvent('Button_navigate_to');
+
                 context.pushNamed('Feedback');
               },
               text: FFLocalizations.of(context).getText(
@@ -183,6 +190,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               child: AuthUserStreamWidget(
                 builder: (context) => FFButtonWidget(
                   onPressed: () async {
+                    logFirebaseEvent('PROFILE_PAGE_АДМИН_ПАНЕЛЬ_BTN_ON_TAP');
+                    logFirebaseEvent('Button_navigate_to');
+
                     context.pushNamed('AdmiPannel');
                   },
                   text: FFLocalizations.of(context).getText(
@@ -214,6 +224,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 40.0),
             child: FFButtonWidget(
               onPressed: () async {
+                logFirebaseEvent('PROFILE_PAGE_ВЫХОД_BTN_ON_TAP');
+                logFirebaseEvent('Button_auth');
                 GoRouter.of(context).prepareAuthEvent();
                 await authManager.signOut();
                 GoRouter.of(context).clearRedirectLocation();

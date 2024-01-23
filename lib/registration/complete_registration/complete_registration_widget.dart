@@ -30,6 +30,8 @@ class _CompleteRegistrationWidgetState
     super.initState();
     _model = createModel(context, () => CompleteRegistrationModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'CompleteRegistration'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -126,6 +128,9 @@ class _CompleteRegistrationWidgetState
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          logFirebaseEvent(
+                              'COMPLETE_REGISTRATION_RichText_ewm0wk1b_');
+                          logFirebaseEvent('RichText_bottom_sheet');
                           await showModalBottomSheet(
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
@@ -217,6 +222,10 @@ class _CompleteRegistrationWidgetState
                         EdgeInsetsDirectional.fromSTEB(30.0, 20.0, 30.0, 30.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        logFirebaseEvent(
+                            'COMPLETE_REGISTRATION_ЗАВЕРШИТЬ_РЕГИСТРА');
+                        logFirebaseEvent('Button_navigate_to');
+
                         context.goNamed('AskGeo');
                       },
                       text: FFLocalizations.of(context).getText(

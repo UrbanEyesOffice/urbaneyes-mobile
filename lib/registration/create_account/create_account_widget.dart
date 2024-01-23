@@ -28,6 +28,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
     super.initState();
     _model = createModel(context, () => CreateAccountModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'CreateAccount'});
     _model.emailCreateController ??= TextEditingController();
     _model.emailCreateFocusNode ??= FocusNode();
 
@@ -78,6 +80,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
               size: 40.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('CREATE_ACCOUNT_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -304,6 +308,9 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'CREATE_ACCOUNT_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                          logFirebaseEvent('Button_auth');
                           GoRouter.of(context).prepareAuthEvent();
 
                           final user = await authManager.createAccountWithEmail(
@@ -324,7 +331,9 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 isNotFirstLogin: false,
                               ));
 
+                          logFirebaseEvent('Button_auth');
                           await authManager.sendEmailVerification();
+                          logFirebaseEvent('Button_navigate_to');
 
                           context.goNamedAuth('Verification', context.mounted);
                         },

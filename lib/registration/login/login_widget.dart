@@ -27,6 +27,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     super.initState();
     _model = createModel(context, () => LoginModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Login'});
     _model.emailCreateController ??= TextEditingController();
     _model.emailCreateFocusNode ??= FocusNode();
 
@@ -77,6 +78,8 @@ class _LoginWidgetState extends State<LoginWidget> {
               size: 40.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('LOGIN_PAGE_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -304,6 +307,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent('LOGIN_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                          logFirebaseEvent('Button_auth');
                           GoRouter.of(context).prepareAuthEvent();
 
                           final user = await authManager.signInWithEmail(
@@ -315,7 +320,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                             return;
                           }
 
+                          logFirebaseEvent('Button_navigate_to');
+
                           context.goNamedAuth('HomePageCopy', context.mounted);
+
+                          logFirebaseEvent('Button_not_defined');
                         },
                         text: FFLocalizations.of(context).getText(
                           'i6oxc0pq' /* Продолжить */,

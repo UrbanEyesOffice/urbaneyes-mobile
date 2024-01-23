@@ -29,6 +29,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
     super.initState();
     _model = createModel(context, () => FeedbackModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Feedback'});
     _model.nicknameCreateController1 ??=
         TextEditingController(text: currentUserEmail);
     _model.nicknameCreateFocusNode1 ??= FocusNode();
@@ -79,6 +80,8 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
               size: 40.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('FEEDBACK_PAGE_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -254,18 +257,26 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        logFirebaseEvent('FEEDBACK_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
                         if ((_model.nicknameCreateController1.text != null &&
                                 _model.nicknameCreateController1.text != '') &&
                             (_model.nicknameCreateController2.text != null &&
                                 _model.nicknameCreateController2.text != '')) {
-                          await FeedbackRecord.collection
-                              .doc()
-                              .set(createFeedbackRecordData(
-                                userEmail:
-                                    _model.nicknameCreateController1.text,
-                                user: currentUserReference,
-                                text: _model.nicknameCreateController2.text,
-                              ));
+                          logFirebaseEvent('Button_backend_call');
+
+                          await FeedbackRecord.collection.doc().set({
+                            ...createFeedbackRecordData(
+                              userEmail: _model.nicknameCreateController1.text,
+                              user: currentUserReference,
+                              text: _model.nicknameCreateController2.text,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'created_date': FieldValue.serverTimestamp(),
+                              },
+                            ),
+                          });
+                          logFirebaseEvent('Button_alert_dialog');
                           await showDialog(
                             context: context,
                             builder: (alertDialogContext) {
@@ -283,9 +294,11 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                               );
                             },
                           );
+                          logFirebaseEvent('Button_navigate_to');
 
                           context.pushNamed('HomePageCopy');
                         } else {
+                          logFirebaseEvent('Button_alert_dialog');
                           await showDialog(
                             context: context,
                             builder: (alertDialogContext) {

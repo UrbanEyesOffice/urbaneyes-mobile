@@ -35,8 +35,11 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
     super.initState();
     _model = createModel(context, () => RewardsCopyModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'RewardsCopy'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('REWARDS_COPY_RewardsCopy_ON_INIT_STATE');
+      logFirebaseEvent('RewardsCopy_firestore_query');
       _model.loadedRewards = await queryRewardsRecordOnce(
         queryBuilder: (rewardsRecord) => rewardsRecord
             .where(
@@ -45,10 +48,12 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
             )
             .orderBy('points_needed'),
       );
+      logFirebaseEvent('RewardsCopy_custom_action');
       _model.filteredRewards = await actions.filterRewardsByUserId(
         _model.loadedRewards!.toList(),
         currentUserReference!,
       );
+      logFirebaseEvent('RewardsCopy_update_page_state');
       setState(() {
         _model.pageRewards =
             _model.filteredRewards!.toList().cast<RewardsRecord>();
@@ -103,6 +108,8 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                   size: 40.0,
                 ),
                 onPressed: () async {
+                  logFirebaseEvent('REWARDS_COPY_chevron_left_ICN_ON_TAP');
+                  logFirebaseEvent('IconButton_navigate_back');
                   context.safePop();
                 },
               ),
@@ -131,6 +138,10 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                     size: 24.0,
                   ),
                   onPressed: () async {
+                    logFirebaseEvent(
+                        'REWARDS_COPY_history_outlined_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_navigate_to');
+
                     context.pushNamed('CollectedRewards');
                   },
                 ),
@@ -143,6 +154,8 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                     size: 24.0,
                   ),
                   onPressed: () async {
+                    logFirebaseEvent('REWARDS_COPY_info_outline_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_launch_u_r_l');
                     await launchURL('http://urbaneyes.tilda.ws/promopolicy');
                   },
                 ),
@@ -255,10 +268,15 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'REWARDS_COPY_Container_rdriqtp9_ON_TAP');
                                       if (rewardsItem.pointsNeeded <=
                                           valueOrDefault(
                                               currentUserDocument?.score, 0)) {
                                         if (rewardsItem.hasCodes == true) {
+                                          logFirebaseEvent(
+                                              'Container_backend_call');
+
                                           var promocodesRecordReference =
                                               PromocodesRecord.collection.doc();
                                           await promocodesRecordReference
@@ -281,6 +299,8 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                                         rewardsItem.reference,
                                                   ),
                                                   promocodesRecordReference);
+                                          logFirebaseEvent(
+                                              'Container_backend_call');
 
                                           await rewardsItem.reference.update({
                                             ...createRewardsRecordData(
@@ -300,6 +320,8 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                               },
                                             ),
                                           });
+                                          logFirebaseEvent(
+                                              'Container_backend_call');
 
                                           await currentUserReference!.update({
                                             ...mapToFirestore(
@@ -311,6 +333,8 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                               },
                                             ),
                                           });
+                                          logFirebaseEvent(
+                                              'Container_backend_call');
 
                                           await currentUserReference!
                                               .update(createUsersRecordData(
@@ -319,10 +343,14 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                                     0) -
                                                 rewardsItem.pointsNeeded,
                                           ));
+                                          logFirebaseEvent(
+                                              'Container_update_page_state');
                                           setState(() {
                                             _model.removeFromPageRewards(
                                                 rewardsItem);
                                           });
+                                          logFirebaseEvent(
+                                              'Container_navigate_to');
 
                                           context.pushNamed(
                                             'ViewReward',

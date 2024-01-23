@@ -26,6 +26,8 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
     super.initState();
     _model = createModel(context, () => AllSurveysStatModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'AllSurveysStat'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -258,6 +260,11 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
+                                              logFirebaseEvent(
+                                                  'ALL_SURVEYS_STAT_Icon_micwcyk7_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'Icon_navigate_to');
+
                                               context.pushNamed(
                                                 'EditQuestion',
                                                 queryParameters: {

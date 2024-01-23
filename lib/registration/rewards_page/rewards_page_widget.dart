@@ -28,6 +28,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
     super.initState();
     _model = createModel(context, () => RewardsPageModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'RewardsPage'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -129,10 +130,15 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'REWARDS_PAGE_PAGE_НАЧАТЬ_BTN_ON_TAP');
+                          logFirebaseEvent('Button_backend_call');
+
                           await currentUserReference!
                               .update(createUsersRecordData(
                             isNotFirstLogin: true,
                           ));
+                          logFirebaseEvent('Button_navigate_to');
 
                           context.goNamed('HomePageCopy');
                         },

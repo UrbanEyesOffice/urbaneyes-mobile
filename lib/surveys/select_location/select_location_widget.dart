@@ -63,15 +63,20 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
     super.initState();
     _model = createModel(context, () => SelectLocationModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'SelectLocation'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('SELECT_LOCATION_SelectLocation_ON_INIT_S');
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      logFirebaseEvent('SelectLocation_request_permissions');
       unawaited(
         () async {
           await requestPermission(locationPermission);
         }(),
       );
+      logFirebaseEvent('SelectLocation_alert_dialog');
       await showDialog(
         context: context,
         builder: (alertDialogContext) {
@@ -98,16 +103,19 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
           return;
         }
 
+        logFirebaseEvent('SelectLocation_update_app_state');
         setState(() {
           FFAppState().lastMapPoint = _model.googleMapsCenter;
         });
       } else {
+        logFirebaseEvent('SelectLocation_update_app_state');
         setState(() {
           FFAppState().lastMapPoint =
               functions.isLatLongEqualNull(currentUserLocationValue)!
                   ? FFAppState().locationBishkek
                   : currentUserLocationValue;
         });
+        logFirebaseEvent('SelectLocation_google_map');
         await _model.googleMapsController.future.then(
           (c) => c.animateCamera(
             CameraUpdate.newLatLng(FFAppState().lastMapPoint!.toGoogleMaps()),
@@ -115,10 +123,12 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
         );
       }
 
+      logFirebaseEvent('SelectLocation_custom_action');
       _model.locationName = await actions.getAddressFromLatLngGoogleMaps(
         _model.googleMapsCenter,
         FFLocalizations.of(context).languageCode,
       );
+      logFirebaseEvent('SelectLocation_update_page_state');
       setState(() {
         _model.locationAddress = _model.locationAddress;
       });
@@ -186,6 +196,8 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
               size: 40.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('SELECT_LOCATION_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -319,11 +331,16 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                   ),
                                 FFButtonWidget(
                                   onPressed: () async {
+                                    logFirebaseEvent(
+                                        'SELECT_LOCATION_ВЫБРАТЬ_ЭТУ_ЛОКАЦИЮ_BTN_');
+                                    logFirebaseEvent('Button_custom_action');
                                     _model.location = await actions
                                         .getAddressFromLatLngGoogleMaps(
                                       _model.googleMapsCenter,
                                       FFLocalizations.of(context).languageCode,
                                     );
+                                    logFirebaseEvent(
+                                        'Button_update_page_state');
                                     _model.locationAddress = _model.location;
 
                                     setState(() {});
@@ -361,13 +378,21 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                 ))
                                   FFButtonWidget(
                                     onPressed: () async {
+                                      logFirebaseEvent(
+                                          'SELECT_LOCATION_PAGE__BTN_ON_TAP');
                                       if (widget.onlyLocation == true) {
+                                        logFirebaseEvent(
+                                            'Button_update_app_state');
                                         setState(() {
                                           FFAppState().lastMapPoint =
                                               _model.googleMapsCenter;
                                         });
+                                        logFirebaseEvent(
+                                            'Button_navigate_back');
                                         context.safePop();
                                       } else {
+                                        logFirebaseEvent('Button_backend_call');
+
                                         await AnswerRecord.collection
                                             .doc()
                                             .set(createAnswerRecordData(
@@ -393,6 +418,9 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                         if (widget.ord! < widget.questionCount!
                                             ? true
                                             : false) {
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
                                           context.pushNamed(
                                             'questionCopy',
                                             queryParameters: {
@@ -422,6 +450,9 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                             },
                                           );
                                         } else {
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
                                           context.goNamed(
                                             'complete',
                                             queryParameters: {
@@ -435,6 +466,8 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                             },
                                           );
                                         }
+
+                                        logFirebaseEvent('Button_navigate_to');
                                       }
                                     },
                                     text: widget.ord! < widget.questionCount!

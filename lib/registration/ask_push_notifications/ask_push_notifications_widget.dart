@@ -28,6 +28,8 @@ class _AskPushNotificationsWidgetState
     super.initState();
     _model = createModel(context, () => AskPushNotificationsModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'AskPushNotifications'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -99,7 +101,11 @@ class _AskPushNotificationsWidgetState
                 ),
                 FFButtonWidget(
                   onPressed: () async {
+                    logFirebaseEvent(
+                        'ASK_PUSH_NOTIFICATIONS_ПРОДОЛЖИТЬ_BTN_ON');
+                    logFirebaseEvent('Button_request_permissions');
                     await requestPermission(notificationsPermission);
+                    logFirebaseEvent('Button_navigate_to');
 
                     context.goNamed('RewardsPage');
                   },
@@ -134,6 +140,10 @@ class _AskPushNotificationsWidgetState
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'ASK_PUSH_NOTIFICATIONS_ПРОПУСТИТЬ_BTN_ON');
+                          logFirebaseEvent('Button_navigate_to');
+
                           context.goNamed('RewardsPage');
                         },
                         text: FFLocalizations.of(context).getText(

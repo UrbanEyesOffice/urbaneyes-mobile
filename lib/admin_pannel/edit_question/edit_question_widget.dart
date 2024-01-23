@@ -31,6 +31,8 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
     super.initState();
     _model = createModel(context, () => EditQuestionModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'EditQuestion'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

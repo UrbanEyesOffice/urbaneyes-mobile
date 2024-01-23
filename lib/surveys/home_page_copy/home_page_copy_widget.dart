@@ -3,6 +3,9 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -33,16 +36,36 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
     super.initState();
     _model = createModel(context, () => HomePageCopyModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'HomePageCopy'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('HOME_COPY_HomePageCopy_ON_INIT_STATE');
       await authManager.refreshUser();
       if (!currentUserEmailVerified) {
+        logFirebaseEvent('HomePageCopy_navigate_to');
+
         context.goNamed('Verification');
       }
       if (valueOrDefault<bool>(currentUserDocument?.isNotFirstLogin, false) !=
           true) {
+        logFirebaseEvent('HomePageCopy_navigate_to');
+
         context.goNamed('CualificatedSurvey');
       }
+      logFirebaseEvent('HomePageCopy_firestore_query');
+      _model.loadedSurveys = await querySurveysRecordOnce(
+        limit: 10,
+      );
+      logFirebaseEvent('HomePageCopy_custom_action');
+      _model.tempSurveys = await actions.shuffleSurveys(
+        _model.loadedSurveys?.toList(),
+      );
+      logFirebaseEvent('HomePageCopy_update_page_state');
+      setState(() {
+        _model.shuffledSurveys =
+            _model.tempSurveys!.toList().cast<SurveysRecord>();
+      });
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -122,6 +145,10 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              logFirebaseEvent(
+                                  'HOME_PAGE_COPY_PAGE_Icon_5zudb6wu_ON_TAP');
+                              logFirebaseEvent('Icon_navigate_to');
+
                               context.pushNamed('Feedback');
                             },
                             child: Icon(
@@ -141,6 +168,10 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          logFirebaseEvent(
+                              'HOME_PAGE_COPY_PAGE_Icon_maxvlwkk_ON_TAP');
+                          logFirebaseEvent('Icon_navigate_to');
+
                           context.pushNamed('EditProfile');
                         },
                         child: Icon(
@@ -159,6 +190,10 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          logFirebaseEvent(
+                              'HOME_COPY_Container_cd8oox3e_ON_TAP');
+                          logFirebaseEvent('Container_navigate_to');
+
                           context.pushNamed('RewardsCopy');
                         },
                         child: Container(
@@ -185,25 +220,9 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                 ),
               ),
               Expanded(
-                child: StreamBuilder<List<SurveysRecord>>(
-                  stream: querySurveysRecord(),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    List<SurveysRecord> listViewSurveysRecordList =
-                        snapshot.data!;
+                child: Builder(
+                  builder: (context) {
+                    final listItems = _model.shuffledSurveys.toList();
                     return ListView.separated(
                       padding: EdgeInsets.fromLTRB(
                         0,
@@ -212,11 +231,10 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                         32.0,
                       ),
                       scrollDirection: Axis.vertical,
-                      itemCount: listViewSurveysRecordList.length,
+                      itemCount: listItems.length,
                       separatorBuilder: (_, __) => SizedBox(height: 16.0),
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewSurveysRecord =
-                            listViewSurveysRecordList[listViewIndex];
+                      itemBuilder: (context, listItemsIndex) {
+                        final listItemsItem = listItems[listItemsIndex];
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               32.0, 0.0, 32.0, 0.0),
@@ -251,12 +269,9 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                           child: Text(
                                             FFLocalizations.of(context)
                                                 .getVariableText(
-                                              ruText:
-                                                  listViewSurveysRecord.name,
-                                              enText:
-                                                  listViewSurveysRecord.nameEn,
-                                              kyText:
-                                                  listViewSurveysRecord.nameKg,
+                                              ruText: listItemsItem.name,
+                                              enText: listItemsItem.nameEn,
+                                              kyText: listItemsItem.nameKg,
                                             ),
                                             textAlign: TextAlign.start,
                                             maxLines: 3,
@@ -312,11 +327,16 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                       alignment: AlignmentDirectional(0.0, 1.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          logFirebaseEvent(
+                                              'HOME_PAGE_COPY_PAGE_ПРОЙТИ_BTN_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
                                           context.pushNamed(
                                             'questionCopy',
                                             queryParameters: {
                                               'survey': serializeParam(
-                                                listViewSurveysRecord,
+                                                listItemsItem,
                                                 ParamType.Document,
                                               ),
                                               'ord': serializeParam(
@@ -329,7 +349,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                               ),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
-                                              'survey': listViewSurveysRecord,
+                                              'survey': listItemsItem,
                                             },
                                           );
                                         },

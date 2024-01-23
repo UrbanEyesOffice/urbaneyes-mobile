@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/feedback_alert/feedback_alert_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -37,8 +38,12 @@ class _CompleteWidgetState extends State<CompleteWidget> {
     super.initState();
     _model = createModel(context, () => CompleteModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'complete'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('COMPLETE_PAGE_complete_ON_INIT_STATE');
+      logFirebaseEvent('complete_backend_call');
+
       await currentUserReference!.update({
         ...mapToFirestore(
           {
@@ -46,6 +51,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
           },
         ),
       });
+      logFirebaseEvent('complete_firestore_query');
       _model.availableReward = await queryRewardsRecordOnce(
         queryBuilder: (rewardsRecord) => rewardsRecord
             .where(
@@ -60,7 +66,63 @@ class _CompleteWidgetState extends State<CompleteWidget> {
             .orderBy('points_needed'),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
+      logFirebaseEvent('complete_update_app_state');
       FFAppState().lastMapPoint = null;
+      logFirebaseEvent('complete_show_snack_bar');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            ((valueOrDefault<int>(
+                      getCurrentTimestamp.secondsSinceEpoch,
+                      0,
+                    ) -
+                    valueOrDefault<int>(
+                      FFAppState().lastTimeFeedbackShown?.secondsSinceEpoch,
+                      0,
+                    )))
+                .toString(),
+            style: TextStyle(
+              color: FlutterFlowTheme.of(context).primaryText,
+            ),
+          ),
+          duration: Duration(milliseconds: 4000),
+          backgroundColor: FlutterFlowTheme.of(context).secondary,
+        ),
+      );
+      if ((valueOrDefault<int>(
+                getCurrentTimestamp.secondsSinceEpoch,
+                0,
+              ) -
+              valueOrDefault<int>(
+                FFAppState().lastTimeFeedbackShown?.secondsSinceEpoch,
+                0,
+              )) >
+          259200) {
+        logFirebaseEvent('complete_bottom_sheet');
+        await showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          enableDrag: false,
+          context: context,
+          builder: (context) {
+            return GestureDetector(
+              onTap: () => _model.unfocusNode.canRequestFocus
+                  ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                  : FocusScope.of(context).unfocus(),
+              child: Padding(
+                padding: MediaQuery.viewInsetsOf(context),
+                child: FeedbackAlertWidget(),
+              ),
+            );
+          },
+        ).then((value) => safeSetState(() {}));
+
+        logFirebaseEvent('complete_update_app_state');
+        FFAppState().lastTimeFeedbackShown = getCurrentTimestamp;
+        return;
+      } else {
+        return;
+      }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -107,6 +169,8 @@ class _CompleteWidgetState extends State<CompleteWidget> {
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('COMPLETE_PAGE_close_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -342,6 +406,9 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'COMPLETE_PAGE_Container_35tb7n4q_ON_TAP');
+                                    logFirebaseEvent('Container_launch_u_r_l');
                                     await launchURL(
                                         'https://urbaneyes.kg/ru/map');
                                   },
@@ -455,6 +522,10 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent(
+                          'COMPLETE_PAGE_ЗАВЕРШИТЬ_ОПРОС_BTN_ON_TAP');
+                      logFirebaseEvent('Button_navigate_to');
+
                       context.goNamed(
                         'HomePageCopy',
                         extra: <String, dynamic>{
@@ -496,6 +567,8 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent('COMPLETE_PAGE_ПОДЕЛИТЬСЯ_BTN_ON_TAP');
+                      logFirebaseEvent('Button_share');
                       await Share.share(
                         getRemoteConfigString('share_url'),
                         sharePositionOrigin: getWidgetBoundingBox(context),

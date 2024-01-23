@@ -46,6 +46,16 @@ class SurveysRecord extends FirestoreRecord {
   String get nameKg => _nameKg ?? '';
   bool hasNameKg() => _nameKg != null;
 
+  // "description_en" field.
+  String? _descriptionEn;
+  String get descriptionEn => _descriptionEn ?? '';
+  bool hasDescriptionEn() => _descriptionEn != null;
+
+  // "description_kg" field.
+  String? _descriptionKg;
+  String get descriptionKg => _descriptionKg ?? '';
+  bool hasDescriptionKg() => _descriptionKg != null;
+
   void _initializeFields() {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _name = snapshotData['name'] as String?;
@@ -53,6 +63,8 @@ class SurveysRecord extends FirestoreRecord {
     _createdBy = snapshotData['created_by'] as DocumentReference?;
     _nameEn = snapshotData['name_en'] as String?;
     _nameKg = snapshotData['name_kg'] as String?;
+    _descriptionEn = snapshotData['description_en'] as String?;
+    _descriptionKg = snapshotData['description_kg'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -96,6 +108,8 @@ Map<String, dynamic> createSurveysRecordData({
   DocumentReference? createdBy,
   String? nameEn,
   String? nameKg,
+  String? descriptionEn,
+  String? descriptionKg,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -105,6 +119,8 @@ Map<String, dynamic> createSurveysRecordData({
       'created_by': createdBy,
       'name_en': nameEn,
       'name_kg': nameKg,
+      'description_en': descriptionEn,
+      'description_kg': descriptionKg,
     }.withoutNulls,
   );
 
@@ -121,7 +137,9 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e1?.description == e2?.description &&
         e1?.createdBy == e2?.createdBy &&
         e1?.nameEn == e2?.nameEn &&
-        e1?.nameKg == e2?.nameKg;
+        e1?.nameKg == e2?.nameKg &&
+        e1?.descriptionEn == e2?.descriptionEn &&
+        e1?.descriptionKg == e2?.descriptionKg;
   }
 
   @override
@@ -131,7 +149,9 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e?.description,
         e?.createdBy,
         e?.nameEn,
-        e?.nameKg
+        e?.nameKg,
+        e?.descriptionEn,
+        e?.descriptionKg
       ]);
 
   @override

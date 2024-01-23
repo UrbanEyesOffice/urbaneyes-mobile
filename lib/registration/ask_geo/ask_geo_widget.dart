@@ -26,6 +26,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
     super.initState();
     _model = createModel(context, () => AskGeoModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'AskGeo'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -111,7 +112,10 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                 ),
                 FFButtonWidget(
                   onPressed: () async {
+                    logFirebaseEvent('ASK_GEO_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                    logFirebaseEvent('Button_request_permissions');
                     await requestPermission(locationPermission);
+                    logFirebaseEvent('Button_navigate_to');
 
                     context.goNamed('AskPushNotifications');
                   },
@@ -146,6 +150,10 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'ASK_GEO_PAGE_ПРОПУСТИТЬ_BTN_ON_TAP');
+                          logFirebaseEvent('Button_navigate_to');
+
                           context.goNamed('AskPushNotifications');
                         },
                         text: FFLocalizations.of(context).getText(

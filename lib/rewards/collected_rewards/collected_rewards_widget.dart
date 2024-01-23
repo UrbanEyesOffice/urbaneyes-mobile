@@ -33,9 +33,13 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
     super.initState();
     _model = createModel(context, () => CollectedRewardsModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'CollectedRewards'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('COLLECTED_REWARDS_CollectedRewards_ON_IN');
       // Load Promocodes
+      logFirebaseEvent('CollectedRewards_LoadPromocodes');
       _model.loadedPromocodes = await queryPromocodesRecordOnce(
         queryBuilder: (promocodesRecord) => promocodesRecord
             .where(
@@ -46,11 +50,13 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
         limit: 100,
       );
       // Update page promocodes
+      logFirebaseEvent('CollectedRewards_Updatepagepromocodes');
       setState(() {
         _model.pagePromocodes =
             _model.loadedPromocodes!.toList().cast<PromocodesRecord>();
       });
       // Load rewards
+      logFirebaseEvent('CollectedRewards_Loadrewards');
       _model.loadedRewards = await queryRewardsRecordOnce(
         queryBuilder: (rewardsRecord) => rewardsRecord.where(
           'used_by',
@@ -58,6 +64,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
         ),
         limit: 100,
       );
+      logFirebaseEvent('CollectedRewards_update_page_state');
       setState(() {
         _model.pageRewards =
             _model.loadedRewards!.toList().cast<RewardsRecord>();
@@ -107,6 +114,8 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
               size: 40.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('COLLECTED_REWARDS_chevron_left_ICN_ON_TA');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -233,6 +242,10 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'COLLECTED_REWARDS_Text_orm4pmul_ON_TAP');
+                                    logFirebaseEvent('Text_navigate_to');
+
                                     context.pushNamed(
                                       'ViewReward',
                                       queryParameters: {

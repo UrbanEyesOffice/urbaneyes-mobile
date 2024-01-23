@@ -17,12 +17,26 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _lastTimeFeedbackShown = prefs.containsKey('ff_lastTimeFeedbackShown')
+          ? DateTime.fromMillisecondsSinceEpoch(
+              prefs.getInt('ff_lastTimeFeedbackShown')!)
+          : _lastTimeFeedbackShown;
+    });
+    _safeInit(() {
+      _surveysCompleted =
+          prefs.getString('ff_surveysCompleted') ?? _surveysCompleted;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
+
+  late SharedPreferences prefs;
 
   bool _showMAp = false;
   bool get showMAp => _showMAp;
@@ -40,6 +54,23 @@ class FFAppState extends ChangeNotifier {
   LatLng? get lastMapPoint => _lastMapPoint;
   set lastMapPoint(LatLng? _value) {
     _lastMapPoint = _value;
+  }
+
+  DateTime? _lastTimeFeedbackShown;
+  DateTime? get lastTimeFeedbackShown => _lastTimeFeedbackShown;
+  set lastTimeFeedbackShown(DateTime? _value) {
+    _lastTimeFeedbackShown = _value;
+    _value != null
+        ? prefs.setInt(
+            'ff_lastTimeFeedbackShown', _value.millisecondsSinceEpoch)
+        : prefs.remove('ff_lastTimeFeedbackShown');
+  }
+
+  String _surveysCompleted = '';
+  String get surveysCompleted => _surveysCompleted;
+  set surveysCompleted(String _value) {
+    _surveysCompleted = _value;
+    prefs.setString('ff_surveysCompleted', _value);
   }
 }
 

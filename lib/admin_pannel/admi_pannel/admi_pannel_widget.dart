@@ -31,6 +31,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
     super.initState();
     _model = createModel(context, () => AdmiPannelModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'AdmiPannel'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -75,6 +76,8 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('ADMI_PANNEL_arrow_back_rounded_ICN_ON_TA');
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -484,6 +487,11 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                         ),
                                         FFButtonWidget(
                                           onPressed: () async {
+                                            logFirebaseEvent(
+                                                'ADMI_PANNEL_СТАТИСТИКА_И_РЕДАКТИРОВАНИЕ_');
+                                            logFirebaseEvent(
+                                                'Button_navigate_to');
+
                                             context.pushNamed('AllSurveysStat');
                                           },
                                           text: FFLocalizations.of(context)

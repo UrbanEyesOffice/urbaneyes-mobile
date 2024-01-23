@@ -34,6 +34,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
     super.initState();
     _model = createModel(context, () => ViewRewardModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'ViewReward'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -77,6 +78,8 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
               size: 40.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('VIEW_REWARD_PAGE_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -165,8 +168,14 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'VIEW_REWARD_Container_2y7sq018_ON_TAP');
+                                    logFirebaseEvent(
+                                        'Container_copy_to_clipboard');
                                     await Clipboard.setData(ClipboardData(
                                         text: widget.promocode!.code));
+                                    logFirebaseEvent(
+                                        'Container_show_snack_bar');
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(

@@ -33,6 +33,8 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
     super.initState();
     _model = createModel(context, () => CualificatedSurveyModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'CualificatedSurvey'});
     _model.nameCreateController ??= TextEditingController(
         text: currentUserDisplayName != null && currentUserDisplayName != ''
             ? currentUserDisplayName
@@ -293,6 +295,9 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          logFirebaseEvent(
+                              'CUALIFICATED_SURVEY_Row_l4dcz04i_ON_TAP');
+                          logFirebaseEvent('Row_date_time_picker');
                           final _datePickedDate = await showDatePicker(
                             context: context,
                             initialDate: getCurrentTimestamp,
@@ -384,6 +389,10 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
+                            logFirebaseEvent(
+                                'CUALIFICATED_SURVEY_ПРОДОЛЖИТЬ_BTN_ON_TA');
+                            logFirebaseEvent('Button_backend_call');
+
                             await currentUserReference!
                                 .update(createUsersRecordData(
                               gender: _model.dropDownValue,
@@ -393,11 +402,14 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                             ));
                             if (valueOrDefault(currentUserDocument?.score, 0) ==
                                 null) {
+                              logFirebaseEvent('Button_backend_call');
+
                               await currentUserReference!
                                   .update(createUsersRecordData(
                                 score: 0,
                               ));
                             }
+                            logFirebaseEvent('Button_navigate_to');
 
                             context.goNamed('CompleteRegistration');
                           },

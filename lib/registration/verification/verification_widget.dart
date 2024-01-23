@@ -29,6 +29,8 @@ class _VerificationWidgetState extends State<VerificationWidget> {
     super.initState();
     _model = createModel(context, () => VerificationModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'Verification'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -85,6 +87,9 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent(
+                          'VERIFICATION_ОТПРАВИТЬ_ПОВТОРНО_BTN_ON_T');
+                      logFirebaseEvent('Button_auth');
                       await authManager.sendEmailVerification();
                     },
                     text: FFLocalizations.of(context).getText(
@@ -120,8 +125,11 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'VERIFICATION_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
                           await authManager.refreshUser();
                           if (!currentUserEmailVerified) {
+                            logFirebaseEvent('Button_firestore_query');
                             _model.apiResultsqj = await queryUsersRecordOnce(
                               queryBuilder: (usersRecord) => usersRecord.where(
                                 'uid',
@@ -130,11 +138,15 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                               singleRecord: true,
                             ).then((s) => s.firstOrNull);
                           }
+                          logFirebaseEvent('Button_wait__delay');
                           await Future.delayed(
                               const Duration(milliseconds: 3000));
                           if (currentUserEmailVerified) {
+                            logFirebaseEvent('Button_navigate_to');
+
                             context.pushNamed('CualificatedSurvey');
                           } else {
+                            logFirebaseEvent('Button_alert_dialog');
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
