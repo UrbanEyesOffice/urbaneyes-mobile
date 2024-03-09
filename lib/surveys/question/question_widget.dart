@@ -352,6 +352,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                             setState(() {
                               _model.currentQuestion = _model
                                   .questions[_model.currentQuestionNumber];
+                              _model.selectedOption = null;
                             });
                           },
                     text: FFLocalizations.of(context).getText(
@@ -383,40 +384,43 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 if (functions.isLastQuestion(
                     _model.currentQuestionNumber, _model.questions.toList()))
                   FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent('QUESTION_PAGE_ЗАВЕРШИТЬ_BTN_ON_TAP');
-                      logFirebaseEvent('Button_update_page_state');
-                      setState(() {
-                        _model.addToAnswers(AnswerStruct(
-                          surveyId: widget.survey?.reference,
-                          questionId: _model.currentQuestion?.reference,
-                          userId: currentUserReference,
-                          time: getCurrentTimestamp,
-                          location: _model.selectedLocation,
-                          answer: _model.selectedOption,
-                          comment: _model.commentController.text,
-                        ));
-                      });
-                      logFirebaseEvent('Button_custom_action');
-                      await actions.addAnswers(
-                        _model.answers.toList(),
-                        _model.selectedLocation!,
-                      );
-                      logFirebaseEvent('Button_navigate_to');
+                    onPressed: (_model.selectedOption == null)
+                        ? null
+                        : () async {
+                            logFirebaseEvent(
+                                'QUESTION_PAGE_ЗАВЕРШИТЬ_BTN_ON_TAP');
+                            logFirebaseEvent('Button_update_page_state');
+                            setState(() {
+                              _model.addToAnswers(AnswerStruct(
+                                surveyId: widget.survey?.reference,
+                                questionId: _model.currentQuestion?.reference,
+                                userId: currentUserReference,
+                                time: getCurrentTimestamp,
+                                location: _model.selectedLocation,
+                                answer: _model.selectedOption,
+                                comment: _model.commentController.text,
+                              ));
+                            });
+                            logFirebaseEvent('Button_custom_action');
+                            await actions.addAnswers(
+                              _model.answers.toList(),
+                              _model.selectedLocation!,
+                            );
+                            logFirebaseEvent('Button_navigate_to');
 
-                      context.goNamed(
-                        'complete',
-                        queryParameters: {
-                          'survey': serializeParam(
-                            widget.survey,
-                            ParamType.Document,
-                          ),
-                        }.withoutNulls,
-                        extra: <String, dynamic>{
-                          'survey': widget.survey,
-                        },
-                      );
-                    },
+                            context.goNamed(
+                              'complete',
+                              queryParameters: {
+                                'survey': serializeParam(
+                                  widget.survey,
+                                  ParamType.Document,
+                                ),
+                              }.withoutNulls,
+                              extra: <String, dynamic>{
+                                'survey': widget.survey,
+                              },
+                            );
+                          },
                     text: FFLocalizations.of(context).getText(
                       'y2oxtgw9' /* Завершить */,
                     ),
@@ -439,6 +443,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
+                      disabledColor: FlutterFlowTheme.of(context).secondaryText,
+                      disabledTextColor: FlutterFlowTheme.of(context).alternate,
                     ),
                   ),
                 FFButtonWidget(
