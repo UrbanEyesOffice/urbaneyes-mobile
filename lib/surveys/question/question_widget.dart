@@ -41,6 +41,26 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('QUESTION_PAGE_question_ON_INIT_STATE');
+      logFirebaseEvent('question_firestore_query');
+      _model.questionsList = await queryQuestionRecordOnce(
+        queryBuilder: (questionRecord) => questionRecord
+            .where(
+              'survey_id',
+              isEqualTo: widget.survey?.reference,
+            )
+            .where(
+              'enabled',
+              isEqualTo: true,
+            )
+            .orderBy('question_order'),
+      );
+      logFirebaseEvent('question_update_page_state');
+      setState(() {
+        _model.questions =
+            _model.questionsList!.toList().cast<QuestionRecord>();
+        _model.currentQuestion =
+            _model.questionsList?[_model.currentQuestionNumber];
+      });
       logFirebaseEvent('question_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
@@ -71,27 +91,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           );
         },
       ).then((value) => safeSetState(() {}));
-
-      logFirebaseEvent('question_firestore_query');
-      _model.questionsList = await queryQuestionRecordOnce(
-        queryBuilder: (questionRecord) => questionRecord
-            .where(
-              'survey_id',
-              isEqualTo: widget.survey?.reference,
-            )
-            .where(
-              'enabled',
-              isEqualTo: true,
-            )
-            .orderBy('question_order'),
-      );
-      logFirebaseEvent('question_update_page_state');
-      setState(() {
-        _model.questions =
-            _model.questionsList!.toList().cast<QuestionRecord>();
-        _model.currentQuestion =
-            _model.questionsList?[_model.currentQuestionNumber];
-      });
     });
 
     _model.commentController ??= TextEditingController();
