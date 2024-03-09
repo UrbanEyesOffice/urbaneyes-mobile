@@ -873,6 +873,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Next',
       'ky': 'Андан ары',
     },
+    '8rxnnklj': {
+      'ru': 'Изменить локацию',
+      'en': 'Change location',
+      'ky': 'Жайгашкан жерди өзгөртүү',
+    },
     'vt2xnhmk': {
       'ru': 'Главная',
       'en': 'Home',

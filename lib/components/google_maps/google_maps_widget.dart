@@ -14,10 +14,14 @@ class GoogleMapsWidget extends StatefulWidget {
   const GoogleMapsWidget({
     super.key,
     required this.selectedLocationCallback,
+    this.locationInput,
+    this.locationInputTitle,
   });
 
   final Future Function(LatLng? location, String locationTitle)?
       selectedLocationCallback;
+  final LatLng? locationInput;
+  final String? locationInputTitle;
 
   @override
   State<GoogleMapsWidget> createState() => _GoogleMapsWidgetState();
@@ -107,7 +111,9 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                 onCameraIdle: (latLng) =>
                     setState(() => _model.googleMapsCenter = latLng),
                 initialLocation: _model.googleMapsCenter ??=
-                    currentUserLocationValue!,
+                    widget.locationInput != null
+                        ? widget.locationInput!
+                        : currentUserLocationValue!,
                 markerColor: GoogleMarkerColor.violet,
                 mapType: MapType.normal,
                 style: GoogleMapStyle.standard,
@@ -193,8 +199,10 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                         ),
-                        if (_model.selectedLocationTitle != null &&
-                            _model.selectedLocationTitle != '')
+                        if ((_model.selectedLocationTitle != null &&
+                                _model.selectedLocationTitle != '') ||
+                            (widget.locationInputTitle != null &&
+                                widget.locationInputTitle != ''))
                           InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -231,10 +239,10 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 8.0, 16.0, 8.0),
                                   child: Text(
-                                    valueOrDefault<String>(
-                                      _model.selectedLocationTitle,
-                                      '-',
-                                    ),
+                                    _model.selectedLocationTitle != null &&
+                                            _model.selectedLocationTitle != ''
+                                        ? _model.selectedLocationTitle!
+                                        : widget.locationInputTitle!,
                                     maxLines: 2,
                                     style:
                                         FlutterFlowTheme.of(context).titleSmall,

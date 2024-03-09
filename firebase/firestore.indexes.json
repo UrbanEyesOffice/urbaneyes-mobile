@@ -27,6 +27,24 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "question",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "survey_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "enabled",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "question_order",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": [

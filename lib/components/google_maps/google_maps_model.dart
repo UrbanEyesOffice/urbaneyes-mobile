@@ -16,6 +16,8 @@ class GoogleMapsModel extends FlutterFlowModel<GoogleMapsWidget> {
 
   LatLng? selectedLocation;
 
+  String? locationTitleInput;
+
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for GoogleMap widget.
