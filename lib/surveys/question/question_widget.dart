@@ -45,6 +45,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       await showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
+        isDismissible: false,
         enableDrag: false,
         context: context,
         builder: (context) {
@@ -141,6 +142,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 enText: widget.survey?.nameEn,
                 kyText: widget.survey?.nameKg,
               ),
+              maxLines: 2,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Inter',
                     fontSize: 18.0,
@@ -169,10 +171,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 Align(
                   alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Text(
-                    FFLocalizations.of(context).getVariableText(
-                      ruText: _model.currentQuestion?.question,
-                      enText: _model.currentQuestion?.questionEn,
-                      kyText: _model.currentQuestion?.questionKg,
+                    valueOrDefault<String>(
+                      FFLocalizations.of(context).getVariableText(
+                        ruText: _model.currentQuestion?.question,
+                        enText: _model.currentQuestion?.questionEn,
+                        kyText: _model.currentQuestion?.questionKg,
+                      ),
+                      '-',
                     ),
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -185,7 +190,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   ),
                 ),
                 Text(
-                  _model.selectedLocationTitle!,
+                  valueOrDefault<String>(
+                    _model.selectedLocationTitle,
+                    '-',
+                  ),
                   style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
                 Align(
