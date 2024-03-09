@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -401,11 +400,36 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                 comment: _model.commentController.text,
                               ));
                             });
-                            logFirebaseEvent('Button_custom_action');
-                            await actions.addAnswers(
-                              _model.answers.toList(),
-                              _model.selectedLocation!,
-                            );
+                            while (_model.currentQuestionNumber >= 0) {
+                              logFirebaseEvent('Button_backend_call');
+
+                              await AnswerRecord.collection
+                                  .doc()
+                                  .set(createAnswerRecordData(
+                                    surveyId: widget.survey?.reference,
+                                    questionId: _model
+                                        .answers[_model.currentQuestionNumber]
+                                        .questionId,
+                                    userId: currentUserReference,
+                                    time: getCurrentTimestamp,
+                                    location: _model.selectedLocation,
+                                    answer: updateOptionStruct(
+                                      _model
+                                          .answers[_model.currentQuestionNumber]
+                                          .answer,
+                                      clearUnsetFields: false,
+                                      create: true,
+                                    ),
+                                    comment: _model
+                                        .answers[_model.currentQuestionNumber]
+                                        .comment,
+                                  ));
+                              logFirebaseEvent('Button_update_page_state');
+                              setState(() {
+                                _model.currentQuestionNumber =
+                                    _model.currentQuestionNumber + -1;
+                              });
+                            }
                             logFirebaseEvent('Button_navigate_to');
 
                             context.goNamed(
