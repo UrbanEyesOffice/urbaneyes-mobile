@@ -198,7 +198,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
 
                             setState(() {});
                           },
-                          text: (_model.selectedLocation == null) ||
+                          text: (_model.selectedLocation == null) &&
                                   (widget.locationInput == null)
                               ? FFLocalizations.of(context).getVariableText(
                                   ruText: 'Выбрать эту локацию',
