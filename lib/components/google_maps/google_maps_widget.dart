@@ -198,9 +198,18 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
 
                             setState(() {});
                           },
-                          text: FFLocalizations.of(context).getText(
-                            'hu8bz5nm' /* Выбрать эту локацию */,
-                          ),
+                          text: (_model.selectedLocation == null) ||
+                                  (widget.locationInput == null)
+                              ? FFLocalizations.of(context).getVariableText(
+                                  ruText: 'Выбрать эту локацию',
+                                  enText: 'Select this location',
+                                  kyText: 'Ушул жерди тандаңыз',
+                                )
+                              : FFLocalizations.of(context).getVariableText(
+                                  ruText: 'Изменить локацию',
+                                  enText: 'Change location',
+                                  kyText: 'Жайгашкан жерди өзгөртүү',
+                                ),
                           options: FFButtonOptions(
                             width: MediaQuery.sizeOf(context).width * 1.0,
                             height: 48.0,
