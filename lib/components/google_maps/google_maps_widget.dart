@@ -111,10 +111,10 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                 markerColor: GoogleMarkerColor.violet,
                 mapType: MapType.normal,
                 style: GoogleMapStyle.standard,
-                initialZoom: 14.0,
+                initialZoom: 16.0,
                 allowInteraction: true,
                 allowZoom: true,
-                showZoomControls: true,
+                showZoomControls: false,
                 showLocation: true,
                 showCompass: false,
                 showMapToolbar: false,
@@ -195,10 +195,15 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                         ),
                         if (_model.selectedLocationTitle != null &&
                             _model.selectedLocationTitle != '')
-                          FFButtonWidget(
-                            onPressed: () async {
-                              logFirebaseEvent('GOOGLE_MAPS_COMP__BTN_ON_TAP');
-                              logFirebaseEvent('Button_execute_callback');
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              logFirebaseEvent(
+                                  'GOOGLE_MAPS_Container_vdm87ow3_ON_TAP');
+                              logFirebaseEvent('Container_execute_callback');
                               await widget.selectedLocationCallback?.call(
                                 _model.selectedLocation,
                                 valueOrDefault<String>(
@@ -207,30 +212,32 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                 ),
                               );
                               logFirebaseEvent(
-                                  'Button_close_dialog,_drawer,_etc');
+                                  'Container_close_dialog,_drawer,_etc');
                               Navigator.pop(context);
                             },
-                            text: _model.selectedLocationTitle!,
-                            options: FFButtonOptions(
+                            child: Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
-                              height: 48.0,
-                              padding: EdgeInsets.all(0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: Color(0xFF53B153),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: 'Golos',
-                                    color: Colors.white,
-                                    useGoogleFonts: false,
-                                  ),
-                              elevation: 0.0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1.0,
+                              constraints: BoxConstraints(
+                                minHeight: 48.0,
+                                maxHeight: 56.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).mainGreen,
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 8.0, 16.0, 8.0),
+                                  child: Text(
+                                    '',
+                                    maxLines: 2,
+                                    style:
+                                        FlutterFlowTheme.of(context).titleSmall,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                       ].divide(SizedBox(height: 8.0)),
