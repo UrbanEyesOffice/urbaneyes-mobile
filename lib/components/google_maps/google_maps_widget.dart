@@ -231,7 +231,10 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 8.0, 16.0, 8.0),
                                   child: Text(
-                                    '',
+                                    valueOrDefault<String>(
+                                      _model.selectedLocationTitle,
+                                      '-',
+                                    ),
                                     maxLines: 2,
                                     style:
                                         FlutterFlowTheme.of(context).titleSmall,
