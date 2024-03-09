@@ -65,7 +65,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       logFirebaseEvent('question_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         isDismissible: false,
         enableDrag: false,
         context: context,
@@ -477,7 +477,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     logFirebaseEvent('Button_bottom_sheet');
                     await showModalBottomSheet(
                       isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
+                      backgroundColor:
+                          FlutterFlowTheme.of(context).primaryBackground,
                       enableDrag: false,
                       context: context,
                       builder: (context) {

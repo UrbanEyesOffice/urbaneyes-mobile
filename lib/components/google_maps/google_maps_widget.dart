@@ -99,7 +99,12 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
               FFLocalizations.of(context).getText(
                 '85bbwmvo' /* Выберите локацию */,
               ),
-              style: FlutterFlowTheme.of(context).bodyMedium,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Inter',
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    useGoogleFonts: false,
+                  ),
             ),
           ),
         ),
@@ -151,7 +156,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                   intercepting: isWeb,
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 48.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -203,15 +208,11 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                 _model.selectedLocationTitle != '') ||
                             (widget.locationInputTitle != null &&
                                 widget.locationInputTitle != ''))
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
+                          FFButtonWidget(
+                            onPressed: () async {
                               logFirebaseEvent(
-                                  'GOOGLE_MAPS_Container_vdm87ow3_ON_TAP');
-                              logFirebaseEvent('Container_execute_callback');
+                                  'GOOGLE_MAPS_COMP_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                              logFirebaseEvent('Button_execute_callback');
                               await widget.selectedLocationCallback?.call(
                                 _model.selectedLocation,
                                 valueOrDefault<String>(
@@ -220,35 +221,32 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                 ),
                               );
                               logFirebaseEvent(
-                                  'Container_close_dialog,_drawer,_etc');
+                                  'Button_close_dialog,_drawer,_etc');
                               Navigator.pop(context);
                             },
-                            child: Container(
+                            text: FFLocalizations.of(context).getText(
+                              'c9ejc1w0' /* Продолжить */,
+                            ),
+                            options: FFButtonOptions(
                               width: MediaQuery.sizeOf(context).width * 1.0,
-                              constraints: BoxConstraints(
-                                minHeight: 48.0,
-                                maxHeight: 56.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).mainGreen,
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 8.0, 16.0, 8.0),
-                                  child: Text(
-                                    _model.selectedLocationTitle != null &&
-                                            _model.selectedLocationTitle != ''
-                                        ? _model.selectedLocationTitle!
-                                        : widget.locationInputTitle!,
-                                    maxLines: 2,
-                                    style:
-                                        FlutterFlowTheme.of(context).titleSmall,
+                              height: 48.0,
+                              padding: EdgeInsets.all(0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0xFF53B153),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Golos',
+                                    color: Colors.white,
+                                    useGoogleFonts: false,
                                   ),
-                                ),
+                              elevation: 3.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
                               ),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
                       ].divide(SizedBox(height: 8.0)),
@@ -256,6 +254,64 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                   ),
                 ),
               ),
+              if ((_model.selectedLocationTitle != null &&
+                      _model.selectedLocationTitle != '') ||
+                  (widget.locationInputTitle != null &&
+                      widget.locationInputTitle != ''))
+                Align(
+                  alignment: AlignmentDirectional(0.0, -1.0),
+                  child: PointerInterceptor(
+                    intercepting: isWeb,
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                      child: Material(
+                        color: Colors.transparent,
+                        elevation: 3.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          constraints: BoxConstraints(
+                            minWidth: MediaQuery.sizeOf(context).width * 0.5,
+                            minHeight: 24.0,
+                            maxWidth: MediaQuery.sizeOf(context).width * 1.0,
+                            maxHeight: 48.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                _model.selectedLocationTitle != null &&
+                                        _model.selectedLocationTitle != ''
+                                    ? _model.selectedLocationTitle!
+                                    : widget.locationInputTitle!,
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.normal,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

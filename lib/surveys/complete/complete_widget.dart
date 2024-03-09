@@ -502,8 +502,8 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      logFirebaseEvent('COMPLETE_PAGE_ПОДЕЛИТЬСЯ_BTN_ON_TAP');
-                      logFirebaseEvent('Button_share');
+                      logFirebaseEvent('COMPLETE_PAGE_shareButton_ON_TAP');
+                      logFirebaseEvent('shareButton_share');
                       await Share.share(
                         getRemoteConfigString('share_url'),
                         sharePositionOrigin: getWidgetBoundingBox(context),

@@ -950,6 +950,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Select this location',
       'ky': 'Ушул жерди тандаңыз',
     },
+    'c9ejc1w0': {
+      'ru': 'Продолжить',
+      'en': 'Continue',
+      'ky': 'Улантуу',
+    },
   },
   // Miscellaneous
   {
