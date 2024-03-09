@@ -6,6 +6,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -325,47 +327,120 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   validator:
                       _model.commentControllerValidator.asValidator(context),
                 ),
-                FFButtonWidget(
-                  onPressed: (_model.selectedOption == null)
-                      ? null
-                      : () async {
-                          logFirebaseEvent('QUESTION_PAGE_ДАЛЕЕ_BTN_ON_TAP');
-                          logFirebaseEvent('Button_update_page_state');
-                          setState(() {
-                            _model.currentQuestionNumber =
-                                _model.currentQuestionNumber + 1;
-                          });
-                          logFirebaseEvent('Button_update_page_state');
-                          setState(() {
-                            _model.currentQuestion =
-                                _model.questions[_model.currentQuestionNumber];
-                          });
-                        },
-                  text: FFLocalizations.of(context).getText(
-                    'pt8y2gzq' /* Далее */,
-                  ),
-                  options: FFButtonOptions(
-                    width: 330.0,
-                    height: 48.0,
-                    padding: EdgeInsets.all(0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFF53B153),
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Golos',
-                          color: Colors.white,
-                          useGoogleFonts: false,
-                        ),
-                    elevation: 3.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                if (!functions.isLastQuestion(
+                    _model.currentQuestionNumber, _model.questions.toList()))
+                  FFButtonWidget(
+                    onPressed: (_model.selectedOption == null)
+                        ? null
+                        : () async {
+                            logFirebaseEvent('QUESTION_PAGE_ДАЛЕЕ_BTN_ON_TAP');
+                            logFirebaseEvent('Button_update_page_state');
+                            setState(() {
+                              _model.currentQuestionNumber =
+                                  _model.currentQuestionNumber + 1;
+                              _model.addToAnswers(AnswerStruct(
+                                surveyId: widget.survey?.reference,
+                                questionId: _model.currentQuestion?.reference,
+                                userId: currentUserReference,
+                                time: getCurrentTimestamp,
+                                location: _model.selectedLocation,
+                                answer: _model.selectedOption,
+                                comment: _model.commentController.text,
+                              ));
+                            });
+                            logFirebaseEvent('Button_update_page_state');
+                            setState(() {
+                              _model.currentQuestion = _model
+                                  .questions[_model.currentQuestionNumber];
+                            });
+                          },
+                    text: FFLocalizations.of(context).getText(
+                      'pt8y2gzq' /* Далее */,
                     ),
-                    borderRadius: BorderRadius.circular(12.0),
-                    disabledColor: FlutterFlowTheme.of(context).secondaryText,
-                    disabledTextColor: FlutterFlowTheme.of(context).alternate,
+                    options: FFButtonOptions(
+                      width: 330.0,
+                      height: 48.0,
+                      padding: EdgeInsets.all(0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Color(0xFF53B153),
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Golos',
+                                color: Colors.white,
+                                useGoogleFonts: false,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                      disabledColor: FlutterFlowTheme.of(context).secondaryText,
+                      disabledTextColor: FlutterFlowTheme.of(context).alternate,
+                    ),
                   ),
-                ),
+                if (functions.isLastQuestion(
+                    _model.currentQuestionNumber, _model.questions.toList()))
+                  FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent('QUESTION_PAGE_ЗАВЕРШИТЬ_BTN_ON_TAP');
+                      logFirebaseEvent('Button_update_page_state');
+                      setState(() {
+                        _model.addToAnswers(AnswerStruct(
+                          surveyId: widget.survey?.reference,
+                          questionId: _model.currentQuestion?.reference,
+                          userId: currentUserReference,
+                          time: getCurrentTimestamp,
+                          location: _model.selectedLocation,
+                          answer: _model.selectedOption,
+                          comment: _model.commentController.text,
+                        ));
+                      });
+                      logFirebaseEvent('Button_custom_action');
+                      await actions.addAnswers(
+                        _model.answers.toList(),
+                        _model.selectedLocation!,
+                      );
+                      logFirebaseEvent('Button_navigate_to');
+
+                      context.goNamed(
+                        'complete',
+                        queryParameters: {
+                          'survey': serializeParam(
+                            widget.survey,
+                            ParamType.Document,
+                          ),
+                        }.withoutNulls,
+                        extra: <String, dynamic>{
+                          'survey': widget.survey,
+                        },
+                      );
+                    },
+                    text: FFLocalizations.of(context).getText(
+                      'y2oxtgw9' /* Завершить */,
+                    ),
+                    options: FFButtonOptions(
+                      width: 330.0,
+                      height: 48.0,
+                      padding: EdgeInsets.all(0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Color(0xFF53B153),
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Golos',
+                                color: Colors.white,
+                                useGoogleFonts: false,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                  ),
                 FFButtonWidget(
                   onPressed: () async {
                     logFirebaseEvent('QUESTION_ИЗМЕНИТЬ_ЛОКАЦИЮ_BTN_ON_TAP');

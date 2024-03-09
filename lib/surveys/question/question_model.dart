@@ -6,6 +6,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'question_widget.dart' show QuestionWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -37,6 +39,15 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   OptionStruct? selectedOption;
   void updateSelectedOptionStruct(Function(OptionStruct) updateFn) =>
       updateFn(selectedOption ??= OptionStruct());
+
+  List<AnswerStruct> answers = [];
+  void addToAnswers(AnswerStruct item) => answers.add(item);
+  void removeFromAnswers(AnswerStruct item) => answers.remove(item);
+  void removeAtIndexFromAnswers(int index) => answers.removeAt(index);
+  void insertAtIndexInAnswers(int index, AnswerStruct item) =>
+      answers.insert(index, item);
+  void updateAnswersAtIndex(int index, Function(AnswerStruct) updateFn) =>
+      answers[index] = updateFn(answers[index]);
 
   ///  State fields for stateful widgets in this page.
 

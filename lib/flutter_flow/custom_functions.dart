@@ -146,3 +146,10 @@ OptionStruct? returnOption(
     titleKg: titleKg,
   );
 }
+
+bool isLastQuestion(
+  int currentIndex,
+  List<QuestionRecord> questions,
+) {
+  return (currentIndex + 1) >= questions.length;
+}
