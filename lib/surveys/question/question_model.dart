@@ -1,24 +1,21 @@
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/google_maps/google_maps_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'question_copy_copy_widget.dart' show QuestionCopyCopyWidget;
+import 'question_widget.dart' show QuestionWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class QuestionCopyCopyModel extends FlutterFlowModel<QuestionCopyCopyWidget> {
+class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   ///  Local state fields for this page.
 
-  String? locationAddress = '';
+  LatLng? selectedLocation;
 
-  OptionStruct? selectedOption;
-  void updateSelectedOptionStruct(Function(OptionStruct) updateFn) =>
-      updateFn(selectedOption ??= OptionStruct());
+  String? selectedLocationTitle;
 
   ///  State fields for stateful widgets in this page.
 

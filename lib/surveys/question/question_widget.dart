@@ -1,5 +1,4 @@
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/google_maps/google_maps_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -9,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'question_copy_copy_model.dart';
-export 'question_copy_copy_model.dart';
+import 'question_model.dart';
+export 'question_model.dart';
 
-class QuestionCopyCopyWidget extends StatefulWidget {
-  const QuestionCopyCopyWidget({
+class QuestionWidget extends StatefulWidget {
+  const QuestionWidget({
     super.key,
     required this.survey,
   });
@@ -21,25 +20,24 @@ class QuestionCopyCopyWidget extends StatefulWidget {
   final SurveysRecord? survey;
 
   @override
-  State<QuestionCopyCopyWidget> createState() => _QuestionCopyCopyWidgetState();
+  State<QuestionWidget> createState() => _QuestionWidgetState();
 }
 
-class _QuestionCopyCopyWidgetState extends State<QuestionCopyCopyWidget> {
-  late QuestionCopyCopyModel _model;
+class _QuestionWidgetState extends State<QuestionWidget> {
+  late QuestionModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => QuestionCopyCopyModel());
+    _model = createModel(context, () => QuestionModel());
 
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'questionCopyCopy'});
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'question'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('QUESTION_COPY_COPY_questionCopyCopy_ON_I');
-      logFirebaseEvent('questionCopyCopy_bottom_sheet');
+      logFirebaseEvent('QUESTION_PAGE_question_ON_INIT_STATE');
+      logFirebaseEvent('question_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
@@ -54,7 +52,15 @@ class _QuestionCopyCopyWidgetState extends State<QuestionCopyCopyWidget> {
               padding: MediaQuery.viewInsetsOf(context),
               child: Container(
                 height: MediaQuery.sizeOf(context).height * 0.7,
-                child: GoogleMapsWidget(),
+                child: GoogleMapsWidget(
+                  selectedLocationCallback: (location, locationTitle) async {
+                    logFirebaseEvent('_update_page_state');
+                    setState(() {
+                      _model.selectedLocation = location;
+                      _model.selectedLocationTitle = locationTitle;
+                    });
+                  },
+                ),
               ),
             ),
           );
@@ -97,7 +103,7 @@ class _QuestionCopyCopyWidgetState extends State<QuestionCopyCopyWidget> {
               size: 40.0,
             ),
             onPressed: () async {
-              logFirebaseEvent('QUESTION_COPY_COPY_chevron_left_ICN_ON_T');
+              logFirebaseEvent('QUESTION_PAGE_chevron_left_ICN_ON_TAP');
               logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
@@ -164,8 +170,9 @@ class _QuestionCopyCopyWidgetState extends State<QuestionCopyCopyWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0, 30.0, 0.0, 20.0),
                         child: Text(
-                          FFLocalizations.of(context).getText(
-                            'h9xwekle' /* Hello World */,
+                          valueOrDefault<String>(
+                            _model.selectedLocationTitle,
+                            'test',
                           ),
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
@@ -254,38 +261,34 @@ class _QuestionCopyCopyWidgetState extends State<QuestionCopyCopyWidget> {
                         ],
                       ),
                     ),
-                    if (valueOrDefault<bool>(
-                      _model.selectedOption != null,
-                      false,
-                    ))
-                      FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
-                        },
-                        text: FFLocalizations.of(context).getText(
-                          'pt8y2gzq' /* Далее */,
-                        ),
-                        options: FFButtonOptions(
-                          width: 330.0,
-                          height: 48.0,
-                          padding: EdgeInsets.all(0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF53B153),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Golos',
-                                    color: Colors.white,
-                                    useGoogleFonts: false,
-                                  ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
+                    FFButtonWidget(
+                      onPressed: () {
+                        print('Button pressed ...');
+                      },
+                      text: FFLocalizations.of(context).getText(
+                        'pt8y2gzq' /* Далее */,
                       ),
+                      options: FFButtonOptions(
+                        width: 330.0,
+                        height: 48.0,
+                        padding: EdgeInsets.all(0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0xFF53B153),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Golos',
+                                  color: Colors.white,
+                                  useGoogleFonts: false,
+                                ),
+                        elevation: 3.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
                   ],
                 );
               },

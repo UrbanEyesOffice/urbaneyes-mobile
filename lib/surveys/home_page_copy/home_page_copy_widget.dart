@@ -328,7 +328,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                               'Button_navigate_to');
 
                                           context.pushNamed(
-                                            'questionCopyCopy',
+                                            'question',
                                             queryParameters: {
                                               'survey': serializeParam(
                                                 listItemsItem,

@@ -181,7 +181,7 @@ final parametersBuilderMap =
   'RewardsPage': ParameterData.none(),
   'CollectedRewards': ParameterData.none(),
   'RewardsCopy': ParameterData.none(),
-  'questionCopyCopy': (data) async => ParameterData(
+  'question': (data) async => ParameterData(
         allParams: {
           'survey': await getDocumentParameter<SurveysRecord>(
               data, 'survey', SurveysRecord.fromSnapshot),

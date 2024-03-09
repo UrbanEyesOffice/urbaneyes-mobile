@@ -254,12 +254,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => RewardsCopyWidget(),
         ),
         FFRoute(
-          name: 'questionCopyCopy',
-          path: '/questionCopyCopy',
+          name: 'question',
+          path: '/question',
+          requireAuth: true,
           asyncParams: {
             'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
           },
-          builder: (context, params) => QuestionCopyCopyWidget(
+          builder: (context, params) => QuestionWidget(
             survey: params.getParam('survey', ParamType.Document),
           ),
         )

@@ -861,13 +861,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': '',
     },
   },
-  // questionCopyCopy
+  // question
   {
-    'h9xwekle': {
-      'ru': 'Hello World',
-      'en': '',
-      'ky': '',
-    },
     'bwsaww2r': {
       'ru': 'Поле для комментария',
       'en': 'Comment field',
@@ -931,6 +926,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Отправить',
       'en': 'Send',
       'ky': 'Жөнөтүү',
+    },
+  },
+  // GoogleMaps
+  {
+    '85bbwmvo': {
+      'ru': 'Выберите локацию',
+      'en': 'Select location',
+      'ky': 'Жайгашкан жерди тандаңыз',
+    },
+    'hu8bz5nm': {
+      'ru': 'Выбрать эту локацию',
+      'en': 'Select this location',
+      'ky': 'Ушул жерди тандаңыз',
     },
   },
   // Miscellaneous

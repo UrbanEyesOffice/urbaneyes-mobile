@@ -36,5 +36,4 @@ export '/registration/rewards_page/rewards_page_widget.dart'
 export '/rewards/collected_rewards/collected_rewards_widget.dart'
     show CollectedRewardsWidget;
 export '/rewards/rewards_copy/rewards_copy_widget.dart' show RewardsCopyWidget;
-export '/surveys/question_copy_copy/question_copy_copy_widget.dart'
-    show QuestionCopyCopyWidget;
+export '/surveys/question/question_widget.dart' show QuestionWidget;

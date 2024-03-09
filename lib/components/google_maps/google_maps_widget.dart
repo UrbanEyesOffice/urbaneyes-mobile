@@ -1,7 +1,7 @@
 import '/flutter_flow/flutter_flow_google_map.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +11,13 @@ import 'google_maps_model.dart';
 export 'google_maps_model.dart';
 
 class GoogleMapsWidget extends StatefulWidget {
-  const GoogleMapsWidget({super.key});
+  const GoogleMapsWidget({
+    super.key,
+    required this.selectedLocationCallback,
+  });
+
+  final Future Function(LatLng? location, String locationTitle)?
+      selectedLocationCallback;
 
   @override
   State<GoogleMapsWidget> createState() => _GoogleMapsWidgetState();
@@ -19,6 +25,8 @@ class GoogleMapsWidget extends StatefulWidget {
 
 class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
   late GoogleMapsModel _model;
+
+  LatLng? currentUserLocationValue;
 
   @override
   void setState(VoidCallback callback) {
@@ -31,6 +39,8 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
     super.initState();
     _model = createModel(context, () => GoogleMapsModel());
 
+    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
+        .then((loc) => setState(() => currentUserLocationValue = loc));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -43,7 +53,22 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    if (currentUserLocationValue == null) {
+      return Container(
+        color: FlutterFlowTheme.of(context).primaryBackground,
+        child: Center(
+          child: SizedBox(
+            width: 50.0,
+            height: 50.0,
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                FlutterFlowTheme.of(context).primary,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -67,9 +92,8 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Text(
-              valueOrDefault<String>(
-                _model.selectedLocationTitle,
-                'Выберите локацию',
+              FFLocalizations.of(context).getText(
+                '85bbwmvo' /* Выберите локацию */,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium,
             ),
@@ -83,7 +107,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                 onCameraIdle: (latLng) =>
                     setState(() => _model.googleMapsCenter = latLng),
                 initialLocation: _model.googleMapsCenter ??=
-                    FFAppState().locationBishkek!,
+                    currentUserLocationValue!,
                 markerColor: GoogleMarkerColor.violet,
                 mapType: MapType.normal,
                 style: GoogleMapStyle.standard,
@@ -121,33 +145,92 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                   intercepting: isWeb,
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                    child: FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 20.0,
-                      buttonSize: 40.0,
-                      fillColor: FlutterFlowTheme.of(context).mainGreen,
-                      icon: Icon(
-                        Icons.check,
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        size: 24.0,
-                      ),
-                      onPressed: () async {
-                        logFirebaseEvent('GOOGLE_MAPS_COMP_check_ICN_ON_TAP');
-                        logFirebaseEvent('IconButton_custom_action');
-                        _model.selectedLocationOutput =
-                            await actions.getAddressFromLatLngGoogleMaps(
-                          _model.googleMapsCenter,
-                          FFLocalizations.of(context).languageCode,
-                        );
-                        logFirebaseEvent('IconButton_update_component_state');
-                        setState(() {
-                          _model.selectedLocationTitle =
-                              _model.selectedLocationOutput;
-                        });
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'GOOGLE_MAPS_ВЫБРАТЬ_ЭТУ_ЛОКАЦИЮ_BTN_ON_T');
+                            logFirebaseEvent('Button_custom_action');
+                            _model.selectedLocationOutput =
+                                await actions.getAddressFromLatLngGoogleMaps(
+                              _model.googleMapsCenter,
+                              FFLocalizations.of(context).languageCode,
+                            );
+                            logFirebaseEvent('Button_update_component_state');
+                            setState(() {
+                              _model.selectedLocationTitle =
+                                  _model.selectedLocationOutput;
+                              _model.selectedLocation = _model.googleMapsCenter;
+                            });
 
-                        setState(() {});
-                      },
+                            setState(() {});
+                          },
+                          text: FFLocalizations.of(context).getText(
+                            'hu8bz5nm' /* Выбрать эту локацию */,
+                          ),
+                          options: FFButtonOptions(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: 48.0,
+                            padding: EdgeInsets.all(0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0xFFCEEFCD),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Golos',
+                                  color: Color(0xFF0A8D09),
+                                  useGoogleFonts: false,
+                                ),
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        if (_model.selectedLocationTitle != null &&
+                            _model.selectedLocationTitle != '')
+                          FFButtonWidget(
+                            onPressed: () async {
+                              logFirebaseEvent('GOOGLE_MAPS_COMP__BTN_ON_TAP');
+                              logFirebaseEvent('Button_execute_callback');
+                              await widget.selectedLocationCallback?.call(
+                                _model.selectedLocation,
+                                _model.selectedLocationTitle,
+                              );
+                              logFirebaseEvent(
+                                  'Button_close_dialog,_drawer,_etc');
+                              Navigator.pop(context);
+                            },
+                            text: _model.selectedLocationTitle!,
+                            options: FFButtonOptions(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              height: 48.0,
+                              padding: EdgeInsets.all(0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0xFF53B153),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Golos',
+                                    color: Colors.white,
+                                    useGoogleFonts: false,
+                                  ),
+                              elevation: 0.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                      ].divide(SizedBox(height: 8.0)),
                     ),
                   ),
                 ),
