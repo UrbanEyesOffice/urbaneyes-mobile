@@ -201,7 +201,10 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                               logFirebaseEvent('Button_execute_callback');
                               await widget.selectedLocationCallback?.call(
                                 _model.selectedLocation,
-                                _model.selectedLocationTitle,
+                                valueOrDefault<String>(
+                                  _model.selectedLocationTitle,
+                                  '-',
+                                ),
                               );
                               logFirebaseEvent(
                                   'Button_close_dialog,_drawer,_etc');
