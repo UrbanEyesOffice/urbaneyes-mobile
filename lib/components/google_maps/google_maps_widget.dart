@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,24 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => GoogleMapsModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('GOOGLE_MAPS_GoogleMaps_ON_INIT_STATE');
+      logFirebaseEvent('GoogleMaps_show_snack_bar');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'test test',
+            style: TextStyle(
+              color: FlutterFlowTheme.of(context).primaryText,
+            ),
+          ),
+          duration: Duration(milliseconds: 4000),
+          backgroundColor: FlutterFlowTheme.of(context).secondary,
+        ),
+      );
+    });
 
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
         .then((loc) => setState(() => currentUserLocationValue = loc));
@@ -130,7 +149,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                 showCompass: false,
                 showMapToolbar: false,
                 showTraffic: false,
-                centerMapOnMarkerTap: true,
+                centerMapOnMarkerTap: false,
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 0.0),
