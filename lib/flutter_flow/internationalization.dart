@@ -382,9 +382,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // AskGeo
   {
     'vtmdto4u': {
-      'ru': 'Включи геолокацию и проходи больше опросов.',
-      'en': 'Turn on geolocation and take more surveys.',
-      'ky': 'Геолокацияны күйгүзүп, көбүрөөк сурамжылоодон өтсө болот.',
+      'ru': 'Включи геолокацию и проходи больше опросов',
+      'en': 'Turn on geolocation and take more surveys',
+      'ky': 'Геолокацияны күйгүзүп, көбүрөөк сурамжылоодон өтсө болот',
     },
     'nhp57jdr': {
       'ru':
@@ -697,11 +697,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // Verification
   {
     'pb5q1mbe': {
-      'ru': 'На указанную почту отправлена ссылка для подтверждения аккаунта.',
+      'ru': 'На указанную почту отправлена ссылка для подтверждения аккаунта',
       'en':
-          'A link to confirm your account has been sent to the specified email.',
+          'A link to confirm your account has been sent to the specified email',
       'ky':
-          'Каттоо эсебиңизди ырастоо үчүн шилтеме көрсөтүлгөн электрондук почтага жөнөтүлдү.',
+          'Каттоо эсебиңизди ырастоо үчүн шилтеме көрсөтүлгөн электрондук почтага жөнөтүлдү',
     },
     'wxvbji67': {
       'ru': 'Отправить повторно',
@@ -786,9 +786,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // AskPushNotifications
   {
     'nxwehmig': {
-      'ru': 'Разреши уведомления и оценивай места рядом.',
-      'en': 'Allow notifications and rate places nearby.',
-      'ky': 'Билдирмелерге уруксат берип, чөйрөң тууралуу пикир билдир.',
+      'ru': 'Разреши уведомления и оценивай места рядом',
+      'en': 'Allow notifications and rate places nearby',
+      'ky': 'Билдирмелерге уруксат берип, чөйрөң тууралуу пикир билдир',
     },
     '75xs578i': {
       'ru': 'Продолжить',
@@ -809,9 +809,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // RewardsPage
   {
     'yawdppzf': {
-      'ru': 'Проходи опросы и получай награды.',
-      'en': 'Complete surveys and get rewards.',
-      'ky': 'Сурамжылоолордон өтүп, сыйлыктарды ал.',
+      'ru': 'Проходи опросы и получай награды',
+      'en': 'Complete surveys and get rewards',
+      'ky': 'Сурамжылоолордон өтүп, сыйлыктарды ал',
     },
     'g85ffecm': {
       'ru': 'Чем больше баллов, тем ценнее награды от наших партнеров.',
@@ -858,6 +858,29 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     '2lyi4k78': {
       'ru': 'Home',
       'en': '',
+      'ky': '',
+    },
+  },
+  // questionCopyCopy
+  {
+    'h9xwekle': {
+      'ru': 'Hello World',
+      'en': '',
+      'ky': '',
+    },
+    'bwsaww2r': {
+      'ru': 'Поле для комментария',
+      'en': 'Comment field',
+      'ky': 'Комментарий талаасы',
+    },
+    'pt8y2gzq': {
+      'ru': 'Далее',
+      'en': 'Next',
+      'ky': 'Андан ары',
+    },
+    'vt2xnhmk': {
+      'ru': 'Главная',
+      'en': 'Home',
       'ky': '',
     },
   },
@@ -952,6 +975,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'auqafdkr': {
       'ru': 'Разреши пуш-уведомления и оценивай места рядом',
+      'en': '',
+      'ky': '',
+    },
+    '2jtpf996': {
+      'ru': 'Это позволяет нам улучшать Urban Eyes и делать более удобным ',
       'en': '',
       'ky': '',
     },

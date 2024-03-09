@@ -4,17 +4,16 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'reset_password_model.dart';
 export 'reset_password_model.dart';
 
 class ResetPasswordWidget extends StatefulWidget {
-  const ResetPasswordWidget({Key? key}) : super(key: key);
+  const ResetPasswordWidget({super.key});
 
   @override
-  _ResetPasswordWidgetState createState() => _ResetPasswordWidgetState();
+  State<ResetPasswordWidget> createState() => _ResetPasswordWidgetState();
 }
 
 class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
@@ -44,17 +43,6 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -199,7 +187,6 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 FlutterFlowTheme.of(context).secondary,
                           ),
                         );
-                        logFirebaseEvent('Button_navigate_to');
                       },
                       text: FFLocalizations.of(context).getText(
                         '44ewba3m' /* Продолжить */,

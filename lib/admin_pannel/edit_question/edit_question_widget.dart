@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'edit_question_model.dart';
@@ -11,14 +10,14 @@ export 'edit_question_model.dart';
 
 class EditQuestionWidget extends StatefulWidget {
   const EditQuestionWidget({
-    Key? key,
+    super.key,
     required this.question,
-  }) : super(key: key);
+  });
 
   final DocumentReference? question;
 
   @override
-  _EditQuestionWidgetState createState() => _EditQuestionWidgetState();
+  State<EditQuestionWidget> createState() => _EditQuestionWidgetState();
 }
 
 class _EditQuestionWidgetState extends State<EditQuestionWidget> {
@@ -45,17 +44,6 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

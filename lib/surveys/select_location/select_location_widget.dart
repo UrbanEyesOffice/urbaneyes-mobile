@@ -12,7 +12,6 @@ import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +20,7 @@ export 'select_location_model.dart';
 
 class SelectLocationWidget extends StatefulWidget {
   const SelectLocationWidget({
-    Key? key,
+    super.key,
     required this.survey,
     this.questionRef,
     this.ord,
@@ -33,8 +32,7 @@ class SelectLocationWidget extends StatefulWidget {
     this.comment,
     required this.questionCount,
     bool? onlyLocation,
-  })  : this.onlyLocation = onlyLocation ?? false,
-        super(key: key);
+  }) : this.onlyLocation = onlyLocation ?? false;
 
   final SurveysRecord? survey;
   final DocumentReference? questionRef;
@@ -49,7 +47,7 @@ class SelectLocationWidget extends StatefulWidget {
   final bool onlyLocation;
 
   @override
-  _SelectLocationWidgetState createState() => _SelectLocationWidgetState();
+  State<SelectLocationWidget> createState() => _SelectLocationWidgetState();
 }
 
 class _SelectLocationWidgetState extends State<SelectLocationWidget> {
@@ -148,15 +146,6 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
     if (currentUserLocationValue == null) {
       return Container(
@@ -298,6 +287,12 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                       borderRadius: BorderRadius.circular(30.0),
                                       child: Container(
                                         width: double.infinity,
+                                        constraints: BoxConstraints(
+                                          minWidth:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          minHeight: 48.0,
+                                        ),
                                         decoration: BoxDecoration(
                                           color: Color(0xFFF1F3F3),
                                           borderRadius:
@@ -466,8 +461,6 @@ class _SelectLocationWidgetState extends State<SelectLocationWidget> {
                                             },
                                           );
                                         }
-
-                                        logFirebaseEvent('Button_navigate_to');
                                       }
                                     },
                                     text: widget.ord! < widget.questionCount!

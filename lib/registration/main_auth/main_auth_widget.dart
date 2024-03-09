@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,10 +11,10 @@ import 'main_auth_model.dart';
 export 'main_auth_model.dart';
 
 class MainAuthWidget extends StatefulWidget {
-  const MainAuthWidget({Key? key}) : super(key: key);
+  const MainAuthWidget({super.key});
 
   @override
-  _MainAuthWidgetState createState() => _MainAuthWidgetState();
+  State<MainAuthWidget> createState() => _MainAuthWidgetState();
 }
 
 class _MainAuthWidgetState extends State<MainAuthWidget> {
@@ -41,17 +40,6 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

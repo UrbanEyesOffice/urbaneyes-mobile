@@ -56,6 +56,11 @@ class QuestionRecord extends FirestoreRecord {
   List<OptionStruct> get options => _options ?? const [];
   bool hasOptions() => _options != null;
 
+  // "enabled" field.
+  bool? _enabled;
+  bool get enabled => _enabled ?? false;
+  bool hasEnabled() => _enabled != null;
+
   void _initializeFields() {
     _question = snapshotData['question'] as String?;
     _surveyId = snapshotData['survey_id'] as DocumentReference?;
@@ -68,6 +73,7 @@ class QuestionRecord extends FirestoreRecord {
       snapshotData['options'],
       OptionStruct.fromMap,
     );
+    _enabled = snapshotData['enabled'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -112,6 +118,7 @@ Map<String, dynamic> createQuestionRecordData({
   String? questionEn,
   String? questionKg,
   int? questionOrder,
+  bool? enabled,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -122,6 +129,7 @@ Map<String, dynamic> createQuestionRecordData({
       'question_en': questionEn,
       'question_kg': questionKg,
       'question_order': questionOrder,
+      'enabled': enabled,
     }.withoutNulls,
   );
 
@@ -141,7 +149,8 @@ class QuestionRecordDocumentEquality implements Equality<QuestionRecord> {
         e1?.questionEn == e2?.questionEn &&
         e1?.questionKg == e2?.questionKg &&
         e1?.questionOrder == e2?.questionOrder &&
-        listEquality.equals(e1?.options, e2?.options);
+        listEquality.equals(e1?.options, e2?.options) &&
+        e1?.enabled == e2?.enabled;
   }
 
   @override
@@ -153,7 +162,8 @@ class QuestionRecordDocumentEquality implements Equality<QuestionRecord> {
         e?.questionEn,
         e?.questionKg,
         e?.questionOrder,
-        e?.options
+        e?.options,
+        e?.enabled
       ]);
 
   @override

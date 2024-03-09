@@ -5,17 +5,16 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'rewards_page_model.dart';
 export 'rewards_page_model.dart';
 
 class RewardsPageWidget extends StatefulWidget {
-  const RewardsPageWidget({Key? key}) : super(key: key);
+  const RewardsPageWidget({super.key});
 
   @override
-  _RewardsPageWidgetState createState() => _RewardsPageWidgetState();
+  State<RewardsPageWidget> createState() => _RewardsPageWidgetState();
 }
 
 class _RewardsPageWidgetState extends State<RewardsPageWidget> {
@@ -41,17 +40,6 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

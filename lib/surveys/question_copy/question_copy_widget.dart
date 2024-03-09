@@ -11,7 +11,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'question_copy_model.dart';
@@ -19,7 +18,7 @@ export 'question_copy_model.dart';
 
 class QuestionCopyWidget extends StatefulWidget {
   const QuestionCopyWidget({
-    Key? key,
+    super.key,
     required this.survey,
     this.questionRef,
     this.question,
@@ -27,8 +26,7 @@ class QuestionCopyWidget extends StatefulWidget {
     this.location,
     this.answers,
     this.address,
-  })  : this.ord = ord ?? 1,
-        super(key: key);
+  }) : this.ord = ord ?? 1;
 
   final SurveysRecord? survey;
   final DocumentReference? questionRef;
@@ -39,7 +37,7 @@ class QuestionCopyWidget extends StatefulWidget {
   final String? address;
 
   @override
-  _QuestionCopyWidgetState createState() => _QuestionCopyWidgetState();
+  State<QuestionCopyWidget> createState() => _QuestionCopyWidgetState();
 }
 
 class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
@@ -60,7 +58,6 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
       logFirebaseEvent('QUESTION_COPY_questionCopy_ON_INIT_STATE');
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
-      logFirebaseEvent('questionCopy_wait__delay');
       if (widget.location != null) {
         logFirebaseEvent('questionCopy_custom_action');
         _model.addressOnLoad = await actions.getAddressFromLatLngGoogleMaps(
@@ -71,7 +68,6 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
         setState(() {
           _model.locationAddress = _model.addressOnLoad;
         });
-        logFirebaseEvent('questionCopy_not_defined');
       } else {
         if (!functions.isLatLongEqualNull(FFAppState().lastMapPoint)!) {
           logFirebaseEvent('questionCopy_custom_action');
@@ -86,8 +82,6 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
           });
         }
       }
-
-      logFirebaseEvent('questionCopy_show_snack_bar');
     });
 
     _model.commentController ??= TextEditingController();
@@ -105,15 +99,6 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return StreamBuilder<List<QuestionRecord>>(
@@ -220,10 +205,15 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
                 child: FutureBuilder<int>(
                   future: queryQuestionRecordCount(
-                    queryBuilder: (questionRecord) => questionRecord.where(
-                      'survey_id',
-                      isEqualTo: widget.survey?.reference,
-                    ),
+                    queryBuilder: (questionRecord) => questionRecord
+                        .where(
+                          'survey_id',
+                          isEqualTo: widget.survey?.reference,
+                        )
+                        .where(
+                          'enabled',
+                          isEqualTo: true,
+                        ),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -296,8 +286,6 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                                 await getCurrentUserLocation(
                                                     defaultLocation:
                                                         LatLng(0.0, 0.0));
-                                            logFirebaseEvent(
-                                                'Button_not_defined');
                                             logFirebaseEvent(
                                                 'Button_update_page_state');
                                             setState(() {
@@ -453,6 +441,10 @@ class _QuestionCopyWidgetState extends State<QuestionCopyWidget> {
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           1.0,
+                                      constraints: BoxConstraints(
+                                        minWidth: double.infinity,
+                                        minHeight: 48.0,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: Color(0xFFF1F3F3),
                                         borderRadius:

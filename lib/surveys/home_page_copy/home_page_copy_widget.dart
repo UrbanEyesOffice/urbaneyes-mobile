@@ -8,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'home_page_copy_model.dart';
@@ -16,14 +15,14 @@ export 'home_page_copy_model.dart';
 
 class HomePageCopyWidget extends StatefulWidget {
   const HomePageCopyWidget({
-    Key? key,
+    super.key,
     this.firstLogin,
-  }) : super(key: key);
+  });
 
   final bool? firstLogin;
 
   @override
-  _HomePageCopyWidgetState createState() => _HomePageCopyWidgetState();
+  State<HomePageCopyWidget> createState() => _HomePageCopyWidgetState();
 }
 
 class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
@@ -55,6 +54,10 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
       }
       logFirebaseEvent('HomePageCopy_firestore_query');
       _model.loadedSurveys = await querySurveysRecordOnce(
+        queryBuilder: (surveysRecord) => surveysRecord.where(
+          'enabled',
+          isEqualTo: true,
+        ),
         limit: 10,
       );
       logFirebaseEvent('HomePageCopy_custom_action');
@@ -80,17 +83,6 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -240,6 +232,9 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                               32.0, 0.0, 32.0, 0.0),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
+                            constraints: BoxConstraints(
+                              minHeight: 250.0,
+                            ),
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
@@ -333,19 +328,11 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                               'Button_navigate_to');
 
                                           context.pushNamed(
-                                            'questionCopy',
+                                            'questionCopyCopy',
                                             queryParameters: {
                                               'survey': serializeParam(
                                                 listItemsItem,
                                                 ParamType.Document,
-                                              ),
-                                              'ord': serializeParam(
-                                                1,
-                                                ParamType.int,
-                                              ),
-                                              'location': serializeParam(
-                                                FFAppState().lastMapPoint,
-                                                ParamType.LatLng,
                                               ),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{

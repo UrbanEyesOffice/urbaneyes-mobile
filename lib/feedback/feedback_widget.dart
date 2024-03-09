@@ -6,17 +6,16 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'feedback_model.dart';
 export 'feedback_model.dart';
 
 class FeedbackWidget extends StatefulWidget {
-  const FeedbackWidget({Key? key}) : super(key: key);
+  const FeedbackWidget({super.key});
 
   @override
-  _FeedbackWidgetState createState() => _FeedbackWidgetState();
+  State<FeedbackWidget> createState() => _FeedbackWidgetState();
 }
 
 class _FeedbackWidgetState extends State<FeedbackWidget> {
@@ -49,17 +48,6 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

@@ -6,17 +6,16 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'verification_model.dart';
 export 'verification_model.dart';
 
 class VerificationWidget extends StatefulWidget {
-  const VerificationWidget({Key? key}) : super(key: key);
+  const VerificationWidget({super.key});
 
   @override
-  _VerificationWidgetState createState() => _VerificationWidgetState();
+  State<VerificationWidget> createState() => _VerificationWidgetState();
 }
 
 class _VerificationWidgetState extends State<VerificationWidget> {
@@ -43,17 +42,6 @@ class _VerificationWidgetState extends State<VerificationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

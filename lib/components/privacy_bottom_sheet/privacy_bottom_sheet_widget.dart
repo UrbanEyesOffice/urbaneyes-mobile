@@ -2,17 +2,16 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'privacy_bottom_sheet_model.dart';
 export 'privacy_bottom_sheet_model.dart';
 
 class PrivacyBottomSheetWidget extends StatefulWidget {
-  const PrivacyBottomSheetWidget({Key? key}) : super(key: key);
+  const PrivacyBottomSheetWidget({super.key});
 
   @override
-  _PrivacyBottomSheetWidgetState createState() =>
+  State<PrivacyBottomSheetWidget> createState() =>
       _PrivacyBottomSheetWidgetState();
 }
 
@@ -42,8 +41,6 @@ class _PrivacyBottomSheetWidgetState extends State<PrivacyBottomSheetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       height: 270.0,

@@ -7,7 +7,6 @@ import 'dart:ui';
 import 'feedback_alert_widget.dart' show FeedbackAlertWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +20,10 @@ class FeedbackAlertModel extends FlutterFlowModel<FeedbackAlertWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     emailAddressFocusNode?.dispose();
     emailAddressController?.dispose();

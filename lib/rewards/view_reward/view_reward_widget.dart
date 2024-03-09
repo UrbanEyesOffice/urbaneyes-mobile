@@ -12,16 +12,16 @@ export 'view_reward_model.dart';
 
 class ViewRewardWidget extends StatefulWidget {
   const ViewRewardWidget({
-    Key? key,
+    super.key,
     required this.reward,
     required this.promocode,
-  }) : super(key: key);
+  });
 
   final RewardsRecord? reward;
   final PromocodesRecord? promocode;
 
   @override
-  _ViewRewardWidgetState createState() => _ViewRewardWidgetState();
+  State<ViewRewardWidget> createState() => _ViewRewardWidgetState();
 }
 
 class _ViewRewardWidgetState extends State<ViewRewardWidget> {
@@ -47,17 +47,6 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

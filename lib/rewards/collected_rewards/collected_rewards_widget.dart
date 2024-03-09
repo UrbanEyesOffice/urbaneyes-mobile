@@ -9,7 +9,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +16,10 @@ import 'collected_rewards_model.dart';
 export 'collected_rewards_model.dart';
 
 class CollectedRewardsWidget extends StatefulWidget {
-  const CollectedRewardsWidget({Key? key}) : super(key: key);
+  const CollectedRewardsWidget({super.key});
 
   @override
-  _CollectedRewardsWidgetState createState() => _CollectedRewardsWidgetState();
+  State<CollectedRewardsWidget> createState() => _CollectedRewardsWidgetState();
 }
 
 class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
@@ -83,17 +82,6 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

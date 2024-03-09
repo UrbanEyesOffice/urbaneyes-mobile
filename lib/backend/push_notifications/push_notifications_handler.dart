@@ -181,6 +181,12 @@ final parametersBuilderMap =
   'RewardsPage': ParameterData.none(),
   'CollectedRewards': ParameterData.none(),
   'RewardsCopy': ParameterData.none(),
+  'questionCopyCopy': (data) async => ParameterData(
+        allParams: {
+          'survey': await getDocumentParameter<SurveysRecord>(
+              data, 'survey', SurveysRecord.fromSnapshot),
+        },
+      ),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

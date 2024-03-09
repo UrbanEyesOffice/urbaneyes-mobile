@@ -3,17 +3,16 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'ask_push_notifications_model.dart';
 export 'ask_push_notifications_model.dart';
 
 class AskPushNotificationsWidget extends StatefulWidget {
-  const AskPushNotificationsWidget({Key? key}) : super(key: key);
+  const AskPushNotificationsWidget({super.key});
 
   @override
-  _AskPushNotificationsWidgetState createState() =>
+  State<AskPushNotificationsWidget> createState() =>
       _AskPushNotificationsWidgetState();
 }
 
@@ -42,17 +41,6 @@ class _AskPushNotificationsWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

@@ -3,17 +3,16 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'all_surveys_stat_model.dart';
 export 'all_surveys_stat_model.dart';
 
 class AllSurveysStatWidget extends StatefulWidget {
-  const AllSurveysStatWidget({Key? key}) : super(key: key);
+  const AllSurveysStatWidget({super.key});
 
   @override
-  _AllSurveysStatWidgetState createState() => _AllSurveysStatWidgetState();
+  State<AllSurveysStatWidget> createState() => _AllSurveysStatWidgetState();
 }
 
 class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
@@ -40,17 +39,6 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

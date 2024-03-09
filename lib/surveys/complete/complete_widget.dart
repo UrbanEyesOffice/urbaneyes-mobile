@@ -9,7 +9,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -18,14 +17,14 @@ export 'complete_model.dart';
 
 class CompleteWidget extends StatefulWidget {
   const CompleteWidget({
-    Key? key,
+    super.key,
     required this.survey,
-  }) : super(key: key);
+  });
 
   final SurveysRecord? survey;
 
   @override
-  _CompleteWidgetState createState() => _CompleteWidgetState();
+  State<CompleteWidget> createState() => _CompleteWidgetState();
 }
 
 class _CompleteWidgetState extends State<CompleteWidget> {
@@ -116,15 +115,6 @@ class _CompleteWidgetState extends State<CompleteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(

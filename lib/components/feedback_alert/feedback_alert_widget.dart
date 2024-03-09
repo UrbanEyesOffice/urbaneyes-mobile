@@ -6,17 +6,16 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'feedback_alert_model.dart';
 export 'feedback_alert_model.dart';
 
 class FeedbackAlertWidget extends StatefulWidget {
-  const FeedbackAlertWidget({Key? key}) : super(key: key);
+  const FeedbackAlertWidget({super.key});
 
   @override
-  _FeedbackAlertWidgetState createState() => _FeedbackAlertWidgetState();
+  State<FeedbackAlertWidget> createState() => _FeedbackAlertWidgetState();
 }
 
 class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
@@ -48,8 +47,6 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return ClipRRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(

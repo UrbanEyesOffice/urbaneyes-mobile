@@ -1,17 +1,16 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'empty_collected_rewards_list_model.dart';
 export 'empty_collected_rewards_list_model.dart';
 
 class EmptyCollectedRewardsListWidget extends StatefulWidget {
-  const EmptyCollectedRewardsListWidget({Key? key}) : super(key: key);
+  const EmptyCollectedRewardsListWidget({super.key});
 
   @override
-  _EmptyCollectedRewardsListWidgetState createState() =>
+  State<EmptyCollectedRewardsListWidget> createState() =>
       _EmptyCollectedRewardsListWidgetState();
 }
 
@@ -42,8 +41,6 @@ class _EmptyCollectedRewardsListWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,

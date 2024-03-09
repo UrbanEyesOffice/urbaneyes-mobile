@@ -5,17 +5,16 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'complete_registration_model.dart';
 export 'complete_registration_model.dart';
 
 class CompleteRegistrationWidget extends StatefulWidget {
-  const CompleteRegistrationWidget({Key? key}) : super(key: key);
+  const CompleteRegistrationWidget({super.key});
 
   @override
-  _CompleteRegistrationWidgetState createState() =>
+  State<CompleteRegistrationWidget> createState() =>
       _CompleteRegistrationWidgetState();
 }
 
@@ -44,17 +43,6 @@ class _CompleteRegistrationWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -151,8 +139,7 @@ class _CompleteRegistrationWidgetState
                           ).then((value) => safeSetState(() {}));
                         },
                         child: RichText(
-                          textScaleFactor:
-                              MediaQuery.of(context).textScaleFactor,
+                          textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(
                             children: [
                               TextSpan(

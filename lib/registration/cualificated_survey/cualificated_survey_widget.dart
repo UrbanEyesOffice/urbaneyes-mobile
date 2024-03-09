@@ -9,17 +9,16 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'cualificated_survey_model.dart';
 export 'cualificated_survey_model.dart';
 
 class CualificatedSurveyWidget extends StatefulWidget {
-  const CualificatedSurveyWidget({Key? key}) : super(key: key);
+  const CualificatedSurveyWidget({super.key});
 
   @override
-  _CualificatedSurveyWidgetState createState() =>
+  State<CualificatedSurveyWidget> createState() =>
       _CualificatedSurveyWidgetState();
 }
 
@@ -53,17 +52,6 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -175,7 +163,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                           filled: true,
                           fillColor: Colors.white,
                           contentPadding: EdgeInsetsDirectional.fromSTEB(
-                              20.0, 24.0, 20.0, 24.0),
+                              16.0, 24.0, 16.0, 24.0),
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Golos',
@@ -251,8 +239,8 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                         borderColor: Color(0xFFA9ABAF),
                         borderWidth: 1.0,
                         borderRadius: 8.0,
-                        margin:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 16.0, 4.0),
+                        margin: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 4.0, 16.0, 4.0),
                         hidesUnderline: true,
                         isSearchable: false,
                         isMultiSelect: false,
@@ -321,7 +309,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                             Expanded(
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 0.0, 0.0),
+                                    16.0, 0.0, 0.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => Text(
                                     valueOrDefault<String>(

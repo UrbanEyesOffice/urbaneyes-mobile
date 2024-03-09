@@ -252,6 +252,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'RewardsCopy',
           path: '/rewardsCopy',
           builder: (context, params) => RewardsCopyWidget(),
+        ),
+        FFRoute(
+          name: 'questionCopyCopy',
+          path: '/questionCopyCopy',
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+          },
+          builder: (context, params) => QuestionCopyCopyWidget(
+            survey: params.getParam('survey', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -423,6 +433,7 @@ class FFRoute {
           return null;
         },
         pageBuilder: (context, state) {
+          fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
           final page = ffParams.hasFutures
               ? FutureBuilder(

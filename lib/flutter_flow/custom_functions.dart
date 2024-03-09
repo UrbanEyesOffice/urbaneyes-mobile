@@ -91,7 +91,7 @@ bool isTheSamePositionBool(
 
 String returnDate(DateTime dateTime) {
   // Get dateTime var and return date without time string
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final DateFormat formatter = DateFormat('yyyy');
   final String formatted = formatter.format(dateTime);
   return formatted;
 }
@@ -120,6 +120,12 @@ String? showGenderValue(int gender) {
     else
       return "Башка";
   }
+}
+
+DateTime yearToDateTime(String year) {
+  // Get dateTime var and return date without time string
+
+  return DateTime.parse('$year' + '0101');
 }
 
 String? getAddress(LatLng position) {

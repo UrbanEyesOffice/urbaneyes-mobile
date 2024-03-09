@@ -56,6 +56,11 @@ class SurveysRecord extends FirestoreRecord {
   String get descriptionKg => _descriptionKg ?? '';
   bool hasDescriptionKg() => _descriptionKg != null;
 
+  // "enabled" field.
+  bool? _enabled;
+  bool get enabled => _enabled ?? false;
+  bool hasEnabled() => _enabled != null;
+
   void _initializeFields() {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _name = snapshotData['name'] as String?;
@@ -65,6 +70,7 @@ class SurveysRecord extends FirestoreRecord {
     _nameKg = snapshotData['name_kg'] as String?;
     _descriptionEn = snapshotData['description_en'] as String?;
     _descriptionKg = snapshotData['description_kg'] as String?;
+    _enabled = snapshotData['enabled'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -110,6 +116,7 @@ Map<String, dynamic> createSurveysRecordData({
   String? nameKg,
   String? descriptionEn,
   String? descriptionKg,
+  bool? enabled,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +128,7 @@ Map<String, dynamic> createSurveysRecordData({
       'name_kg': nameKg,
       'description_en': descriptionEn,
       'description_kg': descriptionKg,
+      'enabled': enabled,
     }.withoutNulls,
   );
 
@@ -139,7 +147,8 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e1?.nameEn == e2?.nameEn &&
         e1?.nameKg == e2?.nameKg &&
         e1?.descriptionEn == e2?.descriptionEn &&
-        e1?.descriptionKg == e2?.descriptionKg;
+        e1?.descriptionKg == e2?.descriptionKg &&
+        e1?.enabled == e2?.enabled;
   }
 
   @override
@@ -151,7 +160,8 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e?.nameEn,
         e?.nameKg,
         e?.descriptionEn,
-        e?.descriptionKg
+        e?.descriptionKg,
+        e?.enabled
       ]);
 
   @override
