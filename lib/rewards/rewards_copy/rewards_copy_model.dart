@@ -38,8 +38,6 @@ class RewardsCopyModel extends FlutterFlowModel<RewardsCopyWidget> {
   // Stores action output result for [Backend Call - Create Document] action in Container widget.
   PromocodesRecord? usedPromocode;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -47,8 +45,4 @@ class RewardsCopyModel extends FlutterFlowModel<RewardsCopyWidget> {
   void dispose() {
     unfocusNode.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

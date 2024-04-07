@@ -59,6 +59,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                   fontFamily: 'Inter',
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                   useGoogleFonts: false,
                 ),
           ),
@@ -153,6 +154,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
+                                                letterSpacing: 0.0,
                                                 useGoogleFonts: false,
                                               ),
                                         ),
@@ -169,6 +171,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
+                                                letterSpacing: 0.0,
                                                 useGoogleFonts: false,
                                               ),
                                         ),
@@ -187,6 +190,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
+                                                letterSpacing: 0.0,
                                                 useGoogleFonts: false,
                                               ),
                                         ),
@@ -222,6 +226,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryText,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: false,
                                                       ),
                                               elevation: 3.0,
@@ -299,6 +304,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w300,
                                                         useGoogleFonts: false,

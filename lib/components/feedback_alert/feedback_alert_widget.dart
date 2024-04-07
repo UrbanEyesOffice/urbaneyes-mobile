@@ -72,7 +72,10 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                     BoxShadow(
                       blurRadius: 7.0,
                       color: Color(0x33000000),
-                      offset: Offset(0.0, -2.0),
+                      offset: Offset(
+                        0.0,
+                        -2.0,
+                      ),
                     )
                   ],
                   borderRadius: BorderRadius.only(
@@ -115,6 +118,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                                 fontFamily: 'Inter',
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 fontSize: 17.0,
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
                                 useGoogleFonts: false,
                               ),
@@ -129,7 +133,12 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                           textCapitalization: TextCapitalization.sentences,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelStyle: FlutterFlowTheme.of(context).bodyLarge,
+                            labelStyle:
+                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
                             hintText: FFLocalizations.of(context).getText(
                               '19fvfw1x' /* Что бы вы хотели добавить/улуч... */,
                             ),
@@ -172,9 +181,11 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
                                     fontSize: 12.0,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           maxLines: 4,
+                          minLines: null,
                           cursorColor: FlutterFlowTheme.of(context).primary,
                           validator: _model.emailAddressControllerValidator
                               .asValidator(context),
@@ -220,6 +231,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   color: Colors.white,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                             elevation: 2.0,

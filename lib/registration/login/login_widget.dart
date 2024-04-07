@@ -95,6 +95,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Gerbera',
                               fontSize: 28.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
                               useGoogleFonts: false,
                             ),
@@ -114,6 +115,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               fontFamily: 'Inter',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -125,12 +127,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                     child: TextFormField(
                       controller: _model.emailCreateController,
                       focusNode: _model.emailCreateFocusNode,
+                      autofocus: false,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelStyle:
                             FlutterFlowTheme.of(context).bodySmall.override(
                                   fontFamily: 'Inter',
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         hintText: FFLocalizations.of(context).getText(
@@ -141,6 +145,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   fontFamily: 'Inter',
                                   color: Color(0xFF57636C),
                                   fontSize: 16.0,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         enabledBorder: OutlineInputBorder(
@@ -180,8 +185,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                             fontFamily: 'Inter',
                             color: Color(0xFF06112E),
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
+                      minLines: null,
                       validator: _model.emailCreateControllerValidator
                           .asValidator(context),
                     ),
@@ -199,6 +206,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               fontFamily: 'Inter',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -217,6 +225,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   fontFamily: 'Outfit',
                                   color: Color(0xFF0F1113),
                                   fontSize: 16.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                   lineHeight: 2.0,
                                 ),
@@ -228,6 +237,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   fontFamily: 'Outfit',
                                   color: Color(0xFF57636C),
                                   fontSize: 16.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
                         enabledBorder: OutlineInputBorder(
@@ -281,9 +291,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                             fontFamily: 'Outfit',
                             color: Color(0xFF06112E),
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
                           ),
-                      minLines: 1,
                       validator: _model.passwordControllerValidator
                           .asValidator(context),
                     ),
@@ -326,6 +336,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Golos',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           elevation: 0.0,

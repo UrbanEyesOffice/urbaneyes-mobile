@@ -87,6 +87,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Inter',
                     fontSize: 18.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                     useGoogleFonts: false,
                   ),
@@ -114,6 +115,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Inter',
                       color: FlutterFlowTheme.of(context).primaryText,
+                      letterSpacing: 0.0,
                       useGoogleFonts: false,
                     ),
                 elevation: 0.0,
@@ -206,6 +208,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             fontFamily: 'Golos',
                             color: Color(0xFF06112E),
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
                     ),
@@ -217,10 +220,21 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       builder: (context) => TextFormField(
                         controller: _model.displayNameController,
                         focusNode: _model.displayNameFocusNode,
+                        autofocus: false,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          labelStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                          hintStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xFFA9ABAF),
@@ -258,8 +272,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               fontFamily: 'Golos',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
+                        minLines: null,
                         validator: _model.displayNameControllerValidator
                             .asValidator(context),
                       ),
@@ -278,6 +294,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               fontFamily: 'Golos',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -289,11 +306,22 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     child: TextFormField(
                       controller: _model.emailController,
                       focusNode: _model.emailFocusNode,
+                      autofocus: false,
                       readOnly: true,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                        hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                        labelStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                        hintStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
@@ -307,8 +335,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             fontFamily: 'Golos',
                             color: Color(0xFF06112E),
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
+                      minLines: null,
                       validator:
                           _model.emailControllerValidator.asValidator(context),
                     ),
@@ -326,6 +356,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               fontFamily: 'Golos',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -362,6 +393,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   fontFamily: 'Golos',
                                   color: Color(0xFF06112E),
                                   fontSize: 16.0,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         hintText: FFLocalizations.of(context).getText(
@@ -398,6 +430,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               fontFamily: 'Golos',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -479,6 +512,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                           fontFamily: 'Golos',
                                           color: Color(0xFF06112E),
                                           fontSize: 16.0,
+                                          letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                   ),
@@ -624,6 +658,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Golos',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           elevation: 0.0,
@@ -708,6 +743,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Golos',
                                     color: Color(0xFF0A8D09),
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           elevation: 3.0,

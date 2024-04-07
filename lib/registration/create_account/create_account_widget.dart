@@ -98,6 +98,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                               fontFamily: 'Gerbera',
                               color: Color(0xFF06112E),
                               fontSize: 28.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
                               useGoogleFonts: false,
                             ),
@@ -116,6 +117,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Golos',
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -127,12 +129,14 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                     child: TextFormField(
                       controller: _model.emailCreateController,
                       focusNode: _model.emailCreateFocusNode,
+                      autofocus: false,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelStyle:
                             FlutterFlowTheme.of(context).bodySmall.override(
                                   fontFamily: 'Inter',
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         hintText: FFLocalizations.of(context).getText(
@@ -143,6 +147,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   fontFamily: 'Inter',
                                   color: Color(0xFF57636C),
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         enabledBorder: OutlineInputBorder(
@@ -181,8 +186,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Golos',
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
+                      minLines: null,
                       validator: _model.emailCreateControllerValidator
                           .asValidator(context),
                     ),
@@ -199,6 +206,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Golos',
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -217,6 +225,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   fontFamily: 'Outfit',
                                   color: Color(0xFF0F1113),
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                   lineHeight: 2.0,
                                 ),
@@ -228,6 +237,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   fontFamily: 'Outfit',
                                   color: Color(0xFF57636C),
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
                         enabledBorder: OutlineInputBorder(
@@ -281,10 +291,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             fontFamily: 'Golos',
                             color: Color(0xFF0F1113),
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
                             useGoogleFonts: false,
                           ),
-                      minLines: 1,
                       validator: _model.passwordControllerValidator
                           .asValidator(context),
                     ),
@@ -339,6 +349,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Golos',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           elevation: 0.0,

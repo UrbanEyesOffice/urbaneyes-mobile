@@ -85,6 +85,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 ),
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Gerbera',
+                      letterSpacing: 0.0,
                       fontWeight: FontWeight.bold,
                       useGoogleFonts: false,
                     ),
@@ -98,6 +99,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                   style: FlutterFlowTheme.of(context).labelMedium.override(
                         fontFamily: 'Golos',
                         color: Color(0xFF06112E),
+                        letterSpacing: 0.0,
                         useGoogleFonts: false,
                       ),
                 ),
@@ -108,11 +110,19 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 autofocus: true,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
                   hintText: FFLocalizations.of(context).getText(
                     '4an6bb95' /* Введите почту */,
                   ),
-                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFA9ABAF),
@@ -144,7 +154,12 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                   filled: true,
                   fillColor: Colors.white,
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      letterSpacing: 0.0,
+                      useGoogleFonts: false,
+                    ),
+                minLines: null,
                 validator:
                     _model.emailAddressControllerValidator.asValidator(context),
               ),
@@ -202,6 +217,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                             FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Golos',
                                   color: Colors.white,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         elevation: 0.0,

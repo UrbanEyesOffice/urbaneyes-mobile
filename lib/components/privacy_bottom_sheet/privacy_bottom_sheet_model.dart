@@ -8,15 +8,9 @@ import 'package:provider/provider.dart';
 
 class PrivacyBottomSheetModel
     extends FlutterFlowModel<PrivacyBottomSheetWidget> {
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {}
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

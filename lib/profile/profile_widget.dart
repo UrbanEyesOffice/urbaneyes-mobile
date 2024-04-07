@@ -80,6 +80,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                             ),
@@ -96,6 +97,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
@@ -129,6 +131,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Inter',
                       color: FlutterFlowTheme.of(context).primaryText,
+                      letterSpacing: 0.0,
                       fontWeight: FontWeight.w300,
                       useGoogleFonts: false,
                     ),
@@ -161,6 +164,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Inter',
                       color: FlutterFlowTheme.of(context).primaryText,
+                      letterSpacing: 0.0,
                       fontWeight: FontWeight.w300,
                       useGoogleFonts: false,
                     ),
@@ -196,6 +200,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Inter',
                           color: FlutterFlowTheme.of(context).primaryText,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.w300,
                           useGoogleFonts: false,
                         ),
@@ -232,6 +237,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
                       fontFamily: 'Inter',
                       color: FlutterFlowTheme.of(context).primaryBtnText,
+                      letterSpacing: 0.0,
                       useGoogleFonts: false,
                     ),
                 elevation: 3.0,

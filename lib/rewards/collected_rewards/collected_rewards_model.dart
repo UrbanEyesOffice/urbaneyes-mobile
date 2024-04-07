@@ -46,8 +46,6 @@ class CollectedRewardsModel extends FlutterFlowModel<CollectedRewardsWidget> {
   // Stores action output result for [Firestore Query - Query a collection] action in CollectedRewards widget.
   List<RewardsRecord>? loadedRewards;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -55,8 +53,4 @@ class CollectedRewardsModel extends FlutterFlowModel<CollectedRewardsWidget> {
   void dispose() {
     unfocusNode.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

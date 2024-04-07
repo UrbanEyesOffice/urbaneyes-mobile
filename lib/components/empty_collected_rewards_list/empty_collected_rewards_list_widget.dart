@@ -60,7 +60,11 @@ class _EmptyCollectedRewardsListWidgetState
             FFLocalizations.of(context).getText(
               'p4bsixoc' /* Пока нет наград.  */,
             ),
-            style: FlutterFlowTheme.of(context).headlineMedium,
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Inter',
+                  letterSpacing: 0.0,
+                  useGoogleFonts: false,
+                ),
           ),
         ),
         Padding(
@@ -69,7 +73,11 @@ class _EmptyCollectedRewardsListWidgetState
             FFLocalizations.of(context).getText(
               'xzhuem4j' /* Проходи опросы и получай баллы... */,
             ),
-            style: FlutterFlowTheme.of(context).labelMedium,
+            style: FlutterFlowTheme.of(context).labelMedium.override(
+                  fontFamily: 'Inter',
+                  letterSpacing: 0.0,
+                  useGoogleFonts: false,
+                ),
           ),
         ),
       ],

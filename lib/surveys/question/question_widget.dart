@@ -22,7 +22,7 @@ class QuestionWidget extends StatefulWidget {
     required this.survey,
   });
 
-  final SurveysRecord? survey;
+  final SurveyStruct? survey;
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -47,7 +47,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         queryBuilder: (questionRecord) => questionRecord
             .where(
               'survey_id',
-              isEqualTo: widget.survey?.reference,
+              isEqualTo: widget.survey?.surveyReference,
             )
             .where(
               'enabled',
@@ -146,6 +146,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Inter',
                     fontSize: 18.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                     useGoogleFonts: false,
                   ),
@@ -184,6 +185,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           fontFamily: 'Gerbera',
                           color: FlutterFlowTheme.of(context).primaryText,
                           fontSize: 28.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
                           useGoogleFonts: false,
                         ),
@@ -194,7 +196,11 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     _model.selectedLocationTitle,
                     '-',
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
                 ),
                 Align(
                   alignment: AlignmentDirectional(0.0, 1.0),
@@ -253,6 +259,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                           ? FlutterFlowTheme.of(context)
                                               .primaryBackground
                                           : Color(0xFF0A8D09),
+                                      letterSpacing: 0.0,
                                       useGoogleFonts: false,
                                     ),
                                 elevation: 0.0,
@@ -272,6 +279,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 TextFormField(
                   controller: _model.commentController,
                   focusNode: _model.commentFocusNode,
+                  autofocus: false,
                   obscureText: false,
                   decoration: InputDecoration(
                     labelText: FFLocalizations.of(context).getText(
@@ -281,9 +289,15 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         FlutterFlowTheme.of(context).labelMedium.override(
                               fontFamily: 'Golos',
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                    hintStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0xFFA9ABAF),
@@ -319,10 +333,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         fontFamily: 'Golos',
                         color: Color(0xFF06112E),
                         fontSize: 16.0,
+                        letterSpacing: 0.0,
                         useGoogleFonts: false,
                       ),
                   maxLines: 10,
-                  minLines: 1,
                   validator:
                       _model.commentControllerValidator.asValidator(context),
                 ),
@@ -338,7 +352,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               _model.currentQuestionNumber =
                                   _model.currentQuestionNumber + 1;
                               _model.addToAnswers(AnswerStruct(
-                                surveyId: widget.survey?.reference,
+                                surveyId: widget.survey?.surveyReference,
                                 questionId: _model.currentQuestion?.reference,
                                 userId: currentUserReference,
                                 time: getCurrentTimestamp,
@@ -368,6 +382,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Golos',
                                 color: Colors.white,
+                                letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
                       elevation: 3.0,
@@ -391,7 +406,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                             logFirebaseEvent('Button_update_page_state');
                             setState(() {
                               _model.addToAnswers(AnswerStruct(
-                                surveyId: widget.survey?.reference,
+                                surveyId: widget.survey?.surveyReference,
                                 questionId: _model.currentQuestion?.reference,
                                 userId: currentUserReference,
                                 time: getCurrentTimestamp,
@@ -406,7 +421,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               await AnswerRecord.collection
                                   .doc()
                                   .set(createAnswerRecordData(
-                                    surveyId: widget.survey?.reference,
+                                    surveyId: widget.survey?.surveyReference,
                                     questionId: _model
                                         .answers[_model.currentQuestionNumber]
                                         .questionId,
@@ -437,12 +452,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               queryParameters: {
                                 'survey': serializeParam(
                                   widget.survey,
-                                  ParamType.Document,
+                                  ParamType.DataStruct,
                                 ),
                               }.withoutNulls,
-                              extra: <String, dynamic>{
-                                'survey': widget.survey,
-                              },
                             );
                           },
                     text: FFLocalizations.of(context).getText(
@@ -459,6 +471,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Golos',
                                 color: Colors.white,
+                                letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
                       elevation: 3.0,
@@ -524,6 +537,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Golos',
                           color: Color(0xFF0A8D09),
+                          letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
                     elevation: 3.0,

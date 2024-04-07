@@ -303,17 +303,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Gender',
       'ky': 'Жыныс',
     },
-    '5nu4wtxj': {
-      'ru': 'Другой',
-      'en': 'Other',
-      'ky': 'Башка',
-    },
-    'm366ycev': {
+    'cpoyi6n6': {
       'ru': 'Мужской',
       'en': 'Male',
       'ky': 'Эркек',
     },
-    'cpoyi6n6': {
+    'efzp3pjl': {
       'ru': 'Женский',
       'en': 'Female',
       'ky': 'Аял',
@@ -519,24 +514,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': 'Катталууну аяктоо',
     },
     '15xm6lvw': {
-      'ru': 'Главная',
-      'en': 'Home',
-      'ky': '',
-    },
-  },
-  // questionCopy
-  {
-    'p20zab1a': {
-      'ru': 'Поле для комментария',
-      'en': 'Comment field',
-      'ky': 'Комментарий талаасы',
-    },
-    '0wl2f4b4': {
-      'ru': 'Далее',
-      'en': 'Next',
-      'ky': 'Андан ары',
-    },
-    'rke2k16j': {
       'ru': 'Главная',
       'en': 'Home',
       'ky': '',
@@ -757,19 +734,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': '',
     },
   },
-  // SelectLocation
-  {
-    'ox3yj0gi': {
-      'ru': 'Выбрать эту локацию',
-      'en': 'Select this location',
-      'ky': 'Ушул жерди тандаңыз',
-    },
-    'ns3d5u6n': {
-      'ru': 'Home',
-      'en': '',
-      'ky': '',
-    },
-  },
   // ViewReward
   {
     'akh99pls': {
@@ -886,6 +850,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'vt2xnhmk': {
       'ru': 'Главная',
       'en': 'Home',
+      'ky': '',
+    },
+  },
+  // ParkingSurvey
+  {
+    's24yz946': {
+      'ru': 'Page Title',
+      'en': '',
+      'ky': '',
+    },
+    'yzu4r1jy': {
+      'ru': 'Home',
+      'en': '',
       'ky': '',
     },
   },

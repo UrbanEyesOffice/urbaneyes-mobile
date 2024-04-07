@@ -86,6 +86,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
                             fontFamily: 'Gerbera',
                             color: Color(0xFF06112E),
                             fontSize: 28.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
                             useGoogleFonts: false,
                           ),
@@ -105,6 +106,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
                             fontFamily: 'Golos',
                             color: Color(0xFF06112E),
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
                     ),
@@ -144,6 +146,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Golos',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           elevation: 0.0,

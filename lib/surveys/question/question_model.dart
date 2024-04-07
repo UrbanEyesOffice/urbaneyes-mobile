@@ -58,8 +58,6 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   TextEditingController? commentController;
   String? Function(BuildContext, String?)? commentControllerValidator;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -69,8 +67,4 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
     commentFocusNode?.dispose();
     commentController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

@@ -78,6 +78,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                                 fontFamily: 'Gerbera',
                                 color: Color(0xFF06112E),
                                 fontSize: 28.0,
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
                                 useGoogleFonts: false,
                               ),
@@ -96,6 +97,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                               fontFamily: 'Golos',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -108,6 +110,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                       builder: (context) => TextFormField(
                         controller: _model.nameCreateController,
                         focusNode: _model.nameCreateFocusNode,
+                        autofocus: false,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: FFLocalizations.of(context).getText(
@@ -120,6 +123,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                                 color:
                                     FlutterFlowTheme.of(context).secondaryText,
                                 fontSize: 16.0,
+                                letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
                           hintText: FFLocalizations.of(context).getText(
@@ -130,6 +134,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                                     fontFamily: 'Golos',
                                     color: Color(0xFFA9ABAF),
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           enabledBorder: OutlineInputBorder(
@@ -169,8 +174,10 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                               fontFamily: 'Golos',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
+                        minLines: null,
                         validator: _model.nameCreateControllerValidator
                             .asValidator(context),
                       ),
@@ -189,6 +196,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                               fontFamily: 'Golos',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -204,16 +212,13 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                           _model.dropDownValue ??=
                               valueOrDefault(currentUserDocument?.gender, 0),
                         ),
-                        options: List<int>.from([0, 1, 2]),
+                        options: List<int>.from([1, 2]),
                         optionLabels: [
                           FFLocalizations.of(context).getText(
-                            '5nu4wtxj' /* Другой */,
+                            'cpoyi6n6' /* Мужской */,
                           ),
                           FFLocalizations.of(context).getText(
-                            'm366ycev' /* Мужской */,
-                          ),
-                          FFLocalizations.of(context).getText(
-                            'cpoyi6n6' /* Женский */,
+                            'efzp3pjl' /* Женский */,
                           )
                         ],
                         onChanged: (val) =>
@@ -225,6 +230,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                                   fontFamily: 'Golos',
                                   color: Color(0xFF06112E),
                                   fontSize: 16.0,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         hintText: FFLocalizations.of(context).getText(
@@ -260,6 +266,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                               fontFamily: 'Golos',
                               color: Color(0xFF06112E),
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -340,6 +347,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                                           fontFamily: 'Golos',
                                           color: Color(0xFF06112E),
                                           fontSize: 16.0,
+                                          letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                   ),
@@ -416,6 +424,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                                 .override(
                                   fontFamily: 'Golos',
                                   color: Colors.white,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                             elevation: 0.0,

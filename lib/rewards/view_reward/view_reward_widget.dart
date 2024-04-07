@@ -81,6 +81,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Inter',
                     fontSize: 18.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                     useGoogleFonts: false,
                   ),
@@ -125,7 +126,13 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                                   locale:
                                       FFLocalizations.of(context).languageCode,
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
                               ),
                             ),
                             Align(
@@ -141,6 +148,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                                     .override(
                                       fontFamily: 'Gerbera',
                                       fontSize: 24.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                       useGoogleFonts: false,
                                     ),
@@ -214,6 +222,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                                                   fontFamily: 'Golos',
                                                   color: Color(0xFF53B153),
                                                   fontSize: 16.0,
+                                                  letterSpacing: 0.0,
                                                   useGoogleFonts: false,
                                                 ),
                                           ),

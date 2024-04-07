@@ -50,7 +50,10 @@ class _PrivacyBottomSheetWidgetState extends State<PrivacyBottomSheetWidget> {
           BoxShadow(
             blurRadius: 5.0,
             color: Color(0x3B1D2429),
-            offset: Offset(0.0, -3.0),
+            offset: Offset(
+              0.0,
+              -3.0,
+            ),
           )
         ],
         borderRadius: BorderRadius.only(
@@ -80,7 +83,11 @@ class _PrivacyBottomSheetWidgetState extends State<PrivacyBottomSheetWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).primaryBackground,
-                textStyle: FlutterFlowTheme.of(context).bodyLarge,
+                textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                      fontFamily: 'Inter',
+                      letterSpacing: 0.0,
+                      useGoogleFonts: false,
+                    ),
                 elevation: 2.0,
                 borderSide: BorderSide(
                   color: Colors.transparent,
@@ -106,7 +113,11 @@ class _PrivacyBottomSheetWidgetState extends State<PrivacyBottomSheetWidget> {
                   iconPadding:
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primaryBackground,
-                  textStyle: FlutterFlowTheme.of(context).bodyLarge,
+                  textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
                   elevation: 2.0,
                   borderSide: BorderSide(
                     color: Colors.transparent,
@@ -137,6 +148,7 @@ class _PrivacyBottomSheetWidgetState extends State<PrivacyBottomSheetWidget> {
                         fontFamily: 'Lexend Deca',
                         color: FlutterFlowTheme.of(context).secondaryText,
                         fontSize: 16.0,
+                        letterSpacing: 0.0,
                         fontWeight: FontWeight.normal,
                       ),
                   elevation: 0.0,

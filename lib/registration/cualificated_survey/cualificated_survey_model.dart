@@ -27,8 +27,6 @@ class CualificatedSurveyModel
   FormFieldController<int>? dropDownValueController;
   DateTime? datePicked;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -38,8 +36,4 @@ class CualificatedSurveyModel
     nameCreateFocusNode?.dispose();
     nameCreateController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

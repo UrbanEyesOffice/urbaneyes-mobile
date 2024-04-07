@@ -131,44 +131,13 @@ final parametersBuilderMap =
         },
       ),
   'CompleteRegistration': ParameterData.none(),
-  'questionCopy': (data) async => ParameterData(
-        allParams: {
-          'survey': await getDocumentParameter<SurveysRecord>(
-              data, 'survey', SurveysRecord.fromSnapshot),
-          'questionRef': getParameter<DocumentReference>(data, 'questionRef'),
-          'question': getParameter<String>(data, 'question'),
-          'ord': getParameter<int>(data, 'ord'),
-          'location': getParameter<LatLng>(data, 'location'),
-          'answers': getParameter<DocumentReference>(data, 'answers'),
-          'address': getParameter<String>(data, 'address'),
-        },
-      ),
   'complete': (data) async => ParameterData(
-        allParams: {
-          'survey': await getDocumentParameter<SurveysRecord>(
-              data, 'survey', SurveysRecord.fromSnapshot),
-        },
+        allParams: {},
       ),
   'MainAuth': ParameterData.none(),
   'CreateAccount': ParameterData.none(),
   'Verification': ParameterData.none(),
   'Login': ParameterData.none(),
-  'SelectLocation': (data) async => ParameterData(
-        allParams: {
-          'survey': await getDocumentParameter<SurveysRecord>(
-              data, 'survey', SurveysRecord.fromSnapshot),
-          'questionRef': getParameter<DocumentReference>(data, 'questionRef'),
-          'ord': getParameter<int>(data, 'ord'),
-          'location': getParameter<LatLng>(data, 'location'),
-          'optionId': getParameter<int>(data, 'optionId'),
-          'titleRu': getParameter<String>(data, 'titleRu'),
-          'titleKg': getParameter<String>(data, 'titleKg'),
-          'titleEn': getParameter<String>(data, 'titleEn'),
-          'comment': getParameter<String>(data, 'comment'),
-          'questionCount': getParameter<int>(data, 'questionCount'),
-          'onlyLocation': getParameter<bool>(data, 'onlyLocation'),
-        },
-      ),
   'ViewReward': (data) async => ParameterData(
         allParams: {
           'reward': await getDocumentParameter<RewardsRecord>(
@@ -182,11 +151,9 @@ final parametersBuilderMap =
   'CollectedRewards': ParameterData.none(),
   'RewardsCopy': ParameterData.none(),
   'question': (data) async => ParameterData(
-        allParams: {
-          'survey': await getDocumentParameter<SurveysRecord>(
-              data, 'survey', SurveysRecord.fromSnapshot),
-        },
+        allParams: {},
       ),
+  'ParkingSurvey': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

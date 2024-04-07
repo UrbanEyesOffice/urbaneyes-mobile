@@ -110,6 +110,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Inter',
                         fontSize: 18.0,
+                        letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                         useGoogleFonts: false,
                       ),
@@ -209,6 +210,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                               .override(
                                                 fontFamily: 'Gerbera',
                                                 fontSize: 20.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
                                                 useGoogleFonts: false,
                                               ),
@@ -223,7 +225,12 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                           '2u9jp27b' /* накоплено */,
                                         ),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: false,
+                                            ),
                                       ),
                                     ),
                                   ],
@@ -422,6 +429,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                                       .override(
                                                         fontFamily: 'Golos',
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: false,
                                                       ),
                                                 ),
@@ -455,6 +463,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                                           fontFamily: 'Golos',
                                                           color:
                                                               Color(0xFFA9ABAF),
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: false,
                                                         ),
                                                   ),
@@ -480,6 +489,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                                         .override(
                                                           fontFamily: 'Gerbera',
                                                           fontSize: 20.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           useGoogleFonts: false,
@@ -528,6 +538,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                                                   0xFF06112E)
                                                               : Color(
                                                                   0xFF53B153),
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: false,
                                                         ),
                                                   ),

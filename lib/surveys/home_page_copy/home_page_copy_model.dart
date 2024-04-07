@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -27,6 +28,19 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
           int index, Function(SurveysRecord) updateFn) =>
       shuffledSurveys[index] = updateFn(shuffledSurveys[index]);
 
+  List<SurveyStruct> localShuffeledSurveys = [];
+  void addToLocalShuffeledSurveys(SurveyStruct item) =>
+      localShuffeledSurveys.add(item);
+  void removeFromLocalShuffeledSurveys(SurveyStruct item) =>
+      localShuffeledSurveys.remove(item);
+  void removeAtIndexFromLocalShuffeledSurveys(int index) =>
+      localShuffeledSurveys.removeAt(index);
+  void insertAtIndexInLocalShuffeledSurveys(int index, SurveyStruct item) =>
+      localShuffeledSurveys.insert(index, item);
+  void updateLocalShuffeledSurveysAtIndex(
+          int index, Function(SurveyStruct) updateFn) =>
+      localShuffeledSurveys[index] = updateFn(localShuffeledSurveys[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -34,8 +48,8 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
   List<SurveysRecord>? loadedSurveys;
   // Stores action output result for [Custom Action - shuffleSurveys] action in HomePageCopy widget.
   List<SurveysRecord>? tempSurveys;
-
-  /// Initialization and disposal methods.
+  // Stores action output result for [Custom Action - mapSurveysRecordToSurveyStruct] action in HomePageCopy widget.
+  List<SurveyStruct>? localTempSurveys;
 
   @override
   void initState(BuildContext context) {}
@@ -44,8 +58,4 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
   void dispose() {
     unfocusNode.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

@@ -90,7 +90,10 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                         BoxShadow(
                           blurRadius: 3.0,
                           color: Color(0x33000000),
-                          offset: Offset(0.0, -1.0),
+                          offset: Offset(
+                            0.0,
+                            -1.0,
+                          ),
                         )
                       ],
                       borderRadius: BorderRadius.circular(0.0),
@@ -119,6 +122,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                           fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
+                                          letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                   ),
@@ -213,6 +217,8 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   useGoogleFonts:
                                                                       false,
                                                                 ),
@@ -228,7 +234,12 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                   textAlign: TextAlign.center,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .labelSmall,
+                                                      .labelSmall
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: false,
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -307,6 +318,8 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   useGoogleFonts:
                                                                       false,
                                                                 ),
@@ -329,6 +342,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .secondaryText,
+                                                        letterSpacing: 0.0,
                                                         useGoogleFonts: false,
                                                       ),
                                                 ),
@@ -413,6 +427,8 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   useGoogleFonts:
                                                                       false,
                                                                 ),
@@ -426,10 +442,15 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                       ),
                                                       textAlign:
                                                           TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelSmall,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .labelSmall
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts:
+                                                                false,
+                                                          ),
                                                     ),
                                                   ],
                                                 ),
@@ -461,6 +482,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primaryText,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
                                                   useGoogleFonts: false,
                                                 ),
@@ -501,6 +523,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                     .override(
                                                       fontFamily: 'Inter',
                                                       color: Colors.white,
+                                                      letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       useGoogleFonts: false,

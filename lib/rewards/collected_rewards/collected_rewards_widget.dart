@@ -116,6 +116,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
               style: FlutterFlowTheme.of(context).headlineMedium.override(
                     fontFamily: 'Inter',
                     fontSize: 18.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                     useGoogleFonts: false,
                   ),
@@ -206,6 +207,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                       .override(
                                         fontFamily: 'Golos',
                                         color: Color(0xFFA9ABAF),
+                                        letterSpacing: 0.0,
                                         useGoogleFonts: false,
                                       ),
                                 ),
@@ -220,6 +222,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                       .override(
                                         fontFamily: 'Gerbera',
                                         fontSize: 20.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
                                         useGoogleFonts: false,
                                       ),
@@ -273,6 +276,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                         .override(
                                           fontFamily: 'Golos',
                                           color: Color(0xFF13BE13),
+                                          letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                   ),
@@ -335,6 +339,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                           }(),
                                           Colors.transparent,
                                         ),
+                                        letterSpacing: 0.0,
                                         useGoogleFonts: false,
                                       ),
                                 ),

@@ -16,8 +16,6 @@ class AdmiPannelModel extends FlutterFlowModel<AdmiPannelWidget> {
 
   final unfocusNode = FocusNode();
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -25,8 +23,4 @@ class AdmiPannelModel extends FlutterFlowModel<AdmiPannelWidget> {
   void dispose() {
     unfocusNode.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

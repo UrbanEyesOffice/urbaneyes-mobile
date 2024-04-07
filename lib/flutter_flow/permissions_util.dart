@@ -13,16 +13,9 @@ final locationPermission = Permission.location;
 final notificationsPermission = Permission.notification;
 
 Future<bool> getPermissionStatus(Permission setting) async {
-  if (kIsWeb) {
-    return true;
-  }
-  final _status = await setting.status;
-  return kPermissionStateToBool[_status]!;
+  final status = await setting.status;
+  return kPermissionStateToBool[status]!;
 }
 
-Future<void> requestPermission(Permission setting) async {
-  if (kIsWeb) {
-    return;
-  }
-  await setting.request();
-}
+Future<void> requestPermission(Permission setting) async =>
+    await setting.request();

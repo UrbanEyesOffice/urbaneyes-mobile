@@ -33,8 +33,6 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   FormFieldController<int>? dropDownValueController;
   DateTime? datePicked;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -47,8 +45,4 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
     emailFocusNode?.dispose();
     emailController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

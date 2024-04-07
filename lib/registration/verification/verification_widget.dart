@@ -66,6 +66,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Gerbera',
                           fontSize: 28.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
                           useGoogleFonts: false,
                         ),
@@ -94,6 +95,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Golos',
                                 color: Color(0xFF0A8D09),
+                                letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
                       elevation: 0.0,
@@ -174,6 +176,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Golos',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           elevation: 0.0,

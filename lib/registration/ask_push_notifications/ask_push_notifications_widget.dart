@@ -82,6 +82,7 @@ class _AskPushNotificationsWidgetState
                           fontFamily: 'Gerbera',
                           color: Color(0xFF06112E),
                           fontSize: 28.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
                           useGoogleFonts: false,
                         ),
@@ -110,6 +111,7 @@ class _AskPushNotificationsWidgetState
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Golos',
                           color: Color(0xFF0A8D09),
+                          letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
                     elevation: 0.0,
@@ -148,6 +150,7 @@ class _AskPushNotificationsWidgetState
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Golos',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                           elevation: 0.0,

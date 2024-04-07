@@ -116,7 +116,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/editQuestion',
           builder: (context, params) => EditQuestionWidget(
             question: params.getParam(
-                'question', ParamType.DocumentReference, false, ['question']),
+              'question',
+              ParamType.DocumentReference,
+              false,
+              ['question'],
+            ),
           ),
         ),
         FFRoute(
@@ -144,7 +148,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/homePageCopy',
           requireAuth: true,
           builder: (context, params) => HomePageCopyWidget(
-            firstLogin: params.getParam('firstLogin', ParamType.bool),
+            firstLogin: params.getParam(
+              'firstLogin',
+              ParamType.bool,
+            ),
           ),
         ),
         FFRoute(
@@ -153,31 +160,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CompleteRegistrationWidget(),
         ),
         FFRoute(
-          name: 'questionCopy',
-          path: '/questionCopy',
-          asyncParams: {
-            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
-          },
-          builder: (context, params) => QuestionCopyWidget(
-            survey: params.getParam('survey', ParamType.Document),
-            questionRef: params.getParam('questionRef',
-                ParamType.DocumentReference, false, ['question']),
-            question: params.getParam('question', ParamType.String),
-            ord: params.getParam('ord', ParamType.int),
-            location: params.getParam('location', ParamType.LatLng),
-            answers: params.getParam(
-                'answers', ParamType.DocumentReference, false, ['answer']),
-            address: params.getParam('address', ParamType.String),
-          ),
-        ),
-        FFRoute(
           name: 'complete',
           path: '/complete',
-          asyncParams: {
-            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
-          },
           builder: (context, params) => CompleteWidget(
-            survey: params.getParam('survey', ParamType.Document),
+            survey: params.getParam(
+              'survey',
+              ParamType.DataStruct,
+              false,
+              SurveyStruct.fromSerializableMap,
+            ),
           ),
         ),
         FFRoute(
@@ -201,27 +192,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => LoginWidget(),
         ),
         FFRoute(
-          name: 'SelectLocation',
-          path: '/selectLocation',
-          asyncParams: {
-            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
-          },
-          builder: (context, params) => SelectLocationWidget(
-            survey: params.getParam('survey', ParamType.Document),
-            questionRef: params.getParam('questionRef',
-                ParamType.DocumentReference, false, ['question']),
-            ord: params.getParam('ord', ParamType.int),
-            location: params.getParam('location', ParamType.LatLng),
-            optionId: params.getParam('optionId', ParamType.int),
-            titleRu: params.getParam('titleRu', ParamType.String),
-            titleKg: params.getParam('titleKg', ParamType.String),
-            titleEn: params.getParam('titleEn', ParamType.String),
-            comment: params.getParam('comment', ParamType.String),
-            questionCount: params.getParam('questionCount', ParamType.int),
-            onlyLocation: params.getParam('onlyLocation', ParamType.bool),
-          ),
-        ),
-        FFRoute(
           name: 'ViewReward',
           path: '/viewReward',
           asyncParams: {
@@ -229,8 +199,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             'promocode': getDoc(['promocodes'], PromocodesRecord.fromSnapshot),
           },
           builder: (context, params) => ViewRewardWidget(
-            reward: params.getParam('reward', ParamType.Document),
-            promocode: params.getParam('promocode', ParamType.Document),
+            reward: params.getParam(
+              'reward',
+              ParamType.Document,
+            ),
+            promocode: params.getParam(
+              'promocode',
+              ParamType.Document,
+            ),
           ),
         ),
         FFRoute(
@@ -257,12 +233,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'question',
           path: '/question',
           requireAuth: true,
-          asyncParams: {
-            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
-          },
           builder: (context, params) => QuestionWidget(
-            survey: params.getParam('survey', ParamType.Document),
+            survey: params.getParam(
+              'survey',
+              ParamType.DataStruct,
+              false,
+              SurveyStruct.fromSerializableMap,
+            ),
           ),
+        ),
+        FFRoute(
+          name: 'ParkingSurvey',
+          path: '/parkingSurvey',
+          builder: (context, params) => ParkingSurveyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -382,6 +365,7 @@ class FFParameters {
     ParamType type, [
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -395,8 +379,13 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList,
-        collectionNamePath: collectionNamePath);
+    return deserializeParam<T>(
+      param,
+      type,
+      isList,
+      collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
+    );
   }
 }
 

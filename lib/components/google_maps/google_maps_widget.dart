@@ -121,6 +121,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Inter',
                     fontSize: 18.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.bold,
                     useGoogleFonts: false,
                   ),
@@ -222,6 +223,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                 .override(
                                   fontFamily: 'Golos',
                                   color: Color(0xFF0A8D09),
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                             elevation: 3.0,
@@ -267,6 +269,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                   .override(
                                     fontFamily: 'Golos',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
                               elevation: 3.0,
@@ -329,6 +332,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 14.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
                                       useGoogleFonts: false,
                                     ),

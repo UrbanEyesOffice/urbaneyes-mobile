@@ -27,15 +27,9 @@ class GoogleMapsModel extends FlutterFlowModel<GoogleMapsWidget> {
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in Button widget.
   String? selectedLocationOutput;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {}
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

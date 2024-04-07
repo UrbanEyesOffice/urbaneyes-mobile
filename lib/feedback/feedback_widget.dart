@@ -82,6 +82,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Inter',
                     fontSize: 18.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                     useGoogleFonts: false,
                   ),
@@ -108,6 +109,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
                     ),
@@ -115,12 +117,14 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                   TextFormField(
                     controller: _model.nicknameCreateController1,
                     focusNode: _model.nicknameCreateFocusNode1,
+                    autofocus: false,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelStyle:
                           FlutterFlowTheme.of(context).bodySmall.override(
                                 fontFamily: 'Inter',
                                 fontSize: 16.0,
+                                letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
                       hintStyle:
@@ -128,6 +132,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                                 fontFamily: 'Golos',
                                 color: Color(0xFF57636C),
                                 fontSize: 14.0,
+                                letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
                       enabledBorder: OutlineInputBorder(
@@ -166,8 +171,10 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
                           fontSize: 16.0,
+                          letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
+                    minLines: null,
                     validator: _model.nicknameCreateController1Validator
                         .asValidator(context),
                   ),
@@ -180,6 +187,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
                     ),
@@ -187,12 +195,18 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                   TextFormField(
                     controller: _model.nicknameCreateController2,
                     focusNode: _model.nicknameCreateFocusNode2,
+                    autofocus: false,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: FFLocalizations.of(context).getText(
                         'eqalrq06' /* Что бы вы хотели добавить/улуч... */,
                       ),
-                      labelStyle: FlutterFlowTheme.of(context).bodySmall,
+                      labelStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Inter',
+                                letterSpacing: 0.0,
+                                useGoogleFonts: false,
+                              ),
                       alignLabelWithHint: false,
                       hintText: FFLocalizations.of(context).getText(
                         'kvl68h75' /*  */,
@@ -233,10 +247,10 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
                           fontSize: 16.0,
+                          letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
                     maxLines: 10,
-                    minLines: 1,
                     validator: _model.nicknameCreateController2Validator
                         .asValidator(context),
                   ),
@@ -318,6 +332,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                             FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Golos',
                                   color: Colors.white,
+                                  letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         elevation: 0.0,

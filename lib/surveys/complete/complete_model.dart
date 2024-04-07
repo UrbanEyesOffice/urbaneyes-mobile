@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/feedback_alert/feedback_alert_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -21,8 +22,6 @@ class CompleteModel extends FlutterFlowModel<CompleteWidget> {
   // Stores action output result for [Firestore Query - Query a collection] action in complete widget.
   RewardsRecord? availableReward;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -30,8 +29,4 @@ class CompleteModel extends FlutterFlowModel<CompleteWidget> {
   void dispose() {
     unfocusNode.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

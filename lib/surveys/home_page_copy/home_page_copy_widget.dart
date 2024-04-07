@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -64,10 +65,16 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
       _model.tempSurveys = await actions.shuffleSurveys(
         _model.loadedSurveys?.toList(),
       );
+      logFirebaseEvent('HomePageCopy_custom_action');
+      _model.localTempSurveys = await actions.mapSurveysRecordToSurveyStruct(
+        _model.tempSurveys?.toList(),
+      );
       logFirebaseEvent('HomePageCopy_update_page_state');
       setState(() {
         _model.shuffledSurveys =
             _model.tempSurveys!.toList().cast<SurveysRecord>();
+        _model.localShuffeledSurveys =
+            _model.localTempSurveys!.toList().cast<SurveyStruct>();
       });
     });
 
@@ -121,6 +128,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                       style: FlutterFlowTheme.of(context).displaySmall.override(
                             fontFamily: 'Gerbera',
                             fontSize: 24.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
                             useGoogleFonts: false,
                           ),
@@ -214,7 +222,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
               Expanded(
                 child: Builder(
                   builder: (context) {
-                    final listItems = _model.shuffledSurveys.toList();
+                    final listItems = _model.localShuffeledSurveys.toList();
                     return ListView.separated(
                       padding: EdgeInsets.fromLTRB(
                         0,
@@ -278,6 +286,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                                           context)
                                                       .primaryText,
                                                   fontSize: 24.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
                                                   useGoogleFonts: false,
                                                 ),
@@ -310,6 +319,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                                                   .of(context)
                                                               .primaryText,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           useGoogleFonts: false,
                                                         ),
                                               ),
@@ -332,12 +342,9 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                             queryParameters: {
                                               'survey': serializeParam(
                                                 listItemsItem,
-                                                ParamType.Document,
+                                                ParamType.DataStruct,
                                               ),
                                             }.withoutNulls,
-                                            extra: <String, dynamic>{
-                                              'survey': listItemsItem,
-                                            },
                                           );
                                         },
                                         text:
@@ -360,6 +367,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                                   .override(
                                                     fontFamily: 'Golos',
                                                     color: Color(0xFF0A8D09),
+                                                    letterSpacing: 0.0,
                                                     useGoogleFonts: false,
                                                   ),
                                           elevation: 0.0,

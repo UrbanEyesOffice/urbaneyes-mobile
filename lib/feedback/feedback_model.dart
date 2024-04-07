@@ -23,8 +23,6 @@ class FeedbackModel extends FlutterFlowModel<FeedbackWidget> {
   TextEditingController? nicknameCreateController2;
   String? Function(BuildContext, String?)? nicknameCreateController2Validator;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -37,8 +35,4 @@ class FeedbackModel extends FlutterFlowModel<FeedbackWidget> {
     nicknameCreateFocusNode2?.dispose();
     nicknameCreateController2?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

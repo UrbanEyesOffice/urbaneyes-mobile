@@ -17,8 +17,6 @@ class VerificationModel extends FlutterFlowModel<VerificationWidget> {
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   UsersRecord? apiResultsqj;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -26,8 +24,4 @@ class VerificationModel extends FlutterFlowModel<VerificationWidget> {
   void dispose() {
     unfocusNode.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/feedback_alert/feedback_alert_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -21,7 +22,7 @@ class CompleteWidget extends StatefulWidget {
     required this.survey,
   });
 
-  final SurveysRecord? survey;
+  final SurveyStruct? survey;
 
   @override
   State<CompleteWidget> createState() => _CompleteWidgetState();
@@ -154,6 +155,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Inter',
                     fontSize: 18.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                     useGoogleFonts: false,
                   ),
@@ -190,6 +192,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                               fontFamily: 'Gerbera',
                               color: Color(0xFF06112E),
                               fontSize: 28.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                               useGoogleFonts: false,
                             ),
@@ -218,6 +221,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                   .override(
                                     fontFamily: 'Golos',
                                     fontSize: 88.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     useGoogleFonts: false,
                                   ),
@@ -275,6 +279,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                                                   .of(context)
                                                               .secondaryBackground,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: false,
@@ -337,6 +342,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       fontSize: 24.0,
+                                      letterSpacing: 0.0,
                                       useGoogleFonts: false,
                                     ),
                               ),
@@ -359,6 +365,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                           fontFamily: 'Golos',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: false,
                                         ),
@@ -405,6 +412,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                                 fontSize: 16.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: false,
                                               ),
@@ -419,6 +427,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                                 fontFamily: 'Golos',
                                                 color: Color(0xFF53B153),
                                                 fontSize: 16.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: false,
                                               ),
@@ -435,6 +444,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                                 fontSize: 16.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: false,
                                               ),
@@ -485,6 +495,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Golos',
                                 color: Color(0xFF0A8D09),
+                                letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
                       elevation: 0.0,
@@ -523,6 +534,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Golos',
                                 color: Colors.white,
+                                letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
                       elevation: 3.0,
