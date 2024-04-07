@@ -133,15 +133,17 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.memory(
-                  _model.uploadedLocalFile.bytes ?? Uint8List.fromList([]),
-                  width: 300.0,
-                  height: 200.0,
-                  fit: BoxFit.cover,
+              if (_model.uploadedLocalFile != null &&
+                  (_model.uploadedLocalFile.bytes?.isNotEmpty ?? false))
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.memory(
+                    _model.uploadedLocalFile.bytes ?? Uint8List.fromList([]),
+                    width: 300.0,
+                    height: 200.0,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
             ],
           ),
         ),
