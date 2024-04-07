@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
-import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -63,8 +62,8 @@ class SurveysRecord extends FirestoreRecord {
   bool hasEnabled() => _enabled != null;
 
   // "survey_type" field.
-  SurveyType? _surveyType;
-  SurveyType? get surveyType => _surveyType;
+  int? _surveyType;
+  int get surveyType => _surveyType ?? 0;
   bool hasSurveyType() => _surveyType != null;
 
   void _initializeFields() {
@@ -77,7 +76,7 @@ class SurveysRecord extends FirestoreRecord {
     _descriptionEn = snapshotData['description_en'] as String?;
     _descriptionKg = snapshotData['description_kg'] as String?;
     _enabled = snapshotData['enabled'] as bool?;
-    _surveyType = deserializeEnum<SurveyType>(snapshotData['survey_type']);
+    _surveyType = castToType<int>(snapshotData['survey_type']);
   }
 
   static CollectionReference get collection =>
@@ -124,7 +123,7 @@ Map<String, dynamic> createSurveysRecordData({
   String? descriptionEn,
   String? descriptionKg,
   bool? enabled,
-  SurveyType? surveyType,
+  int? surveyType,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{

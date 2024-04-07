@@ -45,6 +45,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
       await showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        isDismissible: false,
         enableDrag: false,
         context: context,
         builder: (context) {
