@@ -12,6 +12,7 @@ import 'schema/answer_record.dart';
 import 'schema/feedback_record.dart';
 import 'schema/rewards_record.dart';
 import 'schema/promocodes_record.dart';
+import 'schema/parking_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,6 +27,7 @@ export 'schema/answer_record.dart';
 export 'schema/feedback_record.dart';
 export 'schema/rewards_record.dart';
 export 'schema/promocodes_record.dart';
+export 'schema/parking_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -281,6 +283,43 @@ Future<List<PromocodesRecord>> queryPromocodesRecordOnce({
     queryCollectionOnce(
       PromocodesRecord.collection,
       PromocodesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query ParkingRecords (as a Stream and as a Future).
+Future<int> queryParkingRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      ParkingRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<ParkingRecord>> queryParkingRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ParkingRecord.collection,
+      ParkingRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ParkingRecord>> queryParkingRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ParkingRecord.collection,
+      ParkingRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

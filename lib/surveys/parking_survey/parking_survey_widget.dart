@@ -1,8 +1,13 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/google_maps/google_maps_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -83,18 +88,45 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (_model.uploadedLocalFile != null &&
-                      (_model.uploadedLocalFile.bytes?.isNotEmpty ?? false))
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.memory(
-                        _model.uploadedLocalFile.bytes ??
-                            Uint8List.fromList([]),
-                        width: 300.0,
-                        height: 200.0,
-                        fit: BoxFit.scaleDown,
-                      ),
-                    ),
+                  Builder(
+                    builder: (context) {
+                      final carouselImages = _model.localImages.toList();
+                      return Container(
+                        width: double.infinity,
+                        height: 180.0,
+                        child: CarouselSlider.builder(
+                          itemCount: carouselImages.length,
+                          itemBuilder: (context, carouselImagesIndex, _) {
+                            final carouselImagesItem =
+                                carouselImages[carouselImagesIndex];
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                'https://picsum.photos/seed/445/600',
+                                width: 300.0,
+                                height: 200.0,
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
+                          carouselController: _model.carouselController ??=
+                              CarouselController(),
+                          options: CarouselOptions(
+                            initialPage: min(1, carouselImages.length - 1),
+                            viewportFraction: 0.5,
+                            disableCenter: true,
+                            enlargeCenterPage: true,
+                            enlargeFactor: 0.25,
+                            enableInfiniteScroll: true,
+                            scrollDirection: Axis.horizontal,
+                            autoPlay: false,
+                            onPageChanged: (index, _) =>
+                                _model.carouselCurrentIndex = index,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                   FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent(
@@ -111,7 +143,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                       if (selectedMedia != null &&
                           selectedMedia.every((m) =>
                               validateFileFormat(m.storagePath, context))) {
-                        setState(() => _model.isDataUploading = true);
+                        setState(() => _model.isDataUploading1 = true);
                         var selectedUploadedFiles = <FFUploadedFile>[];
 
                         try {
@@ -125,12 +157,12 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   ))
                               .toList();
                         } finally {
-                          _model.isDataUploading = false;
+                          _model.isDataUploading1 = false;
                         }
                         if (selectedUploadedFiles.length ==
                             selectedMedia.length) {
                           setState(() {
-                            _model.uploadedLocalFile =
+                            _model.uploadedLocalFile1 =
                                 selectedUploadedFiles.first;
                           });
                         } else {
@@ -138,6 +170,11 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                           return;
                         }
                       }
+
+                      logFirebaseEvent('upload_media_update_page_state');
+                      setState(() {
+                        _model.addToLocalImages(_model.uploadedLocalFile1);
+                      });
                     },
                     text: FFLocalizations.of(context).getText(
                       '9n9xjxb4' /* Загрузить фото */,
@@ -370,8 +407,74 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                     ),
                   ),
                   FFButtonWidget(
-                    onPressed: () {
-                      print('save pressed ...');
+                    onPressed: () async {
+                      logFirebaseEvent('PARKING_SURVEY_PAGE_save_ON_TAP');
+                      while (_model.uploadIndex <=
+                          valueOrDefault<int>(
+                            _model.localImages.length,
+                            0,
+                          )) {
+                        logFirebaseEvent('save_upload_media_to_firebase');
+                        {
+                          setState(() => _model.isDataUploading2 = true);
+                          var selectedUploadedFiles = <FFUploadedFile>[];
+                          var selectedMedia = <SelectedFile>[];
+                          var downloadUrls = <String>[];
+                          try {
+                            selectedUploadedFiles = _model
+                                    .localImages[_model.uploadIndex]
+                                    .bytes!
+                                    .isNotEmpty
+                                ? [_model.localImages[_model.uploadIndex]]
+                                : <FFUploadedFile>[];
+                            selectedMedia = selectedFilesFromUploadedFiles(
+                              selectedUploadedFiles,
+                            );
+                            downloadUrls = (await Future.wait(
+                              selectedMedia.map(
+                                (m) async =>
+                                    await uploadData(m.storagePath, m.bytes),
+                              ),
+                            ))
+                                .where((u) => u != null)
+                                .map((u) => u!)
+                                .toList();
+                          } finally {
+                            _model.isDataUploading2 = false;
+                          }
+                          if (selectedUploadedFiles.length ==
+                                  selectedMedia.length &&
+                              downloadUrls.length == selectedMedia.length) {
+                            setState(() {
+                              _model.uploadedLocalFile2 =
+                                  selectedUploadedFiles.first;
+                              _model.uploadedFileUrl2 = downloadUrls.first;
+                            });
+                          } else {
+                            setState(() {});
+                            return;
+                          }
+                        }
+
+                        logFirebaseEvent('save_update_page_state');
+                        _model.addToUploadedImages(_model.uploadedFileUrl2);
+                      }
+                      logFirebaseEvent('save_backend_call');
+
+                      await ParkingRecord.collection.doc().set({
+                        ...createParkingRecordData(
+                          createdBy: currentUserReference,
+                          createdTime: getCurrentTimestamp,
+                          location: _model.selectedLocation,
+                          comment: _model.commentController.text,
+                          contactInfo: _model.contactController.text,
+                        ),
+                        ...mapToFirestore(
+                          {
+                            'images': _model.uploadedImages,
+                          },
+                        ),
+                      });
                     },
                     text: FFLocalizations.of(context).getText(
                       'ck0vn711' /* Сохранить */,

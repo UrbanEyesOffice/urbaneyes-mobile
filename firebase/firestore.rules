@@ -49,5 +49,12 @@ service cloud.firestore {
       allow write: if true;
       allow delete: if false;
     }
+
+    match /parking/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
   }
 }
