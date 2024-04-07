@@ -87,50 +87,49 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (_model.localImages.length > 0)
-                  Builder(
-                    builder: (context) {
-                      final carouselImages = _model.localImages.toList();
-                      if (carouselImages.isEmpty) {
-                        return EmptyPhotosWidget();
-                      }
-                      return Container(
-                        width: double.infinity,
-                        height: 200.0,
-                        child: CarouselSlider.builder(
-                          itemCount: carouselImages.length,
-                          itemBuilder: (context, carouselImagesIndex, _) {
-                            final carouselImagesItem =
-                                carouselImages[carouselImagesIndex];
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.memory(
-                                carouselImagesItem.bytes ??
-                                    Uint8List.fromList([]),
-                                width: 300.0,
-                                height: 200.0,
-                                fit: BoxFit.cover,
-                              ),
-                            );
-                          },
-                          carouselController: _model.carouselController ??=
-                              CarouselController(),
-                          options: CarouselOptions(
-                            initialPage: min(1, carouselImages.length - 1),
-                            viewportFraction: 0.5,
-                            disableCenter: true,
-                            enlargeCenterPage: true,
-                            enlargeFactor: 0.25,
-                            enableInfiniteScroll: true,
-                            scrollDirection: Axis.horizontal,
-                            autoPlay: false,
-                            onPageChanged: (index, _) =>
-                                _model.carouselCurrentIndex = index,
-                          ),
+                Builder(
+                  builder: (context) {
+                    final carouselImages = _model.localImages.toList();
+                    if (carouselImages.isEmpty) {
+                      return EmptyPhotosWidget();
+                    }
+                    return Container(
+                      width: double.infinity,
+                      height: 200.0,
+                      child: CarouselSlider.builder(
+                        itemCount: carouselImages.length,
+                        itemBuilder: (context, carouselImagesIndex, _) {
+                          final carouselImagesItem =
+                              carouselImages[carouselImagesIndex];
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.memory(
+                              carouselImagesItem.bytes ??
+                                  Uint8List.fromList([]),
+                              width: 300.0,
+                              height: 200.0,
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        },
+                        carouselController: _model.carouselController ??=
+                            CarouselController(),
+                        options: CarouselOptions(
+                          initialPage: min(1, carouselImages.length - 1),
+                          viewportFraction: 0.5,
+                          disableCenter: true,
+                          enlargeCenterPage: true,
+                          enlargeFactor: 0.25,
+                          enableInfiniteScroll: true,
+                          scrollDirection: Axis.horizontal,
+                          autoPlay: false,
+                          onPageChanged: (index, _) =>
+                              _model.carouselCurrentIndex = index,
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
+                ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
                   child: Column(
