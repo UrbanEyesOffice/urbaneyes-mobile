@@ -1,9 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/components/empty_photos/empty_photos_widget.dart';
 import '/components/google_maps/google_maps_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -92,9 +92,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                 Builder(
                   builder: (context) {
                     final carouselImages = _model.localImages.toList();
-                    if (carouselImages.isEmpty) {
-                      return EmptyPhotosWidget();
-                    }
                     return Container(
                       width: double.infinity,
                       height: 200.0,
@@ -103,46 +100,128 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                         itemBuilder: (context, carouselImagesIndex, _) {
                           final carouselImagesItem =
                               carouselImages[carouselImagesIndex];
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'PARKING_SURVEY_Image_8jm1fhg2_ON_TAP');
-                              logFirebaseEvent('Image_expand_image');
-                              await Navigator.push(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.fade,
-                                  child: FlutterFlowExpandedImageView(
-                                    image: Image.memory(
+                          return Stack(
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  logFirebaseEvent(
+                                      'PARKING_SURVEY_Image_8jm1fhg2_ON_TAP');
+                                  logFirebaseEvent('Image_expand_image');
+                                  await Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: FlutterFlowExpandedImageView(
+                                        image: Image.memory(
+                                          carouselImagesItem.bytes ??
+                                              Uint8List.fromList([]),
+                                          fit: BoxFit.contain,
+                                        ),
+                                        allowRotation: false,
+                                        tag: 'imageTag',
+                                        useHeroAnimation: true,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Hero(
+                                  tag: 'imageTag',
+                                  transitionOnUserGestures: true,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.memory(
                                       carouselImagesItem.bytes ??
                                           Uint8List.fromList([]),
-                                      fit: BoxFit.contain,
+                                      width: 300.0,
+                                      height: 200.0,
+                                      fit: BoxFit.cover,
                                     ),
-                                    allowRotation: false,
-                                    tag: 'imageTag',
-                                    useHeroAnimation: true,
                                   ),
                                 ),
-                              );
-                            },
-                            child: Hero(
-                              tag: 'imageTag',
-                              transitionOnUserGestures: true,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.memory(
-                                  carouselImagesItem.bytes ??
-                                      Uint8List.fromList([]),
-                                  width: 300.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1.0, -1.0),
+                                child: FlutterFlowIconButton(
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).noColor,
+                                  borderRadius: 20.0,
+                                  buttonSize: 40.0,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).noColor,
+                                  icon: Icon(
+                                    Icons.remove_circle,
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    size: 24.0,
+                                  ),
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'PARKING_SURVEY_remove_circle_ICN_ON_TAP');
+                                    logFirebaseEvent('IconButton_alert_dialog');
+                                    var confirmDialogResponse =
+                                        await showDialog<bool>(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getVariableText(
+                                                    ruText: 'Удалить фото?',
+                                                    enText: 'Delete photo?',
+                                                    kyText:
+                                                        'Сүрөт жок кылынсынбы?',
+                                                  )),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              false),
+                                                      child: Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getVariableText(
+                                                        ruText: 'Отмена',
+                                                        enText: 'Cancel',
+                                                        kyText: 'Жок',
+                                                      )),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              true),
+                                                      child: Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getVariableText(
+                                                        ruText: 'Удалить',
+                                                        enText: 'Delete',
+                                                        kyText: 'Жок кылуу',
+                                                      )),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ) ??
+                                            false;
+                                    if (confirmDialogResponse) {
+                                      logFirebaseEvent(
+                                          'IconButton_update_page_state');
+                                      setState(() {
+                                        _model.removeAtIndexFromLocalImages(
+                                            carouselImagesIndex);
+                                      });
+                                    }
+                                  },
                                 ),
                               ),
-                            ),
+                            ],
                           );
                         },
                         carouselController: _model.carouselController ??=
