@@ -1,3 +1,4 @@
+import '/components/google_maps/google_maps_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -27,6 +28,12 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'ParkingSurvey'});
+    _model.commentController ??= TextEditingController();
+    _model.commentFocusNode ??= FocusNode();
+
+    _model.contactController ??= TextEditingController();
+    _model.contactFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -45,106 +52,348 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          iconTheme:
+              IconThemeData(color: FlutterFlowTheme.of(context).mainGreen),
+          automaticallyImplyLeading: true,
           title: Text(
             FFLocalizations.of(context).getText(
-              's24yz946' /* Page Title */,
+              'i7dw9ydq' /* Парковка */,
             ),
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Inter',
-                  color: Colors.white,
-                  fontSize: 22.0,
+                  fontSize: 18.0,
                   letterSpacing: 0.0,
+                  fontWeight: FontWeight.w500,
                   useGoogleFonts: false,
                 ),
           ),
           actions: [],
-          centerTitle: false,
-          elevation: 2.0,
+          centerTitle: true,
+          elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              FFButtonWidget(
-                onPressed: () async {
-                  logFirebaseEvent('PARKING_SURVEY_PAGE_BUTTON_BTN_ON_TAP');
-                  logFirebaseEvent('Button_store_media_for_upload');
-                  final selectedMedia = await selectMediaWithSourceBottomSheet(
-                    context: context,
-                    maxWidth: 500.00,
-                    maxHeight: 500.00,
-                    imageQuality: 60,
-                    allowPhoto: true,
-                  );
-                  if (selectedMedia != null &&
-                      selectedMedia.every(
-                          (m) => validateFileFormat(m.storagePath, context))) {
-                    setState(() => _model.isDataUploading = true);
-                    var selectedUploadedFiles = <FFUploadedFile>[];
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (_model.uploadedLocalFile != null &&
+                    (_model.uploadedLocalFile.bytes?.isNotEmpty ?? false))
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.memory(
+                      _model.uploadedLocalFile.bytes ?? Uint8List.fromList([]),
+                      width: 300.0,
+                      height: 200.0,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                FFButtonWidget(
+                  onPressed: () async {
+                    logFirebaseEvent('PARKING_SURVEY_PAGE_upload_media_ON_TAP');
+                    logFirebaseEvent('upload_media_store_media_for_upload');
+                    final selectedMedia =
+                        await selectMediaWithSourceBottomSheet(
+                      context: context,
+                      maxWidth: 500.00,
+                      maxHeight: 500.00,
+                      imageQuality: 100,
+                      allowPhoto: true,
+                    );
+                    if (selectedMedia != null &&
+                        selectedMedia.every((m) =>
+                            validateFileFormat(m.storagePath, context))) {
+                      setState(() => _model.isDataUploading = true);
+                      var selectedUploadedFiles = <FFUploadedFile>[];
 
-                    try {
-                      selectedUploadedFiles = selectedMedia
-                          .map((m) => FFUploadedFile(
-                                name: m.storagePath.split('/').last,
-                                bytes: m.bytes,
-                                height: m.dimensions?.height,
-                                width: m.dimensions?.width,
-                                blurHash: m.blurHash,
-                              ))
-                          .toList();
-                    } finally {
-                      _model.isDataUploading = false;
+                      try {
+                        selectedUploadedFiles = selectedMedia
+                            .map((m) => FFUploadedFile(
+                                  name: m.storagePath.split('/').last,
+                                  bytes: m.bytes,
+                                  height: m.dimensions?.height,
+                                  width: m.dimensions?.width,
+                                  blurHash: m.blurHash,
+                                ))
+                            .toList();
+                      } finally {
+                        _model.isDataUploading = false;
+                      }
+                      if (selectedUploadedFiles.length ==
+                          selectedMedia.length) {
+                        setState(() {
+                          _model.uploadedLocalFile =
+                              selectedUploadedFiles.first;
+                        });
+                      } else {
+                        setState(() {});
+                        return;
+                      }
                     }
-                    if (selectedUploadedFiles.length == selectedMedia.length) {
-                      setState(() {
-                        _model.uploadedLocalFile = selectedUploadedFiles.first;
-                      });
-                    } else {
-                      setState(() {});
-                      return;
-                    }
-                  }
-                },
-                text: FFLocalizations.of(context).getText(
-                  'po2y2b8c' /* Button */,
+                  },
+                  text: FFLocalizations.of(context).getText(
+                    '9n9xjxb4' /* Загрузить фото */,
+                  ),
+                  options: FFButtonOptions(
+                    width: 330.0,
+                    height: 48.0,
+                    padding: EdgeInsets.all(0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFF53B153),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Golos',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                          useGoogleFonts: false,
+                        ),
+                    elevation: 3.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                 ),
-                options: FFButtonOptions(
-                  height: 40.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Inter',
-                        color: Colors.white,
+                TextFormField(
+                  controller: _model.commentController,
+                  focusNode: _model.commentFocusNode,
+                  autofocus: false,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: FFLocalizations.of(context).getText(
+                      '5buym29x' /* Поле для комментария */,
+                    ),
+                    labelStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'Golos',
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
+                    hintStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFA9ABAF),
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFA9ABAF),
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Golos',
+                        color: Color(0xFF06112E),
+                        fontSize: 16.0,
                         letterSpacing: 0.0,
                         useGoogleFonts: false,
                       ),
-                  elevation: 3.0,
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
+                  maxLines: 10,
+                  validator:
+                      _model.commentControllerValidator.asValidator(context),
                 ),
-              ),
-              if (_model.uploadedLocalFile != null &&
-                  (_model.uploadedLocalFile.bytes?.isNotEmpty ?? false))
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.memory(
-                    _model.uploadedLocalFile.bytes ?? Uint8List.fromList([]),
-                    width: 300.0,
-                    height: 200.0,
-                    fit: BoxFit.cover,
+                TextFormField(
+                  controller: _model.contactController,
+                  focusNode: _model.contactFocusNode,
+                  autofocus: false,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: FFLocalizations.of(context).getText(
+                      'cw3iych7' /* Как с вами связаться? */,
+                    ),
+                    labelStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'Golos',
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
+                    hintStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFA9ABAF),
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFA9ABAF),
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Golos',
+                        color: Color(0xFF06112E),
+                        fontSize: 16.0,
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
+                  maxLines: 10,
+                  validator:
+                      _model.contactControllerValidator.asValidator(context),
+                ),
+                Text(
+                  valueOrDefault<String>(
+                    _model.selectedLocationTitle,
+                    '-',
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
+                ),
+                FFButtonWidget(
+                  onPressed: () async {
+                    logFirebaseEvent(
+                        'PARKING_SURVEY_ИЗМЕНИТЬ_ЛОКАЦИЮ_BTN_ON_T');
+                    logFirebaseEvent('Button_bottom_sheet');
+                    await showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor:
+                          FlutterFlowTheme.of(context).primaryBackground,
+                      enableDrag: false,
+                      context: context,
+                      builder: (context) {
+                        return GestureDetector(
+                          onTap: () => _model.unfocusNode.canRequestFocus
+                              ? FocusScope.of(context)
+                                  .requestFocus(_model.unfocusNode)
+                              : FocusScope.of(context).unfocus(),
+                          child: Padding(
+                            padding: MediaQuery.viewInsetsOf(context),
+                            child: Container(
+                              height: MediaQuery.sizeOf(context).height * 0.7,
+                              child: GoogleMapsWidget(
+                                locationInput: _model.selectedLocation,
+                                locationInputTitle:
+                                    _model.selectedLocationTitle,
+                                selectedLocationCallback:
+                                    (location, locationTitle) async {
+                                  logFirebaseEvent('_update_page_state');
+                                  setState(() {
+                                    _model.selectedLocation = location;
+                                    _model.selectedLocationTitle =
+                                        locationTitle;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ).then((value) => safeSetState(() {}));
+                  },
+                  text: FFLocalizations.of(context).getText(
+                    'yr24wxv9' /* Изменить локацию */,
+                  ),
+                  options: FFButtonOptions(
+                    width: 330.0,
+                    height: 48.0,
+                    padding: EdgeInsets.all(0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFFCEEFCD),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Golos',
+                          color: Color(0xFF0A8D09),
+                          letterSpacing: 0.0,
+                          useGoogleFonts: false,
+                        ),
+                    elevation: 3.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
                 ),
-            ],
+                FFButtonWidget(
+                  onPressed: () {
+                    print('save pressed ...');
+                  },
+                  text: FFLocalizations.of(context).getText(
+                    'ck0vn711' /* Сохранить */,
+                  ),
+                  options: FFButtonOptions(
+                    width: 330.0,
+                    height: 48.0,
+                    padding: EdgeInsets.all(0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFF53B153),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Golos',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                          useGoogleFonts: false,
+                        ),
+                    elevation: 3.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+              ].divide(SizedBox(height: 16.0)).around(SizedBox(height: 16.0)),
+            ),
           ),
         ),
       ),

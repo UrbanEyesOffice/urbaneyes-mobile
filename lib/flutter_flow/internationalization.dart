@@ -855,13 +855,33 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // ParkingSurvey
   {
-    'po2y2b8c': {
-      'ru': 'Button',
-      'en': '',
-      'ky': '',
+    '9n9xjxb4': {
+      'ru': 'Загрузить фото',
+      'en': 'Upload a photo',
+      'ky': 'Сүрөт жүктөө',
     },
-    's24yz946': {
-      'ru': 'Page Title',
+    '5buym29x': {
+      'ru': 'Поле для комментария',
+      'en': 'Comment field',
+      'ky': 'Комментарий талаасы',
+    },
+    'cw3iych7': {
+      'ru': 'Как с вами связаться?',
+      'en': 'Comment field',
+      'ky': 'Комментарий талаасы',
+    },
+    'yr24wxv9': {
+      'ru': 'Изменить локацию',
+      'en': 'Change location',
+      'ky': 'Жайгашкан жерди өзгөртүү',
+    },
+    'ck0vn711': {
+      'ru': 'Сохранить',
+      'en': 'Save',
+      'ky': 'Сактоо',
+    },
+    'i7dw9ydq': {
+      'ru': 'Парковка',
       'en': '',
       'ky': '',
     },

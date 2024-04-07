@@ -118,6 +118,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          iconTheme:
+              IconThemeData(color: FlutterFlowTheme.of(context).mainGreen),
           automaticallyImplyLeading: true,
           leading: FlutterFlowIconButton(
             borderRadius: 20.0,
@@ -159,7 +161,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
             child: ListView(
               padding: EdgeInsets.fromLTRB(
                 0,
