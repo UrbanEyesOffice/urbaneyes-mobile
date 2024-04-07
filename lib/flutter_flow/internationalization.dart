@@ -855,6 +855,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // ParkingSurvey
   {
+    'po2y2b8c': {
+      'ru': 'Button',
+      'en': '',
+      'ky': '',
+    },
     's24yz946': {
       'ru': 'Page Title',
       'en': '',
@@ -967,6 +972,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
           'The included geolocation makes it easy to find places in the city and assess the quality and convenience of life.',
       'ky':
           'Камтылган геолокация шаардагы жерлерди оңой таап, жашоонун сапатын жана ыңгайлуулугун баалоону жеңилдетет.',
+    },
+    'oqhni9ny': {
+      'ru': 'Фотографируй и отмечай места неправильной парковки ',
+      'en': '',
+      'ky': '',
+    },
+    'd1zkka5r': {
+      'ru': '',
+      'en': '',
+      'ky': '',
     },
     'auqafdkr': {
       'ru': 'Разреши пуш-уведомления и оценивай места рядом',

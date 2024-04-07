@@ -25,6 +25,7 @@ Future<List<SurveyStruct>> mapSurveysRecordToSurveyStruct(
           descriptionEn: e.descriptionEn,
           descriptionKg: e.descriptionKg,
           createdTime: e.createdTime,
-          enabled: e.enabled))
+          enabled: e.enabled,
+          surveyReference: e.reference))
       .toList();
 }

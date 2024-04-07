@@ -76,6 +76,8 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
         _model.localShuffeledSurveys =
             _model.localTempSurveys!.toList().cast<SurveyStruct>();
       });
+      logFirebaseEvent('HomePageCopy_update_page_state');
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -337,30 +339,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                           logFirebaseEvent(
                                               'Button_navigate_to');
 
-                                          context.pushNamed(
-                                            'question',
-                                            queryParameters: {
-                                              'survey': serializeParam(
-                                                _model.shuffledSurveys
-                                                    .where((e) =>
-                                                        e.reference ==
-                                                        listItemsItem
-                                                            .surveyReference)
-                                                    .toList()
-                                                    .first,
-                                                ParamType.Document,
-                                              ),
-                                            }.withoutNulls,
-                                            extra: <String, dynamic>{
-                                              'survey': _model.shuffledSurveys
-                                                  .where((e) =>
-                                                      e.reference ==
-                                                      listItemsItem
-                                                          .surveyReference)
-                                                  .toList()
-                                                  .first,
-                                            },
-                                          );
+                                          context.pushNamed('ParkingSurvey');
                                         },
                                         text:
                                             FFLocalizations.of(context).getText(
