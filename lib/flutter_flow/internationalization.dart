@@ -867,8 +867,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'cw3iych7': {
       'ru': 'Как с вами связаться?',
-      'en': 'Comment field',
-      'ky': 'Комментарий талаасы',
+      'en': 'How to contact you?',
+      'ky': 'Сиз менен кантип байланышсам болот?',
     },
     'yr24wxv9': {
       'ru': 'Изменить локацию',
@@ -882,8 +882,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'i7dw9ydq': {
       'ru': 'Парковка',
-      'en': '',
-      'ky': '',
+      'en': 'Parking',
+      'ky': 'Паркинг',
     },
     'yzu4r1jy': {
       'ru': 'Home',
