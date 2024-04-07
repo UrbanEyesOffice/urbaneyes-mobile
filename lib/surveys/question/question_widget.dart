@@ -22,7 +22,7 @@ class QuestionWidget extends StatefulWidget {
     required this.survey,
   });
 
-  final SurveyStruct? survey;
+  final SurveysRecord? survey;
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -47,7 +47,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         queryBuilder: (questionRecord) => questionRecord
             .where(
               'survey_id',
-              isEqualTo: widget.survey?.surveyReference,
+              isEqualTo: widget.survey?.reference,
             )
             .where(
               'enabled',
@@ -352,7 +352,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               _model.currentQuestionNumber =
                                   _model.currentQuestionNumber + 1;
                               _model.addToAnswers(AnswerStruct(
-                                surveyId: widget.survey?.surveyReference,
+                                surveyId: widget.survey?.reference,
                                 questionId: _model.currentQuestion?.reference,
                                 userId: currentUserReference,
                                 time: getCurrentTimestamp,
@@ -406,7 +406,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                             logFirebaseEvent('Button_update_page_state');
                             setState(() {
                               _model.addToAnswers(AnswerStruct(
-                                surveyId: widget.survey?.surveyReference,
+                                surveyId: widget.survey?.reference,
                                 questionId: _model.currentQuestion?.reference,
                                 userId: currentUserReference,
                                 time: getCurrentTimestamp,
@@ -421,7 +421,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               await AnswerRecord.collection
                                   .doc()
                                   .set(createAnswerRecordData(
-                                    surveyId: widget.survey?.surveyReference,
+                                    surveyId: widget.survey?.reference,
                                     questionId: _model
                                         .answers[_model.currentQuestionNumber]
                                         .questionId,
@@ -452,9 +452,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               queryParameters: {
                                 'survey': serializeParam(
                                   widget.survey,
-                                  ParamType.DataStruct,
+                                  ParamType.Document,
                                 ),
                               }.withoutNulls,
+                              extra: <String, dynamic>{
+                                'survey': widget.survey,
+                              },
                             );
                           },
                     text: FFLocalizations.of(context).getText(

@@ -162,12 +162,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'complete',
           path: '/complete',
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+          },
           builder: (context, params) => CompleteWidget(
             survey: params.getParam(
               'survey',
-              ParamType.DataStruct,
-              false,
-              SurveyStruct.fromSerializableMap,
+              ParamType.Document,
             ),
           ),
         ),
@@ -233,12 +234,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'question',
           path: '/question',
           requireAuth: true,
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+          },
           builder: (context, params) => QuestionWidget(
             survey: params.getParam(
               'survey',
-              ParamType.DataStruct,
-              false,
-              SurveyStruct.fromSerializableMap,
+              ParamType.Document,
             ),
           ),
         ),

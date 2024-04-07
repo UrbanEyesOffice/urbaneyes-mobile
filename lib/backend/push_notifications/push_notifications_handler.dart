@@ -132,7 +132,10 @@ final parametersBuilderMap =
       ),
   'CompleteRegistration': ParameterData.none(),
   'complete': (data) async => ParameterData(
-        allParams: {},
+        allParams: {
+          'survey': await getDocumentParameter<SurveysRecord>(
+              data, 'survey', SurveysRecord.fromSnapshot),
+        },
       ),
   'MainAuth': ParameterData.none(),
   'CreateAccount': ParameterData.none(),
@@ -151,7 +154,10 @@ final parametersBuilderMap =
   'CollectedRewards': ParameterData.none(),
   'RewardsCopy': ParameterData.none(),
   'question': (data) async => ParameterData(
-        allParams: {},
+        allParams: {
+          'survey': await getDocumentParameter<SurveysRecord>(
+              data, 'survey', SurveysRecord.fromSnapshot),
+        },
       ),
   'ParkingSurvey': ParameterData.none(),
 };

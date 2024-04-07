@@ -341,10 +341,25 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                             'question',
                                             queryParameters: {
                                               'survey': serializeParam(
-                                                listItemsItem,
-                                                ParamType.DataStruct,
+                                                _model.shuffledSurveys
+                                                    .where((e) =>
+                                                        e.reference ==
+                                                        listItemsItem
+                                                            .surveyReference)
+                                                    .toList()
+                                                    .first,
+                                                ParamType.Document,
                                               ),
                                             }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'survey': _model.shuffledSurveys
+                                                  .where((e) =>
+                                                      e.reference ==
+                                                      listItemsItem
+                                                          .surveyReference)
+                                                  .toList()
+                                                  .first,
+                                            },
                                           );
                                         },
                                         text:
