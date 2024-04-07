@@ -34,18 +34,6 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
   void updateLocalImagesAtIndex(int index, Function(FFUploadedFile) updateFn) =>
       localImages[index] = updateFn(localImages[index]);
 
-  int uploadIndex = 0;
-
-  List<String> uploadedImages = [];
-  void addToUploadedImages(String item) => uploadedImages.add(item);
-  void removeFromUploadedImages(String item) => uploadedImages.remove(item);
-  void removeAtIndexFromUploadedImages(int index) =>
-      uploadedImages.removeAt(index);
-  void insertAtIndexInUploadedImages(int index, String item) =>
-      uploadedImages.insert(index, item);
-  void updateUploadedImagesAtIndex(int index, Function(String) updateFn) =>
-      uploadedImages[index] = updateFn(uploadedImages[index]);
-
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -67,9 +55,8 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
   TextEditingController? contactController;
   String? Function(BuildContext, String?)? contactControllerValidator;
   bool isDataUploading2 = false;
-  FFUploadedFile uploadedLocalFile2 =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl2 = '';
+  List<FFUploadedFile> uploadedLocalFiles2 = [];
+  List<String> uploadedFileUrls2 = [];
 
   @override
   void initState(BuildContext context) {}

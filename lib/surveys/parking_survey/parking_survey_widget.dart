@@ -579,56 +579,54 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                       FFButtonWidget(
                         onPressed: () async {
                           logFirebaseEvent('PARKING_SURVEY_PAGE_save_ON_TAP');
-                          while (_model.uploadIndex <=
-                              valueOrDefault<int>(
-                                _model.localImages.length,
-                                0,
-                              )) {
-                            logFirebaseEvent('save_upload_media_to_firebase');
-                            {
-                              setState(() => _model.isDataUploading2 = true);
-                              var selectedUploadedFiles = <FFUploadedFile>[];
-                              var selectedMedia = <SelectedFile>[];
-                              var downloadUrls = <String>[];
-                              try {
-                                selectedUploadedFiles = _model
-                                        .localImages[_model.uploadIndex]
-                                        .bytes!
-                                        .isNotEmpty
-                                    ? [_model.localImages[_model.uploadIndex]]
-                                    : <FFUploadedFile>[];
-                                selectedMedia = selectedFilesFromUploadedFiles(
-                                  selectedUploadedFiles,
-                                );
-                                downloadUrls = (await Future.wait(
-                                  selectedMedia.map(
-                                    (m) async => await uploadData(
-                                        m.storagePath, m.bytes),
-                                  ),
-                                ))
-                                    .where((u) => u != null)
-                                    .map((u) => u!)
-                                    .toList();
-                              } finally {
-                                _model.isDataUploading2 = false;
-                              }
-                              if (selectedUploadedFiles.length ==
-                                      selectedMedia.length &&
-                                  downloadUrls.length == selectedMedia.length) {
-                                setState(() {
-                                  _model.uploadedLocalFile2 =
-                                      selectedUploadedFiles.first;
-                                  _model.uploadedFileUrl2 = downloadUrls.first;
-                                });
-                              } else {
-                                setState(() {});
-                                return;
-                              }
+                          logFirebaseEvent('save_upload_media_to_firebase');
+                          {
+                            setState(() => _model.isDataUploading2 = true);
+                            var selectedUploadedFiles = <FFUploadedFile>[];
+                            var selectedMedia = <SelectedFile>[];
+                            var downloadUrls = <String>[];
+                            try {
+                              showUploadMessage(
+                                context,
+                                'Uploading file...',
+                                showLoading: true,
+                              );
+                              selectedUploadedFiles = _model.localImages;
+                              selectedMedia = selectedFilesFromUploadedFiles(
+                                selectedUploadedFiles,
+                                isMultiData: true,
+                              );
+                              downloadUrls = (await Future.wait(
+                                selectedMedia.map(
+                                  (m) async =>
+                                      await uploadData(m.storagePath, m.bytes),
+                                ),
+                              ))
+                                  .where((u) => u != null)
+                                  .map((u) => u!)
+                                  .toList();
+                            } finally {
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                              _model.isDataUploading2 = false;
                             }
-
-                            logFirebaseEvent('save_update_page_state');
-                            _model.addToUploadedImages(_model.uploadedFileUrl2);
+                            if (selectedUploadedFiles.length ==
+                                    selectedMedia.length &&
+                                downloadUrls.length == selectedMedia.length) {
+                              setState(() {
+                                _model.uploadedLocalFiles2 =
+                                    selectedUploadedFiles;
+                                _model.uploadedFileUrls2 = downloadUrls;
+                              });
+                              showUploadMessage(context, 'Success!');
+                            } else {
+                              setState(() {});
+                              showUploadMessage(
+                                  context, 'Failed to upload data');
+                              return;
+                            }
                           }
+
                           logFirebaseEvent('save_backend_call');
 
                           await ParkingRecord.collection.doc().set({
@@ -641,7 +639,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                             ),
                             ...mapToFirestore(
                               {
-                                'images': _model.uploadedImages,
+                                'images': _model.uploadedFileUrls2,
                               },
                             ),
                           });
