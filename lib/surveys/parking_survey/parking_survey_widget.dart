@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/empty_photos/empty_photos_widget.dart';
 import '/components/google_maps/google_maps_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -90,9 +91,12 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                   Builder(
                     builder: (context) {
                       final carouselImages = _model.localImages.toList();
+                      if (carouselImages.isEmpty) {
+                        return EmptyPhotosWidget();
+                      }
                       return Container(
                         width: double.infinity,
-                        height: 180.0,
+                        height: 200.0,
                         child: CarouselSlider.builder(
                           itemCount: carouselImages.length,
                           itemBuilder: (context, carouselImagesIndex, _) {
