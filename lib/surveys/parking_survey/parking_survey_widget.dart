@@ -83,14 +83,23 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent('PARKING_SURVEY_Image_efeth0i1_ON_TAP');
-                      logFirebaseEvent('Image_store_media_for_upload');
+                  if (_model.uploadedLocalFile != null &&
+                      (_model.uploadedLocalFile.bytes?.isNotEmpty ?? false))
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.memory(
+                        _model.uploadedLocalFile.bytes ??
+                            Uint8List.fromList([]),
+                        width: 300.0,
+                        height: 200.0,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent(
+                          'PARKING_SURVEY_PAGE_upload_media_ON_TAP');
+                      logFirebaseEvent('upload_media_store_media_for_upload');
                       final selectedMedia =
                           await selectMediaWithSourceBottomSheet(
                         context: context,
@@ -129,22 +138,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                           return;
                         }
                       }
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.memory(
-                        _model.uploadedLocalFile.bytes ??
-                            Uint8List.fromList([]),
-                        width: 300.0,
-                        height: 200.0,
-                        fit: BoxFit.scaleDown,
-                      ),
-                    ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent(
-                          'PARKING_SURVEY_PAGE_upload_media_ON_TAP');
                     },
                     text: FFLocalizations.of(context).getText(
                       '9n9xjxb4' /* Загрузить фото */,
@@ -231,7 +224,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                           letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
-                    maxLines: 10,
+                    maxLines: 2,
                     validator:
                         _model.commentControllerValidator.asValidator(context),
                   ),
@@ -295,7 +288,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                           letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
-                    maxLines: 10,
+                    maxLines: 2,
                     validator:
                         _model.contactControllerValidator.asValidator(context),
                   ),
