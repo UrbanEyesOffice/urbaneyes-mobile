@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/empty_photos/empty_photos_widget.dart';
 import '/components/google_maps/google_maps_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -11,6 +12,7 @@ import '/flutter_flow/upload_data.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,42 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'ParkingSurvey'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('PARKING_SURVEY_ParkingSurvey_ON_INIT_STA');
+      logFirebaseEvent('ParkingSurvey_bottom_sheet');
+      await showModalBottomSheet(
+        isScrollControlled: true,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        enableDrag: false,
+        context: context,
+        builder: (context) {
+          return GestureDetector(
+            onTap: () => _model.unfocusNode.canRequestFocus
+                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                : FocusScope.of(context).unfocus(),
+            child: Padding(
+              padding: MediaQuery.viewInsetsOf(context),
+              child: Container(
+                height: MediaQuery.sizeOf(context).height * 0.7,
+                child: GoogleMapsWidget(
+                  locationInput: _model.selectedLocation,
+                  locationInputTitle: _model.selectedLocationTitle,
+                  selectedLocationCallback: (location, locationTitle) async {
+                    logFirebaseEvent('_update_page_state');
+                    setState(() {
+                      _model.selectedLocation = location;
+                      _model.selectedLocationTitle = locationTitle;
+                    });
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+      ).then((value) => safeSetState(() {}));
+    });
+
     _model.commentController ??= TextEditingController();
     _model.commentFocusNode ??= FocusNode();
 
@@ -92,6 +130,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                 Builder(
                   builder: (context) {
                     final carouselImages = _model.localImages.toList();
+                    if (carouselImages.isEmpty) {
+                      return EmptyPhotosWidget();
+                    }
                     return Container(
                       width: double.infinity,
                       height: 200.0,
