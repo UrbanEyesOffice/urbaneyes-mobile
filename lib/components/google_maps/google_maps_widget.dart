@@ -242,17 +242,42 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                             onPressed: () async {
                               logFirebaseEvent(
                                   'GOOGLE_MAPS_COMP_ПРОДОЛЖИТЬ_BTN_ON_TAP');
-                              logFirebaseEvent('Button_execute_callback');
-                              await widget.selectedLocationCallback?.call(
-                                _model.selectedLocation,
-                                valueOrDefault<String>(
-                                  _model.selectedLocationTitle,
-                                  '-',
-                                ),
-                              );
-                              logFirebaseEvent(
-                                  'Button_close_dialog,_drawer,_etc');
-                              Navigator.pop(context);
+                              if ((_model.selectedLocation != null) &&
+                                  (_model.selectedLocationTitle != null &&
+                                      _model.selectedLocationTitle != '')) {
+                                logFirebaseEvent('Button_execute_callback');
+                                await widget.selectedLocationCallback?.call(
+                                  _model.selectedLocation,
+                                  valueOrDefault<String>(
+                                    _model.selectedLocationTitle,
+                                    '-',
+                                  ),
+                                );
+                                logFirebaseEvent(
+                                    'Button_close_dialog,_drawer,_etc');
+                                Navigator.pop(context);
+                              } else {
+                                logFirebaseEvent('Button_show_snack_bar');
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      FFLocalizations.of(context)
+                                          .getVariableText(
+                                        ruText: 'Выберите локацию',
+                                        enText: 'Select location',
+                                        kyText: 'Жайгашкан жерди тандаңыз',
+                                      ),
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                );
+                              }
                             },
                             text: FFLocalizations.of(context).getText(
                               'c9ejc1w0' /* Продолжить */,

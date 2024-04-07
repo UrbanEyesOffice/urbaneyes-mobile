@@ -586,11 +586,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                             var selectedMedia = <SelectedFile>[];
                             var downloadUrls = <String>[];
                             try {
-                              showUploadMessage(
-                                context,
-                                'Uploading file...',
-                                showLoading: true,
-                              );
                               selectedUploadedFiles = _model.localImages;
                               selectedMedia = selectedFilesFromUploadedFiles(
                                 selectedUploadedFiles,
@@ -606,8 +601,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   .map((u) => u!)
                                   .toList();
                             } finally {
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
                               _model.isDataUploading2 = false;
                             }
                             if (selectedUploadedFiles.length ==
@@ -618,11 +611,8 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     selectedUploadedFiles;
                                 _model.uploadedFileUrls2 = downloadUrls;
                               });
-                              showUploadMessage(context, 'Success!');
                             } else {
                               setState(() {});
-                              showUploadMessage(
-                                  context, 'Failed to upload data');
                               return;
                             }
                           }
@@ -636,6 +626,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               location: _model.selectedLocation,
                               comment: _model.commentController.text,
                               contactInfo: _model.contactController.text,
+                              locationTitle: _model.selectedLocationTitle,
                             ),
                             ...mapToFirestore(
                               {

@@ -52,21 +52,46 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
 
         context.goNamed('CualificatedSurvey');
       }
-      if (valueOrDefault<bool>(currentUserDocument?.isAdmin, false) == true) {
+      logFirebaseEvent('HomePageCopy_custom_action');
+      _model.isTester = await actions.isTester(
+        currentUserEmail,
+        getRemoteConfigString('testers'),
+      );
+      if (_model.isTester == true) {
         logFirebaseEvent('HomePageCopy_firestore_query');
-        _model.adminLoadedSurveys = await querySurveysRecordOnce();
+        _model.testersLoadedSurveys = await querySurveysRecordOnce(
+          queryBuilder: (surveysRecord) => surveysRecord
+              .where(
+                'enabled',
+                isEqualTo: true,
+              )
+              .where(
+                'testers_only',
+                isEqualTo: true,
+              ),
+          limit: 10,
+        );
+        logFirebaseEvent('HomePageCopy_custom_action');
+        _model.testersTempSurveys = await actions.shuffleSurveys(
+          _model.testersLoadedSurveys?.toList(),
+        );
         logFirebaseEvent('HomePageCopy_update_page_state');
         setState(() {
           _model.shuffledSurveys =
-              _model.adminLoadedSurveys!.toList().cast<SurveysRecord>();
+              _model.testersTempSurveys!.toList().cast<SurveysRecord>();
         });
       } else {
         logFirebaseEvent('HomePageCopy_firestore_query');
         _model.loadedSurveys = await querySurveysRecordOnce(
-          queryBuilder: (surveysRecord) => surveysRecord.where(
-            'enabled',
-            isEqualTo: true,
-          ),
+          queryBuilder: (surveysRecord) => surveysRecord
+              .where(
+                'enabled',
+                isEqualTo: true,
+              )
+              .where(
+                'testers_only',
+                isEqualTo: false,
+              ),
           limit: 10,
         );
         logFirebaseEvent('HomePageCopy_custom_action');

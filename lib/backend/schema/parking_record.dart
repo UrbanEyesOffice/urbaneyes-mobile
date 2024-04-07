@@ -46,6 +46,11 @@ class ParkingRecord extends FirestoreRecord {
   List<String> get images => _images ?? const [];
   bool hasImages() => _images != null;
 
+  // "location_title" field.
+  String? _locationTitle;
+  String get locationTitle => _locationTitle ?? '';
+  bool hasLocationTitle() => _locationTitle != null;
+
   void _initializeFields() {
     _createdBy = snapshotData['created_by'] as DocumentReference?;
     _createdTime = snapshotData['created_time'] as DateTime?;
@@ -53,6 +58,7 @@ class ParkingRecord extends FirestoreRecord {
     _comment = snapshotData['comment'] as String?;
     _contactInfo = snapshotData['contact_info'] as String?;
     _images = getDataList(snapshotData['images']);
+    _locationTitle = snapshotData['location_title'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -95,6 +101,7 @@ Map<String, dynamic> createParkingRecordData({
   LatLng? location,
   String? comment,
   String? contactInfo,
+  String? locationTitle,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -103,6 +110,7 @@ Map<String, dynamic> createParkingRecordData({
       'location': location,
       'comment': comment,
       'contact_info': contactInfo,
+      'location_title': locationTitle,
     }.withoutNulls,
   );
 
@@ -120,7 +128,8 @@ class ParkingRecordDocumentEquality implements Equality<ParkingRecord> {
         e1?.location == e2?.location &&
         e1?.comment == e2?.comment &&
         e1?.contactInfo == e2?.contactInfo &&
-        listEquality.equals(e1?.images, e2?.images);
+        listEquality.equals(e1?.images, e2?.images) &&
+        e1?.locationTitle == e2?.locationTitle;
   }
 
   @override
@@ -130,7 +139,8 @@ class ParkingRecordDocumentEquality implements Equality<ParkingRecord> {
         e?.location,
         e?.comment,
         e?.contactInfo,
-        e?.images
+        e?.images,
+        e?.locationTitle
       ]);
 
   @override

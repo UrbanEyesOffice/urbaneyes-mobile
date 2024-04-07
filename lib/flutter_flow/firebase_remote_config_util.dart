@@ -8,6 +8,7 @@ Future initializeFirebaseRemoteConfig() async {
   await FirebaseRemoteConfig.instance.setDefaults(const {
     'share_url': 'https://urbaneyes.kg/',
     'parking_survey': false,
+    'testers': '',
   });
   await FirebaseRemoteConfig.instance.fetchAndActivate();
 }
