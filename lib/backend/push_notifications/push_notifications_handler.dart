@@ -159,7 +159,12 @@ final parametersBuilderMap =
               data, 'survey', SurveysRecord.fromSnapshot),
         },
       ),
-  'ParkingSurvey': ParameterData.none(),
+  'ParkingSurvey': (data) async => ParameterData(
+        allParams: {
+          'survey': await getDocumentParameter<SurveysRecord>(
+              data, 'survey', SurveysRecord.fromSnapshot),
+        },
+      ),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

@@ -359,7 +359,18 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                             logFirebaseEvent(
                                                 'Button_navigate_to');
 
-                                            context.pushNamed('ParkingSurvey');
+                                            context.pushNamed(
+                                              'ParkingSurvey',
+                                              queryParameters: {
+                                                'survey': serializeParam(
+                                                  listItemsItem,
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'survey': listItemsItem,
+                                              },
+                                            );
                                           } else if (listItemsItem.surveyType ==
                                               1) {
                                             logFirebaseEvent(

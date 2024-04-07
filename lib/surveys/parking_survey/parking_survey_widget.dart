@@ -20,7 +20,12 @@ import 'parking_survey_model.dart';
 export 'parking_survey_model.dart';
 
 class ParkingSurveyWidget extends StatefulWidget {
-  const ParkingSurveyWidget({super.key});
+  const ParkingSurveyWidget({
+    super.key,
+    required this.survey,
+  });
+
+  final SurveysRecord? survey;
 
   @override
   State<ParkingSurveyWidget> createState() => _ParkingSurveyWidgetState();
@@ -640,6 +645,20 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               },
                             ),
                           });
+                          logFirebaseEvent('save_navigate_to');
+
+                          context.pushNamed(
+                            'complete',
+                            queryParameters: {
+                              'survey': serializeParam(
+                                widget.survey,
+                                ParamType.Document,
+                              ),
+                            }.withoutNulls,
+                            extra: <String, dynamic>{
+                              'survey': widget.survey,
+                            },
+                          );
                         },
                         text: FFLocalizations.of(context).getText(
                           'ck0vn711' /* Сохранить */,

@@ -247,7 +247,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ParkingSurvey',
           path: '/parkingSurvey',
-          builder: (context, params) => ParkingSurveyWidget(),
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+          },
+          builder: (context, params) => ParkingSurveyWidget(
+            survey: params.getParam(
+              'survey',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
