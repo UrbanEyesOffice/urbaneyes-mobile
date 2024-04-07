@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -61,6 +62,11 @@ class SurveysRecord extends FirestoreRecord {
   bool get enabled => _enabled ?? false;
   bool hasEnabled() => _enabled != null;
 
+  // "survey_type" field.
+  SurveyType? _surveyType;
+  SurveyType? get surveyType => _surveyType;
+  bool hasSurveyType() => _surveyType != null;
+
   void _initializeFields() {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _name = snapshotData['name'] as String?;
@@ -71,6 +77,7 @@ class SurveysRecord extends FirestoreRecord {
     _descriptionEn = snapshotData['description_en'] as String?;
     _descriptionKg = snapshotData['description_kg'] as String?;
     _enabled = snapshotData['enabled'] as bool?;
+    _surveyType = deserializeEnum<SurveyType>(snapshotData['survey_type']);
   }
 
   static CollectionReference get collection =>
@@ -117,6 +124,7 @@ Map<String, dynamic> createSurveysRecordData({
   String? descriptionEn,
   String? descriptionKg,
   bool? enabled,
+  SurveyType? surveyType,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -129,6 +137,7 @@ Map<String, dynamic> createSurveysRecordData({
       'description_en': descriptionEn,
       'description_kg': descriptionKg,
       'enabled': enabled,
+      'survey_type': surveyType,
     }.withoutNulls,
   );
 
@@ -148,7 +157,8 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e1?.nameKg == e2?.nameKg &&
         e1?.descriptionEn == e2?.descriptionEn &&
         e1?.descriptionKg == e2?.descriptionKg &&
-        e1?.enabled == e2?.enabled;
+        e1?.enabled == e2?.enabled &&
+        e1?.surveyType == e2?.surveyType;
   }
 
   @override
@@ -161,7 +171,8 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e?.nameKg,
         e?.descriptionEn,
         e?.descriptionKg,
-        e?.enabled
+        e?.enabled,
+        e?.surveyType
       ]);
 
   @override

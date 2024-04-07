@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -28,28 +28,15 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
           int index, Function(SurveysRecord) updateFn) =>
       shuffledSurveys[index] = updateFn(shuffledSurveys[index]);
 
-  List<SurveyStruct> localShuffeledSurveys = [];
-  void addToLocalShuffeledSurveys(SurveyStruct item) =>
-      localShuffeledSurveys.add(item);
-  void removeFromLocalShuffeledSurveys(SurveyStruct item) =>
-      localShuffeledSurveys.remove(item);
-  void removeAtIndexFromLocalShuffeledSurveys(int index) =>
-      localShuffeledSurveys.removeAt(index);
-  void insertAtIndexInLocalShuffeledSurveys(int index, SurveyStruct item) =>
-      localShuffeledSurveys.insert(index, item);
-  void updateLocalShuffeledSurveysAtIndex(
-          int index, Function(SurveyStruct) updateFn) =>
-      localShuffeledSurveys[index] = updateFn(localShuffeledSurveys[index]);
-
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in HomePageCopy widget.
+  List<SurveysRecord>? adminLoadedSurveys;
+  // Stores action output result for [Firestore Query - Query a collection] action in HomePageCopy widget.
   List<SurveysRecord>? loadedSurveys;
   // Stores action output result for [Custom Action - shuffleSurveys] action in HomePageCopy widget.
   List<SurveysRecord>? tempSurveys;
-  // Stores action output result for [Custom Action - mapSurveysRecordToSurveyStruct] action in HomePageCopy widget.
-  List<SurveyStruct>? localTempSurveys;
 
   @override
   void initState(BuildContext context) {}

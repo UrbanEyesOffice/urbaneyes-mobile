@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -53,31 +53,33 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
 
         context.goNamed('CualificatedSurvey');
       }
-      logFirebaseEvent('HomePageCopy_firestore_query');
-      _model.loadedSurveys = await querySurveysRecordOnce(
-        queryBuilder: (surveysRecord) => surveysRecord.where(
-          'enabled',
-          isEqualTo: true,
-        ),
-        limit: 10,
-      );
-      logFirebaseEvent('HomePageCopy_custom_action');
-      _model.tempSurveys = await actions.shuffleSurveys(
-        _model.loadedSurveys?.toList(),
-      );
-      logFirebaseEvent('HomePageCopy_custom_action');
-      _model.localTempSurveys = await actions.mapSurveysRecordToSurveyStruct(
-        _model.tempSurveys?.toList(),
-      );
-      logFirebaseEvent('HomePageCopy_update_page_state');
-      setState(() {
-        _model.shuffledSurveys =
-            _model.tempSurveys!.toList().cast<SurveysRecord>();
-        _model.localShuffeledSurveys =
-            _model.localTempSurveys!.toList().cast<SurveyStruct>();
-      });
-      logFirebaseEvent('HomePageCopy_update_page_state');
-      setState(() {});
+      if (valueOrDefault<bool>(currentUserDocument?.isAdmin, false) == true) {
+        logFirebaseEvent('HomePageCopy_firestore_query');
+        _model.adminLoadedSurveys = await querySurveysRecordOnce();
+        logFirebaseEvent('HomePageCopy_update_page_state');
+        setState(() {
+          _model.shuffledSurveys =
+              _model.adminLoadedSurveys!.toList().cast<SurveysRecord>();
+        });
+      } else {
+        logFirebaseEvent('HomePageCopy_firestore_query');
+        _model.loadedSurveys = await querySurveysRecordOnce(
+          queryBuilder: (surveysRecord) => surveysRecord.where(
+            'enabled',
+            isEqualTo: true,
+          ),
+          limit: 10,
+        );
+        logFirebaseEvent('HomePageCopy_custom_action');
+        _model.tempSurveys = await actions.shuffleSurveys(
+          _model.loadedSurveys?.toList(),
+        );
+        logFirebaseEvent('HomePageCopy_update_page_state');
+        setState(() {
+          _model.shuffledSurveys =
+              _model.loadedSurveys!.toList().cast<SurveysRecord>();
+        });
+      }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -224,7 +226,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
               Expanded(
                 child: Builder(
                   builder: (context) {
-                    final listItems = _model.localShuffeledSurveys.toList();
+                    final listItems = _model.shuffledSurveys.toList();
                     return ListView.separated(
                       padding: EdgeInsets.fromLTRB(
                         0,
@@ -268,6 +270,24 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        if (valueOrDefault<bool>(
+                                            currentUserDocument?.isAdmin,
+                                            false))
+                                          AuthUserStreamWidget(
+                                            builder: (context) => Text(
+                                              listItemsItem.enabled
+                                                  ? 'Доступно'
+                                                  : 'Скрыто',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                            ),
+                                          ),
                                         Align(
                                           alignment:
                                               AlignmentDirectional(-1.0, -1.0),
@@ -336,10 +356,29 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                         onPressed: () async {
                                           logFirebaseEvent(
                                               'HOME_PAGE_COPY_PAGE_ПРОЙТИ_BTN_ON_TAP');
-                                          logFirebaseEvent(
-                                              'Button_navigate_to');
+                                          if (listItemsItem.surveyType ==
+                                              SurveyType.parking) {
+                                            logFirebaseEvent(
+                                                'Button_navigate_to');
 
-                                          context.pushNamed('ParkingSurvey');
+                                            context.pushNamed('ParkingSurvey');
+                                          } else {
+                                            logFirebaseEvent(
+                                                'Button_navigate_to');
+
+                                            context.pushNamed(
+                                              'question',
+                                              queryParameters: {
+                                                'survey': serializeParam(
+                                                  listItemsItem,
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'survey': listItemsItem,
+                                              },
+                                            );
+                                          }
                                         },
                                         text:
                                             FFLocalizations.of(context).getText(
