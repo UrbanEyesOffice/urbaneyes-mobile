@@ -98,53 +98,51 @@ class _OnboardingVideoWidgetState extends State<OnboardingVideoWidget>
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: Stack(
-                  children: [
-                    FlutterFlowVideoPlayer(
-                      path:
-                          'https://firebasestorage.googleapis.com/v0/b/urbaneyes-a6d94.appspot.com/o/urban_eyes_onboarding.mp4?alt=media&token=4dd5a6e1-b244-4b35-97ec-3e63ce626f9b',
-                      videoType: VideoType.network,
-                      autoPlay: true,
-                      looping: true,
-                      showControls: false,
-                      allowFullScreen: false,
-                      allowPlaybackSpeedMenu: false,
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
-                      child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
-                        },
-                        text: FFLocalizations.of(context).getText(
-                          '13hir5i0' /* Закрыть */,
+                child: FlutterFlowVideoPlayer(
+                  path:
+                      'https://firebasestorage.googleapis.com/v0/b/urbaneyes-a6d94.appspot.com/o/urban_eyes_onboarding.mp4?alt=media&token=4dd5a6e1-b244-4b35-97ec-3e63ce626f9b',
+                  videoType: VideoType.network,
+                  autoPlay: false,
+                  looping: true,
+                  showControls: true,
+                  allowFullScreen: true,
+                  allowPlaybackSpeedMenu: false,
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 1.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    logFirebaseEvent(
+                        'ONBOARDING_VIDEO_PAGE_ЗАКРЫТЬ_BTN_ON_TAP');
+                    logFirebaseEvent('Button_navigate_back');
+                    context.safePop();
+                  },
+                  text: FFLocalizations.of(context).getText(
+                    '13hir5i0' /* Закрыть */,
+                  ),
+                  options: FFButtonOptions(
+                    width: 330.0,
+                    height: 48.0,
+                    padding: EdgeInsets.all(0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFF53B153),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Golos',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                          useGoogleFonts: false,
                         ),
-                        options: FFButtonOptions(
-                          width: 330.0,
-                          height: 48.0,
-                          padding: EdgeInsets.all(0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF53B153),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Golos',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                      ).animateOnActionTrigger(
-                        animationsMap['buttonOnActionTriggerAnimation']!,
-                      ),
+                    elevation: 3.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
                     ),
-                  ],
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ).animateOnActionTrigger(
+                  animationsMap['buttonOnActionTriggerAnimation']!,
                 ),
               ),
             ],
