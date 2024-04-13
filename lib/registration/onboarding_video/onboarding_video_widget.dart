@@ -34,7 +34,7 @@ class _OnboardingVideoWidgetState extends State<OnboardingVideoWidget> {
       logFirebaseEvent('ONBOARDING_VIDEO_OnboardingVideo_ON_INIT');
       logFirebaseEvent('OnboardingVideo_start_periodic_action');
       _model.instantTimer = InstantTimer.periodic(
-        duration: Duration(milliseconds: 57000),
+        duration: Duration(milliseconds: 58000),
         callback: (timer) async {
           logFirebaseEvent('OnboardingVideo_navigate_back');
           context.safePop();
@@ -72,10 +72,9 @@ class _OnboardingVideoWidgetState extends State<OnboardingVideoWidget> {
                   path:
                       'https://firebasestorage.googleapis.com/v0/b/urbaneyes-a6d94.appspot.com/o/urban_eyes_onboarding.mp4?alt=media&token=4dd5a6e1-b244-4b35-97ec-3e63ce626f9b',
                   videoType: VideoType.network,
-                  aspectRatio: 0.56,
                   autoPlay: true,
                   looping: true,
-                  showControls: true,
+                  showControls: false,
                   allowFullScreen: false,
                   allowPlaybackSpeedMenu: false,
                 ),
