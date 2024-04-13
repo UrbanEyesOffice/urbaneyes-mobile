@@ -34,7 +34,7 @@ class _OnboardingVideoWidgetState extends State<OnboardingVideoWidget> {
       logFirebaseEvent('ONBOARDING_VIDEO_OnboardingVideo_ON_INIT');
       logFirebaseEvent('OnboardingVideo_start_periodic_action');
       _model.instantTimer = InstantTimer.periodic(
-        duration: Duration(milliseconds: 58000),
+        duration: Duration(milliseconds: 59000),
         callback: (timer) async {
           logFirebaseEvent('OnboardingVideo_navigate_back');
           context.safePop();
