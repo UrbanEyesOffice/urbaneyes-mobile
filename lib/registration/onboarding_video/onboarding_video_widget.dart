@@ -102,10 +102,10 @@ class _OnboardingVideoWidgetState extends State<OnboardingVideoWidget>
                   path:
                       'https://firebasestorage.googleapis.com/v0/b/urbaneyes-a6d94.appspot.com/o/urban_eyes_onboarding.mp4?alt=media&token=4dd5a6e1-b244-4b35-97ec-3e63ce626f9b',
                   videoType: VideoType.network,
-                  autoPlay: false,
+                  autoPlay: true,
                   looping: true,
-                  showControls: true,
-                  allowFullScreen: true,
+                  showControls: false,
+                  allowFullScreen: false,
                   allowPlaybackSpeedMenu: false,
                 ),
               ),
