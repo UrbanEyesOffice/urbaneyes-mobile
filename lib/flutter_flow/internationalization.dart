@@ -893,6 +893,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // OnboardingVideo
   {
+    '13hir5i0': {
+      'ru': 'Закрыть',
+      'en': 'Close',
+      'ky': 'Жабуу',
+    },
     'yajg04pq': {
       'ru': 'Home',
       'en': '',
