@@ -275,7 +275,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
-                        minLines: null,
                         validator: _model.displayNameControllerValidator
                             .asValidator(context),
                       ),
@@ -338,7 +337,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
-                      minLines: null,
                       validator:
                           _model.emailControllerValidator.asValidator(context),
                     ),

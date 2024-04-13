@@ -177,7 +177,6 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                               letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
-                        minLines: null,
                         validator: _model.nameCreateControllerValidator
                             .asValidator(context),
                       ),

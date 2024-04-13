@@ -159,7 +159,6 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                       letterSpacing: 0.0,
                       useGoogleFonts: false,
                     ),
-                minLines: null,
                 validator:
                     _model.emailAddressControllerValidator.asValidator(context),
               ),

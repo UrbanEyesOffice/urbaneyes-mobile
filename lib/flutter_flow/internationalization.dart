@@ -891,6 +891,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': '',
     },
   },
+  // OnboardingVideo
+  {
+    'yajg04pq': {
+      'ru': 'Home',
+      'en': '',
+      'ky': '',
+    },
+  },
   // EmptyCollectedRewardsList
   {
     'p4bsixoc': {

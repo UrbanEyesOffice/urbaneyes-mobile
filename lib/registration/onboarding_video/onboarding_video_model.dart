@@ -1,19 +1,19 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/actions/actions.dart' as action_blocks;
-import 'main_auth_widget.dart' show MainAuthWidget;
+import '/flutter_flow/instant_timer.dart';
+import 'onboarding_video_widget.dart' show OnboardingVideoWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class MainAuthModel extends FlutterFlowModel<MainAuthWidget> {
+class OnboardingVideoModel extends FlutterFlowModel<OnboardingVideoWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  InstantTimer? instantTimer;
 
   @override
   void initState(BuildContext context) {}
@@ -21,5 +21,6 @@ class MainAuthModel extends FlutterFlowModel<MainAuthWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    instantTimer?.cancel();
   }
 }

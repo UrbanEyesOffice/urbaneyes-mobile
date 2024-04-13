@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,14 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
     _model = createModel(context, () => MainAuthModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'MainAuth'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('MAIN_AUTH_PAGE_MainAuth_ON_INIT_STATE');
+      logFirebaseEvent('MainAuth_navigate_to');
+
+      context.pushNamed('OnboardingVideo');
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

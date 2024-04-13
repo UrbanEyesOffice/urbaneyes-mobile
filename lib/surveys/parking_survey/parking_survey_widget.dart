@@ -431,6 +431,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               useGoogleFonts: false,
                             ),
                         maxLines: 2,
+                        minLines: 1,
                         validator: _model.commentControllerValidator
                             .asValidator(context),
                       ),
@@ -495,6 +496,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               useGoogleFonts: false,
                             ),
                         maxLines: 2,
+                        minLines: 1,
                         validator: _model.contactControllerValidator
                             .asValidator(context),
                       ),

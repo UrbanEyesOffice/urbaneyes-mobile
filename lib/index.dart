@@ -35,3 +35,5 @@ export '/rewards/rewards_copy/rewards_copy_widget.dart' show RewardsCopyWidget;
 export '/surveys/question/question_widget.dart' show QuestionWidget;
 export '/surveys/parking_survey/parking_survey_widget.dart'
     show ParkingSurveyWidget;
+export '/registration/onboarding_video/onboarding_video_widget.dart'
+    show OnboardingVideoWidget;

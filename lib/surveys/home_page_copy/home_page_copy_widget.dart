@@ -60,15 +60,6 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
       if (_model.isTester == true) {
         logFirebaseEvent('HomePageCopy_firestore_query');
         _model.testersLoadedSurveys = await querySurveysRecordOnce(
-          queryBuilder: (surveysRecord) => surveysRecord
-              .where(
-                'enabled',
-                isEqualTo: true,
-              )
-              .where(
-                'testers_only',
-                isEqualTo: true,
-              ),
           limit: 10,
         );
         logFirebaseEvent('HomePageCopy_custom_action');
@@ -294,23 +285,18 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        if (valueOrDefault<bool>(
-                                            currentUserDocument?.isAdmin,
-                                            false))
-                                          AuthUserStreamWidget(
-                                            builder: (context) => Text(
-                                              listItemsItem.enabled
-                                                  ? 'Доступно'
-                                                  : 'Скрыто',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                            ),
+                                        if (_model.isTester ?? true)
+                                          Text(
+                                            listItemsItem.enabled
+                                                ? 'Доступно'
+                                                : 'Скрыто',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: false,
+                                                ),
                                           ),
                                         Align(
                                           alignment:

@@ -339,6 +339,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         useGoogleFonts: false,
                       ),
                   maxLines: 10,
+                  minLines: 1,
                   validator:
                       _model.commentControllerValidator.asValidator(context),
                 ),

@@ -265,9 +265,12 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'REWARDS_COPY_Container_rdriqtp9_ON_TAP');
-                                      if (rewardsItem.pointsNeeded <=
+                                      if ((int needed, int userscore) {
+                                        return needed <= userscore;
+                                      }(
+                                          rewardsItem.pointsNeeded,
                                           valueOrDefault(
-                                              currentUserDocument?.score, 0)) {
+                                              currentUserDocument?.score, 0))) {
                                         if (rewardsItem.hasCodes == true) {
                                           logFirebaseEvent(
                                               'Container_backend_call');

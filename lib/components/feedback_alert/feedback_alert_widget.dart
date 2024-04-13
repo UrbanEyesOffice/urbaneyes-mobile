@@ -185,7 +185,6 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                                     useGoogleFonts: false,
                                   ),
                           maxLines: 4,
-                          minLines: null,
                           cursorColor: FlutterFlowTheme.of(context).primary,
                           validator: _model.emailAddressControllerValidator
                               .asValidator(context),

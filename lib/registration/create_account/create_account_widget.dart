@@ -189,7 +189,6 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
-                      minLines: null,
                       validator: _model.emailCreateControllerValidator
                           .asValidator(context),
                     ),
@@ -295,6 +294,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             fontWeight: FontWeight.normal,
                             useGoogleFonts: false,
                           ),
+                      minLines: 1,
                       validator: _model.passwordControllerValidator
                           .asValidator(context),
                     ),

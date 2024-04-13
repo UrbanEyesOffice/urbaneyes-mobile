@@ -174,7 +174,6 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                           letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
-                    minLines: null,
                     validator: _model.nicknameCreateController1Validator
                         .asValidator(context),
                   ),
@@ -251,6 +250,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                           useGoogleFonts: false,
                         ),
                     maxLines: 10,
+                    minLines: 1,
                     validator: _model.nicknameCreateController2Validator
                         .asValidator(context),
                   ),

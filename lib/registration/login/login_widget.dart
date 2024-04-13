@@ -188,7 +188,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                             letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
-                      minLines: null,
                       validator: _model.emailCreateControllerValidator
                           .asValidator(context),
                     ),
@@ -294,6 +293,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
                           ),
+                      minLines: 1,
                       validator: _model.passwordControllerValidator
                           .asValidator(context),
                     ),
