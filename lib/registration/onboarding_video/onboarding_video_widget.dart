@@ -39,7 +39,7 @@ class _OnboardingVideoWidgetState extends State<OnboardingVideoWidget> {
           logFirebaseEvent('OnboardingVideo_navigate_back');
           context.safePop();
         },
-        startImmediately: true,
+        startImmediately: false,
       );
     });
 
