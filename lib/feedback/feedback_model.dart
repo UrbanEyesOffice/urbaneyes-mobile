@@ -16,12 +16,14 @@ class FeedbackModel extends FlutterFlowModel<FeedbackWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for nickname-Create widget.
   FocusNode? nicknameCreateFocusNode1;
-  TextEditingController? nicknameCreateController1;
-  String? Function(BuildContext, String?)? nicknameCreateController1Validator;
+  TextEditingController? nicknameCreateTextController1;
+  String? Function(BuildContext, String?)?
+      nicknameCreateTextController1Validator;
   // State field(s) for nickname-Create widget.
   FocusNode? nicknameCreateFocusNode2;
-  TextEditingController? nicknameCreateController2;
-  String? Function(BuildContext, String?)? nicknameCreateController2Validator;
+  TextEditingController? nicknameCreateTextController2;
+  String? Function(BuildContext, String?)?
+      nicknameCreateTextController2Validator;
 
   @override
   void initState(BuildContext context) {}
@@ -30,9 +32,9 @@ class FeedbackModel extends FlutterFlowModel<FeedbackWidget> {
   void dispose() {
     unfocusNode.dispose();
     nicknameCreateFocusNode1?.dispose();
-    nicknameCreateController1?.dispose();
+    nicknameCreateTextController1?.dispose();
 
     nicknameCreateFocusNode2?.dispose();
-    nicknameCreateController2?.dispose();
+    nicknameCreateTextController2?.dispose();
   }
 }

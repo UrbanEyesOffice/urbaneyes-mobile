@@ -76,6 +76,11 @@ class UsersRecord extends FirestoreRecord {
   List<DocumentReference> get collectedRewards => _collectedRewards ?? const [];
   bool hasCollectedRewards() => _collectedRewards != null;
 
+  // "isTester" field.
+  bool? _isTester;
+  bool get isTester => _isTester ?? false;
+  bool hasIsTester() => _isTester != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -89,6 +94,7 @@ class UsersRecord extends FirestoreRecord {
     _isNotFirstLogin = snapshotData['is_not_first_login'] as bool?;
     _score = castToType<int>(snapshotData['score']);
     _collectedRewards = getDataList(snapshotData['collected_rewards']);
+    _isTester = snapshotData['isTester'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -136,6 +142,7 @@ Map<String, dynamic> createUsersRecordData({
   int? gender,
   bool? isNotFirstLogin,
   int? score,
+  bool? isTester,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -150,6 +157,7 @@ Map<String, dynamic> createUsersRecordData({
       'gender': gender,
       'is_not_first_login': isNotFirstLogin,
       'score': score,
+      'isTester': isTester,
     }.withoutNulls,
   );
 
@@ -173,7 +181,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.gender == e2?.gender &&
         e1?.isNotFirstLogin == e2?.isNotFirstLogin &&
         e1?.score == e2?.score &&
-        listEquality.equals(e1?.collectedRewards, e2?.collectedRewards);
+        listEquality.equals(e1?.collectedRewards, e2?.collectedRewards) &&
+        e1?.isTester == e2?.isTester;
   }
 
   @override
@@ -189,7 +198,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.gender,
         e?.isNotFirstLogin,
         e?.score,
-        e?.collectedRewards
+        e?.collectedRewards,
+        e?.isTester
       ]);
 
   @override

@@ -55,8 +55,8 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   List<QuestionRecord>? questionsList;
   // State field(s) for comment widget.
   FocusNode? commentFocusNode;
-  TextEditingController? commentController;
-  String? Function(BuildContext, String?)? commentControllerValidator;
+  TextEditingController? commentTextController;
+  String? Function(BuildContext, String?)? commentTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -65,6 +65,6 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   void dispose() {
     unfocusNode.dispose();
     commentFocusNode?.dispose();
-    commentController?.dispose();
+    commentTextController?.dispose();
   }
 }

@@ -15,13 +15,13 @@ class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for email-Create widget.
   FocusNode? emailCreateFocusNode;
-  TextEditingController? emailCreateController;
-  String? Function(BuildContext, String?)? emailCreateControllerValidator;
+  TextEditingController? emailCreateTextController;
+  String? Function(BuildContext, String?)? emailCreateTextControllerValidator;
   // State field(s) for password widget.
   FocusNode? passwordFocusNode;
-  TextEditingController? passwordController;
+  TextEditingController? passwordTextController;
   late bool passwordVisibility;
-  String? Function(BuildContext, String?)? passwordControllerValidator;
+  String? Function(BuildContext, String?)? passwordTextControllerValidator;
 
   @override
   void initState(BuildContext context) {
@@ -32,9 +32,9 @@ class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
   void dispose() {
     unfocusNode.dispose();
     emailCreateFocusNode?.dispose();
-    emailCreateController?.dispose();
+    emailCreateTextController?.dispose();
 
     passwordFocusNode?.dispose();
-    passwordController?.dispose();
+    passwordTextController?.dispose();
   }
 }

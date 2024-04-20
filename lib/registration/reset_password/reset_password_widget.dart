@@ -28,7 +28,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'resetPassword'});
-    _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -105,7 +105,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 ),
               ),
               TextFormField(
-                controller: _model.emailAddressController,
+                controller: _model.emailAddressTextController,
                 focusNode: _model.emailAddressFocusNode,
                 autofocus: true,
                 obscureText: false,
@@ -159,8 +159,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                       letterSpacing: 0.0,
                       useGoogleFonts: false,
                     ),
-                validator:
-                    _model.emailAddressControllerValidator.asValidator(context),
+                validator: _model.emailAddressTextControllerValidator
+                    .asValidator(context),
               ),
               Expanded(
                 child: Align(
@@ -173,7 +173,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                         logFirebaseEvent(
                             'RESET_PASSWORD_ПРОДОЛЖИТЬ_BTN_ON_TAP');
                         logFirebaseEvent('Button_auth');
-                        if (_model.emailAddressController.text.isEmpty) {
+                        if (_model.emailAddressTextController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
@@ -184,7 +184,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           return;
                         }
                         await authManager.resetPassword(
-                          email: _model.emailAddressController.text,
+                          email: _model.emailAddressTextController.text,
                           context: context,
                         );
                         logFirebaseEvent('Button_show_snack_bar');

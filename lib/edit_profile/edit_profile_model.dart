@@ -7,13 +7,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/custom_code/actions/index.dart' as actions;
 import 'edit_profile_widget.dart' show EditProfileWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
@@ -22,16 +23,22 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for displayName widget.
   FocusNode? displayNameFocusNode;
-  TextEditingController? displayNameController;
-  String? Function(BuildContext, String?)? displayNameControllerValidator;
+  TextEditingController? displayNameTextController;
+  String? Function(BuildContext, String?)? displayNameTextControllerValidator;
   // State field(s) for email widget.
   FocusNode? emailFocusNode;
-  TextEditingController? emailController;
-  String? Function(BuildContext, String?)? emailControllerValidator;
+  TextEditingController? emailTextController;
+  String? Function(BuildContext, String?)? emailTextControllerValidator;
   // State field(s) for DropDown widget.
   int? dropDownValue;
   FormFieldController<int>? dropDownValueController;
-  DateTime? datePicked;
+  // State field(s) for birthYear widget.
+  FocusNode? birthYearFocusNode;
+  TextEditingController? birthYearTextController;
+  final birthYearMask = MaskTextInputFormatter(mask: '####');
+  String? Function(BuildContext, String?)? birthYearTextControllerValidator;
+  // Stores action output result for [Custom Action - yearIntoDate] action in Button widget.
+  DateTime? birthDateTime;
 
   @override
   void initState(BuildContext context) {}
@@ -40,9 +47,12 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   void dispose() {
     unfocusNode.dispose();
     displayNameFocusNode?.dispose();
-    displayNameController?.dispose();
+    displayNameTextController?.dispose();
 
     emailFocusNode?.dispose();
-    emailController?.dispose();
+    emailTextController?.dispose();
+
+    birthYearFocusNode?.dispose();
+    birthYearTextController?.dispose();
   }
 }

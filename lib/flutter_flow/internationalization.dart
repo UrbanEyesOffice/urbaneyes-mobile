@@ -182,9 +182,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': '',
     },
     'vvjvh66o': {
-      'ru': 'Дата рождения',
-      'en': 'Date of birth',
-      'ky': 'Туулган күн',
+      'ru': 'Год рождения',
+      'en': 'Year of birth',
+      'ky': 'Туулган жылы',
+    },
+    'juusgo40': {
+      'ru': '',
+      'en': '',
+      'ky': '',
+    },
+    'jg2tlhpo': {
+      'ru': 'ГГГГ',
+      'en': 'YYYY',
+      'ky': 'ЖЖЖЖ',
     },
     'qdr5c66g': {
       'ru': 'Сохранить изменения',
@@ -324,9 +334,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': '',
     },
     'mpnhy26o': {
-      'ru': 'Дата рождения',
-      'en': 'Date of birth',
-      'ky': 'Туулган күн',
+      'ru': 'Год рождения',
+      'en': 'Year of birth',
+      'ky': 'Туулган жылы',
+    },
+    'wjkjqyjq': {
+      'ru': '',
+      'en': '',
+      'ky': '',
+    },
+    '3m2t4op7': {
+      'ru': 'ГГГГ',
+      'en': 'YYYY',
+      'ky': 'ЖЖЖЖ',
     },
     '9784jlvv': {
       'ru': 'Продолжить',
@@ -728,6 +748,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Continue',
       'ky': 'Улантуу',
     },
+    '94a6hryh': {
+      'ru': 'Забыл пароль',
+      'en': 'Forgot password',
+      'ky': 'Паролду унутуп калдыңыз',
+    },
     '9f1aknqk': {
       'ru': 'Home',
       'en': '',
@@ -893,7 +918,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // OnboardingVideo
   {
-    '13hir5i0': {
+    'btdgpc21': {
       'ru': 'Закрыть',
       'en': 'Close',
       'ky': 'Жабуу',

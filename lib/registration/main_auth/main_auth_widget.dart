@@ -32,9 +32,6 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('MAIN_AUTH_PAGE_MainAuth_ON_INIT_STATE');
-      logFirebaseEvent('MainAuth_navigate_to');
-
-      context.pushNamed('OnboardingVideo');
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -245,249 +242,260 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0, 32.0, 0.0, 24.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'MAIN_AUTH_ВОЙТИ_ЧЕРЕЗ_GOOGLE_BTN_ON_TAP');
-                                  logFirebaseEvent('Button_auth');
-                                  GoRouter.of(context).prepareAuthEvent();
-                                  final user = await authManager
-                                      .signInWithGoogle(context);
-                                  if (user == null) {
-                                    return;
-                                  }
-                                  if (valueOrDefault<bool>(
-                                          currentUserDocument?.isNotFirstLogin,
-                                          false) ==
-                                      true) {
-                                    logFirebaseEvent('Button_navigate_to');
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 24.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'MAIN_AUTH_ВОЙТИ_ЧЕРЕЗ_GOOGLE_BTN_ON_TAP');
+                                    logFirebaseEvent('Button_auth');
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    final user = await authManager
+                                        .signInWithGoogle(context);
+                                    if (user == null) {
+                                      return;
+                                    }
+                                    if (valueOrDefault<bool>(
+                                            currentUserDocument
+                                                ?.isNotFirstLogin,
+                                            false) ==
+                                        true) {
+                                      logFirebaseEvent('Button_navigate_to');
 
-                                    context.pushNamedAuth(
-                                        'HomePageCopy', context.mounted);
-                                  } else {
-                                    logFirebaseEvent('Button_navigate_to');
+                                      context.pushNamedAuth(
+                                          'HomePageCopy', context.mounted);
+                                    } else {
+                                      logFirebaseEvent('Button_navigate_to');
 
-                                    context.pushNamedAuth(
-                                        'CualificatedSurvey', context.mounted);
-                                  }
-                                },
-                                text: FFLocalizations.of(context).getText(
-                                  '979366sj' /* Войти через Google */,
-                                ),
-                                icon: FaIcon(
-                                  FontAwesomeIcons.google,
-                                ),
-                                options: FFButtonOptions(
-                                  width: MediaQuery.sizeOf(context).width * 1.0,
-                                  height: 56.0,
-                                  padding: EdgeInsets.all(0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: Color(0xFF06112E),
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Golos',
-                                        color: Colors.white,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
+                                      context.pushNamedAuth(
+                                          'CualificatedSurvey',
+                                          context.mounted);
+                                    }
+                                  },
+                                  text: FFLocalizations.of(context).getText(
+                                    '979366sj' /* Войти через Google */,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
-                            ),
-                            isAndroid
-                                ? Container()
-                                : Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        logFirebaseEvent(
-                                            'MAIN_AUTH_ВОЙТИ_ЧЕРЕЗ_APPLE_BTN_ON_TAP');
-                                        logFirebaseEvent('Button_auth');
-                                        GoRouter.of(context).prepareAuthEvent();
-                                        final user = await authManager
-                                            .signInWithApple(context);
-                                        if (user == null) {
-                                          return;
-                                        }
-                                        if (valueOrDefault<bool>(
-                                                currentUserDocument
-                                                    ?.isNotFirstLogin,
-                                                false) ==
-                                            true) {
-                                          logFirebaseEvent(
-                                              'Button_navigate_to');
-
-                                          context.pushNamedAuth(
-                                              'HomePageCopy', context.mounted);
-                                        } else {
-                                          logFirebaseEvent(
-                                              'Button_navigate_to');
-
-                                          context.pushNamedAuth(
-                                              'CualificatedSurvey',
-                                              context.mounted);
-                                        }
-                                      },
-                                      text: FFLocalizations.of(context).getText(
-                                        'b5vady0x' /* Войти через Apple */,
-                                      ),
-                                      icon: FaIcon(
-                                        FontAwesomeIcons.apple,
-                                      ),
-                                      options: FFButtonOptions(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 56.0,
-                                        padding: EdgeInsets.all(0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: Color(0xFF06112E),
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Golos',
-                                              color: Colors.white,
-                                              fontSize: 18.0,
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts: false,
-                                            ),
-                                        elevation: 0.0,
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                    ),
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.google,
                                   ),
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                '3szbi2zr' /* или */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Golos',
-                                    color: Color(0xFF7B7F87),
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'MAIN_AUTH_PAGE_Button-Login_ON_TAP');
-                                  logFirebaseEvent('Button-Login_navigate_to');
-
-                                  context.pushNamed('CreateAccount');
-                                },
-                                text: FFLocalizations.of(context).getText(
-                                  '5uy1dq7o' /* Создать аккаунт */,
-                                ),
-                                options: FFButtonOptions(
-                                  width: MediaQuery.sizeOf(context).width * 1.0,
-                                  height: 56.0,
-                                  padding: EdgeInsets.all(0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: Color(0xFF53B153),
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Golos',
-                                        color: Colors.white,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 80.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    FFLocalizations.of(context).getText(
-                                      '61xk9ahq' /* Уже есть аккаунт? */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                  options: FFButtonOptions(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 56.0,
+                                    padding: EdgeInsets.all(0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0xFF06112E),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
                                         .override(
                                           fontFamily: 'Golos',
-                                          color: Color(0xFF06112E),
+                                          color: Colors.white,
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
+                                    elevation: 0.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5.0, 0.0, 0.0, 0.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'MAIN_AUTH_PAGE_Text_3yh8nidz_ON_TAP');
-                                        logFirebaseEvent('Text_navigate_to');
+                                ),
+                              ),
+                              isAndroid
+                                  ? Container()
+                                  : Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          logFirebaseEvent(
+                                              'MAIN_AUTH_ВОЙТИ_ЧЕРЕЗ_APPLE_BTN_ON_TAP');
+                                          logFirebaseEvent('Button_auth');
+                                          GoRouter.of(context)
+                                              .prepareAuthEvent();
+                                          final user = await authManager
+                                              .signInWithApple(context);
+                                          if (user == null) {
+                                            return;
+                                          }
+                                          if (valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.isNotFirstLogin,
+                                                  false) ==
+                                              true) {
+                                            logFirebaseEvent(
+                                                'Button_navigate_to');
 
-                                        context.pushNamed('Login');
-                                      },
-                                      child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          '0xh4b40q' /* Войти */,
+                                            context.pushNamedAuth(
+                                                'HomePageCopy',
+                                                context.mounted);
+                                          } else {
+                                            logFirebaseEvent(
+                                                'Button_navigate_to');
+
+                                            context.pushNamedAuth(
+                                                'CualificatedSurvey',
+                                                context.mounted);
+                                          }
+                                        },
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          'b5vady0x' /* Войти через Apple */,
                                         ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Golos',
-                                              color: Color(0xFF06112E),
-                                              fontSize: 18.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: false,
-                                            ),
+                                        icon: FaIcon(
+                                          FontAwesomeIcons.apple,
+                                        ),
+                                        options: FFButtonOptions(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          height: 56.0,
+                                          padding: EdgeInsets.all(0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: Color(0xFF06112E),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Golos',
+                                                    color: Colors.white,
+                                                    fontSize: 18.0,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                          elevation: 0.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  '3szbi2zr' /* или */,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Golos',
+                                      color: Color(0xFF7B7F87),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
                               ),
-                            ),
-                          ].divide(SizedBox(height: 16.0)),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 24.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'MAIN_AUTH_PAGE_Button-Login_ON_TAP');
+                                    logFirebaseEvent(
+                                        'Button-Login_navigate_to');
+
+                                    context.pushNamed('CreateAccount');
+                                  },
+                                  text: FFLocalizations.of(context).getText(
+                                    '5uy1dq7o' /* Создать аккаунт */,
+                                  ),
+                                  options: FFButtonOptions(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 56.0,
+                                    padding: EdgeInsets.all(0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0xFF53B153),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Golos',
+                                          color: Colors.white,
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts: false,
+                                        ),
+                                    elevation: 0.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 80.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      FFLocalizations.of(context).getText(
+                                        '61xk9ahq' /* Уже есть аккаунт? */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Golos',
+                                            color: Color(0xFF06112E),
+                                            fontSize: 18.0,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 0.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'MAIN_AUTH_PAGE_Text_3yh8nidz_ON_TAP');
+                                          logFirebaseEvent('Text_navigate_to');
+
+                                          context.pushNamed('Login');
+                                        },
+                                        child: Text(
+                                          FFLocalizations.of(context).getText(
+                                            '0xh4b40q' /* Войти */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Golos',
+                                                color: Color(0xFF06112E),
+                                                fontSize: 18.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ].divide(SizedBox(height: 16.0)),
+                          ),
                         ),
                       ),
                     ),

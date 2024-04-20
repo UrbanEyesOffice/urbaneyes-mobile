@@ -29,10 +29,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'CreateAccount'});
-    _model.emailCreateController ??= TextEditingController();
+    _model.emailCreateTextController ??= TextEditingController();
     _model.emailCreateFocusNode ??= FocusNode();
 
-    _model.passwordController ??= TextEditingController();
+    _model.passwordTextController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -127,7 +127,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: TextFormField(
-                      controller: _model.emailCreateController,
+                      controller: _model.emailCreateTextController,
                       focusNode: _model.emailCreateFocusNode,
                       autofocus: false,
                       obscureText: false,
@@ -189,7 +189,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
-                      validator: _model.emailCreateControllerValidator
+                      validator: _model.emailCreateTextControllerValidator
                           .asValidator(context),
                     ),
                   ),
@@ -215,7 +215,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: TextFormField(
-                      controller: _model.passwordController,
+                      controller: _model.passwordTextController,
                       focusNode: _model.passwordFocusNode,
                       obscureText: !_model.passwordVisibility,
                       decoration: InputDecoration(
@@ -295,7 +295,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             useGoogleFonts: false,
                           ),
                       minLines: 1,
-                      validator: _model.passwordControllerValidator
+                      validator: _model.passwordTextControllerValidator
                           .asValidator(context),
                     ),
                   ),
@@ -313,8 +313,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
 
                           final user = await authManager.createAccountWithEmail(
                             context,
-                            _model.emailCreateController.text,
-                            _model.passwordController.text,
+                            _model.emailCreateTextController.text,
+                            _model.passwordTextController.text,
                           );
                           if (user == null) {
                             return;
@@ -323,7 +323,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                           await UsersRecord.collection
                               .doc(user.uid)
                               .update(createUsersRecordData(
-                                email: _model.emailCreateController.text,
+                                email: _model.emailCreateTextController.text,
                                 createdTime: getCurrentTimestamp,
                                 isAdmin: false,
                                 isNotFirstLogin: false,

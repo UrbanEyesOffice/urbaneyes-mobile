@@ -94,7 +94,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       ).then((value) => safeSetState(() {}));
     });
 
-    _model.commentController ??= TextEditingController();
+    _model.commentTextController ??= TextEditingController();
     _model.commentFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -279,7 +279,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   ),
                 ),
                 TextFormField(
-                  controller: _model.commentController,
+                  controller: _model.commentTextController,
                   focusNode: _model.commentFocusNode,
                   autofocus: false,
                   obscureText: false,
@@ -340,8 +340,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                       ),
                   maxLines: 10,
                   minLines: 1,
-                  validator:
-                      _model.commentControllerValidator.asValidator(context),
+                  validator: _model.commentTextControllerValidator
+                      .asValidator(context),
                 ),
                 if (!functions.isLastQuestion(
                     _model.currentQuestionNumber, _model.questions.toList()))
@@ -361,7 +361,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                 time: getCurrentTimestamp,
                                 location: _model.selectedLocation,
                                 answer: _model.selectedOption,
-                                comment: _model.commentController.text,
+                                comment: _model.commentTextController.text,
                               ));
                             });
                             logFirebaseEvent('Button_update_page_state');
@@ -415,7 +415,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                 time: getCurrentTimestamp,
                                 location: _model.selectedLocation,
                                 answer: _model.selectedOption,
-                                comment: _model.commentController.text,
+                                comment: _model.commentTextController.text,
                               ));
                             });
                             while (_model.currentQuestionNumber >= 0) {

@@ -7,12 +7,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'edit_profile_model.dart';
 export 'edit_profile_model.dart';
@@ -35,12 +36,23 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _model = createModel(context, () => EditProfileModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'EditProfile'});
-    _model.displayNameController ??=
+    _model.displayNameTextController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.displayNameFocusNode ??= FocusNode();
 
-    _model.emailController ??= TextEditingController(text: currentUserEmail);
+    _model.emailTextController ??=
+        TextEditingController(text: currentUserEmail);
     _model.emailFocusNode ??= FocusNode();
+
+    _model.birthYearTextController ??= TextEditingController(
+        text: currentUserDocument?.dateOfBirth != null
+            ? dateTimeFormat(
+                'yyyy',
+                currentUserDocument?.dateOfBirth,
+                locale: FFLocalizations.of(context).languageCode,
+              )
+            : '');
+    _model.birthYearFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -218,7 +230,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: AuthUserStreamWidget(
                       builder: (context) => TextFormField(
-                        controller: _model.displayNameController,
+                        controller: _model.displayNameTextController,
                         focusNode: _model.displayNameFocusNode,
                         autofocus: false,
                         obscureText: false,
@@ -275,7 +287,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
-                        validator: _model.displayNameControllerValidator
+                        validator: _model.displayNameTextControllerValidator
                             .asValidator(context),
                       ),
                     ),
@@ -303,7 +315,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: TextFormField(
-                      controller: _model.emailController,
+                      controller: _model.emailTextController,
                       focusNode: _model.emailFocusNode,
                       autofocus: false,
                       readOnly: true,
@@ -337,8 +349,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             letterSpacing: 0.0,
                             useGoogleFonts: false,
                           ),
-                      validator:
-                          _model.emailControllerValidator.asValidator(context),
+                      validator: _model.emailTextControllerValidator
+                          .asValidator(context),
                     ),
                   ),
                   Align(
@@ -422,7 +434,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
                       child: Text(
                         FFLocalizations.of(context).getText(
-                          'vvjvh66o' /* Дата рождения */,
+                          'vvjvh66o' /* Год рождения */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Golos',
@@ -437,103 +449,88 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 55.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: Color(0xFFA9ABAF),
-                        ),
-                      ),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent(
-                              'EDIT_PROFILE_PAGE_Row_5wbnatre_ON_TAP');
-                          logFirebaseEvent('Row_date_time_picker');
-                          final _datePickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: getCurrentTimestamp,
-                            firstDate: DateTime(1900),
-                            lastDate: getCurrentTimestamp,
-                          );
-
-                          if (_datePickedDate != null) {
-                            safeSetState(() {
-                              _model.datePicked = DateTime(
-                                _datePickedDate.year,
-                                _datePickedDate.month,
-                                _datePickedDate.day,
-                              );
-                            });
-                          }
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 0.0, 0.0),
-                                child: AuthUserStreamWidget(
-                                  builder: (context) => Text(
-                                    valueOrDefault<String>(
-                                      () {
-                                        if (_model.datePicked != null) {
-                                          return functions
-                                              .returnDate(_model.datePicked!);
-                                        } else if (currentUserDocument
-                                                ?.dateOfBirth !=
-                                            null) {
-                                          return functions.returnDate(
-                                              currentUserDocument!
-                                                  .dateOfBirth!);
-                                        } else {
-                                          return FFLocalizations.of(context)
-                                              .getVariableText(
-                                            ruText: 'Выберите дату',
-                                            enText: 'Choose date',
-                                            kyText: 'Туулган күндү тандаңыз',
-                                          );
-                                        }
-                                      }(),
-                                      'Выберите дату',
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Golos',
-                                          color: Color(0xFF06112E),
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
+                    child: AuthUserStreamWidget(
+                      builder: (context) => TextFormField(
+                        controller: _model.birthYearTextController,
+                        focusNode: _model.birthYearFocusNode,
+                        autofocus: false,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: FFLocalizations.of(context).getText(
+                            'juusgo40' /*  */,
+                          ),
+                          labelStyle: FlutterFlowTheme.of(context)
+                              .bodySmall
+                              .override(
+                                fontFamily: 'Golos',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                fontSize: 16.0,
+                                letterSpacing: 0.0,
+                                useGoogleFonts: false,
                               ),
-                            ),
-                            Expanded(
-                              child: Align(
-                                alignment: AlignmentDirectional(1.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 15.0, 0.0),
-                                  child: Icon(
-                                    Icons.calendar_month_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
+                          hintText: FFLocalizations.of(context).getText(
+                            'jg2tlhpo' /* ГГГГ */,
+                          ),
+                          hintStyle:
+                              FlutterFlowTheme.of(context).bodySmall.override(
+                                    fontFamily: 'Golos',
+                                    color: Color(0xFFA9ABAF),
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
                                   ),
-                                ),
-                              ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFA9ABAF),
+                              width: 1.0,
                             ),
-                          ],
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFA9ABAF),
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 24.0, 16.0, 24.0),
                         ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Golos',
+                              color: Color(0xFF06112E),
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
+                        maxLength: 4,
+                        maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                        buildCounter: (context,
+                                {required currentLength,
+                                required isFocused,
+                                maxLength}) =>
+                            null,
+                        keyboardType: TextInputType.datetime,
+                        validator: _model.birthYearTextControllerValidator
+                            .asValidator(context),
+                        inputFormatters: [_model.birthYearMask],
                       ),
                     ),
                   ),
@@ -546,23 +543,25 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         onPressed: () async {
                           logFirebaseEvent(
                               'EDIT_PROFILE_СОХРАНИТЬ_ИЗМЕНЕНИЯ_BTN_ON_');
-                          if ((_model.displayNameController.text != null &&
-                                  _model.displayNameController.text != '') &&
-                              (_model.displayNameController.text !=
+                          if ((_model.displayNameTextController.text != null &&
+                                  _model.displayNameTextController.text !=
+                                      '') &&
+                              (_model.displayNameTextController.text !=
                                   currentUserDisplayName)) {
                             logFirebaseEvent('Button_backend_call');
 
                             await currentUserReference!
                                 .update(createUsersRecordData(
-                              displayName: _model.displayNameController.text,
+                              displayName:
+                                  _model.displayNameTextController.text,
                             ));
                           }
-                          if ((_model.emailController.text !=
+                          if ((_model.emailTextController.text !=
                                   currentUserEmail) &&
-                              (_model.emailController.text != null &&
-                                  _model.emailController.text != '')) {
+                              (_model.emailTextController.text != null &&
+                                  _model.emailTextController.text != '')) {
                             logFirebaseEvent('Button_auth');
-                            if (_model.emailController.text.isEmpty) {
+                            if (_model.emailTextController.text.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
@@ -574,7 +573,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             }
 
                             await authManager.updateEmail(
-                              email: _model.emailController.text,
+                              email: _model.emailTextController.text,
                               context: context,
                             );
                             setState(() {});
@@ -583,7 +582,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
 
                             await currentUserReference!
                                 .update(createUsersRecordData(
-                              email: _model.emailController.text,
+                              email: _model.emailTextController.text,
                             ));
                             logFirebaseEvent('Button_auth');
                             await authManager.sendEmailVerification();
@@ -602,14 +601,18 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               ),
                             );
                           }
-                          if ((_model.datePicked != null) &&
-                              (_model.datePicked !=
+                          logFirebaseEvent('Button_custom_action');
+                          _model.birthDateTime = await actions.yearIntoDate(
+                            _model.birthYearTextController.text,
+                          );
+                          if ((_model.birthDateTime != null) &&
+                              (_model.birthDateTime !=
                                   currentUserDocument?.dateOfBirth)) {
                             logFirebaseEvent('Button_backend_call');
 
                             await currentUserReference!
                                 .update(createUsersRecordData(
-                              dateOfBirth: _model.datePicked,
+                              dateOfBirth: _model.birthDateTime,
                             ));
                           }
                           if ((_model.dropDownValue != null) &&
@@ -641,6 +644,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           logFirebaseEvent('Button_navigate_to');
 
                           context.pushNamed('HomePageCopy');
+
+                          setState(() {});
                         },
                         text: FFLocalizations.of(context).getText(
                           'qdr5c66g' /* Сохранить изменения */,

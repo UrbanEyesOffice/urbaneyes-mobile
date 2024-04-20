@@ -32,7 +32,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
     super.initState();
     _model = createModel(context, () => FeedbackAlertModel());
 
-    _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -128,7 +128,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 16.0, 16.0, 0.0),
                         child: TextFormField(
-                          controller: _model.emailAddressController,
+                          controller: _model.emailAddressTextController,
                           focusNode: _model.emailAddressFocusNode,
                           textCapitalization: TextCapitalization.sentences,
                           obscureText: false,
@@ -186,7 +186,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                                   ),
                           maxLines: 4,
                           cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model.emailAddressControllerValidator
+                          validator: _model.emailAddressTextControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -203,7 +203,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                               ...createFeedbackRecordData(
                                 userEmail: currentUserEmail,
                                 user: currentUserReference,
-                                text: _model.emailAddressController.text,
+                                text: _model.emailAddressTextController.text,
                               ),
                               ...mapToFirestore(
                                 {

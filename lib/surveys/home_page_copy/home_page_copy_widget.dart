@@ -52,12 +52,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
 
         context.goNamed('CualificatedSurvey');
       }
-      logFirebaseEvent('HomePageCopy_custom_action');
-      _model.isTester = await actions.isTester(
-        currentUserEmail,
-        getRemoteConfigString('testers'),
-      );
-      if (_model.isTester == true) {
+      if (valueOrDefault<bool>(currentUserDocument?.isTester, false) == true) {
         logFirebaseEvent('HomePageCopy_firestore_query');
         _model.testersLoadedSurveys = await querySurveysRecordOnce(
           limit: 10,
@@ -285,18 +280,23 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        if (_model.isTester ?? true)
-                                          Text(
-                                            listItemsItem.enabled
-                                                ? 'Доступно'
-                                                : 'Скрыто',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts: false,
-                                                ),
+                                        if (valueOrDefault<bool>(
+                                            currentUserDocument?.isTester,
+                                            false))
+                                          AuthUserStreamWidget(
+                                            builder: (context) => Text(
+                                              listItemsItem.enabled
+                                                  ? 'Доступно'
+                                                  : 'Скрыто',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                            ),
                                           ),
                                         Align(
                                           alignment:

@@ -29,11 +29,11 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
     _model = createModel(context, () => FeedbackModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Feedback'});
-    _model.nicknameCreateController1 ??=
+    _model.nicknameCreateTextController1 ??=
         TextEditingController(text: currentUserEmail);
     _model.nicknameCreateFocusNode1 ??= FocusNode();
 
-    _model.nicknameCreateController2 ??= TextEditingController();
+    _model.nicknameCreateTextController2 ??= TextEditingController();
     _model.nicknameCreateFocusNode2 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -115,7 +115,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     ),
                   ),
                   TextFormField(
-                    controller: _model.nicknameCreateController1,
+                    controller: _model.nicknameCreateTextController1,
                     focusNode: _model.nicknameCreateFocusNode1,
                     autofocus: false,
                     obscureText: false,
@@ -174,7 +174,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                           letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
-                    validator: _model.nicknameCreateController1Validator
+                    validator: _model.nicknameCreateTextController1Validator
                         .asValidator(context),
                   ),
                   Align(
@@ -192,7 +192,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     ),
                   ),
                   TextFormField(
-                    controller: _model.nicknameCreateController2,
+                    controller: _model.nicknameCreateTextController2,
                     focusNode: _model.nicknameCreateFocusNode2,
                     autofocus: false,
                     obscureText: false,
@@ -251,7 +251,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                         ),
                     maxLines: 10,
                     minLines: 1,
-                    validator: _model.nicknameCreateController2Validator
+                    validator: _model.nicknameCreateTextController2Validator
                         .asValidator(context),
                   ),
                   Padding(
@@ -260,17 +260,22 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent('FEEDBACK_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
-                        if ((_model.nicknameCreateController1.text != null &&
-                                _model.nicknameCreateController1.text != '') &&
-                            (_model.nicknameCreateController2.text != null &&
-                                _model.nicknameCreateController2.text != '')) {
+                        if ((_model.nicknameCreateTextController1.text !=
+                                    null &&
+                                _model.nicknameCreateTextController1.text !=
+                                    '') &&
+                            (_model.nicknameCreateTextController2.text !=
+                                    null &&
+                                _model.nicknameCreateTextController2.text !=
+                                    '')) {
                           logFirebaseEvent('Button_backend_call');
 
                           await FeedbackRecord.collection.doc().set({
                             ...createFeedbackRecordData(
-                              userEmail: _model.nicknameCreateController1.text,
+                              userEmail:
+                                  _model.nicknameCreateTextController1.text,
                               user: currentUserReference,
-                              text: _model.nicknameCreateController2.text,
+                              text: _model.nicknameCreateTextController2.text,
                             ),
                             ...mapToFirestore(
                               {

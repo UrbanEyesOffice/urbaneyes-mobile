@@ -48,12 +48,12 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
 
   // State field(s) for comment widget.
   FocusNode? commentFocusNode;
-  TextEditingController? commentController;
-  String? Function(BuildContext, String?)? commentControllerValidator;
+  TextEditingController? commentTextController;
+  String? Function(BuildContext, String?)? commentTextControllerValidator;
   // State field(s) for contact widget.
   FocusNode? contactFocusNode;
-  TextEditingController? contactController;
-  String? Function(BuildContext, String?)? contactControllerValidator;
+  TextEditingController? contactTextController;
+  String? Function(BuildContext, String?)? contactTextControllerValidator;
   bool isDataUploading2 = false;
   List<FFUploadedFile> uploadedLocalFiles2 = [];
   List<String> uploadedFileUrls2 = [];
@@ -65,9 +65,9 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
   void dispose() {
     unfocusNode.dispose();
     commentFocusNode?.dispose();
-    commentController?.dispose();
+    commentTextController?.dispose();
 
     contactFocusNode?.dispose();
-    contactController?.dispose();
+    contactTextController?.dispose();
   }
 }

@@ -80,10 +80,10 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
       ).then((value) => safeSetState(() {}));
     });
 
-    _model.commentController ??= TextEditingController();
+    _model.commentTextController ??= TextEditingController();
     _model.commentFocusNode ??= FocusNode();
 
-    _model.contactController ??= TextEditingController();
+    _model.contactTextController ??= TextEditingController();
     _model.contactFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -371,7 +371,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                         ),
                       ),
                       TextFormField(
-                        controller: _model.commentController,
+                        controller: _model.commentTextController,
                         focusNode: _model.commentFocusNode,
                         autofocus: false,
                         obscureText: false,
@@ -432,11 +432,11 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                             ),
                         maxLines: 2,
                         minLines: 1,
-                        validator: _model.commentControllerValidator
+                        validator: _model.commentTextControllerValidator
                             .asValidator(context),
                       ),
                       TextFormField(
-                        controller: _model.contactController,
+                        controller: _model.contactTextController,
                         focusNode: _model.contactFocusNode,
                         autofocus: false,
                         obscureText: false,
@@ -497,7 +497,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                             ),
                         maxLines: 2,
                         minLines: 1,
-                        validator: _model.contactControllerValidator
+                        validator: _model.contactTextControllerValidator
                             .asValidator(context),
                       ),
                       Text(
@@ -626,8 +626,8 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               createdBy: currentUserReference,
                               createdTime: getCurrentTimestamp,
                               location: _model.selectedLocation,
-                              comment: _model.commentController.text,
-                              contactInfo: _model.contactController.text,
+                              comment: _model.commentTextController.text,
+                              contactInfo: _model.contactTextController.text,
                               locationTitle: _model.selectedLocationTitle,
                             ),
                             ...mapToFirestore(

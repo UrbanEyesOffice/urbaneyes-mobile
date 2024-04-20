@@ -5,3 +5,4 @@ export 'get_address_from_lat_lng_google_maps.dart'
 export 'filter_rewards_by_user_id.dart' show filterRewardsByUserId;
 export 'shuffle_surveys.dart' show shuffleSurveys;
 export 'is_tester.dart' show isTester;
+export 'year_into_date.dart' show yearIntoDate;
