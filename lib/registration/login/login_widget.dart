@@ -121,6 +121,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     controller: _model.emailCreateTextController,
                     focusNode: _model.emailCreateFocusNode,
                     autofocus: false,
+                    autofillHints: [AutofillHints.email],
                     obscureText: false,
                     decoration: InputDecoration(
                       labelStyle:

@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,13 +46,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _model.emailFocusNode ??= FocusNode();
 
     _model.birthYearTextController ??= TextEditingController(
-        text: currentUserDocument?.dateOfBirth != null
-            ? dateTimeFormat(
-                'yyyy',
-                currentUserDocument?.dateOfBirth,
-                locale: FFLocalizations.of(context).languageCode,
-              )
-            : '');
+        text: functions.datetimeIntoYear(currentUserDocument?.dateOfBirth));
     _model.birthYearFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));

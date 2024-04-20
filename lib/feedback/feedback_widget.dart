@@ -118,6 +118,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     controller: _model.nicknameCreateTextController1,
                     focusNode: _model.nicknameCreateFocusNode1,
                     autofocus: false,
+                    autofillHints: [AutofillHints.email],
                     obscureText: false,
                     decoration: InputDecoration(
                       labelStyle:
@@ -174,6 +175,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                           letterSpacing: 0.0,
                           useGoogleFonts: false,
                         ),
+                    keyboardType: TextInputType.emailAddress,
                     validator: _model.nicknameCreateTextController1Validator
                         .asValidator(context),
                   ),

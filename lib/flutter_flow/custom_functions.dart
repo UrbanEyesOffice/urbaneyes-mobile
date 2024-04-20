@@ -153,3 +153,9 @@ bool isLastQuestion(
 ) {
   return (currentIndex + 1) >= questions.length;
 }
+
+String? datetimeIntoYear(DateTime? datetime) {
+  // convert datetime into year string
+  if (datetime == null) return null;
+  return DateFormat('yyyy').format(datetime);
+}
