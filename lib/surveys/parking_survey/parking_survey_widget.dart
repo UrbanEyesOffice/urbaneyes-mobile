@@ -561,19 +561,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               validator: _model.contactTextControllerValidator
                                   .asValidator(context),
                             ),
-                            Text(
-                              valueOrDefault<String>(
-                                _model.selectedLocationTitle,
-                                '-',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
                             Theme(
                               data: ThemeData(
                                 checkboxTheme: CheckboxThemeData(
@@ -624,6 +611,19 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                 controlAffinity:
                                     ListTileControlAffinity.trailing,
                               ),
+                            ),
+                            Text(
+                              valueOrDefault<String>(
+                                _model.selectedLocationTitle,
+                                '-',
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
                             ),
                             FFButtonWidget(
                               onPressed: () async {

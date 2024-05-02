@@ -907,13 +907,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'tlnbk8o2': {
       'ru': 'Обратная связь',
-      'en': '',
-      'ky': '',
+      'en': 'Feedback',
+      'ky': 'Кайра байланыш',
     },
     'scjyq33d': {
       'ru': 'Готов получать обновления по ситуации',
-      'en': '',
-      'ky': '',
+      'en': 'Ready to receive updates on the situation',
+      'ky': 'Кырдаал боюнча жаңыртууларды алууга даяр',
     },
     'yr24wxv9': {
       'ru': 'Изменить локацию',
