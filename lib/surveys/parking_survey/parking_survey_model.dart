@@ -34,6 +34,8 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
   void updateLocalImagesAtIndex(int index, Function(FFUploadedFile) updateFn) =>
       localImages[index] = updateFn(localImages[index]);
 
+  bool allowFeedback = true;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -54,6 +56,8 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
   FocusNode? contactFocusNode;
   TextEditingController? contactTextController;
   String? Function(BuildContext, String?)? contactTextControllerValidator;
+  // State field(s) for CheckboxListTile widget.
+  bool? checkboxListTileValue;
   bool isDataUploading2 = false;
   List<FFUploadedFile> uploadedLocalFiles2 = [];
   List<String> uploadedFileUrls2 = [];

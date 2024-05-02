@@ -340,10 +340,18 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                             }
                           }
 
-                          logFirebaseEvent('upload_media_update_page_state');
-                          setState(() {
-                            _model.addToLocalImages(_model.uploadedLocalFile1);
-                          });
+                          if ((_model.uploadedLocalFile1 != null &&
+                                  (_model.uploadedLocalFile1.bytes
+                                          ?.isNotEmpty ??
+                                      false)) &&
+                              (_model.uploadedLocalFile1.height! > 0.0) &&
+                              (_model.uploadedLocalFile1.width! > 0.0)) {
+                            logFirebaseEvent('upload_media_update_page_state');
+                            setState(() {
+                              _model
+                                  .addToLocalImages(_model.uploadedLocalFile1);
+                            });
+                          }
                         },
                         text: FFLocalizations.of(context).getText(
                           '9n9xjxb4' /* Загрузить фото */,
@@ -376,9 +384,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                         autofocus: false,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: FFLocalizations.of(context).getText(
-                            '5buym29x' /* Поле для комментария */,
-                          ),
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'Golos',
@@ -386,6 +391,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
+                          hintText: FFLocalizations.of(context).getText(
+                            '5zxtnbzm' /* Комментарий */,
+                          ),
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'Inter',
@@ -442,7 +450,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: FFLocalizations.of(context).getText(
-                            'cw3iych7' /* Как с вами связаться? */,
+                            'cw3iych7' /* Как с вами связаться ? */,
                           ),
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
@@ -451,6 +459,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
+                          hintText: FFLocalizations.of(context).getText(
+                            '1tdmlrf9' /* Email, номер телефона */,
+                          ),
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'Inter',
@@ -510,6 +521,54 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
+                      ),
+                      Theme(
+                        data: ThemeData(
+                          checkboxTheme: CheckboxThemeData(
+                            visualDensity: VisualDensity.compact,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          unselectedWidgetColor:
+                              FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                        child: CheckboxListTile(
+                          value: _model.checkboxListTileValue ??= true,
+                          onChanged: (newValue) async {
+                            setState(
+                                () => _model.checkboxListTileValue = newValue!);
+                          },
+                          title: Text(
+                            FFLocalizations.of(context).getText(
+                              'tlnbk8o2' /* Обратная связь */,
+                            ),
+                            textAlign: TextAlign.start,
+                            style:
+                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                          ),
+                          subtitle: Text(
+                            FFLocalizations.of(context).getText(
+                              'scjyq33d' /* Готов получать обновления по с... */,
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                          ),
+                          tileColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          activeColor: FlutterFlowTheme.of(context).mainGreen,
+                          checkColor: FlutterFlowTheme.of(context).info,
+                          dense: false,
+                          controlAffinity: ListTileControlAffinity.trailing,
+                        ),
                       ),
                       FFButtonWidget(
                         onPressed: () async {
@@ -629,6 +688,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               comment: _model.commentTextController.text,
                               contactInfo: _model.contactTextController.text,
                               locationTitle: _model.selectedLocationTitle,
+                              allowFeedback: _model.checkboxListTileValue,
                             ),
                             ...mapToFirestore(
                               {
