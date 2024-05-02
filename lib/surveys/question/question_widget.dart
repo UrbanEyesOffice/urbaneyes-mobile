@@ -1,11 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/google_maps/google_maps_widget.dart';
+import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -32,6 +33,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   late QuestionModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -42,6 +44,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('QUESTION_PAGE_question_ON_INIT_STATE');
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       logFirebaseEvent('question_firestore_query');
       _model.questionsList = await queryQuestionRecordOnce(
         queryBuilder: (questionRecord) => questionRecord
@@ -62,11 +66,25 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         _model.currentQuestion =
             _model.questionsList?[_model.currentQuestionNumber];
       });
+      logFirebaseEvent('question_update_page_state');
+      setState(() {
+        _model.selectedLocation = currentUserLocationValue != null
+            ? currentUserLocationValue
+            : FFAppState().locationBishkek;
+      });
+      logFirebaseEvent('question_custom_action');
+      _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(
+        _model.selectedLocation,
+        FFLocalizations.of(context).languageCode,
+      );
+      logFirebaseEvent('question_update_page_state');
+      setState(() {
+        _model.selectedLocationTitle = _model.locationTitleOnLoad;
+      });
       logFirebaseEvent('question_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        isDismissible: false,
         enableDrag: false,
         context: context,
         builder: (context) {
@@ -78,8 +96,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               padding: MediaQuery.viewInsetsOf(context),
               child: Container(
                 height: MediaQuery.sizeOf(context).height * 0.7,
-                child: GoogleMapsWidget(
-                  selectedLocationCallback: (location, locationTitle) async {
+                child: OsmWidget(
+                  initialLocation: _model.selectedLocation!,
+                  initialLocationTitle: _model.selectedLocationTitle,
+                  onSelectLocation: (location, locationTitle) async {
                     logFirebaseEvent('_update_page_state');
                     setState(() {
                       _model.selectedLocation = location;
@@ -109,6 +129,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -510,11 +532,11 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                             padding: MediaQuery.viewInsetsOf(context),
                             child: Container(
                               height: MediaQuery.sizeOf(context).height * 0.7,
-                              child: GoogleMapsWidget(
-                                locationInput: _model.selectedLocation,
-                                locationInputTitle:
+                              child: OsmWidget(
+                                initialLocation: _model.selectedLocation!,
+                                initialLocationTitle:
                                     _model.selectedLocationTitle,
-                                selectedLocationCallback:
+                                onSelectLocation:
                                     (location, locationTitle) async {
                                   logFirebaseEvent('_update_page_state');
                                   setState(() {

@@ -2,13 +2,14 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/empty_photos/empty_photos_widget.dart';
-import '/components/google_maps/google_maps_widget.dart';
+import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
   late ParkingSurveyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -46,11 +48,27 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('PARKING_SURVEY_ParkingSurvey_ON_INIT_STA');
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      logFirebaseEvent('ParkingSurvey_update_page_state');
+      setState(() {
+        _model.selectedLocation = currentUserLocationValue != null
+            ? currentUserLocationValue
+            : FFAppState().locationBishkek;
+      });
+      logFirebaseEvent('ParkingSurvey_custom_action');
+      _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(
+        _model.selectedLocation,
+        FFLocalizations.of(context).languageCode,
+      );
+      logFirebaseEvent('ParkingSurvey_update_page_state');
+      setState(() {
+        _model.selectedLocationTitle = _model.locationTitleOnLoad!;
+      });
       logFirebaseEvent('ParkingSurvey_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        isDismissible: false,
         enableDrag: false,
         context: context,
         builder: (context) {
@@ -62,14 +80,14 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
               padding: MediaQuery.viewInsetsOf(context),
               child: Container(
                 height: MediaQuery.sizeOf(context).height * 0.7,
-                child: GoogleMapsWidget(
-                  locationInput: _model.selectedLocation,
-                  locationInputTitle: _model.selectedLocationTitle,
-                  selectedLocationCallback: (location, locationTitle) async {
+                child: OsmWidget(
+                  initialLocation: _model.selectedLocation!,
+                  initialLocationTitle: _model.selectedLocationTitle,
+                  onSelectLocation: (location, locationTitle) async {
                     logFirebaseEvent('_update_page_state');
                     setState(() {
                       _model.selectedLocation = location;
-                      _model.selectedLocationTitle = locationTitle;
+                      _model.selectedLocationTitle = locationTitle!;
                     });
                   },
                 ),
@@ -98,6 +116,8 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -592,17 +612,17 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   child: Container(
                                     height:
                                         MediaQuery.sizeOf(context).height * 0.7,
-                                    child: GoogleMapsWidget(
-                                      locationInput: _model.selectedLocation,
-                                      locationInputTitle:
+                                    child: OsmWidget(
+                                      initialLocation: _model.selectedLocation!,
+                                      initialLocationTitle:
                                           _model.selectedLocationTitle,
-                                      selectedLocationCallback:
+                                      onSelectLocation:
                                           (location, locationTitle) async {
                                         logFirebaseEvent('_update_page_state');
                                         setState(() {
                                           _model.selectedLocation = location;
                                           _model.selectedLocationTitle =
-                                              locationTitle;
+                                              locationTitle!;
                                         });
                                       },
                                     ),

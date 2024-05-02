@@ -1,11 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/google_maps/google_maps_widget.dart';
+import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'question_widget.dart' show QuestionWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -53,6 +54,8 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in question widget.
   List<QuestionRecord>? questionsList;
+  // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in question widget.
+  String? locationTitleOnLoad;
   // State field(s) for comment widget.
   FocusNode? commentFocusNode;
   TextEditingController? commentTextController;

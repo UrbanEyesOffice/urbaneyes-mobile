@@ -1011,6 +1011,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': 'Улантуу',
     },
   },
+  // OSM
+  {
+    'zsfs86g0': {
+      'ru': 'Выберите локацию',
+      'en': 'Select location',
+      'ky': 'Жайгашкан жерди тандаңыз',
+    },
+    '91278s2u': {
+      'ru': 'Продолжить',
+      'en': 'Continue',
+      'ky': 'Улантуу',
+    },
+  },
   // Miscellaneous
   {
     'b183b2np': {
