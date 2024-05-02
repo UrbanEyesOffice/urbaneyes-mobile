@@ -620,8 +620,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               if (_model.isLoading)
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Lottie.network(
-                    'https://assets2.lottiefiles.com/packages/lf20_aZTdD5.json',
+                  child: Lottie.asset(
+                    'assets/lottie_animations/Animation_-_1714670498687.json',
                     width: 150.0,
                     height: 130.0,
                     fit: BoxFit.cover,
