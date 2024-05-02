@@ -70,7 +70,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             _model.questionsList!.toList().cast<QuestionRecord>();
         _model.currentQuestion =
             _model.questionsList?[_model.currentQuestionNumber];
-        _model.isLoading = false;
       });
       logFirebaseEvent('question_update_page_state');
       setState(() {
@@ -86,6 +85,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       logFirebaseEvent('question_update_page_state');
       setState(() {
         _model.selectedLocationTitle = _model.locationTitleOnLoad;
+        _model.isLoading = false;
       });
       logFirebaseEvent('question_bottom_sheet');
       await showModalBottomSheet(
