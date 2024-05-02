@@ -87,6 +87,7 @@ dependencies:
   json_path: 0.6.2
   latlong2:
   location_geocoder: ^1.0.5
+  lottie: 2.7.0
   mask_text_input_formatter: 2.4.0
   mime_type: 1.0.0
   page_transition: 2.1.0

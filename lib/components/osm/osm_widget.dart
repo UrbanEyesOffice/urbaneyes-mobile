@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'osm_model.dart';
@@ -39,6 +40,16 @@ class _OsmWidgetState extends State<OsmWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => OsmModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('OSM_COMP_OSM_ON_INIT_STATE');
+      logFirebaseEvent('OSM_update_component_state');
+      setState(() {
+        _model.localLocationTitle = widget.initialLocationTitle;
+        _model.localLocation = widget.initialLocation;
+      });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }

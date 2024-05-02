@@ -13,6 +13,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'question_model.dart';
 export 'question_model.dart';
@@ -46,6 +47,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       logFirebaseEvent('QUESTION_PAGE_question_ON_INIT_STATE');
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      logFirebaseEvent('question_update_page_state');
+      setState(() {
+        _model.isLoading = true;
+      });
       logFirebaseEvent('question_firestore_query');
       _model.questionsList = await queryQuestionRecordOnce(
         queryBuilder: (questionRecord) => questionRecord
@@ -65,6 +70,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             _model.questionsList!.toList().cast<QuestionRecord>();
         _model.currentQuestion =
             _model.questionsList?[_model.currentQuestionNumber];
+        _model.isLoading = false;
       });
       logFirebaseEvent('question_update_page_state');
       setState(() {
@@ -182,402 +188,447 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-            child: ListView(
-              padding: EdgeInsets.fromLTRB(
-                0,
-                32.0,
-                0,
-                32.0,
-              ),
-              scrollDirection: Axis.vertical,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional(-1.0, 0.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      FFLocalizations.of(context).getVariableText(
-                        ruText: _model.currentQuestion?.question,
-                        enText: _model.currentQuestion?.questionEn,
-                        kyText: _model.currentQuestion?.questionKg,
-                      ),
-                      '-',
+          child: Stack(
+            children: [
+              if (_model.isLoading)
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+                  child: ListView(
+                    padding: EdgeInsets.fromLTRB(
+                      0,
+                      32.0,
+                      0,
+                      32.0,
                     ),
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).headlineMedium.override(
-                          fontFamily: 'Gerbera',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 28.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.bold,
-                          useGoogleFonts: false,
-                        ),
-                  ),
-                ),
-                Text(
-                  valueOrDefault<String>(
-                    _model.selectedLocationTitle,
-                    '-',
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
-                        letterSpacing: 0.0,
-                        useGoogleFonts: false,
-                      ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
-                  child: Builder(
-                    builder: (context) {
-                      final questionOptionsVisible =
-                          _model.currentQuestion?.options?.toList() ?? [];
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: List.generate(questionOptionsVisible.length,
-                            (questionOptionsVisibleIndex) {
-                          final questionOptionsVisibleItem =
-                              questionOptionsVisible[
-                                  questionOptionsVisibleIndex];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 16.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                logFirebaseEvent(
-                                    'QUESTION_PAGE_BUTTON_BTN_ON_TAP');
-                                logFirebaseEvent('Button_update_page_state');
-                                setState(() {
-                                  _model.selectedOption =
-                                      questionOptionsVisibleItem;
-                                });
-                              },
-                              text: FFLocalizations.of(context).getVariableText(
-                                ruText: questionOptionsVisibleItem.titleRu,
-                                enText: questionOptionsVisibleItem.titleEn,
-                                kyText: questionOptionsVisibleItem.titleKg,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1.0, 0.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            FFLocalizations.of(context).getVariableText(
+                              ruText: _model.currentQuestion?.question,
+                              enText: _model.currentQuestion?.questionEn,
+                              kyText: _model.currentQuestion?.questionKg,
+                            ),
+                            '-',
+                          ),
+                          textAlign: TextAlign.start,
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
+                                fontFamily: 'Gerbera',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 28.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.bold,
+                                useGoogleFonts: false,
                               ),
-                              options: FFButtonOptions(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: 48.0,
-                                padding: EdgeInsets.all(0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: valueOrDefault<bool>(
-                                  questionOptionsVisibleItem.id ==
-                                      _model.selectedOption?.id,
-                                  false,
-                                )
-                                    ? Color(0xFF53B153)
-                                    : Color(0x0053B153),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Golos',
+                        ),
+                      ),
+                      Text(
+                        valueOrDefault<String>(
+                          _model.selectedLocationTitle,
+                          '-',
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        child: Builder(
+                          builder: (context) {
+                            final questionOptionsVisible =
+                                _model.currentQuestion?.options?.toList() ?? [];
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children:
+                                  List.generate(questionOptionsVisible.length,
+                                      (questionOptionsVisibleIndex) {
+                                final questionOptionsVisibleItem =
+                                    questionOptionsVisible[
+                                        questionOptionsVisibleIndex];
+                                return Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 16.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      logFirebaseEvent(
+                                          'QUESTION_PAGE_BUTTON_BTN_ON_TAP');
+                                      logFirebaseEvent(
+                                          'Button_update_page_state');
+                                      setState(() {
+                                        _model.selectedOption =
+                                            questionOptionsVisibleItem;
+                                      });
+                                    },
+                                    text: FFLocalizations.of(context)
+                                        .getVariableText(
+                                      ruText:
+                                          questionOptionsVisibleItem.titleRu,
+                                      enText:
+                                          questionOptionsVisibleItem.titleEn,
+                                      kyText:
+                                          questionOptionsVisibleItem.titleKg,
+                                    ),
+                                    options: FFButtonOptions(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      height: 48.0,
+                                      padding: EdgeInsets.all(0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
                                       color: valueOrDefault<bool>(
                                         questionOptionsVisibleItem.id ==
                                             _model.selectedOption?.id,
                                         false,
                                       )
-                                          ? FlutterFlowTheme.of(context)
-                                              .primaryBackground
-                                          : Color(0xFF0A8D09),
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
+                                          ? Color(0xFF53B153)
+                                          : Color(0x0053B153),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Golos',
+                                            color: valueOrDefault<bool>(
+                                              questionOptionsVisibleItem.id ==
+                                                  _model.selectedOption?.id,
+                                              false,
+                                            )
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primaryBackground
+                                                : Color(0xFF0A8D09),
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: false,
+                                          ),
+                                      elevation: 0.0,
+                                      borderSide: BorderSide(
+                                        color: Color(0xFF53B153),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
                                     ),
-                                elevation: 0.0,
-                                borderSide: BorderSide(
-                                  color: Color(0xFF53B153),
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
+                                  ),
+                                );
+                              }),
+                            );
+                          },
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _model.commentTextController,
+                        focusNode: _model.commentFocusNode,
+                        autofocus: false,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: FFLocalizations.of(context).getText(
+                            'bwsaww2r' /* Поле для комментария */,
+                          ),
+                          labelStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Golos',
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                          hintStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFA9ABAF),
+                              width: 1.0,
                             ),
-                          );
-                        }),
-                      );
-                    },
-                  ),
-                ),
-                TextFormField(
-                  controller: _model.commentTextController,
-                  focusNode: _model.commentFocusNode,
-                  autofocus: false,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: FFLocalizations.of(context).getText(
-                      'bwsaww2r' /* Поле для комментария */,
-                    ),
-                    labelStyle:
-                        FlutterFlowTheme.of(context).labelMedium.override(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFA9ABAF),
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Golos',
+                              color: Color(0xFF06112E),
                               fontSize: 16.0,
                               letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
-                    hintStyle:
-                        FlutterFlowTheme.of(context).labelMedium.override(
-                              fontFamily: 'Inter',
-                              letterSpacing: 0.0,
-                              useGoogleFonts: false,
-                            ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFA9ABAF),
-                        width: 1.0,
+                        maxLines: 10,
+                        minLines: 1,
+                        validator: _model.commentTextControllerValidator
+                            .asValidator(context),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFA9ABAF),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Golos',
-                        color: Color(0xFF06112E),
-                        fontSize: 16.0,
-                        letterSpacing: 0.0,
-                        useGoogleFonts: false,
-                      ),
-                  maxLines: 10,
-                  minLines: 1,
-                  validator: _model.commentTextControllerValidator
-                      .asValidator(context),
-                ),
-                if (!functions.isLastQuestion(
-                    _model.currentQuestionNumber, _model.questions.toList()))
-                  FFButtonWidget(
-                    onPressed: (_model.selectedOption == null)
-                        ? null
-                        : () async {
-                            logFirebaseEvent('QUESTION_PAGE_ДАЛЕЕ_BTN_ON_TAP');
-                            logFirebaseEvent('Button_update_page_state');
-                            setState(() {
-                              _model.currentQuestionNumber =
-                                  _model.currentQuestionNumber + 1;
-                              _model.addToAnswers(AnswerStruct(
-                                surveyId: widget.survey?.reference,
-                                questionId: _model.currentQuestion?.reference,
-                                userId: currentUserReference,
-                                time: getCurrentTimestamp,
-                                location: _model.selectedLocation,
-                                answer: _model.selectedOption,
-                                comment: _model.commentTextController.text,
-                              ));
-                            });
-                            logFirebaseEvent('Button_update_page_state');
-                            setState(() {
-                              _model.currentQuestion = _model
-                                  .questions[_model.currentQuestionNumber];
-                              _model.selectedOption = null;
-                            });
-                          },
-                    text: FFLocalizations.of(context).getText(
-                      'pt8y2gzq' /* Далее */,
-                    ),
-                    options: FFButtonOptions(
-                      width: 330.0,
-                      height: 48.0,
-                      padding: EdgeInsets.all(0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0xFF53B153),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Golos',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: false,
-                              ),
-                      elevation: 3.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(12.0),
-                      disabledColor: FlutterFlowTheme.of(context).secondaryText,
-                      disabledTextColor: FlutterFlowTheme.of(context).alternate,
-                    ),
-                  ),
-                if (functions.isLastQuestion(
-                    _model.currentQuestionNumber, _model.questions.toList()))
-                  FFButtonWidget(
-                    onPressed: (_model.selectedOption == null)
-                        ? null
-                        : () async {
-                            logFirebaseEvent(
-                                'QUESTION_PAGE_ЗАВЕРШИТЬ_BTN_ON_TAP');
-                            logFirebaseEvent('Button_update_page_state');
-                            setState(() {
-                              _model.addToAnswers(AnswerStruct(
-                                surveyId: widget.survey?.reference,
-                                questionId: _model.currentQuestion?.reference,
-                                userId: currentUserReference,
-                                time: getCurrentTimestamp,
-                                location: _model.selectedLocation,
-                                answer: _model.selectedOption,
-                                comment: _model.commentTextController.text,
-                              ));
-                            });
-                            while (_model.currentQuestionNumber >= 0) {
-                              logFirebaseEvent('Button_backend_call');
-
-                              await AnswerRecord.collection
-                                  .doc()
-                                  .set(createAnswerRecordData(
-                                    surveyId: widget.survey?.reference,
-                                    questionId: _model
-                                        .answers[_model.currentQuestionNumber]
-                                        .questionId,
-                                    userId: currentUserReference,
-                                    time: getCurrentTimestamp,
-                                    location: _model.selectedLocation,
-                                    answer: updateOptionStruct(
-                                      _model
-                                          .answers[_model.currentQuestionNumber]
-                                          .answer,
-                                      clearUnsetFields: false,
-                                      create: true,
-                                    ),
-                                    comment: _model
-                                        .answers[_model.currentQuestionNumber]
-                                        .comment,
-                                  ));
-                              logFirebaseEvent('Button_update_page_state');
-                              setState(() {
-                                _model.currentQuestionNumber =
-                                    _model.currentQuestionNumber + -1;
-                              });
-                            }
-                            logFirebaseEvent('Button_navigate_to');
-
-                            context.goNamed(
-                              'complete',
-                              queryParameters: {
-                                'survey': serializeParam(
-                                  widget.survey,
-                                  ParamType.Document,
-                                ),
-                              }.withoutNulls,
-                              extra: <String, dynamic>{
-                                'survey': widget.survey,
-                              },
-                            );
-                          },
-                    text: FFLocalizations.of(context).getText(
-                      'y2oxtgw9' /* Завершить */,
-                    ),
-                    options: FFButtonOptions(
-                      width: 330.0,
-                      height: 48.0,
-                      padding: EdgeInsets.all(0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0xFF53B153),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Golos',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: false,
-                              ),
-                      elevation: 3.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(12.0),
-                      disabledColor: FlutterFlowTheme.of(context).secondaryText,
-                      disabledTextColor: FlutterFlowTheme.of(context).alternate,
-                    ),
-                  ),
-                FFButtonWidget(
-                  onPressed: () async {
-                    logFirebaseEvent('QUESTION_ИЗМЕНИТЬ_ЛОКАЦИЮ_BTN_ON_TAP');
-                    logFirebaseEvent('Button_bottom_sheet');
-                    await showModalBottomSheet(
-                      isScrollControlled: true,
-                      backgroundColor:
-                          FlutterFlowTheme.of(context).primaryBackground,
-                      enableDrag: false,
-                      context: context,
-                      builder: (context) {
-                        return GestureDetector(
-                          onTap: () => _model.unfocusNode.canRequestFocus
-                              ? FocusScope.of(context)
-                                  .requestFocus(_model.unfocusNode)
-                              : FocusScope.of(context).unfocus(),
-                          child: Padding(
-                            padding: MediaQuery.viewInsetsOf(context),
-                            child: Container(
-                              height: MediaQuery.sizeOf(context).height * 0.7,
-                              child: OsmWidget(
-                                initialLocation: _model.selectedLocation!,
-                                initialLocationTitle:
-                                    _model.selectedLocationTitle,
-                                onSelectLocation:
-                                    (location, locationTitle) async {
-                                  logFirebaseEvent('_update_page_state');
+                      if (!functions.isLastQuestion(
+                          _model.currentQuestionNumber,
+                          _model.questions.toList()))
+                        FFButtonWidget(
+                          onPressed: (_model.selectedOption == null)
+                              ? null
+                              : () async {
+                                  logFirebaseEvent(
+                                      'QUESTION_PAGE_ДАЛЕЕ_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_update_page_state');
                                   setState(() {
-                                    _model.selectedLocation = location;
-                                    _model.selectedLocationTitle =
-                                        locationTitle;
+                                    _model.currentQuestionNumber =
+                                        _model.currentQuestionNumber + 1;
+                                    _model.addToAnswers(AnswerStruct(
+                                      surveyId: widget.survey?.reference,
+                                      questionId:
+                                          _model.currentQuestion?.reference,
+                                      userId: currentUserReference,
+                                      time: getCurrentTimestamp,
+                                      location: _model.selectedLocation,
+                                      answer: _model.selectedOption,
+                                      comment:
+                                          _model.commentTextController.text,
+                                    ));
+                                  });
+                                  logFirebaseEvent('Button_update_page_state');
+                                  setState(() {
+                                    _model.currentQuestion = _model.questions[
+                                        _model.currentQuestionNumber];
+                                    _model.selectedOption = null;
                                   });
                                 },
-                              ),
-                            ),
+                          text: FFLocalizations.of(context).getText(
+                            'pt8y2gzq' /* Далее */,
                           ),
-                        );
-                      },
-                    ).then((value) => safeSetState(() {}));
-                  },
-                  text: FFLocalizations.of(context).getText(
-                    '8rxnnklj' /* Изменить локацию */,
-                  ),
-                  options: FFButtonOptions(
-                    width: 330.0,
-                    height: 48.0,
-                    padding: EdgeInsets.all(0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFFCEEFCD),
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Golos',
-                          color: Color(0xFF0A8D09),
-                          letterSpacing: 0.0,
-                          useGoogleFonts: false,
+                          options: FFButtonOptions(
+                            width: 330.0,
+                            height: 48.0,
+                            padding: EdgeInsets.all(0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0xFF53B153),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Golos',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(12.0),
+                            disabledColor:
+                                FlutterFlowTheme.of(context).secondaryText,
+                            disabledTextColor:
+                                FlutterFlowTheme.of(context).alternate,
+                          ),
                         ),
-                    elevation: 3.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(12.0),
+                      if (functions.isLastQuestion(_model.currentQuestionNumber,
+                          _model.questions.toList()))
+                        FFButtonWidget(
+                          onPressed: (_model.selectedOption == null)
+                              ? null
+                              : () async {
+                                  logFirebaseEvent(
+                                      'QUESTION_PAGE_ЗАВЕРШИТЬ_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_update_page_state');
+                                  setState(() {
+                                    _model.addToAnswers(AnswerStruct(
+                                      surveyId: widget.survey?.reference,
+                                      questionId:
+                                          _model.currentQuestion?.reference,
+                                      userId: currentUserReference,
+                                      time: getCurrentTimestamp,
+                                      location: _model.selectedLocation,
+                                      answer: _model.selectedOption,
+                                      comment:
+                                          _model.commentTextController.text,
+                                    ));
+                                  });
+                                  while (_model.currentQuestionNumber >= 0) {
+                                    logFirebaseEvent('Button_backend_call');
+
+                                    await AnswerRecord.collection
+                                        .doc()
+                                        .set(createAnswerRecordData(
+                                          surveyId: widget.survey?.reference,
+                                          questionId: _model
+                                              .answers[
+                                                  _model.currentQuestionNumber]
+                                              .questionId,
+                                          userId: currentUserReference,
+                                          time: getCurrentTimestamp,
+                                          location: _model.selectedLocation,
+                                          answer: updateOptionStruct(
+                                            _model
+                                                .answers[_model
+                                                    .currentQuestionNumber]
+                                                .answer,
+                                            clearUnsetFields: false,
+                                            create: true,
+                                          ),
+                                          comment: _model
+                                              .answers[
+                                                  _model.currentQuestionNumber]
+                                              .comment,
+                                        ));
+                                    logFirebaseEvent(
+                                        'Button_update_page_state');
+                                    setState(() {
+                                      _model.currentQuestionNumber =
+                                          _model.currentQuestionNumber + -1;
+                                    });
+                                  }
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.goNamed(
+                                    'complete',
+                                    queryParameters: {
+                                      'survey': serializeParam(
+                                        widget.survey,
+                                        ParamType.Document,
+                                      ),
+                                    }.withoutNulls,
+                                    extra: <String, dynamic>{
+                                      'survey': widget.survey,
+                                    },
+                                  );
+                                },
+                          text: FFLocalizations.of(context).getText(
+                            'y2oxtgw9' /* Завершить */,
+                          ),
+                          options: FFButtonOptions(
+                            width: 330.0,
+                            height: 48.0,
+                            padding: EdgeInsets.all(0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0xFF53B153),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Golos',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(12.0),
+                            disabledColor:
+                                FlutterFlowTheme.of(context).secondaryText,
+                            disabledTextColor:
+                                FlutterFlowTheme.of(context).alternate,
+                          ),
+                        ),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'QUESTION_ИЗМЕНИТЬ_ЛОКАЦИЮ_BTN_ON_TAP');
+                          logFirebaseEvent('Button_bottom_sheet');
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () => _model.unfocusNode.canRequestFocus
+                                    ? FocusScope.of(context)
+                                        .requestFocus(_model.unfocusNode)
+                                    : FocusScope.of(context).unfocus(),
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: Container(
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 0.7,
+                                    child: OsmWidget(
+                                      initialLocation: _model.selectedLocation!,
+                                      initialLocationTitle:
+                                          _model.selectedLocationTitle,
+                                      onSelectLocation:
+                                          (location, locationTitle) async {
+                                        logFirebaseEvent('_update_page_state');
+                                        setState(() {
+                                          _model.selectedLocation = location;
+                                          _model.selectedLocationTitle =
+                                              locationTitle;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
+                        text: FFLocalizations.of(context).getText(
+                          '8rxnnklj' /* Изменить локацию */,
+                        ),
+                        options: FFButtonOptions(
+                          width: 330.0,
+                          height: 48.0,
+                          padding: EdgeInsets.all(0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Color(0xFFCEEFCD),
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Golos',
+                                    color: Color(0xFF0A8D09),
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                    ].divide(SizedBox(height: 16.0)),
                   ),
                 ),
-              ].divide(SizedBox(height: 16.0)),
-            ),
+              if (!_model.isLoading)
+                Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: Lottie.network(
+                    'https://assets2.lottiefiles.com/packages/lf20_aZTdD5.json',
+                    width: 150.0,
+                    height: 130.0,
+                    fit: BoxFit.cover,
+                    animate: true,
+                  ),
+                ),
+            ],
           ),
         ),
       ),

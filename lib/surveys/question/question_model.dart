@@ -14,6 +14,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class QuestionModel extends FlutterFlowModel<QuestionWidget> {
@@ -48,6 +49,8 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
       answers.insert(index, item);
   void updateAnswersAtIndex(int index, Function(AnswerStruct) updateFn) =>
       answers[index] = updateFn(answers[index]);
+
+  bool isLoading = true;
 
   ///  State fields for stateful widgets in this page.
 
