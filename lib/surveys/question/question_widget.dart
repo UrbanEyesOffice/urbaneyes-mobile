@@ -190,7 +190,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           top: true,
           child: Stack(
             children: [
-              if (_model.isLoading)
+              if (!_model.isLoading)
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
                   child: ListView(
@@ -617,7 +617,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     ].divide(SizedBox(height: 16.0)),
                   ),
                 ),
-              if (!_model.isLoading)
+              if (_model.isLoading)
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Lottie.network(
