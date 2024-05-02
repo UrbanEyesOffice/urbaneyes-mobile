@@ -380,12 +380,10 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   }
                                 }
 
-                                if ((_model.uploadedLocalFile1 != null &&
-                                        (_model.uploadedLocalFile1.bytes
-                                                ?.isNotEmpty ??
-                                            false)) &&
-                                    (_model.uploadedLocalFile1.height! > 0.0) &&
-                                    (_model.uploadedLocalFile1.width! > 0.0)) {
+                                if (_model.uploadedLocalFile1 != null &&
+                                    (_model.uploadedLocalFile1.bytes
+                                            ?.isNotEmpty ??
+                                        false)) {
                                   logFirebaseEvent(
                                       'upload_media_update_page_state');
                                   setState(() {
@@ -767,7 +765,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                 });
                                 logFirebaseEvent('save_navigate_to');
 
-                                context.pushNamed(
+                                context.goNamed(
                                   'complete',
                                   queryParameters: {
                                     'survey': serializeParam(
