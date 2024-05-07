@@ -4,17 +4,16 @@ import '/backend/firebase_storage/storage.dart';
 import '/components/empty_photos/empty_photos_widget.dart';
 import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/permissions_util.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -39,7 +38,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
   late ParkingSurveyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -51,15 +49,15 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('PARKING_SURVEY_ParkingSurvey_ON_INIT_STA');
-      currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
-      logFirebaseEvent('ParkingSurvey_request_permissions');
-      await requestPermission(locationPermission);
+      logFirebaseEvent('ParkingSurvey_custom_action');
+      _model.hasLocationPermission = await actions.handleLocationPermission();
+      logFirebaseEvent('ParkingSurvey_custom_action');
+      _model.currentPosition = await actions.getCurrentPosition(
+        _model.hasLocationPermission!,
+      );
       logFirebaseEvent('ParkingSurvey_update_page_state');
       setState(() {
-        _model.selectedLocation = currentUserLocationValue != null
-            ? currentUserLocationValue
-            : FFAppState().locationBishkek;
+        _model.selectedLocation = _model.currentPosition;
         _model.isLoading = true;
       });
       logFirebaseEvent('ParkingSurvey_custom_action');
@@ -123,8 +121,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -134,8 +130,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          iconTheme:
-              IconThemeData(color: FlutterFlowTheme.of(context).mainGreen),
+          iconTheme: IconThemeData(color: Colors.black),
           automaticallyImplyLeading: true,
           title: Text(
             FFLocalizations.of(context).getVariableText(
@@ -283,14 +278,14 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                                   fit: BoxFit.contain,
                                                 ),
                                                 allowRotation: false,
-                                                tag: 'imageTag',
+                                                tag: 'imageTag1',
                                                 useHeroAnimation: true,
                                               ),
                                             ),
                                           );
                                         },
                                         child: Hero(
-                                          tag: 'imageTag',
+                                          tag: 'imageTag1',
                                           transitionOnUserGestures: true,
                                           child: ClipRRect(
                                             borderRadius:
@@ -308,26 +303,16 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                       Align(
                                         alignment:
                                             AlignmentDirectional(1.0, -1.0),
-                                        child: FlutterFlowIconButton(
-                                          borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .noColor,
-                                          borderRadius: 20.0,
-                                          buttonSize: 40.0,
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .noColor,
-                                          icon: Icon(
-                                            Icons.remove_circle,
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiary,
-                                            size: 24.0,
-                                          ),
-                                          onPressed: () async {
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
                                             logFirebaseEvent(
-                                                'PARKING_SURVEY_remove_circle_ICN_ON_TAP');
+                                                'PARKING_SURVEY_Container_c7rt3a4s_ON_TAP');
                                             logFirebaseEvent(
-                                                'IconButton_alert_dialog');
+                                                'Container_alert_dialog');
                                             var confirmDialogResponse =
                                                 await showDialog<bool>(
                                                       context: context,
@@ -386,7 +371,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                                     false;
                                             if (confirmDialogResponse) {
                                               logFirebaseEvent(
-                                                  'IconButton_update_page_state');
+                                                  'Container_update_page_state');
                                               setState(() {
                                                 _model
                                                     .removeAtIndexFromLocalImages(
@@ -394,6 +379,22 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                               });
                                             }
                                           },
+                                          child: Container(
+                                            decoration: BoxDecoration(),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                child: SvgPicture.asset(
+                                                  'assets/images/Delete.svg',
+                                                  width: 24.0,
+                                                  height: 24.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],

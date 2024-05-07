@@ -1006,19 +1006,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': 'Жөнөтүү',
     },
   },
-  // GoogleMaps
-  {
-    '85bbwmvo': {
-      'ru': 'Выберите локацию',
-      'en': 'Select location',
-      'ky': 'Жайгашкан жерди тандаңыз',
-    },
-    'c9ejc1w0': {
-      'ru': 'Продолжить',
-      'en': 'Continue',
-      'ky': 'Улантуу',
-    },
-  },
   // OSM
   {
     'zsfs86g0': {

@@ -83,19 +83,19 @@ Future<String?> getAddressFromLatLngGoogleMaps(
         completeAddress += subThoroughfare;
       }
 
-      if (locality != null) {
-        if (!completeAddress.isEmpty) {
-          completeAddress += ', ';
-        }
-        completeAddress += locality;
-      }
+      // if (locality != null) {
+      //   if (!completeAddress.isEmpty) {
+      //     completeAddress += ', ';
+      //   }
+      //   completeAddress += locality;
+      // }
 
-      if (adminArea != null) {
-        if (!completeAddress.isEmpty) {
-          completeAddress += ', ';
-        }
-        completeAddress += adminArea;
-      }
+      // if (adminArea != null) {
+      //   if (!completeAddress.isEmpty) {
+      //     completeAddress += ', ';
+      //   }
+      //   completeAddress += adminArea;
+      // }
 
       // if (countryName != null) {
       //   if (!completeAddress.isEmpty) {

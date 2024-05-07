@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latlong2;
+import 'package:flutter_debouncer/flutter_debouncer.dart';
 
 class OpenStreetMapWidget extends StatefulWidget {
   const OpenStreetMapWidget({
@@ -34,6 +35,7 @@ class OpenStreetMapWidget extends StatefulWidget {
 
 class _OpenStreetMapWidgetState extends State<OpenStreetMapWidget> {
   final mapController = MapController();
+  final Debouncer _debouncer = Debouncer();
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +51,14 @@ class _OpenStreetMapWidgetState extends State<OpenStreetMapWidget> {
           onMapReady: () {
             mapController.mapEventStream.listen((evt) {
               if (evt is MapEventMoveEnd) {
-                widget.onMapMoved!(LatLng(
-                    evt.camera.center.latitude, evt.camera.center.longitude));
+                const duration = Duration(milliseconds: 700);
+                _debouncer.debounce(
+                  duration: duration,
+                  onDebounce: () {
+                    widget.onMapMoved!(LatLng(evt.camera.center.latitude,
+                        evt.camera.center.longitude));
+                  },
+                );
               }
             });
             // And any other `MapController` dependent non-movement methods
