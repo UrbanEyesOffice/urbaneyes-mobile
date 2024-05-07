@@ -475,20 +475,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // HomePageCopy
   {
-    'f70g83zr': {
-      'ru': 'UrbanEyes',
-      'en': 'UrbanEyes',
-      'ky': 'UrbanEyes',
-    },
-    '1qnika23': {
-      'ru': 'в этой локации',
-      'en': 'in this location',
-      'ky': 'бул жерде',
+    'h4e69wmb': {
+      'ru': 'Отметить',
+      'en': 'Mark',
+      'ky': 'Марк',
     },
     'gohqvhe4': {
-      'ru': 'Пройти',
-      'en': 'Evaluate',
-      'ky': 'Сурамжылоого катышуу',
+      'ru': 'Оценить',
+      'en': 'Estimate',
+      'ky': 'Баалоо',
     },
     'vsrcveq3': {
       'ru': 'Главная страница',
@@ -895,25 +890,25 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'A comment',
       'ky': 'Комментарий',
     },
-    'cw3iych7': {
-      'ru': 'Как с вами связаться ?',
-      'en': 'How to contact you?',
-      'ky': 'Сиз менен кантип байланышсам болот?',
-    },
-    '1tdmlrf9': {
-      'ru': 'Email, номер телефона',
-      'en': 'Email, phone number',
-      'ky': 'Электрондук почта, телефон номери',
-    },
     'tlnbk8o2': {
-      'ru': 'Обратная связь',
-      'en': 'Feedback',
-      'ky': 'Кайра байланыш',
+      'ru': 'Держите в курсе/готов обсудить',
+      'en': 'Keep me posted/ready to discuss',
+      'ky': 'Мени кабардар кылып туруңуз/талкуулоого даяр',
     },
     'scjyq33d': {
-      'ru': 'Готов получать обновления по ситуации',
-      'en': 'Ready to receive updates on the situation',
-      'ky': 'Кырдаал боюнча жаңыртууларды алууга даяр',
+      'ru': '',
+      'en': 'Keep me posted/ready to discuss',
+      'ky': 'Мени кабардар кылып туруңуз/талкуулоого даяр',
+    },
+    'cw3iych7': {
+      'ru': 'Телеграмм/Whatsapp/Телефон',
+      'en': 'Telegram/Whatsapp/Phone',
+      'ky': 'Telegram/Whatsapp/Телефон',
+    },
+    '1tdmlrf9': {
+      'ru': '',
+      'en': '',
+      'ky': '',
     },
     'yr24wxv9': {
       'ru': 'Изменить локацию',
@@ -944,6 +939,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': 'Жабуу',
     },
     'yajg04pq': {
+      'ru': 'Home',
+      'en': '',
+      'ky': '',
+    },
+  },
+  // Leaderboard
+  {
+    'akm9ibkg': {
+      'ru': 'Таблица лидеров',
+      'en': 'Leaderboard',
+      'ky': 'Лидер тактасы',
+    },
+    'nionjlrm': {
       'ru': 'Home',
       'en': '',
       'ky': '',
@@ -1024,6 +1032,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': 'Улантуу',
     },
   },
+  // LeaderboardUser
+  {
+    'uorthmv0': {
+      'ru': 'xp',
+      'en': 'xp',
+      'ky': 'xp',
+    },
+  },
   // Miscellaneous
   {
     'b183b2np': {
@@ -1053,6 +1069,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'vwaeltyu': {
       'ru': 'Label here...',
+      'en': '',
+      'ky': '',
+    },
+    '0wl2f4b4': {
+      'ru': 'Button',
+      'en': '',
+      'ky': '',
+    },
+    'os1wqxwr': {
+      'ru': 'Button',
       'en': '',
       'ky': '',
     },

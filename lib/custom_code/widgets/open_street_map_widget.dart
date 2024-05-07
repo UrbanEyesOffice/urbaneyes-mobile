@@ -42,7 +42,7 @@ class _OpenStreetMapWidgetState extends State<OpenStreetMapWidget> {
         options: MapOptions(
           initialCenter: latlong2.LatLng(widget.initialLocation.latitude,
               widget.initialLocation.longitude),
-          initialZoom: 13.0,
+          initialZoom: 16.0,
           onMapReady: () {
             mapController.mapEventStream.listen((evt) {
               if (evt is MapEventMoveEnd) {

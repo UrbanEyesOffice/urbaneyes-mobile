@@ -331,7 +331,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           color: Colors.transparent,
                           width: 1.0,
                         ),
-                        borderRadius: BorderRadius.circular(12.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ),
@@ -417,7 +417,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ]

@@ -119,7 +119,7 @@ class _AskPushNotificationsWidgetState
                       color: Colors.transparent,
                       width: 1.0,
                     ),
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
                 Expanded(
@@ -158,7 +158,7 @@ class _AskPushNotificationsWidgetState
                             color: Colors.transparent,
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),

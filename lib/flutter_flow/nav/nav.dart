@@ -261,6 +261,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'OnboardingVideo',
           path: '/onboardingVideo',
           builder: (context, params) => OnboardingVideoWidget(),
+        ),
+        FFRoute(
+          name: 'Leaderboard',
+          path: '/leaderboard',
+          builder: (context, params) => LeaderboardWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
@@ -454,7 +459,7 @@ class FFRoute {
                     height: 50.0,
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
+                        FlutterFlowTheme.of(context).mainGreen,
                       ),
                     ),
                   ),

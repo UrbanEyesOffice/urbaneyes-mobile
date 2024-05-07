@@ -83,7 +83,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
             height: 50.0,
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(
-                FlutterFlowTheme.of(context).primary,
+                FlutterFlowTheme.of(context).mainGreen,
               ),
             ),
           ),
@@ -166,6 +166,7 @@ final parametersBuilderMap =
         },
       ),
   'OnboardingVideo': ParameterData.none(),
+  'Leaderboard': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

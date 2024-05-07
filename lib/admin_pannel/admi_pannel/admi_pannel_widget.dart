@@ -195,7 +195,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                                       Color>(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primary,
+                                                                    .mainGreen,
                                                               ),
                                                             ),
                                                           ),
@@ -296,7 +296,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                                       Color>(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primary,
+                                                                    .mainGreen,
                                                               ),
                                                             ),
                                                           ),
@@ -366,7 +366,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                             Color>(
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .primary,
+                                                          .mainGreen,
                                                     ),
                                                   ),
                                                 ),

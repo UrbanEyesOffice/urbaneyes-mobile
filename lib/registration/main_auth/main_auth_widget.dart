@@ -434,7 +434,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(12.0),
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
                               ),

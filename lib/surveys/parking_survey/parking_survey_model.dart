@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
 import 'parking_survey_widget.dart' show ParkingSurveyWidget;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -58,12 +59,12 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
   FocusNode? commentFocusNode;
   TextEditingController? commentTextController;
   String? Function(BuildContext, String?)? commentTextControllerValidator;
+  // State field(s) for CheckboxListTile widget.
+  bool? checkboxListTileValue;
   // State field(s) for contact widget.
   FocusNode? contactFocusNode;
   TextEditingController? contactTextController;
   String? Function(BuildContext, String?)? contactTextControllerValidator;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue;
   bool isDataUploading2 = false;
   List<FFUploadedFile> uploadedLocalFiles2 = [];
   List<String> uploadedFileUrls2 = [];

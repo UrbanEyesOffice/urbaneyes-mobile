@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,8 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
       logFirebaseEvent('PARKING_SURVEY_ParkingSurvey_ON_INIT_STA');
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      logFirebaseEvent('ParkingSurvey_request_permissions');
+      await requestPermission(locationPermission);
       logFirebaseEvent('ParkingSurvey_update_page_state');
       setState(() {
         _model.selectedLocation = currentUserLocationValue != null
@@ -415,7 +418,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                             TextFormField(
@@ -487,78 +490,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               validator: _model.commentTextControllerValidator
                                   .asValidator(context),
                             ),
-                            TextFormField(
-                              controller: _model.contactTextController,
-                              focusNode: _model.contactFocusNode,
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: FFLocalizations.of(context).getText(
-                                  'cw3iych7' /* Как с вами связаться ? */,
-                                ),
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Golos',
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                hintText: FFLocalizations.of(context).getText(
-                                  '1tdmlrf9' /* Email, номер телефона */,
-                                ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFA9ABAF),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFA9ABAF),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Golos',
-                                    color: Color(0xFF06112E),
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                              maxLines: 2,
-                              minLines: 1,
-                              validator: _model.contactTextControllerValidator
-                                  .asValidator(context),
-                            ),
                             Theme(
                               data: ThemeData(
                                 checkboxTheme: CheckboxThemeData(
@@ -577,23 +508,11 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                 },
                                 title: Text(
                                   FFLocalizations.of(context).getText(
-                                    'tlnbk8o2' /* Обратная связь */,
+                                    'tlnbk8o2' /* Держите в курсе/готов обсудить */,
                                   ),
                                   textAlign: TextAlign.start,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyLarge
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                                subtitle: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'scjyq33d' /* Готов получать обновления по с... */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
                                       .override(
                                         fontFamily: 'Inter',
                                         letterSpacing: 0.0,
@@ -610,6 +529,77 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     ListTileControlAffinity.trailing,
                               ),
                             ),
+                            if (_model.checkboxListTileValue ?? true)
+                              TextFormField(
+                                controller: _model.contactTextController,
+                                focusNode: _model.contactFocusNode,
+                                autofocus: false,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText:
+                                      FFLocalizations.of(context).getText(
+                                    'cw3iych7' /* Телеграмм/Whatsapp/Телефон */,
+                                  ),
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFA9ABAF),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFA9ABAF),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Golos',
+                                      color: Color(0xFF06112E),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                                maxLines: 2,
+                                minLines: 1,
+                                validator: _model.contactTextControllerValidator
+                                    .asValidator(context),
+                              ),
                             Text(
                               valueOrDefault<String>(
                                 _model.selectedLocationTitle,
@@ -694,7 +684,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                             FFButtonWidget(
@@ -801,7 +791,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                           ].divide(SizedBox(height: 16.0)),

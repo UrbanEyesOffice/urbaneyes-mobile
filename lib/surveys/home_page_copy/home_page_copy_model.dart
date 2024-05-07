@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,18 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
   void updateShuffledSurveysAtIndex(
           int index, Function(SurveysRecord) updateFn) =>
       shuffledSurveys[index] = updateFn(shuffledSurveys[index]);
+
+  List<SurveysRecord> featuredSurveys = [];
+  void addToFeaturedSurveys(SurveysRecord item) => featuredSurveys.add(item);
+  void removeFromFeaturedSurveys(SurveysRecord item) =>
+      featuredSurveys.remove(item);
+  void removeAtIndexFromFeaturedSurveys(int index) =>
+      featuredSurveys.removeAt(index);
+  void insertAtIndexInFeaturedSurveys(int index, SurveysRecord item) =>
+      featuredSurveys.insert(index, item);
+  void updateFeaturedSurveysAtIndex(
+          int index, Function(SurveysRecord) updateFn) =>
+      featuredSurveys[index] = updateFn(featuredSurveys[index]);
 
   ///  State fields for stateful widgets in this page.
 

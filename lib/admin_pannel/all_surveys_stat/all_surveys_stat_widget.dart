@@ -86,7 +86,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                             height: 50.0,
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
+                                FlutterFlowTheme.of(context).mainGreen,
                               ),
                             ),
                           ),
@@ -133,7 +133,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                           valueColor:
                                               AlwaysStoppedAnimation<Color>(
                                             FlutterFlowTheme.of(context)
-                                                .primary,
+                                                .mainGreen,
                                           ),
                                         ),
                                       ),

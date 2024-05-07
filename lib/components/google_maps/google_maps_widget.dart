@@ -85,7 +85,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
             height: 50.0,
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(
-                FlutterFlowTheme.of(context).primary,
+                FlutterFlowTheme.of(context).mainGreen,
               ),
             ),
           ),
@@ -231,7 +231,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                               color: Colors.transparent,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                         if ((_model.selectedLocationTitle != null &&
@@ -302,7 +302,7 @@ class _GoogleMapsWidgetState extends State<GoogleMapsWidget> {
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
                       ].divide(SizedBox(height: 8.0)),

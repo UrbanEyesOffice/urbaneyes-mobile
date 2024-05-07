@@ -71,6 +71,16 @@ class SurveysRecord extends FirestoreRecord {
   bool get testersOnly => _testersOnly ?? false;
   bool hasTestersOnly() => _testersOnly != null;
 
+  // "featured" field.
+  bool? _featured;
+  bool get featured => _featured ?? false;
+  bool hasFeatured() => _featured != null;
+
+  // "icon" field.
+  String? _icon;
+  String get icon => _icon ?? '';
+  bool hasIcon() => _icon != null;
+
   void _initializeFields() {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _name = snapshotData['name'] as String?;
@@ -83,6 +93,8 @@ class SurveysRecord extends FirestoreRecord {
     _enabled = snapshotData['enabled'] as bool?;
     _surveyType = castToType<int>(snapshotData['survey_type']);
     _testersOnly = snapshotData['testers_only'] as bool?;
+    _featured = snapshotData['featured'] as bool?;
+    _icon = snapshotData['icon'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -131,6 +143,8 @@ Map<String, dynamic> createSurveysRecordData({
   bool? enabled,
   int? surveyType,
   bool? testersOnly,
+  bool? featured,
+  String? icon,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -145,6 +159,8 @@ Map<String, dynamic> createSurveysRecordData({
       'enabled': enabled,
       'survey_type': surveyType,
       'testers_only': testersOnly,
+      'featured': featured,
+      'icon': icon,
     }.withoutNulls,
   );
 
@@ -166,7 +182,9 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e1?.descriptionKg == e2?.descriptionKg &&
         e1?.enabled == e2?.enabled &&
         e1?.surveyType == e2?.surveyType &&
-        e1?.testersOnly == e2?.testersOnly;
+        e1?.testersOnly == e2?.testersOnly &&
+        e1?.featured == e2?.featured &&
+        e1?.icon == e2?.icon;
   }
 
   @override
@@ -181,7 +199,9 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e?.descriptionKg,
         e?.enabled,
         e?.surveyType,
-        e?.testersOnly
+        e?.testersOnly,
+        e?.featured,
+        e?.icon
       ]);
 
   @override

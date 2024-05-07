@@ -148,7 +148,7 @@ class _OnboardingVideoWidgetState extends State<OnboardingVideoWidget>
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ).animateOnActionTrigger(
                     animationsMap['buttonOnActionTriggerAnimation']!,

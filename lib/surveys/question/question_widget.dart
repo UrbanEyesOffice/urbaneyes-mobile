@@ -310,7 +310,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                         color: Color(0xFF53B153),
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(12.0),
+                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
                                 );
@@ -439,7 +439,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               color: Colors.transparent,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(8.0),
                             disabledColor:
                                 FlutterFlowTheme.of(context).secondaryText,
                             disabledTextColor:
@@ -540,7 +540,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               color: Colors.transparent,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(8.0),
                             disabledColor:
                                 FlutterFlowTheme.of(context).secondaryText,
                             disabledTextColor:
@@ -611,7 +611,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                             color: Colors.transparent,
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ].divide(SizedBox(height: 16.0)),

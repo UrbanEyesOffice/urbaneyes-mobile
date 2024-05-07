@@ -37,3 +37,4 @@ export '/surveys/parking_survey/parking_survey_widget.dart'
     show ParkingSurveyWidget;
 export '/registration/onboarding_video/onboarding_video_widget.dart'
     show OnboardingVideoWidget;
+export '/leaderboard/leaderboard_widget.dart' show LeaderboardWidget;
