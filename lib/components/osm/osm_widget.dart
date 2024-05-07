@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -199,33 +198,8 @@ class _OsmWidgetState extends State<OsmWidget> {
                           onPressed: () async {
                             logFirebaseEvent(
                                 'OSM_COMP_МОЕ_МЕСТОПОЛОЖЕНИЕ_BTN_ON_TAP');
-                            logFirebaseEvent('Button_request_permissions');
-                            await requestPermission(locationPermission);
                             logFirebaseEvent('Button_custom_action');
-                            _model.hasLocationPermission2 =
-                                await actions.handleLocationPermission();
-                            if (_model.hasLocationPermission2!) {
-                              logFirebaseEvent('Button_custom_action');
-                              _model.currentPosition =
-                                  await actions.getCurrentPosition(
-                                true,
-                              );
-                              logFirebaseEvent('Button_custom_action');
-                              _model.currentAddress =
-                                  await actions.getAddressFromLatLngGoogleMaps(
-                                _model.currentPosition,
-                                FFLocalizations.of(context).languageCode,
-                              );
-                              logFirebaseEvent('Button_update_component_state');
-                              setState(() {
-                                _model.localLocation = _model.currentPosition;
-                                _model.localLocationTitle =
-                                    _model.currentAddress;
-                                _model.localHasLocationPermission = true;
-                              });
-                            }
-
-                            setState(() {});
+                            await actions.openAppSettingsAction();
                           },
                           text: FFLocalizations.of(context).getText(
                             'nyi4fimr' /* Мое местоположение */,

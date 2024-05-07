@@ -9,3 +9,4 @@ export 'year_into_date.dart' show yearIntoDate;
 export 'merge_uploaded_file_lists.dart' show mergeUploadedFileLists;
 export 'handle_location_permission.dart' show handleLocationPermission;
 export 'get_current_position.dart' show getCurrentPosition;
+export 'open_app_settings_action.dart' show openAppSettingsAction;

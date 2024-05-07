@@ -20,7 +20,9 @@ Future<bool> handleLocationPermission() async {
   if (!serviceEnabled) {
     return false;
   }
-  permission = await Geolocator.checkPermission();
+  permission = await Geolocator.checkPermission().catchError((e) {
+    return LocationPermission.deniedForever;
+  });
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
