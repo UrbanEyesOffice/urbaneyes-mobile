@@ -58,7 +58,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
       logFirebaseEvent('ParkingSurvey_update_page_state');
       setState(() {
         _model.selectedLocation = _model.currentPosition;
-        _model.isLoading = true;
+        _model.isLoading = false;
       });
       logFirebaseEvent('ParkingSurvey_custom_action');
       _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(
@@ -1130,7 +1130,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                         .around(SizedBox(height: 16.0)),
                   ),
                 ),
-              if (_model.isLoading)
+              if (false)
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Lottie.asset(

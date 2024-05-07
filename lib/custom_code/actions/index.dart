@@ -7,7 +7,5 @@ export 'shuffle_surveys.dart' show shuffleSurveys;
 export 'is_tester.dart' show isTester;
 export 'year_into_date.dart' show yearIntoDate;
 export 'merge_uploaded_file_lists.dart' show mergeUploadedFileLists;
-export 'check_location_permission_status.dart'
-    show checkLocationPermissionStatus;
 export 'handle_location_permission.dart' show handleLocationPermission;
 export 'get_current_position.dart' show getCurrentPosition;
