@@ -768,7 +768,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
-                          elevation: 3.0,
+                          elevation: 0.0,
                           borderSide: BorderSide(
                             color: Colors.transparent,
                             width: 1.0,

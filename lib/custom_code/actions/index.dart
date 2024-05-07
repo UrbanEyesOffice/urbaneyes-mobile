@@ -6,3 +6,4 @@ export 'filter_rewards_by_user_id.dart' show filterRewardsByUserId;
 export 'shuffle_surveys.dart' show shuffleSurveys;
 export 'is_tester.dart' show isTester;
 export 'year_into_date.dart' show yearIntoDate;
+export 'merge_uploaded_file_lists.dart' show mergeUploadedFileLists;

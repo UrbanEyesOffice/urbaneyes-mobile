@@ -875,10 +875,25 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // ParkingSurvey
   {
-    '9n9xjxb4': {
-      'ru': 'Загрузить фото',
-      'en': 'Upload a photo',
-      'ky': 'Сүрөт жүктөө',
+    'k2wz1pqr': {
+      'ru': 'Сфотографировать',
+      'en': 'Take a picture',
+      'ky': 'Сүрөткө тартуу үчүн',
+    },
+    'kzr8fd76': {
+      'ru': 'Добавить из галлереи',
+      'en': 'Add from gallery',
+      'ky': 'Галереядан кошуу',
+    },
+    'tj6hu4a7': {
+      'ru': '',
+      'en': '',
+      'ky': '',
+    },
+    'b8zcm7at': {
+      'ru': '',
+      'en': '',
+      'ky': '',
     },
     '5buym29x': {
       'ru': '',
@@ -890,13 +905,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'A comment',
       'ky': 'Комментарий',
     },
-    'tlnbk8o2': {
+    'ao976zzq': {
       'ru': 'Держите в курсе/готов обсудить',
-      'en': 'Keep me posted/ready to discuss',
-      'ky': 'Мени кабардар кылып туруңуз/талкуулоого даяр',
-    },
-    'scjyq33d': {
-      'ru': '',
       'en': 'Keep me posted/ready to discuss',
       'ky': 'Мени кабардар кылып туруңуз/талкуулоого даяр',
     },
@@ -910,20 +920,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
       'ky': '',
     },
-    'yr24wxv9': {
-      'ru': 'Изменить локацию',
-      'en': 'Change location',
-      'ky': 'Жайгашкан жерди өзгөртүү',
-    },
     'ck0vn711': {
-      'ru': 'Сохранить',
-      'en': 'Save',
-      'ky': 'Сактоо',
-    },
-    'i7dw9ydq': {
-      'ru': 'Парковка',
-      'en': 'Parking',
-      'ky': 'Паркинг',
+      'ru': 'Отправить',
+      'en': 'Send',
+      'ky': 'Жөнөтүү',
     },
     'yzu4r1jy': {
       'ru': 'Home',

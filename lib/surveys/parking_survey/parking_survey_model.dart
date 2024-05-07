@@ -16,6 +16,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -55,19 +56,33 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  bool isDataUploading2 = false;
+  List<FFUploadedFile> uploadedLocalFiles2 = [];
+
+  // Stores action output result for [Custom Action - mergeUploadedFileLists] action in Button widget.
+  List<FFUploadedFile>? newLocalImages;
+  bool isDataUploading3 = false;
+  FFUploadedFile uploadedLocalFile3 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+
+  bool isDataUploading4 = false;
+  List<FFUploadedFile> uploadedLocalFiles4 = [];
+
+  // Stores action output result for [Custom Action - mergeUploadedFileLists] action in Button widget.
+  List<FFUploadedFile>? newLocalImages2;
   // State field(s) for comment widget.
   FocusNode? commentFocusNode;
   TextEditingController? commentTextController;
   String? Function(BuildContext, String?)? commentTextControllerValidator;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue;
+  // State field(s) for Checkbox widget.
+  bool? checkboxValue;
   // State field(s) for contact widget.
   FocusNode? contactFocusNode;
   TextEditingController? contactTextController;
   String? Function(BuildContext, String?)? contactTextControllerValidator;
-  bool isDataUploading2 = false;
-  List<FFUploadedFile> uploadedLocalFiles2 = [];
-  List<String> uploadedFileUrls2 = [];
+  bool isDataUploading5 = false;
+  List<FFUploadedFile> uploadedLocalFiles5 = [];
+  List<String> uploadedFileUrls5 = [];
 
   @override
   void initState(BuildContext context) {}

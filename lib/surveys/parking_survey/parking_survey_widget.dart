@@ -15,6 +15,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -137,8 +138,10 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
               IconThemeData(color: FlutterFlowTheme.of(context).mainGreen),
           automaticallyImplyLeading: true,
           title: Text(
-            FFLocalizations.of(context).getText(
-              'i7dw9ydq' /* Парковка */,
+            FFLocalizations.of(context).getVariableText(
+              ruText: widget.survey?.name,
+              enText: widget.survey?.nameEn,
+              kyText: widget.survey?.nameKg,
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Inter',
@@ -162,171 +165,656 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Builder(
-                        builder: (context) {
-                          final carouselImages = _model.localImages.toList();
-                          if (carouselImages.isEmpty) {
-                            return EmptyPhotosWidget();
-                          }
-                          return Container(
-                            width: double.infinity,
-                            height: 200.0,
-                            child: CarouselSlider.builder(
-                              itemCount: carouselImages.length,
-                              itemBuilder: (context, carouselImagesIndex, _) {
-                                final carouselImagesItem =
-                                    carouselImages[carouselImagesIndex];
-                                return Stack(
-                                  children: [
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'PARKING_SURVEY_Image_8jm1fhg2_ON_TAP');
-                                        logFirebaseEvent('Image_expand_image');
-                                        await Navigator.push(
-                                          context,
-                                          PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: FlutterFlowExpandedImageView(
-                                              image: Image.memory(
-                                                carouselImagesItem.bytes ??
-                                                    Uint8List.fromList([]),
-                                                fit: BoxFit.contain,
-                                              ),
-                                              allowRotation: false,
-                                              tag: 'imageTag',
-                                              useHeroAnimation: true,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: 'imageTag',
-                                        transitionOnUserGestures: true,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          child: Image.memory(
-                                            carouselImagesItem.bytes ??
-                                                Uint8List.fromList([]),
-                                            width: 300.0,
-                                            height: 200.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(1.0, -1.0),
-                                      child: FlutterFlowIconButton(
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .noColor,
-                                        borderRadius: 20.0,
-                                        buttonSize: 40.0,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .noColor,
-                                        icon: Icon(
-                                          Icons.remove_circle,
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
-                                          size: 24.0,
-                                        ),
-                                        onPressed: () async {
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'PARKING_SURVEY_ИЗМЕНИТЬ_ЛОКАЦИЮ_BTN_ON_T');
+                            logFirebaseEvent('Button_bottom_sheet');
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return GestureDetector(
+                                  onTap: () =>
+                                      _model.unfocusNode.canRequestFocus
+                                          ? FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode)
+                                          : FocusScope.of(context).unfocus(),
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.7,
+                                      child: OsmWidget(
+                                        initialLocation:
+                                            _model.selectedLocation!,
+                                        initialLocationTitle:
+                                            _model.selectedLocationTitle,
+                                        onSelectLocation:
+                                            (location, locationTitle) async {
                                           logFirebaseEvent(
-                                              'PARKING_SURVEY_remove_circle_ICN_ON_TAP');
-                                          logFirebaseEvent(
-                                              'IconButton_alert_dialog');
-                                          var confirmDialogResponse =
-                                              await showDialog<bool>(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        title: Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getVariableText(
-                                                          ruText:
-                                                              'Удалить фото?',
-                                                          enText:
-                                                              'Delete photo?',
-                                                          kyText:
-                                                              'Сүрөт жок кылынсынбы?',
-                                                        )),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext,
-                                                                    false),
-                                                            child: Text(
-                                                                FFLocalizations.of(
-                                                                        context)
-                                                                    .getVariableText(
-                                                              ruText: 'Отмена',
-                                                              enText: 'Cancel',
-                                                              kyText: 'Жок',
-                                                            )),
-                                                          ),
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext,
-                                                                    true),
-                                                            child: Text(
-                                                                FFLocalizations.of(
-                                                                        context)
-                                                                    .getVariableText(
-                                                              ruText: 'Удалить',
-                                                              enText: 'Delete',
-                                                              kyText:
-                                                                  'Жок кылуу',
-                                                            )),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  ) ??
-                                                  false;
-                                          if (confirmDialogResponse) {
-                                            logFirebaseEvent(
-                                                'IconButton_update_page_state');
-                                            setState(() {
-                                              _model
-                                                  .removeAtIndexFromLocalImages(
-                                                      carouselImagesIndex);
-                                            });
-                                          }
+                                              '_update_page_state');
+                                          setState(() {
+                                            _model.selectedLocation = location;
+                                            _model.selectedLocationTitle =
+                                                locationTitle!;
+                                          });
                                         },
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 );
                               },
-                              carouselController: _model.carouselController ??=
-                                  CarouselController(),
-                              options: CarouselOptions(
-                                initialPage: min(1, carouselImages.length - 1),
-                                viewportFraction: 0.5,
-                                disableCenter: true,
-                                enlargeCenterPage: true,
-                                enlargeFactor: 0.25,
-                                enableInfiniteScroll: false,
-                                scrollDirection: Axis.horizontal,
-                                autoPlay: false,
-                                onPageChanged: (index, _) =>
-                                    _model.carouselCurrentIndex = index,
-                              ),
+                            ).then((value) => safeSetState(() {}));
+                          },
+                          text: _model.selectedLocationTitle,
+                          icon: Icon(
+                            Icons.edit,
+                            size: 15.0,
+                          ),
+                          options: FFButtonOptions(
+                            height: 36.0,
+                            padding: EdgeInsets.all(0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0xFFEBEBEB),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Golos',
+                                  color: Color(0xFF57636B),
+                                  fontSize: 12.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.normal,
+                                  useGoogleFonts: false,
+                                ),
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
                             ),
-                          );
-                        },
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
                       ),
+                      if (_model.localImages.isNotEmpty)
+                        Builder(
+                          builder: (context) {
+                            final carouselImages = _model.localImages.toList();
+                            if (carouselImages.isEmpty) {
+                              return EmptyPhotosWidget();
+                            }
+                            return Container(
+                              width: double.infinity,
+                              height: 200.0,
+                              child: CarouselSlider.builder(
+                                itemCount: carouselImages.length,
+                                itemBuilder: (context, carouselImagesIndex, _) {
+                                  final carouselImagesItem =
+                                      carouselImages[carouselImagesIndex];
+                                  return Stack(
+                                    children: [
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'PARKING_SURVEY_Image_8jm1fhg2_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Image_expand_image');
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child:
+                                                  FlutterFlowExpandedImageView(
+                                                image: Image.memory(
+                                                  carouselImagesItem.bytes ??
+                                                      Uint8List.fromList([]),
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                allowRotation: false,
+                                                tag: 'imageTag',
+                                                useHeroAnimation: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: 'imageTag',
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.memory(
+                                              carouselImagesItem.bytes ??
+                                                  Uint8List.fromList([]),
+                                              width: 300.0,
+                                              height: 200.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(1.0, -1.0),
+                                        child: FlutterFlowIconButton(
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .noColor,
+                                          borderRadius: 20.0,
+                                          buttonSize: 40.0,
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .noColor,
+                                          icon: Icon(
+                                            Icons.remove_circle,
+                                            color: FlutterFlowTheme.of(context)
+                                                .tertiary,
+                                            size: 24.0,
+                                          ),
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'PARKING_SURVEY_remove_circle_ICN_ON_TAP');
+                                            logFirebaseEvent(
+                                                'IconButton_alert_dialog');
+                                            var confirmDialogResponse =
+                                                await showDialog<bool>(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getVariableText(
+                                                            ruText:
+                                                                'Удалить фото?',
+                                                            enText:
+                                                                'Delete photo?',
+                                                            kyText:
+                                                                'Сүрөт жок кылынсынбы?',
+                                                          )),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      false),
+                                                              child: Text(
+                                                                  FFLocalizations.of(
+                                                                          context)
+                                                                      .getVariableText(
+                                                                ruText:
+                                                                    'Отмена',
+                                                                enText:
+                                                                    'Cancel',
+                                                                kyText: 'Жок',
+                                                              )),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      true),
+                                                              child: Text(
+                                                                  FFLocalizations.of(
+                                                                          context)
+                                                                      .getVariableText(
+                                                                ruText:
+                                                                    'Удалить',
+                                                                enText:
+                                                                    'Delete',
+                                                                kyText:
+                                                                    'Жок кылуу',
+                                                              )),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    ) ??
+                                                    false;
+                                            if (confirmDialogResponse) {
+                                              logFirebaseEvent(
+                                                  'IconButton_update_page_state');
+                                              setState(() {
+                                                _model
+                                                    .removeAtIndexFromLocalImages(
+                                                        carouselImagesIndex);
+                                              });
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                                carouselController:
+                                    _model.carouselController ??=
+                                        CarouselController(),
+                                options: CarouselOptions(
+                                  initialPage:
+                                      min(1, carouselImages.length - 1),
+                                  viewportFraction: 0.5,
+                                  disableCenter: true,
+                                  enlargeCenterPage: true,
+                                  enlargeFactor: 0.25,
+                                  enableInfiniteScroll: false,
+                                  scrollDirection: Axis.horizontal,
+                                  autoPlay: false,
+                                  onPageChanged: (index, _) =>
+                                      _model.carouselCurrentIndex = index,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      if (!(_model.localImages.isNotEmpty))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              FFButtonWidget(
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'PARKING_SURVEY_СФОТОГРАФИРОВАТЬ_BTN_ON_T');
+                                  logFirebaseEvent(
+                                      'Button_store_media_for_upload');
+                                  final selectedMedia = await selectMedia(
+                                    maxWidth: 1024.00,
+                                    maxHeight: 1024.00,
+                                    imageQuality: 100,
+                                    multiImage: false,
+                                  );
+                                  if (selectedMedia != null &&
+                                      selectedMedia.every((m) =>
+                                          validateFileFormat(
+                                              m.storagePath, context))) {
+                                    setState(
+                                        () => _model.isDataUploading1 = true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
+
+                                    try {
+                                      selectedUploadedFiles = selectedMedia
+                                          .map((m) => FFUploadedFile(
+                                                name: m.storagePath
+                                                    .split('/')
+                                                    .last,
+                                                bytes: m.bytes,
+                                                height: m.dimensions?.height,
+                                                width: m.dimensions?.width,
+                                                blurHash: m.blurHash,
+                                              ))
+                                          .toList();
+                                    } finally {
+                                      _model.isDataUploading1 = false;
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                        selectedMedia.length) {
+                                      setState(() {
+                                        _model.uploadedLocalFile1 =
+                                            selectedUploadedFiles.first;
+                                      });
+                                    } else {
+                                      setState(() {});
+                                      return;
+                                    }
+                                  }
+
+                                  if (_model.uploadedLocalFile1 != null &&
+                                      (_model.uploadedLocalFile1.bytes
+                                              ?.isNotEmpty ??
+                                          false)) {
+                                    logFirebaseEvent(
+                                        'Button_update_page_state');
+                                    setState(() {
+                                      _model.addToLocalImages(
+                                          _model.uploadedLocalFile1);
+                                    });
+                                  }
+                                },
+                                text: FFLocalizations.of(context).getText(
+                                  'k2wz1pqr' /* Сфотографировать */,
+                                ),
+                                icon: FaIcon(
+                                  FontAwesomeIcons.camera,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 330.0,
+                                  height: 48.0,
+                                  padding: EdgeInsets.all(0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: Color(0xFFCEEFCD),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Color(0xFF0A8D09),
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  elevation: 0.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                              FFButtonWidget(
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'PARKING_SURVEY_ДОБАВИТЬ_ИЗ_ГАЛЛЕРЕИ_BTN_');
+                                  logFirebaseEvent(
+                                      'Button_store_media_for_upload');
+                                  final selectedMedia = await selectMedia(
+                                    maxWidth: 1024.00,
+                                    maxHeight: 1024.00,
+                                    imageQuality: 100,
+                                    mediaSource: MediaSource.photoGallery,
+                                    multiImage: true,
+                                  );
+                                  if (selectedMedia != null &&
+                                      selectedMedia.every((m) =>
+                                          validateFileFormat(
+                                              m.storagePath, context))) {
+                                    setState(
+                                        () => _model.isDataUploading2 = true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
+
+                                    try {
+                                      selectedUploadedFiles = selectedMedia
+                                          .map((m) => FFUploadedFile(
+                                                name: m.storagePath
+                                                    .split('/')
+                                                    .last,
+                                                bytes: m.bytes,
+                                                height: m.dimensions?.height,
+                                                width: m.dimensions?.width,
+                                                blurHash: m.blurHash,
+                                              ))
+                                          .toList();
+                                    } finally {
+                                      _model.isDataUploading2 = false;
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                        selectedMedia.length) {
+                                      setState(() {
+                                        _model.uploadedLocalFiles2 =
+                                            selectedUploadedFiles;
+                                      });
+                                    } else {
+                                      setState(() {});
+                                      return;
+                                    }
+                                  }
+
+                                  if (_model.uploadedLocalFiles2.isNotEmpty) {
+                                    logFirebaseEvent('Button_custom_action');
+                                    _model.newLocalImages =
+                                        await actions.mergeUploadedFileLists(
+                                      _model.localImages.toList(),
+                                      _model.uploadedLocalFiles2.toList(),
+                                    );
+                                    logFirebaseEvent(
+                                        'Button_update_page_state');
+                                    setState(() {
+                                      _model.localImages = _model
+                                          .newLocalImages!
+                                          .toList()
+                                          .cast<FFUploadedFile>();
+                                    });
+                                  }
+
+                                  setState(() {});
+                                },
+                                text: FFLocalizations.of(context).getText(
+                                  'kzr8fd76' /* Добавить из галлереи */,
+                                ),
+                                icon: FaIcon(
+                                  FontAwesomeIcons.images,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 330.0,
+                                  height: 48.0,
+                                  padding: EdgeInsets.all(0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: Color(0xFFCEEFCD),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Color(0xFF0A8D09),
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  elevation: 0.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ].divide(SizedBox(height: 16.0)),
+                          ),
+                        ),
+                      if (_model.localImages.isNotEmpty)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'PARKING_SURVEY_PAGE__BTN_ON_TAP');
+                                    logFirebaseEvent(
+                                        'Button_store_media_for_upload');
+                                    final selectedMedia = await selectMedia(
+                                      maxWidth: 1024.00,
+                                      maxHeight: 1024.00,
+                                      imageQuality: 100,
+                                      multiImage: false,
+                                    );
+                                    if (selectedMedia != null &&
+                                        selectedMedia.every((m) =>
+                                            validateFileFormat(
+                                                m.storagePath, context))) {
+                                      setState(
+                                          () => _model.isDataUploading3 = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
+
+                                      try {
+                                        selectedUploadedFiles = selectedMedia
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                  height: m.dimensions?.height,
+                                                  width: m.dimensions?.width,
+                                                  blurHash: m.blurHash,
+                                                ))
+                                            .toList();
+                                      } finally {
+                                        _model.isDataUploading3 = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                          selectedMedia.length) {
+                                        setState(() {
+                                          _model.uploadedLocalFile3 =
+                                              selectedUploadedFiles.first;
+                                        });
+                                      } else {
+                                        setState(() {});
+                                        return;
+                                      }
+                                    }
+
+                                    if (_model.uploadedLocalFile3 != null &&
+                                        (_model.uploadedLocalFile3.bytes
+                                                ?.isNotEmpty ??
+                                            false)) {
+                                      logFirebaseEvent(
+                                          'Button_update_page_state');
+                                      setState(() {
+                                        _model.addToLocalImages(
+                                            _model.uploadedLocalFile3);
+                                      });
+                                    }
+                                  },
+                                  text: FFLocalizations.of(context).getText(
+                                    'tj6hu4a7' /*  */,
+                                  ),
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.camera,
+                                  ),
+                                  options: FFButtonOptions(
+                                    height: 48.0,
+                                    padding: EdgeInsets.all(0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0xFFCEEFCD),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Golos',
+                                          color: Color(0xFF0A8D09),
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts: false,
+                                        ),
+                                    elevation: 0.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'PARKING_SURVEY_PAGE__BTN_ON_TAP');
+                                    logFirebaseEvent(
+                                        'Button_store_media_for_upload');
+                                    final selectedMedia = await selectMedia(
+                                      maxWidth: 1024.00,
+                                      maxHeight: 1024.00,
+                                      imageQuality: 100,
+                                      mediaSource: MediaSource.photoGallery,
+                                      multiImage: true,
+                                    );
+                                    if (selectedMedia != null &&
+                                        selectedMedia.every((m) =>
+                                            validateFileFormat(
+                                                m.storagePath, context))) {
+                                      setState(
+                                          () => _model.isDataUploading4 = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
+
+                                      try {
+                                        selectedUploadedFiles = selectedMedia
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                  height: m.dimensions?.height,
+                                                  width: m.dimensions?.width,
+                                                  blurHash: m.blurHash,
+                                                ))
+                                            .toList();
+                                      } finally {
+                                        _model.isDataUploading4 = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                          selectedMedia.length) {
+                                        setState(() {
+                                          _model.uploadedLocalFiles4 =
+                                              selectedUploadedFiles;
+                                        });
+                                      } else {
+                                        setState(() {});
+                                        return;
+                                      }
+                                    }
+
+                                    if (_model.uploadedLocalFiles4.isNotEmpty) {
+                                      logFirebaseEvent('Button_custom_action');
+                                      _model.newLocalImages2 =
+                                          await actions.mergeUploadedFileLists(
+                                        _model.localImages.toList(),
+                                        _model.uploadedLocalFiles4.toList(),
+                                      );
+                                      logFirebaseEvent(
+                                          'Button_update_page_state');
+                                      setState(() {
+                                        _model.localImages = _model
+                                            .newLocalImages2!
+                                            .toList()
+                                            .cast<FFUploadedFile>();
+                                      });
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  text: FFLocalizations.of(context).getText(
+                                    'b8zcm7at' /*  */,
+                                  ),
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.images,
+                                  ),
+                                  options: FFButtonOptions(
+                                    height: 48.0,
+                                    padding: EdgeInsets.all(0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0xFFCEEFCD),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Golos',
+                                          color: Color(0xFF0A8D09),
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts: false,
+                                        ),
+                                    elevation: 0.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                              ),
+                            ].divide(SizedBox(width: 16.0)),
+                          ),
+                        ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             32.0, 0.0, 32.0, 0.0),
@@ -334,93 +822,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            FFButtonWidget(
-                              onPressed: () async {
-                                logFirebaseEvent(
-                                    'PARKING_SURVEY_PAGE_upload_media_ON_TAP');
-                                logFirebaseEvent(
-                                    'upload_media_store_media_for_upload');
-                                final selectedMedia =
-                                    await selectMediaWithSourceBottomSheet(
-                                  context: context,
-                                  maxWidth: 500.00,
-                                  maxHeight: 500.00,
-                                  imageQuality: 100,
-                                  allowPhoto: true,
-                                );
-                                if (selectedMedia != null &&
-                                    selectedMedia.every((m) =>
-                                        validateFileFormat(
-                                            m.storagePath, context))) {
-                                  setState(
-                                      () => _model.isDataUploading1 = true);
-                                  var selectedUploadedFiles =
-                                      <FFUploadedFile>[];
-
-                                  try {
-                                    selectedUploadedFiles = selectedMedia
-                                        .map((m) => FFUploadedFile(
-                                              name:
-                                                  m.storagePath.split('/').last,
-                                              bytes: m.bytes,
-                                              height: m.dimensions?.height,
-                                              width: m.dimensions?.width,
-                                              blurHash: m.blurHash,
-                                            ))
-                                        .toList();
-                                  } finally {
-                                    _model.isDataUploading1 = false;
-                                  }
-                                  if (selectedUploadedFiles.length ==
-                                      selectedMedia.length) {
-                                    setState(() {
-                                      _model.uploadedLocalFile1 =
-                                          selectedUploadedFiles.first;
-                                    });
-                                  } else {
-                                    setState(() {});
-                                    return;
-                                  }
-                                }
-
-                                if (_model.uploadedLocalFile1 != null &&
-                                    (_model.uploadedLocalFile1.bytes
-                                            ?.isNotEmpty ??
-                                        false)) {
-                                  logFirebaseEvent(
-                                      'upload_media_update_page_state');
-                                  setState(() {
-                                    _model.addToLocalImages(
-                                        _model.uploadedLocalFile1);
-                                  });
-                                }
-                              },
-                              text: FFLocalizations.of(context).getText(
-                                '9n9xjxb4' /* Загрузить фото */,
-                              ),
-                              options: FFButtonOptions(
-                                width: 330.0,
-                                height: 48.0,
-                                padding: EdgeInsets.all(0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF53B153),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Golos',
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
                             TextFormField(
                               controller: _model.commentTextController,
                               focusNode: _model.commentFocusNode,
@@ -490,46 +891,58 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               validator: _model.commentTextControllerValidator
                                   .asValidator(context),
                             ),
-                            Theme(
-                              data: ThemeData(
-                                checkboxTheme: CheckboxThemeData(
-                                  visualDensity: VisualDensity.compact,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                ),
-                                unselectedWidgetColor:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                              ),
-                              child: CheckboxListTile(
-                                value: _model.checkboxListTileValue ??= true,
-                                onChanged: (newValue) async {
-                                  setState(() =>
-                                      _model.checkboxListTileValue = newValue!);
-                                },
-                                title: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'tlnbk8o2' /* Держите в курсе/готов обсудить */,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Theme(
+                                  data: ThemeData(
+                                    checkboxTheme: CheckboxThemeData(
+                                      visualDensity: VisualDensity.compact,
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                      ),
+                                    ),
+                                    unselectedWidgetColor:
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryText,
                                   ),
-                                  textAlign: TextAlign.start,
+                                  child: Checkbox(
+                                    value: _model.checkboxValue ??= true,
+                                    onChanged: (newValue) async {
+                                      setState(() =>
+                                          _model.checkboxValue = newValue!);
+                                    },
+                                    side: BorderSide(
+                                      width: 2,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                    ),
+                                    activeColor:
+                                        FlutterFlowTheme.of(context).mainGreen,
+                                    checkColor:
+                                        FlutterFlowTheme.of(context).info,
+                                  ),
+                                ),
+                                Text(
+                                  FFLocalizations.of(context).getText(
+                                    'ao976zzq' /* Держите в курсе/готов обсудить */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
-                                      .bodyLarge
+                                      .bodyMedium
                                       .override(
                                         fontFamily: 'Inter',
+                                        fontSize: 16.0,
                                         letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
                                         useGoogleFonts: false,
                                       ),
                                 ),
-                                tileColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                activeColor:
-                                    FlutterFlowTheme.of(context).mainGreen,
-                                checkColor: FlutterFlowTheme.of(context).info,
-                                dense: false,
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                              ),
+                              ],
                             ),
-                            if (_model.checkboxListTileValue ?? true)
+                            if (_model.checkboxValue ?? true)
                               TextFormField(
                                 controller: _model.contactTextController,
                                 focusNode: _model.contactFocusNode,
@@ -600,93 +1013,6 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                 validator: _model.contactTextControllerValidator
                                     .asValidator(context),
                               ),
-                            Text(
-                              valueOrDefault<String>(
-                                _model.selectedLocationTitle,
-                                '-',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                            FFButtonWidget(
-                              onPressed: () async {
-                                logFirebaseEvent(
-                                    'PARKING_SURVEY_ИЗМЕНИТЬ_ЛОКАЦИЮ_BTN_ON_T');
-                                logFirebaseEvent('Button_bottom_sheet');
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return GestureDetector(
-                                      onTap: () => _model
-                                              .unfocusNode.canRequestFocus
-                                          ? FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode)
-                                          : FocusScope.of(context).unfocus(),
-                                      child: Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: Container(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              0.7,
-                                          child: OsmWidget(
-                                            initialLocation:
-                                                _model.selectedLocation!,
-                                            initialLocationTitle:
-                                                _model.selectedLocationTitle,
-                                            onSelectLocation: (location,
-                                                locationTitle) async {
-                                              logFirebaseEvent(
-                                                  '_update_page_state');
-                                              setState(() {
-                                                _model.selectedLocation =
-                                                    location;
-                                                _model.selectedLocationTitle =
-                                                    locationTitle!;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => safeSetState(() {}));
-                              },
-                              text: FFLocalizations.of(context).getText(
-                                'yr24wxv9' /* Изменить локацию */,
-                              ),
-                              options: FFButtonOptions(
-                                width: 330.0,
-                                height: 48.0,
-                                padding: EdgeInsets.all(0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFFCEEFCD),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Golos',
-                                      color: Color(0xFF0A8D09),
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
                             FFButtonWidget(
                               onPressed: () async {
                                 logFirebaseEvent(
@@ -695,7 +1021,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     'save_upload_media_to_firebase');
                                 {
                                   setState(
-                                      () => _model.isDataUploading2 = true);
+                                      () => _model.isDataUploading5 = true);
                                   var selectedUploadedFiles =
                                       <FFUploadedFile>[];
                                   var selectedMedia = <SelectedFile>[];
@@ -717,16 +1043,16 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                         .map((u) => u!)
                                         .toList();
                                   } finally {
-                                    _model.isDataUploading2 = false;
+                                    _model.isDataUploading5 = false;
                                   }
                                   if (selectedUploadedFiles.length ==
                                           selectedMedia.length &&
                                       downloadUrls.length ==
                                           selectedMedia.length) {
                                     setState(() {
-                                      _model.uploadedLocalFiles2 =
+                                      _model.uploadedLocalFiles5 =
                                           selectedUploadedFiles;
-                                      _model.uploadedFileUrls2 = downloadUrls;
+                                      _model.uploadedFileUrls5 = downloadUrls;
                                     });
                                   } else {
                                     setState(() {});
@@ -745,11 +1071,11 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     contactInfo:
                                         _model.contactTextController.text,
                                     locationTitle: _model.selectedLocationTitle,
-                                    allowFeedback: _model.checkboxListTileValue,
+                                    allowFeedback: _model.checkboxValue,
                                   ),
                                   ...mapToFirestore(
                                     {
-                                      'images': _model.uploadedFileUrls2,
+                                      'images': _model.uploadedFileUrls5,
                                     },
                                   ),
                                 });
@@ -769,7 +1095,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                 );
                               },
                               text: FFLocalizations.of(context).getText(
-                                'ck0vn711' /* Сохранить */,
+                                'ck0vn711' /* Отправить */,
                               ),
                               options: FFButtonOptions(
                                 width: 330.0,
@@ -777,7 +1103,8 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                 padding: EdgeInsets.all(0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF53B153),
+                                color:
+                                    FlutterFlowTheme.of(context).featuredBlue,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -786,7 +1113,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                       letterSpacing: 0.0,
                                       useGoogleFonts: false,
                                     ),
-                                elevation: 3.0,
+                                elevation: 0.0,
                                 borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
