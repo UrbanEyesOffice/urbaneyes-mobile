@@ -1,3 +1,2 @@
-NSLocationWhenInUseUsageDescription = "Включённая геолокация позволяет легко находить места в городе и оценивать качество и удобство жизни.";
 NSCameraUsageDescription = "Фотографируй и отмечай места неправильной парковки ";
 PermissionGroupNotification = "Разреши пуш-уведомления и оценивай места рядом";

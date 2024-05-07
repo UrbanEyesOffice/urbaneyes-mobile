@@ -34,7 +34,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   late QuestionModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -45,8 +44,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('QUESTION_PAGE_question_ON_INIT_STATE');
-      currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       logFirebaseEvent('question_update_page_state');
       setState(() {
         _model.isLoading = true;
@@ -71,11 +68,15 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         _model.currentQuestion =
             _model.questionsList?[_model.currentQuestionNumber];
       });
+      logFirebaseEvent('question_custom_action');
+      _model.hasLocationPermission = await actions.handleLocationPermission();
+      logFirebaseEvent('question_custom_action');
+      _model.currentLocation = await actions.getCurrentPosition(
+        _model.hasLocationPermission!,
+      );
       logFirebaseEvent('question_update_page_state');
       setState(() {
-        _model.selectedLocation = currentUserLocationValue != null
-            ? currentUserLocationValue
-            : FFAppState().locationBishkek;
+        _model.selectedLocation = _model.currentLocation;
       });
       logFirebaseEvent('question_custom_action');
       _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(
@@ -135,8 +136,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

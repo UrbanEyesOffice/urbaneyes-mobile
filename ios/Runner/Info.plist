@@ -59,8 +59,6 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>Включённая геолокация позволяет легко находить места в городе и оценивать качество и удобство жизни.</string>
 	<key>NSCameraUsageDescription</key>
     <string>Фотографируй и отмечай места неправильной парковки </string>
 	<key>NSPhotoLibraryUsageDescription</key>

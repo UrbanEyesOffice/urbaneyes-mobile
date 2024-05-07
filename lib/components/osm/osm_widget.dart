@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,6 +49,12 @@ class _OsmWidgetState extends State<OsmWidget> {
       setState(() {
         _model.localLocationTitle = widget.initialLocationTitle;
         _model.localLocation = widget.initialLocation;
+      });
+      logFirebaseEvent('OSM_custom_action');
+      _model.hasLocationPermission = await actions.handleLocationPermission();
+      logFirebaseEvent('OSM_update_component_state');
+      setState(() {
+        _model.localHasLocationPermission = _model.hasLocationPermission!;
       });
     });
 
@@ -184,41 +191,112 @@ class _OsmWidgetState extends State<OsmWidget> {
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent('OSM_COMP_ВЫБРАТЬ_BTN_ON_TAP');
-                      logFirebaseEvent('Button_execute_callback');
-                      await widget.onSelectLocation?.call(
-                        _model.localLocation,
-                        _model.localLocationTitle,
-                      );
-                      logFirebaseEvent('Button_close_dialog,_drawer,_etc');
-                      Navigator.pop(context);
-                    },
-                    text: FFLocalizations.of(context).getText(
-                      '91278s2u' /* Выбрать */,
-                    ),
-                    options: FFButtonOptions(
-                      width: 330.0,
-                      height: 48.0,
-                      padding: EdgeInsets.all(0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).featuredBlue,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Golos',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: false,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (!_model.localHasLocationPermission)
+                        FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'OSM_COMP_МОЕ_МЕСТОПОЛОЖЕНИЕ_BTN_ON_TAP');
+                            logFirebaseEvent('Button_request_permissions');
+                            await requestPermission(locationPermission);
+                            logFirebaseEvent('Button_custom_action');
+                            _model.hasLocationPermission2 =
+                                await actions.handleLocationPermission();
+                            if (_model.hasLocationPermission2!) {
+                              logFirebaseEvent('Button_custom_action');
+                              _model.currentPosition =
+                                  await actions.getCurrentPosition(
+                                true,
+                              );
+                              logFirebaseEvent('Button_custom_action');
+                              _model.currentAddress =
+                                  await actions.getAddressFromLatLngGoogleMaps(
+                                _model.currentPosition,
+                                FFLocalizations.of(context).languageCode,
+                              );
+                              logFirebaseEvent('Button_update_component_state');
+                              setState(() {
+                                _model.localLocation = _model.currentPosition;
+                                _model.localLocationTitle =
+                                    _model.currentAddress;
+                                _model.localHasLocationPermission = true;
+                              });
+                            }
+
+                            setState(() {});
+                          },
+                          text: FFLocalizations.of(context).getText(
+                            'nyi4fimr' /* Мое местоположение */,
+                          ),
+                          options: FFButtonOptions(
+                            width: 330.0,
+                            height: 48.0,
+                            padding: EdgeInsets.all(0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Golos',
+                                  color:
+                                      FlutterFlowTheme.of(context).featuredBlue,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            logFirebaseEvent('OSM_COMP_ВЫБРАТЬ_BTN_ON_TAP');
+                            logFirebaseEvent('Button_execute_callback');
+                            await widget.onSelectLocation?.call(
+                              _model.localLocation,
+                              _model.localLocationTitle,
+                            );
+                            logFirebaseEvent(
+                                'Button_close_dialog,_drawer,_etc');
+                            Navigator.pop(context);
+                          },
+                          text: FFLocalizations.of(context).getText(
+                            '91278s2u' /* Выбрать */,
+                          ),
+                          options: FFButtonOptions(
+                            width: 330.0,
+                            height: 48.0,
+                            padding: EdgeInsets.all(0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).featuredBlue,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Golos',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                    ].divide(SizedBox(height: 12.0)),
                   ),
                 ),
               ),
