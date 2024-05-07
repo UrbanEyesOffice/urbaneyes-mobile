@@ -1130,7 +1130,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                         .around(SizedBox(height: 16.0)),
                   ),
                 ),
-              if (false)
+              if (_model.isLoading)
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Lottie.asset(
