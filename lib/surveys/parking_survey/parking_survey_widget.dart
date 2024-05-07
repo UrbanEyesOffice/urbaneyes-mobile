@@ -58,7 +58,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
       logFirebaseEvent('ParkingSurvey_update_page_state');
       setState(() {
         _model.selectedLocation = _model.currentPosition;
-        _model.isLoading = false;
+        _model.isLoading = true;
       });
       logFirebaseEvent('ParkingSurvey_custom_action');
       _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(

@@ -1013,11 +1013,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Select location',
       'ky': 'Жайгашкан жерди тандаңыз',
     },
-    'nyi4fimr': {
-      'ru': 'Мое местоположение',
-      'en': 'My location',
-      'ky': 'Менин жайгашкан жерим',
-    },
     '91278s2u': {
       'ru': 'Выбрать',
       'en': 'Choose',

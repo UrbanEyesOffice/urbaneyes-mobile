@@ -193,42 +193,6 @@ class _OsmWidgetState extends State<OsmWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (!_model.localHasLocationPermission)
-                        FFButtonWidget(
-                          onPressed: () async {
-                            logFirebaseEvent(
-                                'OSM_COMP_МОЕ_МЕСТОПОЛОЖЕНИЕ_BTN_ON_TAP');
-                            logFirebaseEvent('Button_custom_action');
-                            await actions.openAppSettingsAction();
-                          },
-                          text: FFLocalizations.of(context).getText(
-                            'nyi4fimr' /* Мое местоположение */,
-                          ),
-                          options: FFButtonOptions(
-                            width: 330.0,
-                            height: 48.0,
-                            padding: EdgeInsets.all(0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Golos',
-                                  color:
-                                      FlutterFlowTheme.of(context).featuredBlue,
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: false,
-                                ),
-                            elevation: 0.0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
                       Align(
                         alignment: AlignmentDirectional(0.0, 1.0),
                         child: FFButtonWidget(
