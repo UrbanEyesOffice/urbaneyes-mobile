@@ -42,6 +42,9 @@ class _OpenStreetMapWidgetState extends State<OpenStreetMapWidget> {
         options: MapOptions(
           initialCenter: latlong2.LatLng(widget.initialLocation.latitude,
               widget.initialLocation.longitude),
+          interactionOptions: InteractionOptions(
+            flags: InteractiveFlag.drag | InteractiveFlag.pinchZoom,
+          ),
           initialZoom: 16.0,
           onMapReady: () {
             mapController.mapEventStream.listen((evt) {

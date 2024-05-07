@@ -1027,9 +1027,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': 'Жайгашкан жерди тандаңыз',
     },
     '91278s2u': {
-      'ru': 'Продолжить',
-      'en': 'Continue',
-      'ky': 'Улантуу',
+      'ru': 'Выбрать',
+      'en': 'Choose',
+      'ky': 'Тандоо',
     },
   },
   // LeaderboardUser

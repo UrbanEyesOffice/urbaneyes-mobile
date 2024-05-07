@@ -65,9 +65,9 @@ Future<String?> getAddressFromLatLngGoogleMaps(
         }
       }
 
-      if (postalCode != null) {
-        completeAddress += postalCode;
-      }
+      // if (postalCode != null) {
+      //   completeAddress += postalCode;
+      // }
 
       if (thoroughfare != null) {
         if (!completeAddress.isEmpty) {
@@ -97,19 +97,19 @@ Future<String?> getAddressFromLatLngGoogleMaps(
         completeAddress += adminArea;
       }
 
-      if (countryName != null) {
-        if (!completeAddress.isEmpty) {
-          completeAddress += ', ';
-        }
-        completeAddress += countryName;
-      }
+      // if (countryName != null) {
+      //   if (!completeAddress.isEmpty) {
+      //     completeAddress += ', ';
+      //   }
+      //   completeAddress += countryName;
+      // }
 
-      if (countryCode != null) {
-        if (!completeAddress.isEmpty) {
-          completeAddress += ', ';
-        }
-        completeAddress += countryCode;
-      }
+      // if (countryCode != null) {
+      //   if (!completeAddress.isEmpty) {
+      //     completeAddress += ', ';
+      //   }
+      //   completeAddress += countryCode;
+      // }
 
       if (completeAddress.isEmpty) {
         completer.complete('${addresses.first.addressLine}');

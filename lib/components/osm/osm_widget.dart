@@ -143,45 +143,36 @@ class _OsmWidgetState extends State<OsmWidget> {
               alignment: AlignmentDirectional(0.0, -1.0),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                child: Material(
-                  color: Colors.transparent,
-                  elevation: 3.0,
-                  shape: RoundedRectangleBorder(
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width * 1.0,
+                  constraints: BoxConstraints(
+                    minWidth: MediaQuery.sizeOf(context).width * 0.5,
+                    minHeight: 24.0,
+                    maxWidth: MediaQuery.sizeOf(context).width * 1.0,
+                    maxHeight: 48.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(32.0),
                   ),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    constraints: BoxConstraints(
-                      minWidth: MediaQuery.sizeOf(context).width * 0.5,
-                      minHeight: 24.0,
-                      maxWidth: MediaQuery.sizeOf(context).width * 1.0,
-                      maxHeight: 48.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(32.0),
-                    ),
-                    child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          valueOrDefault<String>(
-                            _model.localLocationTitle,
-                            '-',
-                          ),
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .titleSmall
-                              .override(
-                                fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 14.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.normal,
-                                useGoogleFonts: false,
-                              ),
+                  child: Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        valueOrDefault<String>(
+                          _model.localLocationTitle,
+                          '-',
                         ),
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).titleSmall.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.normal,
+                              useGoogleFonts: false,
+                            ),
                       ),
                     ),
                   ),
@@ -195,7 +186,7 @@ class _OsmWidgetState extends State<OsmWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      logFirebaseEvent('OSM_COMP_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                      logFirebaseEvent('OSM_COMP_ВЫБРАТЬ_BTN_ON_TAP');
                       logFirebaseEvent('Button_execute_callback');
                       await widget.onSelectLocation?.call(
                         _model.localLocation,
@@ -205,15 +196,15 @@ class _OsmWidgetState extends State<OsmWidget> {
                       Navigator.pop(context);
                     },
                     text: FFLocalizations.of(context).getText(
-                      '91278s2u' /* Продолжить */,
+                      '91278s2u' /* Выбрать */,
                     ),
                     options: FFButtonOptions(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      width: 330.0,
                       height: 48.0,
                       padding: EdgeInsets.all(0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0xFF53B153),
+                      color: FlutterFlowTheme.of(context).featuredBlue,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Golos',
@@ -232,7 +223,7 @@ class _OsmWidgetState extends State<OsmWidget> {
                 ),
               ),
             ),
-          ].divide(SizedBox(height: 16.0)).addToEnd(SizedBox(height: 16.0)),
+          ].divide(SizedBox(height: 16.0)).addToEnd(SizedBox(height: 24.0)),
         ),
       ],
     );

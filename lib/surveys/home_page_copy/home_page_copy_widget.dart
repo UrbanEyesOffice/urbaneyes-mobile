@@ -455,7 +455,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 50.0)),
+                                ].divide(SizedBox(height: 24.0)),
                               ),
                             ),
                           );
