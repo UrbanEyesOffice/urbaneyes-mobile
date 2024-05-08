@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/permissions_util.dart';
 import 'question_widget.dart' show QuestionWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -57,10 +58,6 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in question widget.
   List<QuestionRecord>? questionsList;
-  // Stores action output result for [Custom Action - handleLocationPermission] action in question widget.
-  bool? hasLocationPermission;
-  // Stores action output result for [Custom Action - getCurrentPosition] action in question widget.
-  LatLng? currentLocation;
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in question widget.
   String? locationTitleOnLoad;
   // State field(s) for comment widget.

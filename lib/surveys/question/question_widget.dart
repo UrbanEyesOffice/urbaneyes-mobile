@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   late QuestionModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -44,10 +46,26 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('QUESTION_PAGE_question_ON_INIT_STATE');
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       logFirebaseEvent('question_update_page_state');
       setState(() {
         _model.isLoading = true;
       });
+      logFirebaseEvent('question_request_permissions');
+      await requestPermission(locationPermission);
+      if (await getPermissionStatus(locationPermission)) {
+        logFirebaseEvent('question_update_page_state');
+        setState(() {
+          _model.selectedLocation = currentUserLocationValue;
+        });
+      } else {
+        logFirebaseEvent('question_update_page_state');
+        setState(() {
+          _model.selectedLocation = FFAppState().locationBishkek;
+        });
+      }
+
       logFirebaseEvent('question_firestore_query');
       _model.questionsList = await queryQuestionRecordOnce(
         queryBuilder: (questionRecord) => questionRecord
@@ -67,16 +85,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             _model.questionsList!.toList().cast<QuestionRecord>();
         _model.currentQuestion =
             _model.questionsList?[_model.currentQuestionNumber];
-      });
-      logFirebaseEvent('question_custom_action');
-      _model.hasLocationPermission = await actions.handleLocationPermission();
-      logFirebaseEvent('question_custom_action');
-      _model.currentLocation = await actions.getCurrentPosition(
-        _model.hasLocationPermission!,
-      );
-      logFirebaseEvent('question_update_page_state');
-      setState(() {
-        _model.selectedLocation = _model.currentLocation;
       });
       logFirebaseEvent('question_custom_action');
       _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(
@@ -136,6 +144,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

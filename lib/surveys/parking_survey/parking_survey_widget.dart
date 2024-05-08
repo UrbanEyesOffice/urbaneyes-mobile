@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
   late ParkingSurveyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -49,17 +51,24 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('PARKING_SURVEY_ParkingSurvey_ON_INIT_STA');
-      logFirebaseEvent('ParkingSurvey_custom_action');
-      _model.hasLocationPermission = await actions.handleLocationPermission();
-      logFirebaseEvent('ParkingSurvey_custom_action');
-      _model.currentPosition = await actions.getCurrentPosition(
-        _model.hasLocationPermission!,
-      );
-      logFirebaseEvent('ParkingSurvey_update_page_state');
-      setState(() {
-        _model.selectedLocation = _model.currentPosition;
-        _model.isLoading = true;
-      });
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      logFirebaseEvent('ParkingSurvey_request_permissions');
+      await requestPermission(locationPermission);
+      if (await getPermissionStatus(locationPermission)) {
+        logFirebaseEvent('ParkingSurvey_update_page_state');
+        setState(() {
+          _model.selectedLocation = currentUserLocationValue;
+          _model.isLoading = true;
+        });
+      } else {
+        logFirebaseEvent('ParkingSurvey_update_page_state');
+        setState(() {
+          _model.selectedLocation = FFAppState().locationBishkek;
+          _model.isLoading = true;
+        });
+      }
+
       logFirebaseEvent('ParkingSurvey_custom_action');
       _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(
         _model.selectedLocation,
@@ -121,6 +130,8 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
