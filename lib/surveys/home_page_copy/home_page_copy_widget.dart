@@ -56,7 +56,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
       if (valueOrDefault<bool>(currentUserDocument?.isTester, false) == true) {
         logFirebaseEvent('HomePageCopy_firestore_query');
         _model.testersLoadedSurveys = await querySurveysRecordOnce(
-          limit: 10,
+          limit: 100,
         );
         logFirebaseEvent('HomePageCopy_custom_action');
         _model.testersTempSurveys = await actions.shuffleSurveys(
@@ -87,7 +87,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                 'testers_only',
                 isEqualTo: false,
               ),
-          limit: 10,
+          limit: 100,
         );
         logFirebaseEvent('HomePageCopy_custom_action');
         _model.tempSurveys = await actions.shuffleSurveys(
@@ -96,7 +96,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
         logFirebaseEvent('HomePageCopy_update_page_state');
         setState(() {
           _model.shuffledSurveys =
-              _model.loadedSurveys!.toList().cast<SurveysRecord>();
+              _model.tempSurveys!.toList().cast<SurveysRecord>();
           _model.featuredSurveys = _model.loadedSurveys!
               .where((e) => e.featured)
               .toList()
