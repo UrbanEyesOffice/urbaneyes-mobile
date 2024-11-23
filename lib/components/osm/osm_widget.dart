@@ -45,19 +45,17 @@ class _OsmWidgetState extends State<OsmWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('OSM_COMP_OSM_ON_INIT_STATE');
       logFirebaseEvent('OSM_update_component_state');
-      setState(() {
-        _model.localLocationTitle = widget.initialLocationTitle;
-        _model.localLocation = widget.initialLocation;
-      });
+      _model.localLocationTitle = widget!.initialLocationTitle;
+      _model.localLocation = widget!.initialLocation;
+      safeSetState(() {});
       logFirebaseEvent('OSM_custom_action');
       _model.hasLocationPermission = await actions.handleLocationPermission();
       logFirebaseEvent('OSM_update_component_state');
-      setState(() {
-        _model.localHasLocationPermission = _model.hasLocationPermission!;
-      });
+      _model.localHasLocationPermission = _model.hasLocationPermission!;
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -79,7 +77,7 @@ class _OsmWidgetState extends State<OsmWidget> {
             child: custom_widgets.OpenStreetMapWidget(
               width: MediaQuery.sizeOf(context).width * 1.0,
               height: MediaQuery.sizeOf(context).height * 1.0,
-              initialLocation: widget.initialLocation!,
+              initialLocation: widget!.initialLocation!,
               onMapMoved: (mapCenter) async {
                 logFirebaseEvent('OSM_COMP_Container_f6m7mksd_CALLBACK');
                 logFirebaseEvent('OpenStreetMapWidget_custom_action');
@@ -89,12 +87,11 @@ class _OsmWidgetState extends State<OsmWidget> {
                   FFLocalizations.of(context).languageCode,
                 );
                 logFirebaseEvent('OpenStreetMapWidget_update_component_sta');
-                setState(() {
-                  _model.localLocationTitle = _model.osmAddress;
-                  _model.localLocation = mapCenter;
-                });
+                _model.localLocationTitle = _model.osmAddress;
+                _model.localLocation = mapCenter;
+                safeSetState(() {});
 
-                setState(() {});
+                safeSetState(() {});
               },
             ),
           ),
@@ -197,14 +194,13 @@ class _OsmWidgetState extends State<OsmWidget> {
                         alignment: AlignmentDirectional(0.0, 1.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            logFirebaseEvent('OSM_COMP_ВЫБРАТЬ_BTN_ON_TAP');
+                            logFirebaseEvent('OSM_COMP__BTN_ON_TAP');
                             logFirebaseEvent('Button_execute_callback');
                             await widget.onSelectLocation?.call(
                               _model.localLocation,
                               _model.localLocationTitle,
                             );
-                            logFirebaseEvent(
-                                'Button_close_dialog,_drawer,_etc');
+                            logFirebaseEvent('Button_close_dialog_drawer_etc');
                             Navigator.pop(context);
                           },
                           text: FFLocalizations.of(context).getText(

@@ -31,7 +31,7 @@ class _CompleteRegistrationWidgetState
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'CompleteRegistration'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -44,9 +44,7 @@ class _CompleteRegistrationWidgetState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -128,10 +126,7 @@ class _CompleteRegistrationWidgetState
                             context: context,
                             builder: (context) {
                               return GestureDetector(
-                                onTap: () => _model.unfocusNode.canRequestFocus
-                                    ? FocusScope.of(context)
-                                        .requestFocus(_model.unfocusNode)
-                                    : FocusScope.of(context).unfocus(),
+                                onTap: () => FocusScope.of(context).unfocus(),
                                 child: Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
                                   child: PrivacyBottomSheetWidget(),
@@ -214,7 +209,7 @@ class _CompleteRegistrationWidgetState
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent(
-                            'COMPLETE_REGISTRATION_ЗАВЕРШИТЬ_РЕГИСТРА');
+                            'COMPLETE_REGISTRATION_PAGE___BTN_ON_TAP');
                         logFirebaseEvent('Button_navigate_to');
 
                         context.goNamed('AskGeo');

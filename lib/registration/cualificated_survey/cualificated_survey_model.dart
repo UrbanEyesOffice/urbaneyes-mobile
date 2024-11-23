@@ -19,7 +19,6 @@ class CualificatedSurveyModel
     extends FlutterFlowModel<CualificatedSurveyWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for name-Create widget.
   FocusNode? nameCreateFocusNode;
   TextEditingController? nameCreateTextController;
@@ -40,7 +39,6 @@ class CualificatedSurveyModel
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     nameCreateFocusNode?.dispose();
     nameCreateTextController?.dispose();
 

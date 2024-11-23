@@ -27,7 +27,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'AllSurveysStat'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -40,9 +40,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -94,6 +92,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                       }
                       List<QuestionRecord> columnQuestionRecordList =
                           snapshot.data!;
+
                       return Column(
                         mainAxisSize: MainAxisSize.max,
                         children: List.generate(columnQuestionRecordList.length,
@@ -140,6 +139,7 @@ class _AllSurveysStatWidgetState extends State<AllSurveysStatWidget> {
                                     );
                                   }
                                   int stackCount = snapshot.data!;
+
                                   return Stack(
                                     children: [
                                       Padding(

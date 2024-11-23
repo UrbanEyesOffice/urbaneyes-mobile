@@ -31,7 +31,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -44,9 +44,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
@@ -170,8 +168,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        logFirebaseEvent(
-                            'RESET_PASSWORD_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                        logFirebaseEvent('RESET_PASSWORD_PAGE__BTN_ON_TAP');
                         logFirebaseEvent('Button_auth');
                         if (_model.emailAddressTextController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(

@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 class ResetPasswordModel extends FlutterFlowModel<ResetPasswordWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;
   TextEditingController? emailAddressTextController;
@@ -22,7 +21,6 @@ class ResetPasswordModel extends FlutterFlowModel<ResetPasswordWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     emailAddressFocusNode?.dispose();
     emailAddressTextController?.dispose();
   }

@@ -36,7 +36,7 @@ class _LeaderboardUserWidgetState extends State<LeaderboardUserWidget> {
     super.initState();
     _model = createModel(context, () => LeaderboardUserModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -51,7 +51,7 @@ class _LeaderboardUserWidgetState extends State<LeaderboardUserWidget> {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
-        if (widget.position == 0)
+        if (widget!.position == 0)
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(
@@ -61,7 +61,7 @@ class _LeaderboardUserWidgetState extends State<LeaderboardUserWidget> {
               fit: BoxFit.cover,
             ),
           ),
-        if (widget.position == 1)
+        if (widget!.position == 1)
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(
@@ -71,7 +71,7 @@ class _LeaderboardUserWidgetState extends State<LeaderboardUserWidget> {
               fit: BoxFit.cover,
             ),
           ),
-        if (widget.position == 2)
+        if (widget!.position == 2)
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(
@@ -81,18 +81,18 @@ class _LeaderboardUserWidgetState extends State<LeaderboardUserWidget> {
               fit: BoxFit.cover,
             ),
           ),
-        if (widget.position! > 2)
+        if (widget!.position! > 2)
           Container(
             width: 30.0,
             height: 30.0,
             decoration: BoxDecoration(),
             child: Visibility(
-              visible: widget.position! > 2,
+              visible: widget!.position! > 2,
               child: Align(
                 alignment: AlignmentDirectional(1.0, 0.0),
                 child: Text(
                   valueOrDefault<String>(
-                    ((widget.position!) + 1).toString(),
+                    ((widget!.position!) + 1).toString(),
                     '-',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -109,7 +109,7 @@ class _LeaderboardUserWidgetState extends State<LeaderboardUserWidget> {
         Expanded(
           child: Text(
             valueOrDefault<String>(
-              widget.userName,
+              widget!.userName,
               '-',
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -126,7 +126,7 @@ class _LeaderboardUserWidgetState extends State<LeaderboardUserWidget> {
           children: [
             Text(
               valueOrDefault<String>(
-                widget.userPoints?.toString(),
+                widget!.userPoints?.toString(),
                 '-',
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(

@@ -39,8 +39,9 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   QuestionRecord? currentQuestion;
 
   OptionStruct? selectedOption;
-  void updateSelectedOptionStruct(Function(OptionStruct) updateFn) =>
-      updateFn(selectedOption ??= OptionStruct());
+  void updateSelectedOptionStruct(Function(OptionStruct) updateFn) {
+    updateFn(selectedOption ??= OptionStruct());
+  }
 
   List<AnswerStruct> answers = [];
   void addToAnswers(AnswerStruct item) => answers.add(item);
@@ -51,11 +52,10 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   void updateAnswersAtIndex(int index, Function(AnswerStruct) updateFn) =>
       answers[index] = updateFn(answers[index]);
 
-  bool isLoading = true;
+  bool isLoading = false;
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in question widget.
   List<QuestionRecord>? questionsList;
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in question widget.
@@ -70,7 +70,6 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     commentFocusNode?.dispose();
     commentTextController?.dispose();
   }

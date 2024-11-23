@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 class FFButtonOptions {
   const FFButtonOptions({
+    this.textAlign,
     this.textStyle,
     this.elevation,
     this.height,
@@ -15,6 +16,7 @@ class FFButtonOptions {
     this.splashColor,
     this.iconSize,
     this.iconColor,
+    this.iconAlignment,
     this.iconPadding,
     this.borderRadius,
     this.borderSide,
@@ -25,6 +27,7 @@ class FFButtonOptions {
     this.maxLines,
   });
 
+  final TextAlign? textAlign;
   final TextStyle? textStyle;
   final double? elevation;
   final double? height;
@@ -37,6 +40,7 @@ class FFButtonOptions {
   final Color? splashColor;
   final double? iconSize;
   final Color? iconColor;
+  final IconAlignment? iconAlignment;
   final EdgeInsetsGeometry? iconPadding;
   final BorderRadius? borderRadius;
   final BorderSide? borderSide;
@@ -98,6 +102,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
             text ?? '',
             style:
                 text == null ? null : widget.options.textStyle?.withoutColor(),
+            textAlign: widget.options.textAlign,
             maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
           );
@@ -224,6 +229,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
           label: textWidget,
           onPressed: onPressed,
           style: style,
+          iconAlignment: widget.options.iconAlignment ?? IconAlignment.start,
         ),
       );
     }

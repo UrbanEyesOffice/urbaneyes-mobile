@@ -127,7 +127,7 @@ async function sendPushNotifications(snapshot) {
       const data = token.data();
       const audienceMatches =
         targetAudience === "All" || data.device_type === targetAudience;
-      if (audienceMatches || typeof data.fcm_token !== undefined) {
+      if (audienceMatches && typeof data.fcm_token !== undefined) {
         tokens.add(data.fcm_token);
       }
     });
@@ -167,7 +167,7 @@ async function sendPushNotifications(snapshot) {
   var numSent = 0;
   await Promise.all(
     messageBatches.map(async (messages) => {
-      const response = await admin.messaging().sendMulticast(messages);
+      const response = await admin.messaging().sendEachForMulticast(messages);
       numSent += response.successCount;
     }),
   );

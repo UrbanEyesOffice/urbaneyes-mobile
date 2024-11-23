@@ -25,25 +25,30 @@ class OptionStruct extends FFFirebaseStruct {
   int? _id;
   int get id => _id ?? 0;
   set id(int? val) => _id = val;
-  void incrementId(int amount) => _id = id + amount;
+
+  void incrementId(int amount) => id = id + amount;
+
   bool hasId() => _id != null;
 
   // "title_ru" field.
   String? _titleRu;
   String get titleRu => _titleRu ?? '';
   set titleRu(String? val) => _titleRu = val;
+
   bool hasTitleRu() => _titleRu != null;
 
   // "title_en" field.
   String? _titleEn;
   String get titleEn => _titleEn ?? '';
   set titleEn(String? val) => _titleEn = val;
+
   bool hasTitleEn() => _titleEn != null;
 
   // "title_kg" field.
   String? _titleKg;
   String get titleKg => _titleKg ?? '';
   set titleKg(String? val) => _titleKg = val;
+
   bool hasTitleKg() => _titleKg != null;
 
   static OptionStruct fromMap(Map<String, dynamic> data) => OptionStruct(

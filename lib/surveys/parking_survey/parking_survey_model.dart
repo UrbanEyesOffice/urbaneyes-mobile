@@ -10,8 +10,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
-import 'parking_survey_widget.dart' show ParkingSurveyWidget;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'parking_survey_widget.dart' show ParkingSurveyWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -44,12 +44,11 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
+  final formKey = GlobalKey<FormState>();
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in ParkingSurvey widget.
   String? locationTitleOnLoad;
   // State field(s) for Carousel widget.
-  CarouselController? carouselController;
-
+  CarouselSliderController? carouselController;
   int carouselCurrentIndex = 1;
 
   bool isDataUploading1 = false;
@@ -74,22 +73,33 @@ class ParkingSurveyModel extends FlutterFlowModel<ParkingSurveyWidget> {
   FocusNode? commentFocusNode;
   TextEditingController? commentTextController;
   String? Function(BuildContext, String?)? commentTextControllerValidator;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue;
+  // State field(s) for callBackCheckbox widget.
+  bool? callBackCheckboxValue;
   // State field(s) for contact widget.
   FocusNode? contactFocusNode;
   TextEditingController? contactTextController;
   String? Function(BuildContext, String?)? contactTextControllerValidator;
+  String? _contactTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return FFLocalizations.of(context).getText(
+        'cz96vnn5' /* Обязательное поле */,
+      );
+    }
+
+    return null;
+  }
+
   bool isDataUploading5 = false;
   List<FFUploadedFile> uploadedLocalFiles5 = [];
   List<String> uploadedFileUrls5 = [];
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    contactTextControllerValidator = _contactTextControllerValidator;
+  }
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     commentFocusNode?.dispose();
     commentTextController?.dispose();
 

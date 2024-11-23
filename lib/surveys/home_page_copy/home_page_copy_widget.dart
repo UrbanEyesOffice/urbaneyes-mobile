@@ -66,15 +66,14 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
               ?.toList(),
         );
         logFirebaseEvent('HomePageCopy_update_page_state');
-        setState(() {
-          _model.shuffledSurveys =
-              _model.testersTempSurveys!.toList().cast<SurveysRecord>();
-          _model.featuredSurveys = _model.testersLoadedSurveys!
-              .where((e) => e.featured)
-              .toList()
-              .toList()
-              .cast<SurveysRecord>();
-        });
+        _model.shuffledSurveys =
+            _model.testersTempSurveys!.toList().cast<SurveysRecord>();
+        _model.featuredSurveys = _model.testersLoadedSurveys!
+            .where((e) => e.featured)
+            .toList()
+            .toList()
+            .cast<SurveysRecord>();
+        safeSetState(() {});
       } else {
         logFirebaseEvent('HomePageCopy_firestore_query');
         _model.loadedSurveys = await querySurveysRecordOnce(
@@ -94,19 +93,18 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
           _model.loadedSurveys?.where((e) => !e.featured).toList()?.toList(),
         );
         logFirebaseEvent('HomePageCopy_update_page_state');
-        setState(() {
-          _model.shuffledSurveys =
-              _model.tempSurveys!.toList().cast<SurveysRecord>();
-          _model.featuredSurveys = _model.loadedSurveys!
-              .where((e) => e.featured)
-              .toList()
-              .toList()
-              .cast<SurveysRecord>();
-        });
+        _model.shuffledSurveys =
+            _model.tempSurveys!.toList().cast<SurveysRecord>();
+        _model.featuredSurveys = _model.loadedSurveys!
+            .where((e) => e.featured)
+            .toList()
+            .toList()
+            .cast<SurveysRecord>();
+        safeSetState(() {});
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -119,9 +117,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -204,6 +200,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                   Builder(
                     builder: (context) {
                       final listItems = _model.featuredSurveys.toList();
+
                       return ListView.separated(
                         padding: EdgeInsets.zero,
                         primary: false,
@@ -263,7 +260,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         logFirebaseEvent(
-                                            'HOME_PAGE_COPY_PAGE_ОТМЕТИТЬ_BTN_ON_TAP');
+                                            'HOME_PAGE_COPY_PAGE__BTN_ON_TAP');
                                         if (listItemsItem.surveyType == 2) {
                                           logFirebaseEvent(
                                               'Button_navigate_to');
@@ -342,6 +339,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                   Builder(
                     builder: (context) {
                       final listItems = _model.shuffledSurveys.toList();
+
                       return ListView.separated(
                         padding: EdgeInsets.zero,
                         primary: false,
@@ -393,7 +391,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                   FFButtonWidget(
                                     onPressed: () async {
                                       logFirebaseEvent(
-                                          'HOME_PAGE_COPY_PAGE_ОЦЕНИТЬ_BTN_ON_TAP');
+                                          'HOME_PAGE_COPY_PAGE__BTN_ON_TAP');
                                       if (listItemsItem.surveyType == 2) {
                                         logFirebaseEvent('Button_navigate_to');
 

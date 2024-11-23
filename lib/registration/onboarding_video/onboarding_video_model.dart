@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
+import 'dart:math';
 import 'onboarding_video_widget.dart' show OnboardingVideoWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -14,7 +15,6 @@ import 'package:provider/provider.dart';
 class OnboardingVideoModel extends FlutterFlowModel<OnboardingVideoWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   InstantTimer? instantTimer;
 
   @override
@@ -22,7 +22,6 @@ class OnboardingVideoModel extends FlutterFlowModel<OnboardingVideoWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     instantTimer?.cancel();
   }
 }

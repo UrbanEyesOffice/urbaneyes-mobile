@@ -28,7 +28,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
     _model = createModel(context, () => RewardsPageModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'RewardsPage'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -41,9 +41,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -120,8 +118,7 @@ class _RewardsPageWidgetState extends State<RewardsPageWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'REWARDS_PAGE_PAGE_НАЧАТЬ_BTN_ON_TAP');
+                          logFirebaseEvent('REWARDS_PAGE_PAGE__BTN_ON_TAP');
                           logFirebaseEvent('Button_backend_call');
 
                           await currentUserReference!

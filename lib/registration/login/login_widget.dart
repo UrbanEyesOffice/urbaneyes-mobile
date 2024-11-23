@@ -33,7 +33,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     _model.passwordTextController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -46,9 +46,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -263,7 +261,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       contentPadding: EdgeInsetsDirectional.fromSTEB(
                           20.0, 24.0, 20.0, 24.0),
                       suffixIcon: InkWell(
-                        onTap: () => setState(
+                        onTap: () => safeSetState(
                           () => _model.passwordVisibility =
                               !_model.passwordVisibility,
                         ),
@@ -292,7 +290,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     alignment: AlignmentDirectional(0.0, 1.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        logFirebaseEvent('LOGIN_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                        logFirebaseEvent('LOGIN_PAGE__BTN_ON_TAP');
                         logFirebaseEvent('Button_auth');
                         GoRouter.of(context).prepareAuthEvent();
 
@@ -337,7 +335,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
-                      logFirebaseEvent('LOGIN_PAGE_ЗАБЫЛ_ПАРОЛЬ_BTN_ON_TAP');
+                      logFirebaseEvent('LOGIN_PAGE___BTN_ON_TAP');
                       if (_model.emailCreateTextController.text != null &&
                           _model.emailCreateTextController.text != '') {
                         logFirebaseEvent('Button_auth');

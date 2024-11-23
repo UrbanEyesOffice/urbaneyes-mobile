@@ -26,7 +26,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
     _model = createModel(context, () => AskGeoModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'AskGeo'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -39,9 +39,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -102,7 +100,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                 ),
                 FFButtonWidget(
                   onPressed: () async {
-                    logFirebaseEvent('ASK_GEO_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                    logFirebaseEvent('ASK_GEO_PAGE__BTN_ON_TAP');
                     logFirebaseEvent('Button_request_permissions');
                     await requestPermission(locationPermission);
                     logFirebaseEvent('Button_navigate_to');
@@ -141,8 +139,7 @@ class _AskGeoWidgetState extends State<AskGeoWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'ASK_GEO_PAGE_ПРОПУСТИТЬ_BTN_ON_TAP');
+                          logFirebaseEvent('ASK_GEO_PAGE__BTN_ON_TAP');
                           logFirebaseEvent('Button_navigate_to');
 
                           context.goNamed('AskPushNotifications');

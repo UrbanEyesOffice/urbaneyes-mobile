@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -31,7 +32,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
     _model = createModel(context, () => AdmiPannelModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'AdmiPannel'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -44,9 +45,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -203,6 +202,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                       }
                                                       int textCount =
                                                           snapshot.data!;
+
                                                       return Text(
                                                         textCount.toString(),
                                                         textAlign:
@@ -304,6 +304,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                                       }
                                                       int textCount =
                                                           snapshot.data!;
+
                                                       return Text(
                                                         textCount.toString(),
                                                         textAlign:
@@ -373,6 +374,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                               );
                                             }
                                             int containerCount = snapshot.data!;
+
                                             return Container(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
@@ -498,7 +500,7 @@ class _AdmiPannelWidgetState extends State<AdmiPannelWidget>
                                         FFButtonWidget(
                                           onPressed: () async {
                                             logFirebaseEvent(
-                                                'ADMI_PANNEL_СТАТИСТИКА_И_РЕДАКТИРОВАНИЕ_');
+                                                'ADMI_PANNEL_PAGE_____BTN_ON_TAP');
                                             logFirebaseEvent(
                                                 'Button_navigate_to');
 

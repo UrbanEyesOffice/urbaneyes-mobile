@@ -53,13 +53,12 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
         currentUserReference!,
       );
       logFirebaseEvent('RewardsCopy_update_page_state');
-      setState(() {
-        _model.pageRewards =
-            _model.filteredRewards!.toList().cast<RewardsRecord>();
-      });
+      _model.pageRewards =
+          _model.filteredRewards!.toList().cast<RewardsRecord>();
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -72,9 +71,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -250,6 +247,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                 child: EmptyCollectedRewardsListWidget(),
                               );
                             }
+
                             return SingleChildScrollView(
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -343,10 +341,9 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                           ));
                                           logFirebaseEvent(
                                               'Container_update_page_state');
-                                          setState(() {
-                                            _model.removeFromPageRewards(
-                                                rewardsItem);
-                                          });
+                                          _model.removeFromPageRewards(
+                                              rewardsItem);
+                                          safeSetState(() {});
                                           logFirebaseEvent(
                                               'Container_navigate_to');
 
@@ -370,7 +367,7 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                         }
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *

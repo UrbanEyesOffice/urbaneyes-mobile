@@ -35,7 +35,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
     _model = createModel(context, () => ViewRewardModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'ViewReward'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -48,9 +48,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -121,8 +119,8 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                               alignment: AlignmentDirectional(-1.0, 0.0),
                               child: Text(
                                 dateTimeFormat(
-                                  'd/M/y',
-                                  widget.promocode!.usedDate!,
+                                  "d/M/y",
+                                  widget!.promocode!.usedDate!,
                                   locale:
                                       FFLocalizations.of(context).languageCode,
                                 ),
@@ -139,9 +137,9 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                               alignment: AlignmentDirectional(-1.0, -1.0),
                               child: Text(
                                 FFLocalizations.of(context).getVariableText(
-                                  ruText: widget.reward?.rewardName,
-                                  enText: widget.reward?.rewardNameEn,
-                                  kyText: widget.reward?.rewardNameKg,
+                                  ruText: widget!.reward?.rewardName,
+                                  enText: widget!.reward?.rewardNameEn,
+                                  kyText: widget!.reward?.rewardNameKg,
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -170,7 +168,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                                     logFirebaseEvent(
                                         'Container_copy_to_clipboard');
                                     await Clipboard.setData(ClipboardData(
-                                        text: widget.promocode!.code));
+                                        text: widget!.promocode!.code));
                                     logFirebaseEvent(
                                         'Container_show_snack_bar');
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -213,7 +211,7 @@ class _ViewRewardWidgetState extends State<ViewRewardWidget> {
                                                   10.0, 0.0, 0.0, 0.0),
                                           child: Text(
                                             valueOrDefault<String>(
-                                              widget.promocode?.code,
+                                              widget!.promocode?.code,
                                               '-',
                                             ),
                                             style: FlutterFlowTheme.of(context)

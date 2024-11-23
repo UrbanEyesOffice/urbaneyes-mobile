@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "8078048766-d68c11g5rick0m8ud9leietflahm5nob.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kg.urbaneyes.urbanapp",
+            "certificate_hash": "cb658ee7e3672386afc05feeccc88f4ceb120693"
+          }
+        },
+        {
           "client_id": "8078048766-ird74p3kpa27jr5vfsh1l2dc7upeb8h5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "kg.urbaneyes.urbanapp",
             "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "8078048766-uu22csaiic1q9503sgi5sbckj87o6hc2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kg.urbaneyes.urbanapp",
+            "certificate_hash": "1b84ab8bdd9947e660bb60478b3eed4a66ee6606"
           }
         },
         {

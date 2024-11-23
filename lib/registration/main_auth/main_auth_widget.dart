@@ -34,7 +34,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
       logFirebaseEvent('MAIN_AUTH_PAGE_MainAuth_ON_INIT_STATE');
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -47,9 +47,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -252,7 +250,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     logFirebaseEvent(
-                                        'MAIN_AUTH_ВОЙТИ_ЧЕРЕЗ_GOOGLE_BTN_ON_TAP');
+                                        'MAIN_AUTH_PAGE___GOOGLE_BTN_ON_TAP');
                                     logFirebaseEvent('Button_auth');
                                     GoRouter.of(context).prepareAuthEvent();
                                     final user = await authManager
@@ -282,6 +280,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                   ),
                                   icon: FaIcon(
                                     FontAwesomeIcons.google,
+                                    size: 15.0,
                                   ),
                                   options: FFButtonOptions(
                                     width:
@@ -317,7 +316,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           logFirebaseEvent(
-                                              'MAIN_AUTH_ВОЙТИ_ЧЕРЕЗ_APPLE_BTN_ON_TAP');
+                                              'MAIN_AUTH_PAGE___APPLE_BTN_ON_TAP');
                                           logFirebaseEvent('Button_auth');
                                           GoRouter.of(context)
                                               .prepareAuthEvent();
@@ -352,6 +351,7 @@ class _MainAuthWidgetState extends State<MainAuthWidget> {
                                         ),
                                         icon: FaIcon(
                                           FontAwesomeIcons.apple,
+                                          size: 15.0,
                                         ),
                                         options: FFButtonOptions(
                                           width:

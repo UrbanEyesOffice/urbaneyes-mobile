@@ -35,7 +35,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -140,7 +140,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                                       useGoogleFonts: false,
                                     ),
                             hintText: FFLocalizations.of(context).getText(
-                              '19fvfw1x' /* Что бы вы хотели добавить/улуч... */,
+                              '19fvfw1x' /* Что бы вы хотели добавитьулуч... */,
                             ),
                             hintStyle: TextStyle(),
                             enabledBorder: OutlineInputBorder(
@@ -195,8 +195,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                             16.0, 16.0, 16.0, 44.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            logFirebaseEvent(
-                                'FEEDBACK_ALERT_COMP_ОТПРАВИТЬ_BTN_ON_TAP');
+                            logFirebaseEvent('FEEDBACK_ALERT_COMP__BTN_ON_TAP');
                             logFirebaseEvent('Button_backend_call');
 
                             await FeedbackRecord.collection.doc().set({

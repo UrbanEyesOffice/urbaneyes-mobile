@@ -30,7 +30,6 @@ class RewardsCopyModel extends FlutterFlowModel<RewardsCopyWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in RewardsCopy widget.
   List<RewardsRecord>? loadedRewards;
   // Stores action output result for [Custom Action - filterRewardsByUserId] action in RewardsCopy widget.
@@ -42,7 +41,5 @@ class RewardsCopyModel extends FlutterFlowModel<RewardsCopyWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

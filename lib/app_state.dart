@@ -40,37 +40,36 @@ class FFAppState extends ChangeNotifier {
 
   bool _showMAp = false;
   bool get showMAp => _showMAp;
-  set showMAp(bool _value) {
-    _showMAp = _value;
+  set showMAp(bool value) {
+    _showMAp = value;
   }
 
   LatLng? _locationBishkek = LatLng(42.8610324, 74.5772478);
   LatLng? get locationBishkek => _locationBishkek;
-  set locationBishkek(LatLng? _value) {
-    _locationBishkek = _value;
+  set locationBishkek(LatLng? value) {
+    _locationBishkek = value;
   }
 
   LatLng? _lastMapPoint;
   LatLng? get lastMapPoint => _lastMapPoint;
-  set lastMapPoint(LatLng? _value) {
-    _lastMapPoint = _value;
+  set lastMapPoint(LatLng? value) {
+    _lastMapPoint = value;
   }
 
   DateTime? _lastTimeFeedbackShown;
   DateTime? get lastTimeFeedbackShown => _lastTimeFeedbackShown;
-  set lastTimeFeedbackShown(DateTime? _value) {
-    _lastTimeFeedbackShown = _value;
-    _value != null
-        ? prefs.setInt(
-            'ff_lastTimeFeedbackShown', _value.millisecondsSinceEpoch)
+  set lastTimeFeedbackShown(DateTime? value) {
+    _lastTimeFeedbackShown = value;
+    value != null
+        ? prefs.setInt('ff_lastTimeFeedbackShown', value.millisecondsSinceEpoch)
         : prefs.remove('ff_lastTimeFeedbackShown');
   }
 
   String _surveysCompleted = '';
   String get surveysCompleted => _surveysCompleted;
-  set surveysCompleted(String _value) {
-    _surveysCompleted = _value;
-    prefs.setString('ff_surveysCompleted', _value);
+  set surveysCompleted(String value) {
+    _surveysCompleted = value;
+    prefs.setString('ff_surveysCompleted', value);
   }
 }
 

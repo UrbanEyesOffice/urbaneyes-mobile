@@ -50,10 +50,9 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
       );
       // Update page promocodes
       logFirebaseEvent('CollectedRewards_Updatepagepromocodes');
-      setState(() {
-        _model.pagePromocodes =
-            _model.loadedPromocodes!.toList().cast<PromocodesRecord>();
-      });
+      _model.pagePromocodes =
+          _model.loadedPromocodes!.toList().cast<PromocodesRecord>();
+      safeSetState(() {});
       // Load rewards
       logFirebaseEvent('CollectedRewards_Loadrewards');
       _model.loadedRewards = await queryRewardsRecordOnce(
@@ -64,13 +63,11 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
         limit: 100,
       );
       logFirebaseEvent('CollectedRewards_update_page_state');
-      setState(() {
-        _model.pageRewards =
-            _model.loadedRewards!.toList().cast<RewardsRecord>();
-      });
+      _model.pageRewards = _model.loadedRewards!.toList().cast<RewardsRecord>();
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -83,9 +80,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -139,6 +134,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                     child: EmptyCollectedRewardsListWidget(),
                   );
                 }
+
                 return ListView.separated(
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.vertical,

@@ -49,21 +49,18 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       logFirebaseEvent('question_update_page_state');
-      setState(() {
-        _model.isLoading = true;
-      });
+      _model.isLoading = true;
+      safeSetState(() {});
       logFirebaseEvent('question_request_permissions');
       await requestPermission(locationPermission);
       if (await getPermissionStatus(locationPermission)) {
         logFirebaseEvent('question_update_page_state');
-        setState(() {
-          _model.selectedLocation = currentUserLocationValue;
-        });
+        _model.selectedLocation = currentUserLocationValue;
+        safeSetState(() {});
       } else {
         logFirebaseEvent('question_update_page_state');
-        setState(() {
-          _model.selectedLocation = FFAppState().locationBishkek;
-        });
+        _model.selectedLocation = FFAppState().locationBishkek;
+        safeSetState(() {});
       }
 
       logFirebaseEvent('question_firestore_query');
@@ -71,7 +68,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         queryBuilder: (questionRecord) => questionRecord
             .where(
               'survey_id',
-              isEqualTo: widget.survey?.reference,
+              isEqualTo: widget!.survey?.reference,
             )
             .where(
               'enabled',
@@ -80,22 +77,19 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             .orderBy('question_order'),
       );
       logFirebaseEvent('question_update_page_state');
-      setState(() {
-        _model.questions =
-            _model.questionsList!.toList().cast<QuestionRecord>();
-        _model.currentQuestion =
-            _model.questionsList?[_model.currentQuestionNumber];
-      });
+      _model.questions = _model.questionsList!.toList().cast<QuestionRecord>();
+      _model.currentQuestion =
+          _model.questionsList?[_model.currentQuestionNumber];
+      safeSetState(() {});
       logFirebaseEvent('question_custom_action');
       _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(
         _model.selectedLocation,
         FFLocalizations.of(context).languageCode,
       );
       logFirebaseEvent('question_update_page_state');
-      setState(() {
-        _model.selectedLocationTitle = _model.locationTitleOnLoad;
-        _model.isLoading = false;
-      });
+      _model.selectedLocationTitle = _model.locationTitleOnLoad;
+      _model.isLoading = false;
+      safeSetState(() {});
       logFirebaseEvent('question_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
@@ -104,9 +98,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         context: context,
         builder: (context) {
           return GestureDetector(
-            onTap: () => _model.unfocusNode.canRequestFocus
-                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                : FocusScope.of(context).unfocus(),
+            onTap: () => FocusScope.of(context).unfocus(),
             child: Padding(
               padding: MediaQuery.viewInsetsOf(context),
               child: Container(
@@ -116,10 +108,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   initialLocationTitle: _model.selectedLocationTitle,
                   onSelectLocation: (location, locationTitle) async {
                     logFirebaseEvent('_update_page_state');
-                    setState(() {
-                      _model.selectedLocation = location;
-                      _model.selectedLocationTitle = locationTitle;
-                    });
+                    _model.selectedLocation = location;
+                    _model.selectedLocationTitle = locationTitle;
+                    safeSetState(() {});
                   },
                 ),
               ),
@@ -132,7 +123,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     _model.commentTextController ??= TextEditingController();
     _model.commentFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -147,9 +138,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -177,9 +166,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             alignment: AlignmentDirectional(-1.0, 0.0),
             child: Text(
               FFLocalizations.of(context).getVariableText(
-                ruText: widget.survey?.name,
-                enText: widget.survey?.nameEn,
-                kyText: widget.survey?.nameKg,
+                ruText: widget!.survey?.name,
+                enText: widget!.survey?.nameEn,
+                kyText: widget!.survey?.nameKg,
               ),
               maxLines: 2,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -252,6 +241,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           builder: (context) {
                             final questionOptionsVisible =
                                 _model.currentQuestion?.options?.toList() ?? [];
+
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -270,10 +260,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                           'QUESTION_PAGE_BUTTON_BTN_ON_TAP');
                                       logFirebaseEvent(
                                           'Button_update_page_state');
-                                      setState(() {
-                                        _model.selectedOption =
-                                            questionOptionsVisibleItem;
-                                      });
+                                      _model.selectedOption =
+                                          questionOptionsVisibleItem;
+                                      safeSetState(() {});
                                     },
                                     text: FFLocalizations.of(context)
                                         .getVariableText(
@@ -400,30 +389,26 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           onPressed: (_model.selectedOption == null)
                               ? null
                               : () async {
-                                  logFirebaseEvent(
-                                      'QUESTION_PAGE_ДАЛЕЕ_BTN_ON_TAP');
+                                  logFirebaseEvent('QUESTION_PAGE__BTN_ON_TAP');
                                   logFirebaseEvent('Button_update_page_state');
-                                  setState(() {
-                                    _model.currentQuestionNumber =
-                                        _model.currentQuestionNumber + 1;
-                                    _model.addToAnswers(AnswerStruct(
-                                      surveyId: widget.survey?.reference,
-                                      questionId:
-                                          _model.currentQuestion?.reference,
-                                      userId: currentUserReference,
-                                      time: getCurrentTimestamp,
-                                      location: _model.selectedLocation,
-                                      answer: _model.selectedOption,
-                                      comment:
-                                          _model.commentTextController.text,
-                                    ));
-                                  });
+                                  _model.currentQuestionNumber =
+                                      _model.currentQuestionNumber + 1;
+                                  _model.addToAnswers(AnswerStruct(
+                                    surveyId: widget!.survey?.reference,
+                                    questionId:
+                                        _model.currentQuestion?.reference,
+                                    userId: currentUserReference,
+                                    time: getCurrentTimestamp,
+                                    location: _model.selectedLocation,
+                                    answer: _model.selectedOption,
+                                    comment: _model.commentTextController.text,
+                                  ));
+                                  safeSetState(() {});
                                   logFirebaseEvent('Button_update_page_state');
-                                  setState(() {
-                                    _model.currentQuestion = _model.questions[
-                                        _model.currentQuestionNumber];
-                                    _model.selectedOption = null;
-                                  });
+                                  _model.currentQuestion = _model
+                                      .questions[_model.currentQuestionNumber];
+                                  _model.selectedOption = null;
+                                  safeSetState(() {});
                                 },
                           text: FFLocalizations.of(context).getText(
                             'pt8y2gzq' /* Далее */,
@@ -461,29 +446,26 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           onPressed: (_model.selectedOption == null)
                               ? null
                               : () async {
-                                  logFirebaseEvent(
-                                      'QUESTION_PAGE_ЗАВЕРШИТЬ_BTN_ON_TAP');
+                                  logFirebaseEvent('QUESTION_PAGE__BTN_ON_TAP');
                                   logFirebaseEvent('Button_update_page_state');
-                                  setState(() {
-                                    _model.addToAnswers(AnswerStruct(
-                                      surveyId: widget.survey?.reference,
-                                      questionId:
-                                          _model.currentQuestion?.reference,
-                                      userId: currentUserReference,
-                                      time: getCurrentTimestamp,
-                                      location: _model.selectedLocation,
-                                      answer: _model.selectedOption,
-                                      comment:
-                                          _model.commentTextController.text,
-                                    ));
-                                  });
+                                  _model.addToAnswers(AnswerStruct(
+                                    surveyId: widget!.survey?.reference,
+                                    questionId:
+                                        _model.currentQuestion?.reference,
+                                    userId: currentUserReference,
+                                    time: getCurrentTimestamp,
+                                    location: _model.selectedLocation,
+                                    answer: _model.selectedOption,
+                                    comment: _model.commentTextController.text,
+                                  ));
+                                  safeSetState(() {});
                                   while (_model.currentQuestionNumber >= 0) {
                                     logFirebaseEvent('Button_backend_call');
 
                                     await AnswerRecord.collection
                                         .doc()
                                         .set(createAnswerRecordData(
-                                          surveyId: widget.survey?.reference,
+                                          surveyId: widget!.survey?.reference,
                                           questionId: _model
                                               .answers[
                                                   _model.currentQuestionNumber]
@@ -506,10 +488,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                         ));
                                     logFirebaseEvent(
                                         'Button_update_page_state');
-                                    setState(() {
-                                      _model.currentQuestionNumber =
-                                          _model.currentQuestionNumber + -1;
-                                    });
+                                    _model.currentQuestionNumber =
+                                        _model.currentQuestionNumber + -1;
+                                    safeSetState(() {});
                                   }
                                   logFirebaseEvent('Button_navigate_to');
 
@@ -517,12 +498,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                     'complete',
                                     queryParameters: {
                                       'survey': serializeParam(
-                                        widget.survey,
+                                        widget!.survey,
                                         ParamType.Document,
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      'survey': widget.survey,
+                                      'survey': widget!.survey,
                                     },
                                   );
                                 },
@@ -558,8 +539,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'QUESTION_ИЗМЕНИТЬ_ЛОКАЦИЮ_BTN_ON_TAP');
+                          logFirebaseEvent('QUESTION_PAGE___BTN_ON_TAP');
                           logFirebaseEvent('Button_bottom_sheet');
                           await showModalBottomSheet(
                             isScrollControlled: true,
@@ -569,10 +549,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                             context: context,
                             builder: (context) {
                               return GestureDetector(
-                                onTap: () => _model.unfocusNode.canRequestFocus
-                                    ? FocusScope.of(context)
-                                        .requestFocus(_model.unfocusNode)
-                                    : FocusScope.of(context).unfocus(),
+                                onTap: () => FocusScope.of(context).unfocus(),
                                 child: Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
                                   child: Container(
@@ -585,11 +562,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                       onSelectLocation:
                                           (location, locationTitle) async {
                                         logFirebaseEvent('_update_page_state');
-                                        setState(() {
-                                          _model.selectedLocation = location;
-                                          _model.selectedLocationTitle =
-                                              locationTitle;
-                                        });
+                                        _model.selectedLocation = location;
+                                        _model.selectedLocationTitle =
+                                            locationTitle;
+                                        safeSetState(() {});
                                       },
                                     ),
                                   ),
@@ -630,7 +606,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Lottie.asset(
-                    'assets/lottie_animations/Animation_-_1714670498687.json',
+                    'assets/jsons/Animation_-_1714670498687.json',
                     width: 150.0,
                     height: 130.0,
                     fit: BoxFit.cover,

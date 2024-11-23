@@ -49,7 +49,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
         text: functions.datetimeIntoYear(currentUserDocument?.dateOfBirth));
     _model.birthYearFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -62,9 +62,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -103,7 +101,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
           actions: [
             FFButtonWidget(
               onPressed: () async {
-                logFirebaseEvent('EDIT_PROFILE_PAGE_РУС_BTN_ON_TAP');
+                logFirebaseEvent('EDIT_PROFILE_PAGE__BTN_ON_TAP');
                 logFirebaseEvent('Button_action_block');
                 await action_blocks.changeLanguage(context);
               },
@@ -414,7 +412,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           )
                         ],
                         onChanged: (val) =>
-                            setState(() => _model.dropDownValue = val),
+                            safeSetState(() => _model.dropDownValue = val),
                         width: double.infinity,
                         height: 55.0,
                         textStyle:
@@ -560,8 +558,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'EDIT_PROFILE_СОХРАНИТЬ_ИЗМЕНЕНИЯ_BTN_ON_');
+                          logFirebaseEvent('EDIT_PROFILE_PAGE___BTN_ON_TAP');
                           if ((_model.displayNameTextController.text != null &&
                                   _model.displayNameTextController.text !=
                                       '') &&
@@ -595,7 +592,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               email: _model.emailTextController.text,
                               context: context,
                             );
-                            setState(() {});
+                            safeSetState(() {});
 
                             logFirebaseEvent('Button_backend_call');
 
@@ -664,7 +661,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
 
                           context.pushNamed('HomePageCopy');
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         text: FFLocalizations.of(context).getText(
                           'qdr5c66g' /* Сохранить изменения */,
@@ -700,8 +697,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'EDIT_PROFILE_PAGE_ВЫЙТИ_BTN_ON_TAP');
+                          logFirebaseEvent('EDIT_PROFILE_PAGE__BTN_ON_TAP');
                           logFirebaseEvent('Button_alert_dialog');
                           var confirmDialogResponse = await showDialog<bool>(
                                 context: context,

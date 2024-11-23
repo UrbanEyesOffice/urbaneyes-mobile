@@ -35,7 +35,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
     _model.passwordTextController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -48,9 +48,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -272,7 +270,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                         contentPadding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 24.0, 20.0, 24.0),
                         suffixIcon: InkWell(
-                          onTap: () => setState(
+                          onTap: () => safeSetState(
                             () => _model.passwordVisibility =
                                 !_model.passwordVisibility,
                           ),
@@ -306,8 +304,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'CREATE_ACCOUNT_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                          logFirebaseEvent('CREATE_ACCOUNT_PAGE__BTN_ON_TAP');
                           logFirebaseEvent('Button_auth');
                           GoRouter.of(context).prepareAuthEvent();
 

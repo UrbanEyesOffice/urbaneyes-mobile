@@ -46,7 +46,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
         text: functions.datetimeIntoYear(currentUserDocument?.dateOfBirth));
     _model.birthYearFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -59,9 +59,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -227,7 +225,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                           )
                         ],
                         onChanged: (val) =>
-                            setState(() => _model.dropDownValue = val),
+                            safeSetState(() => _model.dropDownValue = val),
                         width: double.infinity,
                         height: 55.0,
                         textStyle:
@@ -376,7 +374,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
                         child: FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
-                                'CUALIFICATED_SURVEY_ПРОДОЛЖИТЬ_BTN_ON_TA');
+                                'CUALIFICATED_SURVEY_PAGE__BTN_ON_TAP');
                             logFirebaseEvent('Button_custom_action');
                             _model.birthDateTime = await actions.yearIntoDate(
                               _model.birthYearTextController.text,
@@ -403,7 +401,7 @@ class _CualificatedSurveyWidgetState extends State<CualificatedSurveyWidget> {
 
                             context.goNamed('CompleteRegistration');
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: FFLocalizations.of(context).getText(
                             '9784jlvv' /* Продолжить */,

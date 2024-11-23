@@ -29,7 +29,7 @@ class _AskPushNotificationsWidgetState
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'AskPushNotifications'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -42,9 +42,7 @@ class _AskPushNotificationsWidgetState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -90,8 +88,7 @@ class _AskPushNotificationsWidgetState
                 ),
                 FFButtonWidget(
                   onPressed: () async {
-                    logFirebaseEvent(
-                        'ASK_PUSH_NOTIFICATIONS_ПРОДОЛЖИТЬ_BTN_ON');
+                    logFirebaseEvent('ASK_PUSH_NOTIFICATIONS_PAGE__BTN_ON_TAP');
                     logFirebaseEvent('Button_request_permissions');
                     await requestPermission(notificationsPermission);
                     logFirebaseEvent('Button_navigate_to');
@@ -131,7 +128,7 @@ class _AskPushNotificationsWidgetState
                       child: FFButtonWidget(
                         onPressed: () async {
                           logFirebaseEvent(
-                              'ASK_PUSH_NOTIFICATIONS_ПРОПУСТИТЬ_BTN_ON');
+                              'ASK_PUSH_NOTIFICATIONS_PAGE__BTN_ON_TAP');
                           logFirebaseEvent('Button_navigate_to');
 
                           context.goNamed('RewardsPage');

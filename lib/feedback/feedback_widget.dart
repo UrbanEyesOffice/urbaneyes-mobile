@@ -36,7 +36,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
     _model.nicknameCreateTextController2 ??= TextEditingController();
     _model.nicknameCreateFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -49,9 +49,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -200,7 +198,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: FFLocalizations.of(context).getText(
-                        'eqalrq06' /* Что бы вы хотели добавить/улуч... */,
+                        'eqalrq06' /* Что бы вы хотели добавитьулуч... */,
                       ),
                       labelStyle:
                           FlutterFlowTheme.of(context).bodySmall.override(
@@ -261,7 +259,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        logFirebaseEvent('FEEDBACK_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                        logFirebaseEvent('FEEDBACK_PAGE__BTN_ON_TAP');
                         if ((_model.nicknameCreateTextController1.text !=
                                     null &&
                                 _model.nicknameCreateTextController1.text !=

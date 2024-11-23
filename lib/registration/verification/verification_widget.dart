@@ -30,7 +30,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'Verification'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -43,9 +43,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
@@ -76,8 +74,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      logFirebaseEvent(
-                          'VERIFICATION_ОТПРАВИТЬ_ПОВТОРНО_BTN_ON_T');
+                      logFirebaseEvent('VERIFICATION_PAGE___BTN_ON_TAP');
                       logFirebaseEvent('Button_auth');
                       await authManager.sendEmailVerification();
                     },
@@ -115,8 +112,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'VERIFICATION_PAGE_ПРОДОЛЖИТЬ_BTN_ON_TAP');
+                          logFirebaseEvent('VERIFICATION_PAGE__BTN_ON_TAP');
                           await authManager.refreshUser();
                           if (!currentUserEmailVerified) {
                             logFirebaseEvent('Button_firestore_query');
@@ -160,7 +156,7 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                             );
                           }
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         text: FFLocalizations.of(context).getText(
                           'b3y3onzx' /* Продолжить */,

@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 class FeedbackModel extends FlutterFlowModel<FeedbackWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for nickname-Create widget.
   FocusNode? nicknameCreateFocusNode1;
   TextEditingController? nicknameCreateTextController1;
@@ -30,7 +29,6 @@ class FeedbackModel extends FlutterFlowModel<FeedbackWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     nicknameCreateFocusNode1?.dispose();
     nicknameCreateTextController1?.dispose();
 

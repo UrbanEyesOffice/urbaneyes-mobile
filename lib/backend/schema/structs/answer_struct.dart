@@ -31,44 +31,53 @@ class AnswerStruct extends FFFirebaseStruct {
   DocumentReference? _surveyId;
   DocumentReference? get surveyId => _surveyId;
   set surveyId(DocumentReference? val) => _surveyId = val;
+
   bool hasSurveyId() => _surveyId != null;
 
   // "question_id" field.
   DocumentReference? _questionId;
   DocumentReference? get questionId => _questionId;
   set questionId(DocumentReference? val) => _questionId = val;
+
   bool hasQuestionId() => _questionId != null;
 
   // "user_id" field.
   DocumentReference? _userId;
   DocumentReference? get userId => _userId;
   set userId(DocumentReference? val) => _userId = val;
+
   bool hasUserId() => _userId != null;
 
   // "time" field.
   DateTime? _time;
   DateTime? get time => _time;
   set time(DateTime? val) => _time = val;
+
   bool hasTime() => _time != null;
 
   // "location" field.
   LatLng? _location;
   LatLng? get location => _location;
   set location(LatLng? val) => _location = val;
+
   bool hasLocation() => _location != null;
 
   // "answer" field.
   OptionStruct? _answer;
   OptionStruct get answer => _answer ?? OptionStruct();
   set answer(OptionStruct? val) => _answer = val;
-  void updateAnswer(Function(OptionStruct) updateFn) =>
-      updateFn(_answer ??= OptionStruct());
+
+  void updateAnswer(Function(OptionStruct) updateFn) {
+    updateFn(_answer ??= OptionStruct());
+  }
+
   bool hasAnswer() => _answer != null;
 
   // "comment" field.
   String? _comment;
   String get comment => _comment ?? '';
   set comment(String? val) => _comment = val;
+
   bool hasComment() => _comment != null;
 
   static AnswerStruct fromMap(Map<String, dynamic> data) => AnswerStruct(

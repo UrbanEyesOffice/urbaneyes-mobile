@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 class VerificationModel extends FlutterFlowModel<VerificationWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   UsersRecord? apiResultsqj;
 
@@ -21,7 +20,5 @@ class VerificationModel extends FlutterFlowModel<VerificationWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

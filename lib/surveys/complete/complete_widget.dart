@@ -84,9 +84,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
           context: context,
           builder: (context) {
             return GestureDetector(
-              onTap: () => _model.unfocusNode.canRequestFocus
-                  ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                  : FocusScope.of(context).unfocus(),
+              onTap: () => FocusScope.of(context).unfocus(),
               child: Padding(
                 padding: MediaQuery.viewInsetsOf(context),
                 child: FeedbackAlertWidget(),
@@ -103,7 +101,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -118,9 +116,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -147,9 +143,9 @@ class _CompleteWidgetState extends State<CompleteWidget> {
             alignment: AlignmentDirectional(-1.0, 0.0),
             child: Text(
               FFLocalizations.of(context).getVariableText(
-                ruText: widget.survey?.name,
-                enText: widget.survey?.nameEn,
-                kyText: widget.survey?.nameKg,
+                ruText: widget!.survey?.name,
+                enText: widget!.survey?.nameEn,
+                kyText: widget!.survey?.nameKg,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Inter',
@@ -466,8 +462,7 @@ class _CompleteWidgetState extends State<CompleteWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      logFirebaseEvent(
-                          'COMPLETE_PAGE_ЗАВЕРШИТЬ_ОПРОС_BTN_ON_TAP');
+                      logFirebaseEvent('COMPLETE_PAGE___BTN_ON_TAP');
                       logFirebaseEvent('Button_navigate_to');
 
                       context.goNamed(

@@ -42,7 +42,6 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in HomePageCopy widget.
   List<SurveysRecord>? testersLoadedSurveys;
   // Stores action output result for [Custom Action - shuffleSurveys] action in HomePageCopy widget.
@@ -56,7 +55,5 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

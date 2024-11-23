@@ -17,7 +17,6 @@ import 'package:share_plus/share_plus.dart';
 class CompleteModel extends FlutterFlowModel<CompleteWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in complete widget.
   RewardsRecord? availableReward;
 
@@ -25,7 +24,5 @@ class CompleteModel extends FlutterFlowModel<CompleteWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

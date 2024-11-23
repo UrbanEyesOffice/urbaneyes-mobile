@@ -1,16 +1,20 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 Future initializeFirebaseRemoteConfig() async {
-  await FirebaseRemoteConfig.instance.setConfigSettings(RemoteConfigSettings(
-    fetchTimeout: const Duration(minutes: 1),
-    minimumFetchInterval: const Duration(hours: 1),
-  ));
-  await FirebaseRemoteConfig.instance.setDefaults(const {
-    'share_url': 'https://urbaneyes.kg/',
-    'parking_survey': false,
-    'testers': '',
-  });
-  await FirebaseRemoteConfig.instance.fetchAndActivate();
+  try {
+    await FirebaseRemoteConfig.instance.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: const Duration(minutes: 1),
+      minimumFetchInterval: const Duration(hours: 1),
+    ));
+    await FirebaseRemoteConfig.instance.setDefaults(const {
+      'share_url': 'https://urbaneyes.kg/',
+      'parking_survey': false,
+      'testers': '',
+    });
+    await FirebaseRemoteConfig.instance.fetchAndActivate();
+  } catch (error) {
+    print(error);
+  }
 }
 
 String getRemoteConfigString(String key) =>

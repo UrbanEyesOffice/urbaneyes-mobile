@@ -51,6 +51,11 @@ class AnswerRecord extends FirestoreRecord {
   String get comment => _comment ?? '';
   bool hasComment() => _comment != null;
 
+  // "answers" field.
+  List<OptionStruct>? _answers;
+  List<OptionStruct> get answers => _answers ?? const [];
+  bool hasAnswers() => _answers != null;
+
   void _initializeFields() {
     _surveyId = snapshotData['survey_id'] as DocumentReference?;
     _questionId = snapshotData['question_id'] as DocumentReference?;
@@ -59,6 +64,10 @@ class AnswerRecord extends FirestoreRecord {
     _location = snapshotData['location'] as LatLng?;
     _answer = OptionStruct.maybeFromMap(snapshotData['answer']);
     _comment = snapshotData['comment'] as String?;
+    _answers = getStructList(
+      snapshotData['answers'],
+      OptionStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -126,13 +135,15 @@ class AnswerRecordDocumentEquality implements Equality<AnswerRecord> {
 
   @override
   bool equals(AnswerRecord? e1, AnswerRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.surveyId == e2?.surveyId &&
         e1?.questionId == e2?.questionId &&
         e1?.userId == e2?.userId &&
         e1?.time == e2?.time &&
         e1?.location == e2?.location &&
         e1?.answer == e2?.answer &&
-        e1?.comment == e2?.comment;
+        e1?.comment == e2?.comment &&
+        listEquality.equals(e1?.answers, e2?.answers);
   }
 
   @override
@@ -143,7 +154,8 @@ class AnswerRecordDocumentEquality implements Equality<AnswerRecord> {
         e?.time,
         e?.location,
         e?.answer,
-        e?.comment
+        e?.comment,
+        e?.answers
       ]);
 
   @override

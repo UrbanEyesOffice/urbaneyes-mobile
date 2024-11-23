@@ -57,16 +57,14 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
       await requestPermission(locationPermission);
       if (await getPermissionStatus(locationPermission)) {
         logFirebaseEvent('ParkingSurvey_update_page_state');
-        setState(() {
-          _model.selectedLocation = currentUserLocationValue;
-          _model.isLoading = true;
-        });
+        _model.selectedLocation = currentUserLocationValue;
+        _model.isLoading = true;
+        safeSetState(() {});
       } else {
         logFirebaseEvent('ParkingSurvey_update_page_state');
-        setState(() {
-          _model.selectedLocation = FFAppState().locationBishkek;
-          _model.isLoading = true;
-        });
+        _model.selectedLocation = FFAppState().locationBishkek;
+        _model.isLoading = true;
+        safeSetState(() {});
       }
 
       logFirebaseEvent('ParkingSurvey_custom_action');
@@ -75,10 +73,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
         FFLocalizations.of(context).languageCode,
       );
       logFirebaseEvent('ParkingSurvey_update_page_state');
-      setState(() {
-        _model.selectedLocationTitle = _model.locationTitleOnLoad!;
-        _model.isLoading = false;
-      });
+      _model.selectedLocationTitle = _model.locationTitleOnLoad!;
+      _model.isLoading = false;
+      safeSetState(() {});
       logFirebaseEvent('ParkingSurvey_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
@@ -87,9 +84,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
         context: context,
         builder: (context) {
           return GestureDetector(
-            onTap: () => _model.unfocusNode.canRequestFocus
-                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                : FocusScope.of(context).unfocus(),
+            onTap: () => FocusScope.of(context).unfocus(),
             child: Padding(
               padding: MediaQuery.viewInsetsOf(context),
               child: Container(
@@ -99,10 +94,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                   initialLocationTitle: _model.selectedLocationTitle,
                   onSelectLocation: (location, locationTitle) async {
                     logFirebaseEvent('_update_page_state');
-                    setState(() {
-                      _model.selectedLocation = location;
-                      _model.selectedLocationTitle = locationTitle!;
-                    });
+                    _model.selectedLocation = location;
+                    _model.selectedLocationTitle = locationTitle!;
+                    safeSetState(() {});
                   },
                 ),
               ),
@@ -118,7 +112,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
     _model.contactTextController ??= TextEditingController();
     _model.contactFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -133,9 +127,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -145,9 +137,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
           automaticallyImplyLeading: true,
           title: Text(
             FFLocalizations.of(context).getVariableText(
-              ruText: widget.survey?.name,
-              enText: widget.survey?.nameEn,
-              kyText: widget.survey?.nameKg,
+              ruText: widget!.survey?.name,
+              enText: widget!.survey?.nameEn,
+              kyText: widget!.survey?.nameKg,
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Inter',
@@ -177,7 +169,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                         child: FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
-                                'PARKING_SURVEY_ИЗМЕНИТЬ_ЛОКАЦИЮ_BTN_ON_T');
+                                'PARKING_SURVEY_PAGE___BTN_ON_TAP');
                             logFirebaseEvent('Button_bottom_sheet');
                             await showModalBottomSheet(
                               isScrollControlled: true,
@@ -187,11 +179,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               context: context,
                               builder: (context) {
                                 return GestureDetector(
-                                  onTap: () =>
-                                      _model.unfocusNode.canRequestFocus
-                                          ? FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode)
-                                          : FocusScope.of(context).unfocus(),
+                                  onTap: () => FocusScope.of(context).unfocus(),
                                   child: Padding(
                                     padding: MediaQuery.viewInsetsOf(context),
                                     child: Container(
@@ -207,11 +195,10 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                             (location, locationTitle) async {
                                           logFirebaseEvent(
                                               '_update_page_state');
-                                          setState(() {
-                                            _model.selectedLocation = location;
-                                            _model.selectedLocationTitle =
-                                                locationTitle!;
-                                          });
+                                          _model.selectedLocation = location;
+                                          _model.selectedLocationTitle =
+                                              locationTitle!;
+                                          safeSetState(() {});
                                         },
                                       ),
                                     ),
@@ -257,6 +244,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                             if (carouselImages.isEmpty) {
                               return EmptyPhotosWidget();
                             }
+
                             return Container(
                               width: double.infinity,
                               height: 200.0,
@@ -383,11 +371,10 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                             if (confirmDialogResponse) {
                                               logFirebaseEvent(
                                                   'Container_update_page_state');
-                                              setState(() {
-                                                _model
-                                                    .removeAtIndexFromLocalImages(
-                                                        carouselImagesIndex);
-                                              });
+                                              _model
+                                                  .removeAtIndexFromLocalImages(
+                                                      carouselImagesIndex);
+                                              safeSetState(() {});
                                             }
                                           },
                                           child: Container(
@@ -413,10 +400,10 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                 },
                                 carouselController:
                                     _model.carouselController ??=
-                                        CarouselController(),
+                                        CarouselSliderController(),
                                 options: CarouselOptions(
                                   initialPage:
-                                      min(1, carouselImages.length - 1),
+                                      max(0, min(1, carouselImages.length - 1)),
                                   viewportFraction: 0.5,
                                   disableCenter: true,
                                   enlargeCenterPage: true,
@@ -442,7 +429,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               FFButtonWidget(
                                 onPressed: () async {
                                   logFirebaseEvent(
-                                      'PARKING_SURVEY_СФОТОГРАФИРОВАТЬ_BTN_ON_T');
+                                      'PARKING_SURVEY_PAGE__BTN_ON_TAP');
                                   logFirebaseEvent(
                                       'Button_store_media_for_upload');
                                   final selectedMedia = await selectMedia(
@@ -455,7 +442,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                       selectedMedia.every((m) =>
                                           validateFileFormat(
                                               m.storagePath, context))) {
-                                    setState(
+                                    safeSetState(
                                         () => _model.isDataUploading1 = true);
                                     var selectedUploadedFiles =
                                         <FFUploadedFile>[];
@@ -477,12 +464,12 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     }
                                     if (selectedUploadedFiles.length ==
                                         selectedMedia.length) {
-                                      setState(() {
+                                      safeSetState(() {
                                         _model.uploadedLocalFile1 =
                                             selectedUploadedFiles.first;
                                       });
                                     } else {
-                                      setState(() {});
+                                      safeSetState(() {});
                                       return;
                                     }
                                   }
@@ -493,10 +480,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                           false)) {
                                     logFirebaseEvent(
                                         'Button_update_page_state');
-                                    setState(() {
-                                      _model.addToLocalImages(
-                                          _model.uploadedLocalFile1);
-                                    });
+                                    _model.addToLocalImages(
+                                        _model.uploadedLocalFile1);
+                                    safeSetState(() {});
                                   }
                                 },
                                 text: FFLocalizations.of(context).getText(
@@ -504,6 +490,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                 ),
                                 icon: FaIcon(
                                   FontAwesomeIcons.camera,
+                                  size: 15.0,
                                 ),
                                 options: FFButtonOptions(
                                   width: 330.0,
@@ -531,7 +518,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               FFButtonWidget(
                                 onPressed: () async {
                                   logFirebaseEvent(
-                                      'PARKING_SURVEY_ДОБАВИТЬ_ИЗ_ГАЛЛЕРЕИ_BTN_');
+                                      'PARKING_SURVEY_PAGE____BTN_ON_TAP');
                                   logFirebaseEvent(
                                       'Button_store_media_for_upload');
                                   final selectedMedia = await selectMedia(
@@ -545,7 +532,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                       selectedMedia.every((m) =>
                                           validateFileFormat(
                                               m.storagePath, context))) {
-                                    setState(
+                                    safeSetState(
                                         () => _model.isDataUploading2 = true);
                                     var selectedUploadedFiles =
                                         <FFUploadedFile>[];
@@ -567,12 +554,12 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     }
                                     if (selectedUploadedFiles.length ==
                                         selectedMedia.length) {
-                                      setState(() {
+                                      safeSetState(() {
                                         _model.uploadedLocalFiles2 =
                                             selectedUploadedFiles;
                                       });
                                     } else {
-                                      setState(() {});
+                                      safeSetState(() {});
                                       return;
                                     }
                                   }
@@ -586,21 +573,20 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     );
                                     logFirebaseEvent(
                                         'Button_update_page_state');
-                                    setState(() {
-                                      _model.localImages = _model
-                                          .newLocalImages!
-                                          .toList()
-                                          .cast<FFUploadedFile>();
-                                    });
+                                    _model.localImages = _model.newLocalImages!
+                                        .toList()
+                                        .cast<FFUploadedFile>();
+                                    safeSetState(() {});
                                   }
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: FFLocalizations.of(context).getText(
                                   'kzr8fd76' /* Добавить из галлереи */,
                                 ),
                                 icon: FaIcon(
                                   FontAwesomeIcons.images,
+                                  size: 15.0,
                                 ),
                                 options: FFButtonOptions(
                                   width: 330.0,
@@ -653,7 +639,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                         selectedMedia.every((m) =>
                                             validateFileFormat(
                                                 m.storagePath, context))) {
-                                      setState(
+                                      safeSetState(
                                           () => _model.isDataUploading3 = true);
                                       var selectedUploadedFiles =
                                           <FFUploadedFile>[];
@@ -675,12 +661,12 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                       }
                                       if (selectedUploadedFiles.length ==
                                           selectedMedia.length) {
-                                        setState(() {
+                                        safeSetState(() {
                                           _model.uploadedLocalFile3 =
                                               selectedUploadedFiles.first;
                                         });
                                       } else {
-                                        setState(() {});
+                                        safeSetState(() {});
                                         return;
                                       }
                                     }
@@ -691,10 +677,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                             false)) {
                                       logFirebaseEvent(
                                           'Button_update_page_state');
-                                      setState(() {
-                                        _model.addToLocalImages(
-                                            _model.uploadedLocalFile3);
-                                      });
+                                      _model.addToLocalImages(
+                                          _model.uploadedLocalFile3);
+                                      safeSetState(() {});
                                     }
                                   },
                                   text: FFLocalizations.of(context).getText(
@@ -702,6 +687,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   ),
                                   icon: FaIcon(
                                     FontAwesomeIcons.camera,
+                                    size: 15.0,
                                   ),
                                   options: FFButtonOptions(
                                     height: 48.0,
@@ -744,7 +730,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                         selectedMedia.every((m) =>
                                             validateFileFormat(
                                                 m.storagePath, context))) {
-                                      setState(
+                                      safeSetState(
                                           () => _model.isDataUploading4 = true);
                                       var selectedUploadedFiles =
                                           <FFUploadedFile>[];
@@ -766,12 +752,12 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                       }
                                       if (selectedUploadedFiles.length ==
                                           selectedMedia.length) {
-                                        setState(() {
+                                        safeSetState(() {
                                           _model.uploadedLocalFiles4 =
                                               selectedUploadedFiles;
                                         });
                                       } else {
-                                        setState(() {});
+                                        safeSetState(() {});
                                         return;
                                       }
                                     }
@@ -785,21 +771,21 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                       );
                                       logFirebaseEvent(
                                           'Button_update_page_state');
-                                      setState(() {
-                                        _model.localImages = _model
-                                            .newLocalImages2!
-                                            .toList()
-                                            .cast<FFUploadedFile>();
-                                      });
+                                      _model.localImages = _model
+                                          .newLocalImages2!
+                                          .toList()
+                                          .cast<FFUploadedFile>();
+                                      safeSetState(() {});
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: FFLocalizations.of(context).getText(
                                     'b8zcm7at' /*  */,
                                   ),
                                   icon: FaIcon(
                                     FontAwesomeIcons.images,
+                                    size: 15.0,
                                   ),
                                   options: FFButtonOptions(
                                     height: 48.0,
@@ -830,141 +816,18 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             32.0, 0.0, 32.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            TextFormField(
-                              controller: _model.commentTextController,
-                              focusNode: _model.commentFocusNode,
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Golos',
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                hintText: FFLocalizations.of(context).getText(
-                                  '5zxtnbzm' /* Комментарий */,
-                                ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFA9ABAF),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFA9ABAF),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Golos',
-                                    color: Color(0xFF06112E),
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                              maxLines: 2,
-                              minLines: 1,
-                              validator: _model.commentTextControllerValidator
-                                  .asValidator(context),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Theme(
-                                  data: ThemeData(
-                                    checkboxTheme: CheckboxThemeData(
-                                      visualDensity: VisualDensity.compact,
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
-                                      ),
-                                    ),
-                                    unselectedWidgetColor:
-                                        FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                  ),
-                                  child: Checkbox(
-                                    value: _model.checkboxValue ??= true,
-                                    onChanged: (newValue) async {
-                                      setState(() =>
-                                          _model.checkboxValue = newValue!);
-                                    },
-                                    side: BorderSide(
-                                      width: 2,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                    ),
-                                    activeColor:
-                                        FlutterFlowTheme.of(context).mainGreen,
-                                    checkColor:
-                                        FlutterFlowTheme.of(context).info,
-                                  ),
-                                ),
-                                Text(
-                                  FFLocalizations.of(context).getText(
-                                    'ao976zzq' /* Держите в курсе/готов обсудить */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            if (_model.checkboxValue ?? true)
+                        child: Form(
+                          key: _model.formKey,
+                          autovalidateMode: AutovalidateMode.always,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
                               TextFormField(
-                                controller: _model.contactTextController,
-                                focusNode: _model.contactFocusNode,
+                                controller: _model.commentTextController,
+                                focusNode: _model.commentFocusNode,
                                 autofocus: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText:
-                                      FFLocalizations.of(context).getText(
-                                    'cw3iych7' /* Телеграмм/Whatsapp/Телефон */,
-                                  ),
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -973,6 +836,9 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                         letterSpacing: 0.0,
                                         useGoogleFonts: false,
                                       ),
+                                  hintText: FFLocalizations.of(context).getText(
+                                    '5zxtnbzm' /* Комментарий */,
+                                  ),
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -1022,118 +888,290 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                     ),
                                 maxLines: 2,
                                 minLines: 1,
-                                validator: _model.contactTextControllerValidator
+                                validator: _model.commentTextControllerValidator
                                     .asValidator(context),
                               ),
-                            FFButtonWidget(
-                              onPressed: () async {
-                                logFirebaseEvent(
-                                    'PARKING_SURVEY_PAGE_save_ON_TAP');
-                                logFirebaseEvent(
-                                    'save_upload_media_to_firebase');
-                                {
-                                  setState(
-                                      () => _model.isDataUploading5 = true);
-                                  var selectedUploadedFiles =
-                                      <FFUploadedFile>[];
-                                  var selectedMedia = <SelectedFile>[];
-                                  var downloadUrls = <String>[];
-                                  try {
-                                    selectedUploadedFiles = _model.localImages;
-                                    selectedMedia =
-                                        selectedFilesFromUploadedFiles(
-                                      selectedUploadedFiles,
-                                      isMultiData: true,
-                                    );
-                                    downloadUrls = (await Future.wait(
-                                      selectedMedia.map(
-                                        (m) async => await uploadData(
-                                            m.storagePath, m.bytes),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Theme(
+                                    data: ThemeData(
+                                      checkboxTheme: CheckboxThemeData(
+                                        visualDensity: VisualDensity.compact,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4.0),
+                                        ),
                                       ),
-                                    ))
-                                        .where((u) => u != null)
-                                        .map((u) => u!)
-                                        .toList();
-                                  } finally {
-                                    _model.isDataUploading5 = false;
-                                  }
-                                  if (selectedUploadedFiles.length ==
-                                          selectedMedia.length &&
-                                      downloadUrls.length ==
-                                          selectedMedia.length) {
-                                    setState(() {
-                                      _model.uploadedLocalFiles5 =
-                                          selectedUploadedFiles;
-                                      _model.uploadedFileUrls5 = downloadUrls;
-                                    });
-                                  } else {
-                                    setState(() {});
-                                    return;
-                                  }
-                                }
-
-                                logFirebaseEvent('save_backend_call');
-
-                                await ParkingRecord.collection.doc().set({
-                                  ...createParkingRecordData(
-                                    createdBy: currentUserReference,
-                                    createdTime: getCurrentTimestamp,
-                                    location: _model.selectedLocation,
-                                    comment: _model.commentTextController.text,
-                                    contactInfo:
-                                        _model.contactTextController.text,
-                                    locationTitle: _model.selectedLocationTitle,
-                                    allowFeedback: _model.checkboxValue,
-                                  ),
-                                  ...mapToFirestore(
-                                    {
-                                      'images': _model.uploadedFileUrls5,
-                                    },
-                                  ),
-                                });
-                                logFirebaseEvent('save_navigate_to');
-
-                                context.goNamed(
-                                  'complete',
-                                  queryParameters: {
-                                    'survey': serializeParam(
-                                      widget.survey,
-                                      ParamType.Document,
+                                      unselectedWidgetColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryText,
                                     ),
-                                  }.withoutNulls,
-                                  extra: <String, dynamic>{
-                                    'survey': widget.survey,
-                                  },
-                                );
-                              },
-                              text: FFLocalizations.of(context).getText(
-                                'ck0vn711' /* Отправить */,
+                                    child: Checkbox(
+                                      value: _model.callBackCheckboxValue ??=
+                                          true,
+                                      onChanged: (newValue) async {
+                                        safeSetState(() => _model
+                                            .callBackCheckboxValue = newValue!);
+                                      },
+                                      side: BorderSide(
+                                        width: 2,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                      activeColor: FlutterFlowTheme.of(context)
+                                          .mainGreen,
+                                      checkColor:
+                                          FlutterFlowTheme.of(context).info,
+                                    ),
+                                  ),
+                                  Text(
+                                    FFLocalizations.of(context).getText(
+                                      'ao976zzq' /* Держите в курсеготов обсудить */,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          useGoogleFonts: false,
+                                        ),
+                                  ),
+                                ],
                               ),
-                              options: FFButtonOptions(
-                                width: 330.0,
-                                height: 48.0,
-                                padding: EdgeInsets.all(0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color:
-                                    FlutterFlowTheme.of(context).featuredBlue,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Golos',
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
+                              if (_model.callBackCheckboxValue ?? true)
+                                TextFormField(
+                                  controller: _model.contactTextController,
+                                  focusNode: _model.contactFocusNode,
+                                  autofocus: false,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText:
+                                        FFLocalizations.of(context).getText(
+                                      'cw3iych7' /* ТелеграммWhatsappТелефон */,
                                     ),
-                                elevation: 0.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Golos',
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts: false,
+                                        ),
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts: false,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFA9ABAF),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFA9ABAF),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Color(0xFF06112E),
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  maxLines: 2,
+                                  minLines: 1,
+                                  validator: _model
+                                      .contactTextControllerValidator
+                                      .asValidator(context),
                                 ),
-                                borderRadius: BorderRadius.circular(8.0),
+                              FFButtonWidget(
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'PARKING_SURVEY_PAGE_save_ON_TAP');
+                                  if (_model.localImages.length > 0) {
+                                    if (_model.callBackCheckboxValue!) {
+                                      if (!(_model.contactTextController.text !=
+                                              null &&
+                                          _model.contactTextController.text !=
+                                              '')) {
+                                        logFirebaseEvent('save_validate_form');
+                                        if (_model.formKey.currentState ==
+                                                null ||
+                                            !_model.formKey.currentState!
+                                                .validate()) {
+                                          return;
+                                        }
+                                        return;
+                                      }
+                                    }
+                                    logFirebaseEvent(
+                                        'save_upload_media_to_firebase');
+                                    {
+                                      safeSetState(
+                                          () => _model.isDataUploading5 = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
+                                      var selectedMedia = <SelectedFile>[];
+                                      var downloadUrls = <String>[];
+                                      try {
+                                        selectedUploadedFiles =
+                                            _model.localImages;
+                                        selectedMedia =
+                                            selectedFilesFromUploadedFiles(
+                                          selectedUploadedFiles,
+                                          isMultiData: true,
+                                        );
+                                        downloadUrls = (await Future.wait(
+                                          selectedMedia.map(
+                                            (m) async => await uploadData(
+                                                m.storagePath, m.bytes),
+                                          ),
+                                        ))
+                                            .where((u) => u != null)
+                                            .map((u) => u!)
+                                            .toList();
+                                      } finally {
+                                        _model.isDataUploading5 = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                              selectedMedia.length &&
+                                          downloadUrls.length ==
+                                              selectedMedia.length) {
+                                        safeSetState(() {
+                                          _model.uploadedLocalFiles5 =
+                                              selectedUploadedFiles;
+                                          _model.uploadedFileUrls5 =
+                                              downloadUrls;
+                                        });
+                                      } else {
+                                        safeSetState(() {});
+                                        return;
+                                      }
+                                    }
+
+                                    logFirebaseEvent('save_backend_call');
+
+                                    await ParkingRecord.collection.doc().set({
+                                      ...createParkingRecordData(
+                                        createdBy: currentUserReference,
+                                        createdTime: getCurrentTimestamp,
+                                        location: _model.selectedLocation,
+                                        comment:
+                                            _model.commentTextController.text,
+                                        contactInfo:
+                                            _model.contactTextController.text,
+                                        locationTitle:
+                                            _model.selectedLocationTitle,
+                                        allowFeedback:
+                                            _model.callBackCheckboxValue,
+                                      ),
+                                      ...mapToFirestore(
+                                        {
+                                          'images': _model.uploadedFileUrls5,
+                                        },
+                                      ),
+                                    });
+                                    logFirebaseEvent('save_navigate_to');
+
+                                    context.goNamed(
+                                      'complete',
+                                      queryParameters: {
+                                        'survey': serializeParam(
+                                          widget!.survey,
+                                          ParamType.Document,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        'survey': widget!.survey,
+                                      },
+                                    );
+                                  } else {
+                                    logFirebaseEvent('save_show_snack_bar');
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          FFLocalizations.of(context)
+                                              .getVariableText(
+                                            ruText: 'Добавьте фотографии',
+                                            enText: 'Add photos',
+                                            kyText: 'Сүрөттөрдү кошуу',
+                                          ),
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context).error,
+                                      ),
+                                    );
+                                  }
+                                },
+                                text: FFLocalizations.of(context).getText(
+                                  'ck0vn711' /* Отправить */,
+                                ),
+                                options: FFButtonOptions(
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  height: 48.0,
+                                  padding: EdgeInsets.all(0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color:
+                                      FlutterFlowTheme.of(context).featuredBlue,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Golos',
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  elevation: 0.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
                               ),
-                            ),
-                          ].divide(SizedBox(height: 16.0)),
+                            ].divide(SizedBox(height: 16.0)),
+                          ),
                         ),
                       ),
                     ]
@@ -1145,7 +1183,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Lottie.asset(
-                    'assets/lottie_animations/Animation_-_1714670498687.json',
+                    'assets/jsons/Animation_-_1714670498687.json',
                     width: 150.0,
                     height: 130.0,
                     fit: BoxFit.cover,

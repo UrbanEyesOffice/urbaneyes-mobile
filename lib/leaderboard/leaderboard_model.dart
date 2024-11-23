@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 class LeaderboardModel extends FlutterFlowModel<LeaderboardWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, UsersRecord>? listViewPagingController;
@@ -24,7 +23,6 @@ class LeaderboardModel extends FlutterFlowModel<LeaderboardWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
   }
