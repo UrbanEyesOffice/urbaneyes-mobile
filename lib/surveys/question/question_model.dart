@@ -52,7 +52,19 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
   void updateAnswersAtIndex(int index, Function(AnswerStruct) updateFn) =>
       answers[index] = updateFn(answers[index]);
 
-  bool isLoading = false;
+  bool isLoading = true;
+
+  List<OptionStruct> selectedOptions = [];
+  void addToSelectedOptions(OptionStruct item) => selectedOptions.add(item);
+  void removeFromSelectedOptions(OptionStruct item) =>
+      selectedOptions.remove(item);
+  void removeAtIndexFromSelectedOptions(int index) =>
+      selectedOptions.removeAt(index);
+  void insertAtIndexInSelectedOptions(int index, OptionStruct item) =>
+      selectedOptions.insert(index, item);
+  void updateSelectedOptionsAtIndex(
+          int index, Function(OptionStruct) updateFn) =>
+      selectedOptions[index] = updateFn(selectedOptions[index]);
 
   ///  State fields for stateful widgets in this page.
 

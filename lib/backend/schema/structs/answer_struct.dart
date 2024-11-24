@@ -17,6 +17,7 @@ class AnswerStruct extends FFFirebaseStruct {
     LatLng? location,
     OptionStruct? answer,
     String? comment,
+    List<OptionStruct>? answers,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _surveyId = surveyId,
         _questionId = questionId,
@@ -25,6 +26,7 @@ class AnswerStruct extends FFFirebaseStruct {
         _location = location,
         _answer = answer,
         _comment = comment,
+        _answers = answers,
         super(firestoreUtilData);
 
   // "survey_id" field.
@@ -80,6 +82,17 @@ class AnswerStruct extends FFFirebaseStruct {
 
   bool hasComment() => _comment != null;
 
+  // "answers" field.
+  List<OptionStruct>? _answers;
+  List<OptionStruct> get answers => _answers ?? const [];
+  set answers(List<OptionStruct>? val) => _answers = val;
+
+  void updateAnswers(Function(List<OptionStruct>) updateFn) {
+    updateFn(_answers ??= []);
+  }
+
+  bool hasAnswers() => _answers != null;
+
   static AnswerStruct fromMap(Map<String, dynamic> data) => AnswerStruct(
         surveyId: data['survey_id'] as DocumentReference?,
         questionId: data['question_id'] as DocumentReference?,
@@ -88,6 +101,10 @@ class AnswerStruct extends FFFirebaseStruct {
         location: data['location'] as LatLng?,
         answer: OptionStruct.maybeFromMap(data['answer']),
         comment: data['comment'] as String?,
+        answers: getStructList(
+          data['answers'],
+          OptionStruct.fromMap,
+        ),
       );
 
   static AnswerStruct? maybeFromMap(dynamic data) =>
@@ -101,6 +118,7 @@ class AnswerStruct extends FFFirebaseStruct {
         'location': _location,
         'answer': _answer?.toMap(),
         'comment': _comment,
+        'answers': _answers?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -132,6 +150,11 @@ class AnswerStruct extends FFFirebaseStruct {
         'comment': serializeParam(
           _comment,
           ParamType.String,
+        ),
+        'answers': serializeParam(
+          _answers,
+          ParamType.DataStruct,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -176,6 +199,12 @@ class AnswerStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        answers: deserializeStructParam<OptionStruct>(
+          data['answers'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: OptionStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -183,6 +212,7 @@ class AnswerStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is AnswerStruct &&
         surveyId == other.surveyId &&
         questionId == other.questionId &&
@@ -190,12 +220,13 @@ class AnswerStruct extends FFFirebaseStruct {
         time == other.time &&
         location == other.location &&
         answer == other.answer &&
-        comment == other.comment;
+        comment == other.comment &&
+        listEquality.equals(answers, other.answers);
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([surveyId, questionId, userId, time, location, answer, comment]);
+  int get hashCode => const ListEquality().hash(
+      [surveyId, questionId, userId, time, location, answer, comment, answers]);
 }
 
 AnswerStruct createAnswerStruct({

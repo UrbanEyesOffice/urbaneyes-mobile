@@ -51,16 +51,22 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       logFirebaseEvent('question_update_page_state');
       _model.isLoading = true;
       safeSetState(() {});
-      logFirebaseEvent('question_request_permissions');
-      await requestPermission(locationPermission);
-      if (await getPermissionStatus(locationPermission)) {
-        logFirebaseEvent('question_update_page_state');
-        _model.selectedLocation = currentUserLocationValue;
-        safeSetState(() {});
-      } else {
+      if (isWeb) {
         logFirebaseEvent('question_update_page_state');
         _model.selectedLocation = FFAppState().locationBishkek;
         safeSetState(() {});
+      } else {
+        logFirebaseEvent('question_request_permissions');
+        await requestPermission(locationPermission);
+        if (await getPermissionStatus(locationPermission)) {
+          logFirebaseEvent('question_update_page_state');
+          _model.selectedLocation = currentUserLocationValue;
+          safeSetState(() {});
+        } else {
+          logFirebaseEvent('question_update_page_state');
+          _model.selectedLocation = FFAppState().locationBishkek;
+          safeSetState(() {});
+        }
       }
 
       logFirebaseEvent('question_firestore_query');
@@ -81,15 +87,24 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       _model.currentQuestion =
           _model.questionsList?[_model.currentQuestionNumber];
       safeSetState(() {});
-      logFirebaseEvent('question_custom_action');
-      _model.locationTitleOnLoad = await actions.getAddressFromLatLngGoogleMaps(
-        _model.selectedLocation,
-        FFLocalizations.of(context).languageCode,
-      );
-      logFirebaseEvent('question_update_page_state');
-      _model.selectedLocationTitle = _model.locationTitleOnLoad;
-      _model.isLoading = false;
-      safeSetState(() {});
+      if (isWeb) {
+        logFirebaseEvent('question_update_page_state');
+        _model.selectedLocationTitle = 'test location';
+        _model.isLoading = false;
+        safeSetState(() {});
+      } else {
+        logFirebaseEvent('question_custom_action');
+        _model.locationTitleOnLoad =
+            await actions.getAddressFromLatLngGoogleMaps(
+          _model.selectedLocation,
+          FFLocalizations.of(context).languageCode,
+        );
+        logFirebaseEvent('question_update_page_state');
+        _model.selectedLocationTitle = _model.locationTitleOnLoad;
+        _model.isLoading = false;
+        safeSetState(() {});
+      }
+
       logFirebaseEvent('question_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
@@ -258,11 +273,28 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                     onPressed: () async {
                                       logFirebaseEvent(
                                           'QUESTION_PAGE_BUTTON_BTN_ON_TAP');
-                                      logFirebaseEvent(
-                                          'Button_update_page_state');
-                                      _model.selectedOption =
-                                          questionOptionsVisibleItem;
-                                      safeSetState(() {});
+                                      if (_model.currentQuestion!.multiselect) {
+                                        if (_model.selectedOptions.contains(
+                                            questionOptionsVisibleItem)) {
+                                          logFirebaseEvent(
+                                              'Button_update_page_state');
+                                          _model.removeFromSelectedOptions(
+                                              questionOptionsVisibleItem);
+                                          safeSetState(() {});
+                                        } else {
+                                          logFirebaseEvent(
+                                              'Button_update_page_state');
+                                          _model.addToSelectedOptions(
+                                              questionOptionsVisibleItem);
+                                          safeSetState(() {});
+                                        }
+                                      } else {
+                                        logFirebaseEvent(
+                                            'Button_update_page_state');
+                                        _model.selectedOption =
+                                            questionOptionsVisibleItem;
+                                        safeSetState(() {});
+                                      }
                                     },
                                     text: FFLocalizations.of(context)
                                         .getVariableText(
@@ -281,25 +313,45 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                       iconPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
-                                      color: valueOrDefault<bool>(
-                                        questionOptionsVisibleItem.id ==
-                                            _model.selectedOption?.id,
-                                        false,
-                                      )
-                                          ? Color(0xFF53B153)
-                                          : Color(0x0053B153),
+                                      color: () {
+                                        if (valueOrDefault<bool>(
+                                          questionOptionsVisibleItem.id ==
+                                              _model.selectedOption?.id,
+                                          false,
+                                        )) {
+                                          return Color(0xFF53B153);
+                                        } else if (_model.selectedOptions
+                                            .contains(
+                                                questionOptionsVisibleItem)) {
+                                          return FlutterFlowTheme.of(context)
+                                              .mainGreen;
+                                        } else {
+                                          return Color(0x0053B153);
+                                        }
+                                      }(),
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
                                             fontFamily: 'Golos',
-                                            color: valueOrDefault<bool>(
-                                              questionOptionsVisibleItem.id ==
-                                                  _model.selectedOption?.id,
-                                              false,
-                                            )
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primaryBackground
-                                                : Color(0xFF0A8D09),
+                                            color: () {
+                                              if (valueOrDefault<bool>(
+                                                questionOptionsVisibleItem.id ==
+                                                    _model.selectedOption?.id,
+                                                false,
+                                              )) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .primaryBackground;
+                                              } else if (_model.selectedOptions
+                                                  .contains(
+                                                      questionOptionsVisibleItem)) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .primaryBackground;
+                                              } else {
+                                                return Color(0xFF0A8D09);
+                                              }
+                                            }(),
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
                                           ),
@@ -386,7 +438,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           _model.currentQuestionNumber,
                           _model.questions.toList()))
                         FFButtonWidget(
-                          onPressed: (_model.selectedOption == null)
+                          onPressed: ((_model.selectedOption == null) &&
+                                  (_model.selectedOptions.length <= 0))
                               ? null
                               : () async {
                                   logFirebaseEvent('QUESTION_PAGE__BTN_ON_TAP');
@@ -400,14 +453,16 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                     userId: currentUserReference,
                                     time: getCurrentTimestamp,
                                     location: _model.selectedLocation,
-                                    answer: _model.selectedOption,
                                     comment: _model.commentTextController.text,
+                                    answer: _model.selectedOption,
+                                    answers: _model.selectedOptions,
                                   ));
                                   safeSetState(() {});
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.currentQuestion = _model
                                       .questions[_model.currentQuestionNumber];
                                   _model.selectedOption = null;
+                                  _model.selectedOptions = [];
                                   safeSetState(() {});
                                 },
                           text: FFLocalizations.of(context).getText(
@@ -443,7 +498,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                       if (functions.isLastQuestion(_model.currentQuestionNumber,
                           _model.questions.toList()))
                         FFButtonWidget(
-                          onPressed: (_model.selectedOption == null)
+                          onPressed: ((_model.selectedOption == null) &&
+                                  (_model.selectedOptions.length <= 0))
                               ? null
                               : () async {
                                   logFirebaseEvent('QUESTION_PAGE__BTN_ON_TAP');
@@ -457,35 +513,46 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                     location: _model.selectedLocation,
                                     answer: _model.selectedOption,
                                     comment: _model.commentTextController.text,
+                                    answers: _model.selectedOptions,
                                   ));
                                   safeSetState(() {});
                                   while (_model.currentQuestionNumber >= 0) {
                                     logFirebaseEvent('Button_backend_call');
 
-                                    await AnswerRecord.collection
-                                        .doc()
-                                        .set(createAnswerRecordData(
-                                          surveyId: widget!.survey?.reference,
-                                          questionId: _model
+                                    await AnswerRecord.collection.doc().set({
+                                      ...createAnswerRecordData(
+                                        surveyId: widget!.survey?.reference,
+                                        questionId: _model
+                                            .answers[
+                                                _model.currentQuestionNumber]
+                                            .questionId,
+                                        userId: currentUserReference,
+                                        time: getCurrentTimestamp,
+                                        location: _model.selectedLocation,
+                                        answer: updateOptionStruct(
+                                          _model
                                               .answers[
                                                   _model.currentQuestionNumber]
-                                              .questionId,
-                                          userId: currentUserReference,
-                                          time: getCurrentTimestamp,
-                                          location: _model.selectedLocation,
-                                          answer: updateOptionStruct(
+                                              .answer,
+                                          clearUnsetFields: false,
+                                          create: true,
+                                        ),
+                                        comment: _model
+                                            .answers[
+                                                _model.currentQuestionNumber]
+                                            .comment,
+                                      ),
+                                      ...mapToFirestore(
+                                        {
+                                          'answers': getOptionListFirestoreData(
                                             _model
                                                 .answers[_model
                                                     .currentQuestionNumber]
-                                                .answer,
-                                            clearUnsetFields: false,
-                                            create: true,
+                                                .answers,
                                           ),
-                                          comment: _model
-                                              .answers[
-                                                  _model.currentQuestionNumber]
-                                              .comment,
-                                        ));
+                                        },
+                                      ),
+                                    });
                                     logFirebaseEvent(
                                         'Button_update_page_state');
                                     _model.currentQuestionNumber =
