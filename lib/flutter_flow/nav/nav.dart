@@ -266,6 +266,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Leaderboard',
           path: '/leaderboard',
           builder: (context, params) => LeaderboardWidget(),
+        ),
+        FFRoute(
+          name: 'QuestionWithCheckboxes',
+          path: '/questionWithCheckboxes',
+          builder: (context, params) => QuestionWithCheckboxesWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

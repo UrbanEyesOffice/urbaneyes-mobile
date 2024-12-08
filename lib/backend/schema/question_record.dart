@@ -66,6 +66,11 @@ class QuestionRecord extends FirestoreRecord {
   bool get multiselect => _multiselect ?? false;
   bool hasMultiselect() => _multiselect != null;
 
+  // "canUploadImage" field.
+  bool? _canUploadImage;
+  bool get canUploadImage => _canUploadImage ?? false;
+  bool hasCanUploadImage() => _canUploadImage != null;
+
   void _initializeFields() {
     _question = snapshotData['question'] as String?;
     _surveyId = snapshotData['survey_id'] as DocumentReference?;
@@ -80,6 +85,7 @@ class QuestionRecord extends FirestoreRecord {
     );
     _enabled = snapshotData['enabled'] as bool?;
     _multiselect = snapshotData['multiselect'] as bool?;
+    _canUploadImage = snapshotData['canUploadImage'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -126,6 +132,7 @@ Map<String, dynamic> createQuestionRecordData({
   int? questionOrder,
   bool? enabled,
   bool? multiselect,
+  bool? canUploadImage,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -138,6 +145,7 @@ Map<String, dynamic> createQuestionRecordData({
       'question_order': questionOrder,
       'enabled': enabled,
       'multiselect': multiselect,
+      'canUploadImage': canUploadImage,
     }.withoutNulls,
   );
 
@@ -159,7 +167,8 @@ class QuestionRecordDocumentEquality implements Equality<QuestionRecord> {
         e1?.questionOrder == e2?.questionOrder &&
         listEquality.equals(e1?.options, e2?.options) &&
         e1?.enabled == e2?.enabled &&
-        e1?.multiselect == e2?.multiselect;
+        e1?.multiselect == e2?.multiselect &&
+        e1?.canUploadImage == e2?.canUploadImage;
   }
 
   @override
@@ -173,7 +182,8 @@ class QuestionRecordDocumentEquality implements Equality<QuestionRecord> {
         e?.questionOrder,
         e?.options,
         e?.enabled,
-        e?.multiselect
+        e?.multiselect,
+        e?.canUploadImage
       ]);
 
   @override

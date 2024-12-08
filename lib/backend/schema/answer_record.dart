@@ -56,6 +56,11 @@ class AnswerRecord extends FirestoreRecord {
   List<OptionStruct> get answers => _answers ?? const [];
   bool hasAnswers() => _answers != null;
 
+  // "images" field.
+  List<String>? _images;
+  List<String> get images => _images ?? const [];
+  bool hasImages() => _images != null;
+
   void _initializeFields() {
     _surveyId = snapshotData['survey_id'] as DocumentReference?;
     _questionId = snapshotData['question_id'] as DocumentReference?;
@@ -68,6 +73,7 @@ class AnswerRecord extends FirestoreRecord {
       snapshotData['answers'],
       OptionStruct.fromMap,
     );
+    _images = getDataList(snapshotData['images']);
   }
 
   static CollectionReference get collection =>
@@ -143,7 +149,8 @@ class AnswerRecordDocumentEquality implements Equality<AnswerRecord> {
         e1?.location == e2?.location &&
         e1?.answer == e2?.answer &&
         e1?.comment == e2?.comment &&
-        listEquality.equals(e1?.answers, e2?.answers);
+        listEquality.equals(e1?.answers, e2?.answers) &&
+        listEquality.equals(e1?.images, e2?.images);
   }
 
   @override
@@ -155,7 +162,8 @@ class AnswerRecordDocumentEquality implements Equality<AnswerRecord> {
         e?.location,
         e?.answer,
         e?.comment,
-        e?.answers
+        e?.answers,
+        e?.images
       ]);
 
   @override

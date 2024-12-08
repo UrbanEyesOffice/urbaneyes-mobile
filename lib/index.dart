@@ -38,3 +38,5 @@ export '/surveys/parking_survey/parking_survey_widget.dart'
 export '/registration/onboarding_video/onboarding_video_widget.dart'
     show OnboardingVideoWidget;
 export '/leaderboard/leaderboard_widget.dart' show LeaderboardWidget;
+export '/surveys/question_with_checkboxes/question_with_checkboxes_widget.dart'
+    show QuestionWithCheckboxesWidget;

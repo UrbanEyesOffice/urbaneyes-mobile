@@ -1,11 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/image_picker/image_picker_widget.dart';
 import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/permissions_util.dart';
@@ -250,6 +253,31 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               useGoogleFonts: false,
                             ),
                       ),
+                      Text(
+                        _model.currentQuestion!.multiselect
+                            ? FFLocalizations.of(context).getVariableText(
+                                ruText: 'Выберите все подходящие варианты',
+                                enText: 'Select all that apply',
+                                kyText: 'Тиешелүүлөрдүн баарын тандаңыз',
+                              )
+                            : FFLocalizations.of(context).getVariableText(
+                                ruText: 'Выберите наиболее подходящий вариант',
+                                enText: 'Choose the most suitable option',
+                                kyText: 'Эң ылайыктуу вариантты тандаңыз',
+                              ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                      Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: 1.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                      ),
                       Align(
                         alignment: AlignmentDirectional(0.0, 1.0),
                         child: Builder(
@@ -266,102 +294,117 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                 final questionOptionsVisibleItem =
                                     questionOptionsVisible[
                                         questionOptionsVisibleIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 16.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      logFirebaseEvent(
-                                          'QUESTION_PAGE_BUTTON_BTN_ON_TAP');
-                                      if (_model.currentQuestion!.multiselect) {
-                                        if (_model.selectedOptions.contains(
-                                            questionOptionsVisibleItem)) {
-                                          logFirebaseEvent(
-                                              'Button_update_page_state');
-                                          _model.removeFromSelectedOptions(
-                                              questionOptionsVisibleItem);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'Button_update_page_state');
-                                          _model.addToSelectedOptions(
-                                              questionOptionsVisibleItem);
-                                          safeSetState(() {});
-                                        }
-                                      } else {
-                                        logFirebaseEvent(
-                                            'Button_update_page_state');
-                                        _model.selectedOption =
-                                            questionOptionsVisibleItem;
-                                        safeSetState(() {});
-                                      }
-                                    },
-                                    text: FFLocalizations.of(context)
-                                        .getVariableText(
-                                      ruText:
-                                          questionOptionsVisibleItem.titleRu,
-                                      enText:
-                                          questionOptionsVisibleItem.titleEn,
-                                      kyText:
-                                          questionOptionsVisibleItem.titleKg,
-                                    ),
-                                    options: FFButtonOptions(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      height: 48.0,
-                                      padding: EdgeInsets.all(0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: () {
-                                        if (valueOrDefault<bool>(
-                                          questionOptionsVisibleItem.id ==
-                                              _model.selectedOption?.id,
-                                          false,
-                                        )) {
-                                          return Color(0xFF53B153);
-                                        } else if (_model.selectedOptions
-                                            .contains(
-                                                questionOptionsVisibleItem)) {
-                                          return FlutterFlowTheme.of(context)
-                                              .mainGreen;
-                                        } else {
-                                          return Color(0x0053B153);
-                                        }
-                                      }(),
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Golos',
+                                return Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'QUESTION_PAGE_BUTTON_BTN_ON_TAP');
+                                            if (_model
+                                                .currentQuestion!.multiselect) {
+                                              if (_model.selectedOptions.contains(
+                                                  questionOptionsVisibleItem)) {
+                                                logFirebaseEvent(
+                                                    'Button_update_page_state');
+                                                _model.removeFromSelectedOptions(
+                                                    questionOptionsVisibleItem);
+                                                safeSetState(() {});
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'Button_update_page_state');
+                                                _model.addToSelectedOptions(
+                                                    questionOptionsVisibleItem);
+                                                safeSetState(() {});
+                                              }
+                                            } else {
+                                              logFirebaseEvent(
+                                                  'Button_update_page_state');
+                                              _model.selectedOption =
+                                                  questionOptionsVisibleItem;
+                                              safeSetState(() {});
+                                            }
+                                          },
+                                          text: FFLocalizations.of(context)
+                                              .getVariableText(
+                                            ruText: questionOptionsVisibleItem
+                                                .titleRu,
+                                            enText: questionOptionsVisibleItem
+                                                .titleEn,
+                                            kyText: questionOptionsVisibleItem
+                                                .titleKg,
+                                          ),
+                                          options: FFButtonOptions(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: 48.0,
+                                            padding: EdgeInsets.all(0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
                                             color: () {
                                               if (valueOrDefault<bool>(
                                                 questionOptionsVisibleItem.id ==
                                                     _model.selectedOption?.id,
                                                 false,
                                               )) {
-                                                return FlutterFlowTheme.of(
-                                                        context)
-                                                    .primaryBackground;
+                                                return Color(0xFF53B153);
                                               } else if (_model.selectedOptions
                                                   .contains(
                                                       questionOptionsVisibleItem)) {
                                                 return FlutterFlowTheme.of(
                                                         context)
-                                                    .primaryBackground;
+                                                    .mainGreen;
                                               } else {
-                                                return Color(0xFF0A8D09);
+                                                return Color(0x0053B153);
                                               }
                                             }(),
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: false,
+                                            textStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .titleSmall
+                                                .override(
+                                                  fontFamily: 'Golos',
+                                                  color: () {
+                                                    if (valueOrDefault<bool>(
+                                                      questionOptionsVisibleItem
+                                                              .id ==
+                                                          _model.selectedOption
+                                                              ?.id,
+                                                      false,
+                                                    )) {
+                                                      return FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground;
+                                                    } else if (_model
+                                                        .selectedOptions
+                                                        .contains(
+                                                            questionOptionsVisibleItem)) {
+                                                      return FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground;
+                                                    } else {
+                                                      return Color(0xFF0A8D09);
+                                                    }
+                                                  }(),
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: false,
+                                                ),
+                                            elevation: 0.0,
+                                            borderSide: BorderSide(
+                                              color: Color(0xFF53B153),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
-                                      elevation: 0.0,
-                                      borderSide: BorderSide(
-                                        color: Color(0xFF53B153),
-                                        width: 1.0,
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
+                                    ],
                                   ),
                                 );
                               }),
@@ -369,6 +412,34 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           },
                         ),
                       ),
+                      Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: 1.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                      ),
+                      if (valueOrDefault<bool>(
+                        _model.currentQuestion?.canUploadImage,
+                        false,
+                      ))
+                        Container(
+                          child: wrapWithModel(
+                            model: _model.imagePickerModel,
+                            updateCallback: () => safeSetState(() {}),
+                            child: ImagePickerWidget(
+                              maxAllowed: 1,
+                            ),
+                          ),
+                        ),
+                      if (_model.currentQuestion?.canUploadImage ?? true)
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: 1.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
+                        ),
                       TextFormField(
                         controller: _model.commentTextController,
                         focusNode: _model.commentFocusNode,
@@ -443,6 +514,65 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               ? null
                               : () async {
                                   logFirebaseEvent('QUESTION_PAGE__BTN_ON_TAP');
+                                  logFirebaseEvent(
+                                      'Button_upload_file_to_firebase');
+                                  {
+                                    safeSetState(
+                                        () => _model.isDataUploading1 = true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
+                                    var selectedFiles = <SelectedFile>[];
+                                    var downloadUrls = <String>[];
+                                    try {
+                                      showUploadMessage(
+                                        context,
+                                        'Uploading file...',
+                                        showLoading: true,
+                                      );
+                                      selectedUploadedFiles =
+                                          _model.imagePickerModel.localImages;
+                                      selectedFiles =
+                                          selectedFilesFromUploadedFiles(
+                                        selectedUploadedFiles,
+                                        isMultiData: true,
+                                      );
+                                      downloadUrls = (await Future.wait(
+                                        selectedFiles.map(
+                                          (f) async => await uploadData(
+                                              f.storagePath, f.bytes),
+                                        ),
+                                      ))
+                                          .where((u) => u != null)
+                                          .map((u) => u!)
+                                          .toList();
+                                    } finally {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      _model.isDataUploading1 = false;
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                            selectedFiles.length &&
+                                        downloadUrls.length ==
+                                            selectedFiles.length) {
+                                      safeSetState(() {
+                                        _model.uploadedLocalFiles1 =
+                                            selectedUploadedFiles;
+                                        _model.uploadedFileUrls1 = downloadUrls;
+                                      });
+                                      showUploadMessage(
+                                        context,
+                                        'Success!',
+                                      );
+                                    } else {
+                                      safeSetState(() {});
+                                      showUploadMessage(
+                                        context,
+                                        'Failed to upload file',
+                                      );
+                                      return;
+                                    }
+                                  }
+
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.currentQuestionNumber =
                                       _model.currentQuestionNumber + 1;
@@ -456,6 +586,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                     comment: _model.commentTextController.text,
                                     answer: _model.selectedOption,
                                     answers: _model.selectedOptions,
+                                    images: _model.uploadedFileUrls1,
                                   ));
                                   safeSetState(() {});
                                   logFirebaseEvent('Button_update_page_state');
@@ -503,6 +634,50 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                               ? null
                               : () async {
                                   logFirebaseEvent('QUESTION_PAGE__BTN_ON_TAP');
+                                  logFirebaseEvent(
+                                      'Button_upload_file_to_firebase');
+                                  {
+                                    safeSetState(
+                                        () => _model.isDataUploading2 = true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
+                                    var selectedFiles = <SelectedFile>[];
+                                    var downloadUrls = <String>[];
+                                    try {
+                                      selectedUploadedFiles =
+                                          _model.imagePickerModel.localImages;
+                                      selectedFiles =
+                                          selectedFilesFromUploadedFiles(
+                                        selectedUploadedFiles,
+                                        isMultiData: true,
+                                      );
+                                      downloadUrls = (await Future.wait(
+                                        selectedFiles.map(
+                                          (f) async => await uploadData(
+                                              f.storagePath, f.bytes),
+                                        ),
+                                      ))
+                                          .where((u) => u != null)
+                                          .map((u) => u!)
+                                          .toList();
+                                    } finally {
+                                      _model.isDataUploading2 = false;
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                            selectedFiles.length &&
+                                        downloadUrls.length ==
+                                            selectedFiles.length) {
+                                      safeSetState(() {
+                                        _model.uploadedLocalFiles2 =
+                                            selectedUploadedFiles;
+                                        _model.uploadedFileUrls2 = downloadUrls;
+                                      });
+                                    } else {
+                                      safeSetState(() {});
+                                      return;
+                                    }
+                                  }
+
                                   logFirebaseEvent('Button_update_page_state');
                                   _model.addToAnswers(AnswerStruct(
                                     surveyId: widget!.survey?.reference,
@@ -514,6 +689,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                     answer: _model.selectedOption,
                                     comment: _model.commentTextController.text,
                                     answers: _model.selectedOptions,
+                                    images: _model.uploadedFileUrls2,
                                   ));
                                   safeSetState(() {});
                                   while (_model.currentQuestionNumber >= 0) {
@@ -550,6 +726,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                                     .currentQuestionNumber]
                                                 .answers,
                                           ),
+                                          'images': _model
+                                              .answers[
+                                                  _model.currentQuestionNumber]
+                                              .images,
                                         },
                                       ),
                                     });
