@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -71,7 +72,10 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -277,7 +281,8 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                               PromocodesRecord.collection.doc();
                                           await promocodesRecordReference
                                               .set(createPromocodesRecordData(
-                                            code: rewardsItem.unusedCodes.first,
+                                            code: rewardsItem
+                                                .unusedCodes.firstOrNull,
                                             usedBy: currentUserReference,
                                             usedDate: getCurrentTimestamp,
                                             reward: rewardsItem.reference,
@@ -286,7 +291,8 @@ class _RewardsCopyWidgetState extends State<RewardsCopyWidget> {
                                               .getDocumentFromData(
                                                   createPromocodesRecordData(
                                                     code: rewardsItem
-                                                        .unusedCodes.first,
+                                                        .unusedCodes
+                                                        .firstOrNull,
                                                     usedBy:
                                                         currentUserReference,
                                                     usedDate:

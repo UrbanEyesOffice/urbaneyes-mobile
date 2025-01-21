@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -84,7 +85,10 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
         context: context,
         builder: (context) {
           return GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
+            onTap: () {
+              FocusScope.of(context).unfocus();
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
             child: Padding(
               padding: MediaQuery.viewInsetsOf(context),
               child: Container(
@@ -92,7 +96,8 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                 child: OsmWidget(
                   initialLocation: _model.selectedLocation!,
                   initialLocationTitle: _model.selectedLocationTitle,
-                  onSelectLocation: (location, locationTitle) async {
+                  onSelectLocation:
+                      (location, locationTitle, buildingInfo) async {
                     logFirebaseEvent('_update_page_state');
                     _model.selectedLocation = location;
                     _model.selectedLocationTitle = locationTitle!;
@@ -127,7 +132,10 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -179,7 +187,11 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                               context: context,
                               builder: (context) {
                                 return GestureDetector(
-                                  onTap: () => FocusScope.of(context).unfocus(),
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
+                                  },
                                   child: Padding(
                                     padding: MediaQuery.viewInsetsOf(context),
                                     child: Container(
@@ -191,8 +203,8 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                             _model.selectedLocation!,
                                         initialLocationTitle:
                                             _model.selectedLocationTitle,
-                                        onSelectLocation:
-                                            (location, locationTitle) async {
+                                        onSelectLocation: (location,
+                                            locationTitle, buildingInfo) async {
                                           logFirebaseEvent(
                                               '_update_page_state');
                                           _model.selectedLocation = location;
@@ -929,7 +941,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   ),
                                   Text(
                                     FFLocalizations.of(context).getText(
-                                      'ao976zzq' /* Держите в курсеготов обсудить */,
+                                      'ao976zzq' /* Держите в курсе/готов обсудить */,
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -952,7 +964,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                   decoration: InputDecoration(
                                     labelText:
                                         FFLocalizations.of(context).getText(
-                                      'cw3iych7' /* ТелеграммWhatsappТелефон */,
+                                      'cw3iych7' /* Телеграмм/Whatsapp/Телефон */,
                                     ),
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -1135,6 +1147,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                                             fontWeight: FontWeight.normal,
                                             fontSize: 16.0,
                                           ),
+                                          textAlign: TextAlign.center,
                                         ),
                                         duration: Duration(milliseconds: 4000),
                                         backgroundColor:

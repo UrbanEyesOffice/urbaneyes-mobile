@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
 import 'dart:math';
+import 'dart:ui';
 import 'onboarding_video_widget.dart' show OnboardingVideoWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';

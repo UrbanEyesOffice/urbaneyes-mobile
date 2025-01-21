@@ -128,6 +128,11 @@ DateTime yearToDateTime(String year) {
   return DateTime.parse('$year' + '0101');
 }
 
+double lngFormPosition(LatLng position) {
+  // write function that returns lat and lng as separate variables from latlng
+  return position.longitude.toDouble();
+}
+
 String? getAddress(LatLng position) {
   return null;
 }
@@ -158,4 +163,9 @@ String? datetimeIntoYear(DateTime? datetime) {
   // convert datetime into year string
   if (datetime == null) return null;
   return DateFormat('yyyy').format(datetime);
+}
+
+double latFormPosition(LatLng position) {
+  // write function that returns lat and lng as separate variables from latlng
+  return position.latitude.toDouble();
 }

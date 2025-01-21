@@ -24,6 +24,8 @@ export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
 
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
+
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
 
@@ -81,6 +83,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
           appStateNotifier.loggedIn ? HomePageCopyWidget() : MainAuthWidget(),
       routes: [
@@ -271,6 +274,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'QuestionWithCheckboxes',
           path: '/questionWithCheckboxes',
           builder: (context, params) => QuestionWithCheckboxesWidget(),
+        ),
+        FFRoute(
+          name: 'BuildingTypeQuestion',
+          path: '/question',
+          requireAuth: true,
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+          },
+          builder: (context, params) => BuildingTypeQuestionWidget(
+            survey: params.getParam(
+              'survey',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

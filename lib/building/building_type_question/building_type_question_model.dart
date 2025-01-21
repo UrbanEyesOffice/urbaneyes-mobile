@@ -13,7 +13,7 @@ import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/permissions_util.dart';
-import 'question_widget.dart' show QuestionWidget;
+import 'building_type_question_widget.dart' show BuildingTypeQuestionWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class QuestionModel extends FlutterFlowModel<QuestionWidget> {
+class BuildingTypeQuestionModel
+    extends FlutterFlowModel<BuildingTypeQuestionWidget> {
   ///  Local state fields for this page.
 
   LatLng? selectedLocation;
@@ -93,9 +94,9 @@ class QuestionModel extends FlutterFlowModel<QuestionWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Firestore Query - Query a collection] action in question widget.
+  // Stores action output result for [Firestore Query - Query a collection] action in BuildingTypeQuestion widget.
   List<QuestionRecord>? questionsList;
-  // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in question widget.
+  // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in BuildingTypeQuestion widget.
   String? locationTitleOnLoad;
   // Model for ImagePicker component.
   late ImagePickerModel imagePickerModel;

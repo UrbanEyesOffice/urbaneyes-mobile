@@ -140,7 +140,7 @@ class _FeedbackAlertWidgetState extends State<FeedbackAlertWidget> {
                                       useGoogleFonts: false,
                                     ),
                             hintText: FFLocalizations.of(context).getText(
-                              '19fvfw1x' /* Что бы вы хотели добавитьулуч... */,
+                              '19fvfw1x' /* Что бы вы хотели добавить/улуч... */,
                             ),
                             hintStyle: TextStyle(),
                             enabledBorder: OutlineInputBorder(

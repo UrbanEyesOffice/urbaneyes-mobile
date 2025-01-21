@@ -195,6 +195,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Gender',
       'ky': 'Жыныс',
     },
+    'hacoa4kz': {
+      'ru': 'Выбрать пол',
+      'en': 'Select gender',
+      'ky': 'Жынысты тандаңыз',
+    },
+    'ivnt704y': {
+      'ru': 'Search for an item...',
+      'en': '',
+      'ky': '',
+    },
     '36ze9hen': {
       'ru': 'Другой',
       'en': 'Other',
@@ -209,16 +219,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Женский',
       'en': 'Female',
       'ky': 'Аял',
-    },
-    'hacoa4kz': {
-      'ru': 'Выбрать пол',
-      'en': 'Select gender',
-      'ky': 'Жынысты тандаңыз',
-    },
-    'ivnt704y': {
-      'ru': 'Search for an item...',
-      'en': '',
-      'ky': '',
     },
     'vvjvh66o': {
       'ru': 'Год рождения',
@@ -352,16 +352,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Gender',
       'ky': 'Жыныс',
     },
-    'cpoyi6n6': {
-      'ru': 'Мужской',
-      'en': 'Male',
-      'ky': 'Эркек',
-    },
-    'efzp3pjl': {
-      'ru': 'Женский',
-      'en': 'Female',
-      'ky': 'Аял',
-    },
     'p5u8fuji': {
       'ru': 'Выбрать пол',
       'en': 'Select gender',
@@ -371,6 +361,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Search for an item...',
       'en': '',
       'ky': '',
+    },
+    'cpoyi6n6': {
+      'ru': 'Мужской',
+      'en': 'Male',
+      'ky': 'Эркек',
+    },
+    'efzp3pjl': {
+      'ru': 'Женский',
+      'en': 'Female',
+      'ky': 'Аял',
     },
     'mpnhy26o': {
       'ru': 'Год рождения',
@@ -1067,6 +1067,34 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'k5et27yw': {
       'ru': 'Продолжить',
       'en': '',
+      'ky': '',
+    },
+  },
+  // BuildingTypeQuestion
+  {
+    'u514t9eb': {
+      'ru': 'Поле для комментария',
+      'en': 'Comment field',
+      'ky': 'Комментарий талаасы',
+    },
+    'eft86o25': {
+      'ru': 'Далее',
+      'en': 'Next',
+      'ky': 'Андан ары',
+    },
+    'yzfgndfx': {
+      'ru': 'Завершить',
+      'en': 'Complete',
+      'ky': 'Бүттү',
+    },
+    'raicn170': {
+      'ru': 'Изменить локацию',
+      'en': 'Change location',
+      'ky': 'Жайгашкан жерди өзгөртүү',
+    },
+    'v1chrnra': {
+      'ru': 'Главная',
+      'en': 'Home',
       'ky': '',
     },
   },

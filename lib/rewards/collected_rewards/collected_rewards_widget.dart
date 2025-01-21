@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,10 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -164,7 +168,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                           ?.where((e) =>
                                               e.reward == rewardsItem.reference)
                                           .toList()
-                                          ?.first
+                                          ?.firstOrNull
                                           ?.isExpired ??
                                       true)
                                     FaIcon(
@@ -176,7 +180,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                       .where((e) =>
                                           e.reward == rewardsItem.reference)
                                       .toList()
-                                      .first
+                                      .firstOrNull!
                                       .isExpired)
                                     FaIcon(
                                       FontAwesomeIcons.checkCircle,
@@ -246,7 +250,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                                   e.reward ==
                                                   rewardsItem.reference)
                                               .toList()
-                                              ?.first,
+                                              ?.firstOrNull,
                                           ParamType.Document,
                                         ),
                                       }.withoutNulls,
@@ -257,7 +261,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                                 e.reward ==
                                                 rewardsItem.reference)
                                             .toList()
-                                            ?.first,
+                                            ?.firstOrNull,
                                       },
                                     );
                                   },
@@ -283,7 +287,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                         .where((e) =>
                                             e.reward == rewardsItem.reference)
                                         .toList()
-                                        .first
+                                        .firstOrNull!
                                         .isActivated) {
                                       return FFLocalizations.of(context)
                                           .getVariableText(
@@ -295,7 +299,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                         .where((e) =>
                                             e.reward == rewardsItem.reference)
                                         .toList()
-                                        .first
+                                        .firstOrNull!
                                         .isExpired) {
                                       return FFLocalizations.of(context)
                                           .getVariableText(
@@ -318,7 +322,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                                     e.reward ==
                                                     rewardsItem.reference)
                                                 .toList()
-                                                .first
+                                                .firstOrNull!
                                                 .isActivated) {
                                               return Color(0xFF13BE13);
                                             } else if (_model.loadedPromocodes!
@@ -326,7 +330,7 @@ class _CollectedRewardsWidgetState extends State<CollectedRewardsWidget> {
                                                     e.reward ==
                                                     rewardsItem.reference)
                                                 .toList()
-                                                .first
+                                                .firstOrNull!
                                                 .isExpired) {
                                               return Color(0xFFD81D1D);
                                             } else {

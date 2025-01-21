@@ -67,7 +67,9 @@ class AnswerRecord extends FirestoreRecord {
     _userId = snapshotData['user_id'] as DocumentReference?;
     _time = snapshotData['time'] as DateTime?;
     _location = snapshotData['location'] as LatLng?;
-    _answer = OptionStruct.maybeFromMap(snapshotData['answer']);
+    _answer = snapshotData['answer'] is OptionStruct
+        ? snapshotData['answer']
+        : OptionStruct.maybeFromMap(snapshotData['answer']);
     _comment = snapshotData['comment'] as String?;
     _answers = getStructList(
       snapshotData['answers'],

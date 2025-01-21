@@ -1,8 +1,11 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,12 +19,15 @@ class OsmWidget extends StatefulWidget {
     required this.initialLocation,
     this.initialLocationTitle,
     required this.onSelectLocation,
-  });
+    bool? getBuildingInfo,
+  }) : this.getBuildingInfo = getBuildingInfo ?? false;
 
   final LatLng? initialLocation;
   final String? initialLocationTitle;
-  final Future Function(LatLng? location, String? locationTitle)?
+  final Future Function(
+          LatLng? location, String? locationTitle, dynamic buildingInfo)?
       onSelectLocation;
+  final bool getBuildingInfo;
 
   @override
   State<OsmWidget> createState() => _OsmWidgetState();
@@ -78,6 +84,7 @@ class _OsmWidgetState extends State<OsmWidget> {
               width: MediaQuery.sizeOf(context).width * 1.0,
               height: MediaQuery.sizeOf(context).height * 1.0,
               initialLocation: widget!.initialLocation!,
+              polygonPoints: _model.polygonPoints,
               onMapMoved: (mapCenter) async {
                 logFirebaseEvent('OSM_COMP_Container_f6m7mksd_CALLBACK');
                 logFirebaseEvent('OpenStreetMapWidget_custom_action');
@@ -86,9 +93,18 @@ class _OsmWidgetState extends State<OsmWidget> {
                   mapCenter,
                   FFLocalizations.of(context).languageCode,
                 );
+                logFirebaseEvent('OpenStreetMapWidget_backend_call');
+                _model.responseBuildingInfo =
+                    await CityDashboardGroup.findBuildingCall.call(
+                  lat: functions.latFormPosition(mapCenter),
+                  lon: functions.lngFormPosition(mapCenter),
+                );
+
                 logFirebaseEvent('OpenStreetMapWidget_update_component_sta');
                 _model.localLocationTitle = _model.osmAddress;
                 _model.localLocation = mapCenter;
+                _model.polygonPoints =
+                    (_model.responseBuildingInfo?.jsonBody ?? '');
                 safeSetState(() {});
 
                 safeSetState(() {});
@@ -199,6 +215,7 @@ class _OsmWidgetState extends State<OsmWidget> {
                             await widget.onSelectLocation?.call(
                               _model.localLocation,
                               _model.localLocationTitle,
+                              _model.polygonPoints,
                             );
                             logFirebaseEvent('Button_close_dialog_drawer_etc');
                             Navigator.pop(context);

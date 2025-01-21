@@ -3,6 +3,7 @@ import '/components/privacy_bottom_sheet/privacy_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,7 +45,10 @@ class _CompleteRegistrationWidgetState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -126,7 +130,10 @@ class _CompleteRegistrationWidgetState
                             context: context,
                             builder: (context) {
                               return GestureDetector(
-                                onTap: () => FocusScope.of(context).unfocus(),
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                },
                                 child: Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
                                   child: PrivacyBottomSheetWidget(),

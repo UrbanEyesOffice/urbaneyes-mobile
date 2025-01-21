@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as latlong2;
 import 'package:flutter_debouncer/flutter_debouncer.dart';
+import 'package:flutter_map_geojson/flutter_map_geojson.dart';
 
 class OpenStreetMapWidget extends StatefulWidget {
   const OpenStreetMapWidget({
@@ -21,6 +22,7 @@ class OpenStreetMapWidget extends StatefulWidget {
     this.width,
     this.height,
     this.onMapMoved,
+    this.polygonPoints,
     required this.initialLocation,
   });
 
@@ -28,6 +30,7 @@ class OpenStreetMapWidget extends StatefulWidget {
   final double? height;
   final Future Function(LatLng mapCenter)? onMapMoved;
   final LatLng initialLocation;
+  final dynamic? polygonPoints;
 
   @override
   State<OpenStreetMapWidget> createState() => _OpenStreetMapWidgetState();
@@ -36,6 +39,30 @@ class OpenStreetMapWidget extends StatefulWidget {
 class _OpenStreetMapWidgetState extends State<OpenStreetMapWidget> {
   final mapController = MapController();
   final Debouncer _debouncer = Debouncer();
+  GeoJsonParser geoJsonParser = GeoJsonParser();
+
+  @override
+  void didUpdateWidget(covariant OpenStreetMapWidget oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    geoJsonParser.polygons.clear();
+    geoJsonParser.polylines.clear();
+    geoJsonParser.markers.clear();
+    if (widget.polygonPoints != null) {
+      if (widget.polygonPoints["geometry"] != null) {
+        Map<String, dynamic> rootMap = {};
+        List<dynamic> features = [];
+        Map<String, dynamic> feature =
+            widget.polygonPoints as Map<String, dynamic>;
+        if (feature["properties"] == null) {
+          feature["properties"] = {"fill": "#90EE90", "stroke": "#006400"};
+        }
+        features.add(feature);
+        rootMap["features"] = features;
+        geoJsonParser.parseGeoJson(rootMap);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +95,10 @@ class _OpenStreetMapWidgetState extends State<OpenStreetMapWidget> {
           TileLayer(
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             userAgentPackageName: "kg.urbaneyes.urbaneyes",
-          )
+          ),
+          PolygonLayer(polygons: geoJsonParser.polygons),
+          PolylineLayer(polylines: geoJsonParser.polylines),
+          MarkerLayer(markers: geoJsonParser.markers),
         ]);
   }
 }

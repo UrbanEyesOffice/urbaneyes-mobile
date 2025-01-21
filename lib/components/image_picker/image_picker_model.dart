@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import 'image_picker_widget.dart' show ImagePickerWidget;
 import 'package:carousel_slider/carousel_slider.dart';

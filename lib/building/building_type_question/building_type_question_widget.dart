@@ -20,11 +20,11 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'question_model.dart';
-export 'question_model.dart';
+import 'building_type_question_model.dart';
+export 'building_type_question_model.dart';
 
-class QuestionWidget extends StatefulWidget {
-  const QuestionWidget({
+class BuildingTypeQuestionWidget extends StatefulWidget {
+  const BuildingTypeQuestionWidget({
     super.key,
     required this.survey,
   });
@@ -32,11 +32,13 @@ class QuestionWidget extends StatefulWidget {
   final SurveysRecord? survey;
 
   @override
-  State<QuestionWidget> createState() => _QuestionWidgetState();
+  State<BuildingTypeQuestionWidget> createState() =>
+      _BuildingTypeQuestionWidgetState();
 }
 
-class _QuestionWidgetState extends State<QuestionWidget> {
-  late QuestionModel _model;
+class _BuildingTypeQuestionWidgetState
+    extends State<BuildingTypeQuestionWidget> {
+  late BuildingTypeQuestionModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng? currentUserLocationValue;
@@ -44,36 +46,37 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => QuestionModel());
+    _model = createModel(context, () => BuildingTypeQuestionModel());
 
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'question'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'BuildingTypeQuestion'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('QUESTION_PAGE_question_ON_INIT_STATE');
+      logFirebaseEvent('BUILDING_TYPE_QUESTION_BuildingTypeQuest');
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
-      logFirebaseEvent('question_update_page_state');
+      logFirebaseEvent('BuildingTypeQuestion_update_page_state');
       _model.isLoading = true;
       safeSetState(() {});
       if (isWeb) {
-        logFirebaseEvent('question_update_page_state');
+        logFirebaseEvent('BuildingTypeQuestion_update_page_state');
         _model.selectedLocation = FFAppState().locationBishkek;
         safeSetState(() {});
       } else {
-        logFirebaseEvent('question_request_permissions');
+        logFirebaseEvent('BuildingTypeQuestion_request_permissions');
         await requestPermission(locationPermission);
         if (await getPermissionStatus(locationPermission)) {
-          logFirebaseEvent('question_update_page_state');
+          logFirebaseEvent('BuildingTypeQuestion_update_page_state');
           _model.selectedLocation = currentUserLocationValue;
           safeSetState(() {});
         } else {
-          logFirebaseEvent('question_update_page_state');
+          logFirebaseEvent('BuildingTypeQuestion_update_page_state');
           _model.selectedLocation = FFAppState().locationBishkek;
           safeSetState(() {});
         }
       }
 
-      logFirebaseEvent('question_firestore_query');
+      logFirebaseEvent('BuildingTypeQuestion_firestore_query');
       _model.questionsList = await queryQuestionRecordOnce(
         queryBuilder: (questionRecord) => questionRecord
             .where(
@@ -86,30 +89,30 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             )
             .orderBy('question_order'),
       );
-      logFirebaseEvent('question_update_page_state');
+      logFirebaseEvent('BuildingTypeQuestion_update_page_state');
       _model.questions = _model.questionsList!.toList().cast<QuestionRecord>();
       _model.currentQuestion =
           _model.questionsList?.elementAtOrNull(_model.currentQuestionNumber);
       safeSetState(() {});
       if (isWeb) {
-        logFirebaseEvent('question_update_page_state');
+        logFirebaseEvent('BuildingTypeQuestion_update_page_state');
         _model.selectedLocationTitle = 'test location';
         _model.isLoading = false;
         safeSetState(() {});
       } else {
-        logFirebaseEvent('question_custom_action');
+        logFirebaseEvent('BuildingTypeQuestion_custom_action');
         _model.locationTitleOnLoad =
             await actions.getAddressFromLatLngGoogleMaps(
           _model.selectedLocation,
           FFLocalizations.of(context).languageCode,
         );
-        logFirebaseEvent('question_update_page_state');
+        logFirebaseEvent('BuildingTypeQuestion_update_page_state');
         _model.selectedLocationTitle = _model.locationTitleOnLoad;
         _model.isLoading = false;
         safeSetState(() {});
       }
 
-      logFirebaseEvent('question_bottom_sheet');
+      logFirebaseEvent('BuildingTypeQuestion_bottom_sheet');
       await showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -183,7 +186,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               size: 40.0,
             ),
             onPressed: () async {
-              logFirebaseEvent('QUESTION_PAGE_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('BUILDING_TYPE_QUESTION_chevron_left_ICN_');
               logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
@@ -312,7 +315,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                         child: FFButtonWidget(
                                           onPressed: () async {
                                             logFirebaseEvent(
-                                                'QUESTION_PAGE_BUTTON_BTN_ON_TAP');
+                                                'BUILDING_TYPE_QUESTION_BUTTON_BTN_ON_TAP');
                                             if (_model
                                                 .currentQuestion!.multiselect) {
                                               if (_model.selectedOptions.contains(
@@ -455,7 +458,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: FFLocalizations.of(context).getText(
-                            'bwsaww2r' /* Поле для комментария */,
+                            'u514t9eb' /* Поле для комментария */,
                           ),
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
@@ -521,7 +524,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                   (_model.selectedOptions.length <= 0))
                               ? null
                               : () async {
-                                  logFirebaseEvent('QUESTION_PAGE__BTN_ON_TAP');
+                                  logFirebaseEvent(
+                                      'BUILDING_TYPE_QUESTION_PAGE__BTN_ON_TAP');
                                   logFirebaseEvent(
                                       'Button_upload_file_to_firebase');
                                   {
@@ -606,7 +610,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                   safeSetState(() {});
                                 },
                           text: FFLocalizations.of(context).getText(
-                            'pt8y2gzq' /* Далее */,
+                            'eft86o25' /* Далее */,
                           ),
                           options: FFButtonOptions(
                             width: 330.0,
@@ -642,7 +646,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                   (_model.selectedOptions.length <= 0))
                               ? null
                               : () async {
-                                  logFirebaseEvent('QUESTION_PAGE__BTN_ON_TAP');
+                                  logFirebaseEvent(
+                                      'BUILDING_TYPE_QUESTION_PAGE__BTN_ON_TAP');
                                   logFirebaseEvent(
                                       'Button_upload_file_to_firebase');
                                   {
@@ -764,7 +769,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                                   );
                                 },
                           text: FFLocalizations.of(context).getText(
-                            'y2oxtgw9' /* Завершить */,
+                            'yzfgndfx' /* Завершить */,
                           ),
                           options: FFButtonOptions(
                             width: 330.0,
@@ -795,7 +800,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       FFButtonWidget(
                         onPressed: () async {
-                          logFirebaseEvent('QUESTION_PAGE___BTN_ON_TAP');
+                          logFirebaseEvent(
+                              'BUILDING_TYPE_QUESTION_PAGE___BTN_ON_TAP');
                           logFirebaseEvent('Button_bottom_sheet');
                           await showModalBottomSheet(
                             isScrollControlled: true,
@@ -834,7 +840,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           ).then((value) => safeSetState(() {}));
                         },
                         text: FFLocalizations.of(context).getText(
-                          '8rxnnklj' /* Изменить локацию */,
+                          'raicn170' /* Изменить локацию */,
                         ),
                         options: FFButtonOptions(
                           width: 330.0,

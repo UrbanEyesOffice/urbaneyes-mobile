@@ -112,7 +112,9 @@ class AnswerStruct extends FFFirebaseStruct {
         userId: data['user_id'] as DocumentReference?,
         time: data['time'] as DateTime?,
         location: data['location'] as LatLng?,
-        answer: OptionStruct.maybeFromMap(data['answer']),
+        answer: data['answer'] is OptionStruct
+            ? data['answer']
+            : OptionStruct.maybeFromMap(data['answer']),
         comment: data['comment'] as String?,
         answers: getStructList(
           data['answers'],

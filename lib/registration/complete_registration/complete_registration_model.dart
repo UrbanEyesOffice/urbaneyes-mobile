@@ -3,6 +3,7 @@ import '/components/privacy_bottom_sheet/privacy_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'complete_registration_widget.dart' show CompleteRegistrationWidget;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

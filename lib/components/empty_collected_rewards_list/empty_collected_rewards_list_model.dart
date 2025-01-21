@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
 import 'empty_collected_rewards_list_widget.dart'
     show EmptyCollectedRewardsListWidget;
 import 'package:flutter/material.dart';
