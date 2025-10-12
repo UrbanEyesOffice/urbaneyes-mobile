@@ -286,6 +286,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'selectedLocationTitle',
               ParamType.String,
             ),
+            buildingTypes: params.getParam<String>(
+              'buildingTypes',
+              ParamType.String,
+              isList: true,
+            ),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

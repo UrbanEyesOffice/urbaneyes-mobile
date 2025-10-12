@@ -15,13 +15,11 @@ class BuildingTypeStruct extends FFFirebaseStruct {
     String? titleRu,
     String? titleKg,
     String? titleEn,
-    MainBuildingType? type,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _id = id,
         _titleRu = titleRu,
         _titleKg = titleKg,
         _titleEn = titleEn,
-        _type = type,
         super(firestoreUtilData);
 
   // "id" field.
@@ -52,22 +50,12 @@ class BuildingTypeStruct extends FFFirebaseStruct {
 
   bool hasTitleEn() => _titleEn != null;
 
-  // "type" field.
-  MainBuildingType? _type;
-  MainBuildingType? get type => _type;
-  set type(MainBuildingType? val) => _type = val;
-
-  bool hasType() => _type != null;
-
   static BuildingTypeStruct fromMap(Map<String, dynamic> data) =>
       BuildingTypeStruct(
         id: data['id'] as String?,
         titleRu: data['title_ru'] as String?,
         titleKg: data['title_kg'] as String?,
         titleEn: data['title_en'] as String?,
-        type: data['type'] is MainBuildingType
-            ? data['type']
-            : deserializeEnum<MainBuildingType>(data['type']),
       );
 
   static BuildingTypeStruct? maybeFromMap(dynamic data) => data is Map
@@ -79,7 +67,6 @@ class BuildingTypeStruct extends FFFirebaseStruct {
         'title_ru': _titleRu,
         'title_kg': _titleKg,
         'title_en': _titleEn,
-        'type': _type?.serialize(),
       }.withoutNulls;
 
   @override
@@ -99,10 +86,6 @@ class BuildingTypeStruct extends FFFirebaseStruct {
         'title_en': serializeParam(
           _titleEn,
           ParamType.String,
-        ),
-        'type': serializeParam(
-          _type,
-          ParamType.Enum,
         ),
       }.withoutNulls;
 
@@ -128,11 +111,6 @@ class BuildingTypeStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
-        type: deserializeParam<MainBuildingType>(
-          data['type'],
-          ParamType.Enum,
-          false,
-        ),
       );
 
   @override
@@ -144,13 +122,12 @@ class BuildingTypeStruct extends FFFirebaseStruct {
         id == other.id &&
         titleRu == other.titleRu &&
         titleKg == other.titleKg &&
-        titleEn == other.titleEn &&
-        type == other.type;
+        titleEn == other.titleEn;
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([id, titleRu, titleKg, titleEn, type]);
+      const ListEquality().hash([id, titleRu, titleKg, titleEn]);
 }
 
 BuildingTypeStruct createBuildingTypeStruct({
@@ -158,7 +135,6 @@ BuildingTypeStruct createBuildingTypeStruct({
   String? titleRu,
   String? titleKg,
   String? titleEn,
-  MainBuildingType? type,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -169,7 +145,6 @@ BuildingTypeStruct createBuildingTypeStruct({
       titleRu: titleRu,
       titleKg: titleKg,
       titleEn: titleEn,
-      type: type,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

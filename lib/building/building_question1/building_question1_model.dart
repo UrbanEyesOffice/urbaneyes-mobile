@@ -1,7 +1,6 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/building_selector/building_selector_widget.dart';
 import '/components/building_type_selector/building_type_selector_widget.dart';
 import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -37,26 +36,32 @@ class BuildingQuestion1Model extends FlutterFlowModel<BuildingQuestion1Widget> {
           int index, Function(BuildingTypeStruct) updateFn) =>
       selectedTypes[index] = updateFn(selectedTypes[index]);
 
-  MainBuildingType? buildingMainType;
+  /// Список типов зданий
+  List<BuildingTypeStruct> buildingTypesList = [];
+  void addToBuildingTypesList(BuildingTypeStruct item) =>
+      buildingTypesList.add(item);
+  void removeFromBuildingTypesList(BuildingTypeStruct item) =>
+      buildingTypesList.remove(item);
+  void removeAtIndexFromBuildingTypesList(int index) =>
+      buildingTypesList.removeAt(index);
+  void insertAtIndexInBuildingTypesList(int index, BuildingTypeStruct item) =>
+      buildingTypesList.insert(index, item);
+  void updateBuildingTypesListAtIndex(
+          int index, Function(BuildingTypeStruct) updateFn) =>
+      buildingTypesList[index] = updateFn(buildingTypesList[index]);
 
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Custom Action - getAddressFromLatLngGoogleMaps] action in BuildingQuestion1 widget.
   String? locationTitleOnLoad;
-  // Model for Public.
-  late BuildingSelectorModel publicModel;
-  // Model for Living.
-  late BuildingSelectorModel livingModel;
+  // Stores action output result for [Custom Action - buildingTypesFromApi] action in BuildingQuestion1 widget.
+  List<BuildingTypeStruct>? receivedBuildingTypes;
+  // Stores action output result for [Backend Call - API (FindBuilding)] action in BuildingQuestion1 widget.
+  ApiCallResponse? buildingtypes;
 
   @override
-  void initState(BuildContext context) {
-    publicModel = createModel(context, () => BuildingSelectorModel());
-    livingModel = createModel(context, () => BuildingSelectorModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    publicModel.dispose();
-    livingModel.dispose();
-  }
+  void dispose() {}
 }

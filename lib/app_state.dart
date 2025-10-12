@@ -76,81 +76,81 @@ class FFAppState extends ChangeNotifier {
 
   List<BuildingTypeStruct> _BuildingTypes = [
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"museum\",\"title_ru\":\"Музей\",\"title_kg\":\"Музей\",\"title_en\":\"Museum\",\"type\":\"public\"}')),
+        '{\"id\":\"museum\",\"title_ru\":\"Музей\",\"title_kg\":\"Музей\",\"title_en\":\"Museum\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"apartments\",\"title_ru\":\"Квартиры\",\"title_kg\":\"Квартиралар\",\"title_en\":\"Apartments\",\"type\":\"living\"}')),
+        '{\"id\":\"apartments\",\"title_ru\":\"Квартиры\",\"title_kg\":\"Квартиралар\",\"title_en\":\"Apartments\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"university\",\"title_ru\":\"Университет\",\"title_kg\":\"Университет\",\"title_en\":\"University\",\"type\":\"public\"}')),
+        '{\"id\":\"university\",\"title_ru\":\"Университет\",\"title_kg\":\"Университет\",\"title_en\":\"University\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"mosque\",\"title_ru\":\"Мечеть\",\"title_kg\":\"Мечит\",\"title_en\":\"Mosque\",\"type\":\"public\"}')),
+        '{\"id\":\"mosque\",\"title_ru\":\"Мечеть\",\"title_kg\":\"Мечит\",\"title_en\":\"Mosque\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"detached\",\"title_ru\":\"Отдельный дом\",\"title_kg\":\"Жеке турак жай\",\"title_en\":\"Detached\",\"type\":\"living\"}')),
+        '{\"id\":\"detached\",\"title_ru\":\"Отдельный дом\",\"title_kg\":\"Жеке турак жай\",\"title_en\":\"Detached\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"grandstand\",\"title_ru\":\"Трибуна\",\"title_kg\":\"Трибуна\",\"title_en\":\"Grandstand\",\"type\":\"public\"}')),
+        '{\"id\":\"grandstand\",\"title_ru\":\"Трибуна\",\"title_kg\":\"Трибуна\",\"title_en\":\"Grandstand\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"civic\",\"title_ru\":\"Гражданский центр\",\"title_kg\":\"Жарандык борбору\",\"title_en\":\"Civic\",\"type\":\"public\"}')),
+        '{\"id\":\"civic\",\"title_ru\":\"Гражданский центр\",\"title_kg\":\"Жарандык борбору\",\"title_en\":\"Civic\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"theatre\",\"title_ru\":\"Театр\",\"title_kg\":\"Театр\",\"title_en\":\"Theatre\",\"type\":\"public\"}')),
+        '{\"id\":\"theatre\",\"title_ru\":\"Театр\",\"title_kg\":\"Театр\",\"title_en\":\"Theatre\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"stadium\",\"title_ru\":\"Стадион\",\"title_kg\":\"Стадион\",\"title_en\":\"Stadium\",\"type\":\"public\"}')),
+        '{\"id\":\"stadium\",\"title_ru\":\"Стадион\",\"title_kg\":\"Стадион\",\"title_en\":\"Stadium\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"transportation\",\"title_ru\":\"Транспорт\",\"title_kg\":\"Transportation\",\"title_en\":\"Транспорт\",\"type\":\"public\"}')),
+        '{\"id\":\"transportation\",\"title_ru\":\"Транспорт\",\"title_kg\":\"Transportation\",\"title_en\":\"Транспорт\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"semidetached_house\",\"title_ru\":\"Блокированный дом\",\"title_kg\":\"Semi-detached house\",\"title_en\":\"Жарым-жартылай кошулган үй\",\"type\":\"living\"}')),
+        '{\"id\":\"semidetached_house\",\"title_ru\":\"Блокированный дом\",\"title_kg\":\"Semi-detached house\",\"title_en\":\"Жарым-жартылай кошулган үй\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"abandoned\",\"title_ru\":\"Заброшенный\",\"title_kg\":\"Ташталган\",\"title_en\":\"Abandoned\",\"type\":\"public\"}')),
+        '{\"id\":\"abandoned\",\"title_ru\":\"Заброшенный\",\"title_kg\":\"Ташталган\",\"title_en\":\"Abandoned\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"gatehouse\",\"title_ru\":\"Караульный дом\",\"title_kg\":\"Караул үйү\",\"title_en\":\"Gatehouse\",\"type\":\"living\"}')),
+        '{\"id\":\"gatehouse\",\"title_ru\":\"Караульный дом\",\"title_kg\":\"Караул үйү\",\"title_en\":\"Gatehouse\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"hotel\",\"title_ru\":\"Отель\",\"title_kg\":\"Отель\",\"title_en\":\"Hotel\",\"type\":\"public\"}')),
+        '{\"id\":\"hotel\",\"title_ru\":\"Отель\",\"title_kg\":\"Отель\",\"title_en\":\"Hotel\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"train_station\",\"title_ru\":\"Железнодорожная станция\",\"title_kg\":\"Темир жол станциясы\",\"title_en\":\"Train Station\",\"type\":\"public\"}')),
+        '{\"id\":\"train_station\",\"title_ru\":\"Железнодорожная станция\",\"title_kg\":\"Темир жол станциясы\",\"title_en\":\"Train Station\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"barn\",\"title_ru\":\"Амбар\",\"title_kg\":\"Амбар\",\"title_en\":\"Barn\",\"type\":\"living\"}')),
+        '{\"id\":\"barn\",\"title_ru\":\"Амбар\",\"title_kg\":\"Амбар\",\"title_en\":\"Barn\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"ger\",\"title_ru\":\"Юрта\",\"title_kg\":\"Боз үй\",\"title_en\":\"Ger\",\"type\":\"living\"}')),
+        '{\"id\":\"ger\",\"title_ru\":\"Юрта\",\"title_kg\":\"Боз үй\",\"title_en\":\"Ger\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"public\",\"title_ru\":\"Общественное здание\",\"title_kg\":\"Коомдук имарат\",\"title_en\":\"Public\",\"type\":\"public\"}')),
+        '{\"id\":\"public\",\"title_ru\":\"Общественное здание\",\"title_kg\":\"Коомдук имарат\",\"title_en\":\"Public\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"hospital\",\"title_ru\":\"Больница\",\"title_kg\":\"Ооруканa\",\"title_en\":\"Hospital\",\"type\":\"public\"}')),
+        '{\"id\":\"hospital\",\"title_ru\":\"Больница\",\"title_kg\":\"Ооруканa\",\"title_en\":\"Hospital\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"school\",\"title_ru\":\"Школа\",\"title_kg\":\"Мектеп\",\"title_en\":\"School\",\"type\":\"public\"}')),
+        '{\"id\":\"school\",\"title_ru\":\"Школа\",\"title_kg\":\"Мектеп\",\"title_en\":\"School\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"college\",\"title_ru\":\"Колледж\",\"title_kg\":\"Коллеж\",\"title_en\":\"College\",\"type\":\"public\"}')),
+        '{\"id\":\"college\",\"title_ru\":\"Колледж\",\"title_kg\":\"Коллеж\",\"title_en\":\"College\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"shed\",\"title_ru\":\"Сарай\",\"title_kg\":\"Кампa\",\"title_en\":\"Shed\",\"type\":\"living\"}')),
+        '{\"id\":\"shed\",\"title_ru\":\"Сарай\",\"title_kg\":\"Кампa\",\"title_en\":\"Shed\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"construction\",\"title_ru\":\"Стройка\",\"title_kg\":\"Курулуш\",\"title_en\":\"Construction\",\"type\":\"public\"}')),
+        '{\"id\":\"construction\",\"title_ru\":\"Стройка\",\"title_kg\":\"Курулуш\",\"title_en\":\"Construction\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"terrace\",\"title_ru\":\"Терраса\",\"title_kg\":\"Терраса\",\"title_en\":\"Terrace\",\"type\":\"public\"}')),
+        '{\"id\":\"terrace\",\"title_ru\":\"Терраса\",\"title_kg\":\"Терраса\",\"title_en\":\"Terrace\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"church\",\"title_ru\":\"Церковь\",\"title_kg\":\"Чиркөө\",\"title_en\":\"Church\",\"type\":\"public\"}')),
+        '{\"id\":\"church\",\"title_ru\":\"Церковь\",\"title_kg\":\"Чиркөө\",\"title_en\":\"Church\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"garage\",\"title_ru\":\"Гараж\",\"title_kg\":\"Гараж\",\"title_en\":\"Garage\",\"type\":\"living\"}')),
+        '{\"id\":\"garage\",\"title_ru\":\"Гараж\",\"title_kg\":\"Гараж\",\"title_en\":\"Garage\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"commercial\",\"title_ru\":\"Коммерческое здание\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"commercial\",\"title_ru\":\"Коммерческое здание\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"pavilion\",\"title_ru\":\"Павильон\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"pavilion\",\"title_ru\":\"Павильон\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"sports_centre\",\"title_ru\":\"Спортивный центр\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"sports_centre\",\"title_ru\":\"Спортивный центр\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"industrial\",\"title_ru\":\"Промышленное здание\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"industrial\",\"title_ru\":\"Промышленное здание\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"office\",\"title_ru\":\"Офис\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"office\",\"title_ru\":\"Офис\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"government\",\"title_ru\":\"Правительственное здание\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"government\",\"title_ru\":\"Правительственное здание\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"house\",\"title_ru\":\"Дом\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"living\"}')),
+        '{\"id\":\"house\",\"title_ru\":\"Дом\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"shop\",\"title_ru\":\"Магазин\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"shop\",\"title_ru\":\"Магазин\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"supermarket\",\"title_ru\":\"Супермаркет\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"supermarket\",\"title_ru\":\"Супермаркет\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"manufacture\",\"title_ru\":\"Производство\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"public\"}')),
+        '{\"id\":\"manufacture\",\"title_ru\":\"Производство\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"cwn7m\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"residential\",\"title_ru\":\"Жилой дом\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"living\"}')),
+        '{\"id\":\"residential\",\"title_ru\":\"Жилой дом\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"czzw2\"}')),
     BuildingTypeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"dormitory\",\"title_ru\":\"Общежитие\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"living\"}'))
+        '{\"id\":\"dormitory\",\"title_ru\":\"Общежитие\",\"title_kg\":\"Hello World\",\"title_en\":\"Hello World\",\"type\":\"czzw2\"}'))
   ];
   List<BuildingTypeStruct> get BuildingTypes => _BuildingTypes;
   set BuildingTypes(List<BuildingTypeStruct> value) {

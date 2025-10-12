@@ -1,5 +1,4 @@
 import '/backend/backend.dart';
-import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -16,13 +15,13 @@ class BuildingTypeSelectorWidget extends StatefulWidget {
   const BuildingTypeSelectorWidget({
     super.key,
     required this.selectedTypesIn,
-    required this.buildingMainType,
     required this.onSelectedTypes,
+    required this.availableTypes,
   });
 
   final List<BuildingTypeStruct>? selectedTypesIn;
-  final MainBuildingType? buildingMainType;
   final Future Function(List<BuildingTypeStruct> types)? onSelectedTypes;
+  final List<BuildingTypeStruct>? availableTypes;
 
   @override
   State<BuildingTypeSelectorWidget> createState() =>
@@ -50,12 +49,6 @@ class _BuildingTypeSelectorWidgetState
       logFirebaseEvent('BuildingTypeSelector_update_component_st');
       _model.selectedTypes =
           widget!.selectedTypesIn!.toList().cast<BuildingTypeStruct>();
-      _model.buildingTypesArrayMain = FFAppState()
-          .BuildingTypes
-          .where((e) => e.type == widget!.buildingMainType)
-          .toList()
-          .toList()
-          .cast<BuildingTypeStruct>();
       safeSetState(() {});
     });
 
@@ -71,8 +64,6 @@ class _BuildingTypeSelectorWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -81,7 +72,7 @@ class _BuildingTypeSelectorWidgetState
         children: [
           Builder(
             builder: (context) {
-              final buildingTypesArray = _model.buildingTypesArrayMain.toList();
+              final buildingTypesArray = widget!.availableTypes!.toList();
 
               return ListView.builder(
                 padding: EdgeInsets.fromLTRB(

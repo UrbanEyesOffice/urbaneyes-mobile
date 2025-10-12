@@ -25,10 +25,12 @@ class BuildingQuestion2Widget extends StatefulWidget {
     super.key,
     required this.selectedLocation,
     required this.selectedLocationTitle,
+    required this.buildingTypes,
   });
 
   final LatLng? selectedLocation;
   final String? selectedLocationTitle;
+  final List<String>? buildingTypes;
 
   static String routeName = 'BuildingQuestion2';
   static String routePath = '/buildingQuestion2';
@@ -1401,10 +1403,16 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                             }
                           }
 
-                          logFirebaseEvent('Container_update_page_state');
-                          _model.addToLocalImages(_model
-                              .uploadedLocalFile_localBuildingUploadedImage);
-                          safeSetState(() {});
+                          if (_model.uploadedLocalFile_localBuildingUploadedImage !=
+                                  null &&
+                              (_model.uploadedLocalFile_localBuildingUploadedImage
+                                      .bytes?.isNotEmpty ??
+                                  false)) {
+                            logFirebaseEvent('Container_update_page_state');
+                            _model.addToLocalImages(_model
+                                .uploadedLocalFile_localBuildingUploadedImage);
+                            safeSetState(() {});
+                          }
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 1.0,
@@ -1537,6 +1545,7 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                   'disliked': _model.dislikedAnswers
                                       ?.map((e) => e.serialize())
                                       .toList(),
+                                  'building_types': widget!.buildingTypes,
                                 },
                               ),
                             });

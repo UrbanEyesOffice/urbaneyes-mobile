@@ -62,6 +62,11 @@ class BuildingRecord extends FirestoreRecord {
   List<BuildingAnswers> get disliked => _disliked ?? const [];
   bool hasDisliked() => _disliked != null;
 
+  // "building_types" field.
+  List<String>? _buildingTypes;
+  List<String> get buildingTypes => _buildingTypes ?? const [];
+  bool hasBuildingTypes() => _buildingTypes != null;
+
   void _initializeFields() {
     _createdBy = snapshotData['created_by'] as DocumentReference?;
     _createdTime = snapshotData['created_time'] as DateTime?;
@@ -74,6 +79,7 @@ class BuildingRecord extends FirestoreRecord {
         : deserializeEnum<BuildingAvailability>(snapshotData['availability']);
     _liked = getEnumList<BuildingAnswers>(snapshotData['liked']);
     _disliked = getEnumList<BuildingAnswers>(snapshotData['disliked']);
+    _buildingTypes = getDataList(snapshotData['building_types']);
   }
 
   static CollectionReference get collection =>
@@ -146,7 +152,8 @@ class BuildingRecordDocumentEquality implements Equality<BuildingRecord> {
         e1?.locationTitle == e2?.locationTitle &&
         e1?.availability == e2?.availability &&
         listEquality.equals(e1?.liked, e2?.liked) &&
-        listEquality.equals(e1?.disliked, e2?.disliked);
+        listEquality.equals(e1?.disliked, e2?.disliked) &&
+        listEquality.equals(e1?.buildingTypes, e2?.buildingTypes);
   }
 
   @override
@@ -159,7 +166,8 @@ class BuildingRecordDocumentEquality implements Equality<BuildingRecord> {
         e?.locationTitle,
         e?.availability,
         e?.liked,
-        e?.disliked
+        e?.disliked,
+        e?.buildingTypes
       ]);
 
   @override

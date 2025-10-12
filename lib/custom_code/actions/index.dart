@@ -10,3 +10,4 @@ export 'merge_uploaded_file_lists.dart' show mergeUploadedFileLists;
 export 'handle_location_permission.dart' show handleLocationPermission;
 export 'get_current_position.dart' show getCurrentPosition;
 export 'open_app_settings_action.dart' show openAppSettingsAction;
+export 'building_types_from_api.dart' show buildingTypesFromApi;

@@ -1,5 +1,4 @@
 import '/backend/backend.dart';
-import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -26,20 +25,6 @@ class BuildingTypeSelectorModel
   void updateSelectedTypesAtIndex(
           int index, Function(BuildingTypeStruct) updateFn) =>
       selectedTypes[index] = updateFn(selectedTypes[index]);
-
-  List<BuildingTypeStruct> buildingTypesArrayMain = [];
-  void addToBuildingTypesArrayMain(BuildingTypeStruct item) =>
-      buildingTypesArrayMain.add(item);
-  void removeFromBuildingTypesArrayMain(BuildingTypeStruct item) =>
-      buildingTypesArrayMain.remove(item);
-  void removeAtIndexFromBuildingTypesArrayMain(int index) =>
-      buildingTypesArrayMain.removeAt(index);
-  void insertAtIndexInBuildingTypesArrayMain(
-          int index, BuildingTypeStruct item) =>
-      buildingTypesArrayMain.insert(index, item);
-  void updateBuildingTypesArrayMainAtIndex(
-          int index, Function(BuildingTypeStruct) updateFn) =>
-      buildingTypesArrayMain[index] = updateFn(buildingTypesArrayMain[index]);
 
   @override
   void initState(BuildContext context) {}
