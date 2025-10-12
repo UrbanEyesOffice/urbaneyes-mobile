@@ -1,0 +1,429 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/components/feedback_alert/feedback_alert_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
+import '/index.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'complete_model.dart';
+export 'complete_model.dart';
+
+class CompleteWidget extends StatefulWidget {
+  const CompleteWidget({super.key});
+
+  static String routeName = 'complete';
+  static String routePath = '/complete';
+
+  @override
+  State<CompleteWidget> createState() => _CompleteWidgetState();
+}
+
+class _CompleteWidgetState extends State<CompleteWidget> {
+  late CompleteModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => CompleteModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'complete'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('COMPLETE_PAGE_complete_ON_INIT_STATE');
+      logFirebaseEvent('complete_backend_call');
+
+      await currentUserReference!.update({
+        ...mapToFirestore(
+          {
+            'score': FieldValue.increment(5),
+          },
+        ),
+      });
+      logFirebaseEvent('complete_firestore_query');
+      _model.availableReward = await queryRewardsRecordOnce(
+        queryBuilder: (rewardsRecord) => rewardsRecord
+            .where(
+              'points_needed',
+              isLessThanOrEqualTo:
+                  valueOrDefault(currentUserDocument?.score, 0),
+            )
+            .where(
+              'has_codes',
+              isEqualTo: true,
+            )
+            .orderBy('points_needed'),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      logFirebaseEvent('complete_update_app_state');
+      FFAppState().lastMapPoint = null;
+      if ((valueOrDefault<int>(
+                getCurrentTimestamp.secondsSinceEpoch,
+                0,
+              ) -
+              valueOrDefault<int>(
+                FFAppState().lastTimeFeedbackShown?.secondsSinceEpoch,
+                0,
+              )) >
+          259200) {
+        logFirebaseEvent('complete_bottom_sheet');
+        await showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          useSafeArea: true,
+          context: context,
+          builder: (context) {
+            return GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              child: Padding(
+                padding: MediaQuery.viewInsetsOf(context),
+                child: FeedbackAlertWidget(),
+              ),
+            );
+          },
+        ).then((value) => safeSetState(() {}));
+
+        logFirebaseEvent('complete_update_app_state');
+        FFAppState().lastTimeFeedbackShown = getCurrentTimestamp;
+        return;
+      } else {
+        return;
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          automaticallyImplyLeading: true,
+          leading: FlutterFlowIconButton(
+            borderRadius: 0.0,
+            borderWidth: 0.0,
+            buttonSize: 40.0,
+            fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+            icon: Icon(
+              Icons.close,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              logFirebaseEvent('COMPLETE_PAGE_close_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
+              context.safePop();
+            },
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 0.0,
+        ),
+        body: SafeArea(
+          top: true,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            scrollDirection: Axis.vertical,
+            children: [
+              Align(
+                alignment: AlignmentDirectional(0.0, -1.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(30.0, 40.0, 30.0, 0.0),
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          'bctulc5c' /* Спасибо за участие!  */,
+                        ),
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Gerbera',
+                              color: Color(0xFF06112E),
+                              fontSize: 28.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (valueOrDefault<bool>(
+                _model.availableReward?.reference == null,
+                true,
+              ))
+                Align(
+                  alignment: AlignmentDirectional(0.0, 1.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 322.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: Image.asset(
+                            'assets/images/complete_back.png',
+                          ).image,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-1.0, -1.0),
+                              child: Text(
+                                FFLocalizations.of(context).getText(
+                                  '3349nkpy' /* Оценки от других горожан на ка... */,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Gerbera',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      fontSize: 24.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(-1.0, -1.0),
+                              child: Container(
+                                width: 203.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(),
+                                child: Align(
+                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  child: Text(
+                                    FFLocalizations.of(context).getText(
+                                      'aa8w9qnd' /* Мы собрали результаты опросов ... */,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Golos',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 1.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'COMPLETE_PAGE_Container_35tb7n4q_ON_TAP');
+                                    logFirebaseEvent('Container_launch_u_r_l');
+                                    await launchURL(
+                                        'https://urbaneyes.kg/ru/map');
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 48.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF233051),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            'wnmp7p6k' /* Перейти на */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Golos',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            '6dqeazff' /* urbaneyes.kg */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Golos',
+                                                color: Color(0xFF53B153),
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            'er7gf1xf' /*   */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Golos',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ].divide(SizedBox(width: 4.0)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 1.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent('COMPLETE_PAGE___BTN_ON_TAP');
+                      logFirebaseEvent('Button_navigate_to');
+
+                      context.goNamed(
+                        HomePageCopyWidget.routeName,
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.leftToRight,
+                          ),
+                        },
+                      );
+                    },
+                    text: FFLocalizations.of(context).getText(
+                      'ipv4ebva' /* Завершить опрос */,
+                    ),
+                    options: FFButtonOptions(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 48.0,
+                      padding: EdgeInsets.all(0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Color(0xFFCEEFCD),
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Golos',
+                                color: Color(0xFF0A8D09),
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ),
+              Builder(
+                builder: (context) => Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent('COMPLETE_PAGE_shareButton_ON_TAP');
+                      logFirebaseEvent('shareButton_share');
+                      await Share.share(
+                        getRemoteConfigString('share_url'),
+                        sharePositionOrigin: getWidgetBoundingBox(context),
+                      );
+                    },
+                    text: FFLocalizations.of(context).getText(
+                      'zdxyp20r' /* Поделиться */,
+                    ),
+                    options: FFButtonOptions(
+                      width: 330.0,
+                      height: 48.0,
+                      padding: EdgeInsets.all(0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Color(0xFF53B153),
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Golos',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ),
+            ].divide(SizedBox(height: 24.0)),
+          ),
+        ),
+      ),
+    );
+  }
+}

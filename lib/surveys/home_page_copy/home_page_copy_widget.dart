@@ -1,0 +1,490 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'home_page_copy_model.dart';
+export 'home_page_copy_model.dart';
+
+class HomePageCopyWidget extends StatefulWidget {
+  const HomePageCopyWidget({
+    super.key,
+    this.firstLogin,
+  });
+
+  final bool? firstLogin;
+
+  static String routeName = 'HomePageCopy';
+  static String routePath = '/homePageCopy';
+
+  @override
+  State<HomePageCopyWidget> createState() => _HomePageCopyWidgetState();
+}
+
+class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
+  late HomePageCopyModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => HomePageCopyModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'HomePageCopy'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('HOME_COPY_HomePageCopy_ON_INIT_STATE');
+      await authManager.refreshUser();
+      if (!currentUserEmailVerified) {
+        logFirebaseEvent('HomePageCopy_navigate_to');
+
+        context.goNamed(VerificationWidget.routeName);
+      }
+      if (valueOrDefault<bool>(currentUserDocument?.isNotFirstLogin, false) !=
+          true) {
+        logFirebaseEvent('HomePageCopy_navigate_to');
+
+        context.goNamed(CualificatedSurveyWidget.routeName);
+      }
+      if (valueOrDefault<bool>(currentUserDocument?.isTester, false) == true) {
+        logFirebaseEvent('HomePageCopy_firestore_query');
+        _model.testersLoadedSurveys = await querySurveysRecordOnce(
+          limit: 100,
+        );
+        logFirebaseEvent('HomePageCopy_custom_action');
+        _model.testersTempSurveys = await actions.shuffleSurveys(
+          _model.testersLoadedSurveys
+              ?.where((e) => !e.featured)
+              .toList()
+              ?.toList(),
+        );
+        logFirebaseEvent('HomePageCopy_update_page_state');
+        _model.shuffledSurveys =
+            _model.testersTempSurveys!.toList().cast<SurveysRecord>();
+        _model.featuredSurveys = _model.testersLoadedSurveys!
+            .where((e) => e.featured)
+            .toList()
+            .toList()
+            .cast<SurveysRecord>();
+        safeSetState(() {});
+      } else {
+        logFirebaseEvent('HomePageCopy_firestore_query');
+        _model.loadedSurveys = await querySurveysRecordOnce(
+          queryBuilder: (surveysRecord) => surveysRecord
+              .where(
+                'enabled',
+                isEqualTo: true,
+              )
+              .where(
+                'testers_only',
+                isEqualTo: false,
+              ),
+          limit: 100,
+        );
+        logFirebaseEvent('HomePageCopy_custom_action');
+        _model.tempSurveys = await actions.shuffleSurveys(
+          _model.loadedSurveys?.where((e) => !e.featured).toList()?.toList(),
+        );
+        logFirebaseEvent('HomePageCopy_update_page_state');
+        _model.shuffledSurveys =
+            _model.tempSurveys!.toList().cast<SurveysRecord>();
+        _model.featuredSurveys = _model.loadedSurveys!
+            .where((e) => e.featured)
+            .toList()
+            .toList()
+            .cast<SurveysRecord>();
+        safeSetState(() {});
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          top: true,
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(0.0),
+                        child: SvgPicture.asset(
+                          'assets/images/main_logo.svg',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              logFirebaseEvent(
+                                  'HOME_COPY_Container_cvafpp35_ON_TAP');
+                              logFirebaseEvent('Container_navigate_to');
+
+                              context.pushNamed(FeedbackWidget.routeName);
+                            },
+                            child: Container(
+                              constraints: BoxConstraints(
+                                minWidth: 24.0,
+                                minHeight: 24.0,
+                                maxWidth: 24.0,
+                                maxHeight: 24.0,
+                              ),
+                              decoration: BoxDecoration(),
+                              child: SvgPicture.asset(
+                                'assets/images/contact_support.svg',
+                                width: 24.0,
+                                height: 24.0,
+                                fit: BoxFit.fitWidth,
+                                alignment: Alignment(0.0, 0.0),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(1.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                logFirebaseEvent(
+                                    'HOME_PAGE_COPY_PAGE_Icon_maxvlwkk_ON_TAP');
+                                logFirebaseEvent('Icon_navigate_to');
+
+                                context.pushNamed(EditProfileWidget.routeName);
+                              },
+                              child: Icon(
+                                Icons.settings_outlined,
+                                color: Color(0xFF06112E),
+                                size: 24.0,
+                              ),
+                            ),
+                          ),
+                        ].divide(SizedBox(width: 12.0)),
+                      ),
+                    ],
+                  ),
+                  Builder(
+                    builder: (context) {
+                      final listItems = _model.featuredSurveys.toList();
+
+                      return ListView.separated(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: listItems.length,
+                        separatorBuilder: (_, __) => SizedBox(height: 16.0),
+                        itemBuilder: (context, listItemsIndex) {
+                          final listItemsItem = listItems[listItemsIndex];
+                          return Container(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).featuredBlue,
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 24.0, 20.0, 24.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    FFLocalizations.of(context).getVariableText(
+                                      ruText: listItemsItem.name,
+                                      enText: listItemsItem.nameEn,
+                                      kyText: listItemsItem.nameKg,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                    maxLines: 3,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Gerbera',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          fontSize: 24.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.network(
+                                      listItemsItem.icon,
+                                      width: 50.0,
+                                      height: 50.0,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 12.0, 0.0, 0.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        logFirebaseEvent(
+                                            'HOME_PAGE_COPY_PAGE__BTN_ON_TAP');
+                                        if (listItemsItem.surveyType == 2) {
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
+                                          context.pushNamed(
+                                            ParkingSurveyWidget.routeName,
+                                            queryParameters: {
+                                              'survey': serializeParam(
+                                                listItemsItem,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'survey': listItemsItem,
+                                            },
+                                          );
+                                        } else if (listItemsItem.surveyType ==
+                                            1) {
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
+                                          context.pushNamed(
+                                            QuestionWidget.routeName,
+                                            queryParameters: {
+                                              'survey': serializeParam(
+                                                listItemsItem,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'survey': listItemsItem,
+                                            },
+                                          );
+                                        } else if (listItemsItem.surveyType ==
+                                            3) {
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
+                                          context.pushNamed(
+                                              BuildingQuestion1Widget
+                                                  .routeName);
+                                        }
+                                      },
+                                      text: FFLocalizations.of(context).getText(
+                                        'h4e69wmb' /* Отметить */,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: 330.0,
+                                        height: 48.0,
+                                        padding: EdgeInsets.all(0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Golos',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .featuredBlue,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        elevation: 0.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                ].divide(SizedBox(height: 12.0)),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  Builder(
+                    builder: (context) {
+                      final listItems = _model.shuffledSurveys.toList();
+
+                      return ListView.separated(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: listItems.length,
+                        separatorBuilder: (_, __) => SizedBox(height: 16.0),
+                        itemBuilder: (context, listItemsIndex) {
+                          final listItemsItem = listItems[listItemsIndex];
+                          return Container(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(16.0),
+                              border: Border.all(
+                                color: Color(0xFFECECEC),
+                                width: 2.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 24.0, 20.0, 24.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    FFLocalizations.of(context).getVariableText(
+                                      ruText: listItemsItem.name,
+                                      enText: listItemsItem.nameEn,
+                                      kyText: listItemsItem.nameKg,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                    maxLines: 3,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Gerbera',
+                                          color: Color(0xFF06112E),
+                                          fontSize: 24.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                  FFButtonWidget(
+                                    onPressed: () async {
+                                      logFirebaseEvent(
+                                          'HOME_PAGE_COPY_PAGE__BTN_ON_TAP');
+                                      if (listItemsItem.surveyType == 2) {
+                                        logFirebaseEvent('Button_navigate_to');
+
+                                        context.pushNamed(
+                                          ParkingSurveyWidget.routeName,
+                                          queryParameters: {
+                                            'survey': serializeParam(
+                                              listItemsItem,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'survey': listItemsItem,
+                                          },
+                                        );
+                                      } else if (listItemsItem.surveyType ==
+                                          1) {
+                                        logFirebaseEvent('Button_navigate_to');
+
+                                        context.pushNamed(
+                                          QuestionWidget.routeName,
+                                          queryParameters: {
+                                            'survey': serializeParam(
+                                              listItemsItem,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'survey': listItemsItem,
+                                          },
+                                        );
+                                      } else if (listItemsItem.surveyType ==
+                                          3) {
+                                        logFirebaseEvent('Button_navigate_to');
+
+                                        context.pushNamed(
+                                            BuildingQuestion1Widget.routeName);
+                                      }
+                                    },
+                                    text: FFLocalizations.of(context).getText(
+                                      'gohqvhe4' /* Оценить */,
+                                    ),
+                                    options: FFButtonOptions(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      height: 48.0,
+                                      padding: EdgeInsets.all(0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: Color(0xFFCEEFCD),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Golos',
+                                            color: Color(0xFF0A8D09),
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 0.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ].divide(SizedBox(height: 24.0)),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ].divide(SizedBox(height: 32.0)).around(SizedBox(height: 32.0)),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

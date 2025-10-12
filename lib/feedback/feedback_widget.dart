@@ -1,0 +1,361 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
+import '/index.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'feedback_model.dart';
+export 'feedback_model.dart';
+
+class FeedbackWidget extends StatefulWidget {
+  const FeedbackWidget({super.key});
+
+  static String routeName = 'Feedback';
+  static String routePath = '/feedback';
+
+  @override
+  State<FeedbackWidget> createState() => _FeedbackWidgetState();
+}
+
+class _FeedbackWidgetState extends State<FeedbackWidget> {
+  late FeedbackModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => FeedbackModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Feedback'});
+    _model.nicknameCreateTextController1 ??=
+        TextEditingController(text: currentUserEmail);
+    _model.nicknameCreateFocusNode1 ??= FocusNode();
+
+    _model.nicknameCreateTextController2 ??= TextEditingController();
+    _model.nicknameCreateFocusNode2 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderRadius: 20.0,
+            borderWidth: 1.0,
+            buttonSize: 40.0,
+            icon: Icon(
+              Icons.chevron_left,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 40.0,
+            ),
+            onPressed: () async {
+              logFirebaseEvent('FEEDBACK_PAGE_chevron_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
+              context.safePop();
+            },
+          ),
+          title: Align(
+            alignment: AlignmentDirectional(-1.0, 0.0),
+            child: Text(
+              FFLocalizations.of(context).getText(
+                'h9gm8p5r' /* Форма обратной связи */,
+              ),
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Inter',
+                    fontSize: 18.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 0.0,
+        ),
+        body: SafeArea(
+          top: true,
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 0.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        'qfiyjlxs' /* Электронная почта */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            fontSize: 16.0,
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: _model.nicknameCreateTextController1,
+                    focusNode: _model.nicknameCreateFocusNode1,
+                    autofocus: false,
+                    autofillHints: [AutofillHints.email],
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Inter',
+                                fontSize: 16.0,
+                                letterSpacing: 0.0,
+                              ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Golos',
+                                color: Color(0xFF57636C),
+                                fontSize: 14.0,
+                                letterSpacing: 0.0,
+                              ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFA9ABAF),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFA9ABAF),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsetsDirectional.fromSTEB(
+                          20.0, 24.0, 20.0, 24.0),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                        ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: _model.nicknameCreateTextController1Validator
+                        .asValidator(context),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        'axyufzqo' /* Комментарий */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            fontSize: 16.0,
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: _model.nicknameCreateTextController2,
+                    focusNode: _model.nicknameCreateFocusNode2,
+                    autofocus: false,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: FFLocalizations.of(context).getText(
+                        'eqalrq06' /* Что бы вы хотели добавить/улуч... */,
+                      ),
+                      labelStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Inter',
+                                letterSpacing: 0.0,
+                              ),
+                      alignLabelWithHint: false,
+                      hintText: FFLocalizations.of(context).getText(
+                        'kvl68h75' /*  */,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFA9ABAF),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFA9ABAF),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsetsDirectional.fromSTEB(
+                          20.0, 24.0, 20.0, 24.0),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                        ),
+                    maxLines: 10,
+                    minLines: 1,
+                    validator: _model.nicknameCreateTextController2Validator
+                        .asValidator(context),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        logFirebaseEvent('FEEDBACK_PAGE__BTN_ON_TAP');
+                        if ((_model.nicknameCreateTextController1.text !=
+                                    null &&
+                                _model.nicknameCreateTextController1.text !=
+                                    '') &&
+                            (_model.nicknameCreateTextController2.text !=
+                                    null &&
+                                _model.nicknameCreateTextController2.text !=
+                                    '')) {
+                          logFirebaseEvent('Button_backend_call');
+
+                          await FeedbackRecord.collection.doc().set({
+                            ...createFeedbackRecordData(
+                              userEmail:
+                                  _model.nicknameCreateTextController1.text,
+                              user: currentUserReference,
+                              text: _model.nicknameCreateTextController2.text,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'created_date': FieldValue.serverTimestamp(),
+                              },
+                            ),
+                          });
+                          logFirebaseEvent('Button_alert_dialog');
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('Ваше сообщение принято '),
+                                content: Text(
+                                    'В скором времени с вами свяжутся по предоставленному электронному адресу.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          logFirebaseEvent('Button_navigate_to');
+
+                          context.pushNamed(HomePageCopyWidget.routeName);
+                        } else {
+                          logFirebaseEvent('Button_alert_dialog');
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('Заполните все поля'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                      text: FFLocalizations.of(context).getText(
+                        'q58073g6' /* Продолжить */,
+                      ),
+                      options: FFButtonOptions(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: 48.0,
+                        padding: EdgeInsets.all(0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0xFF53B153),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Golos',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
+                ]
+                    .divide(SizedBox(height: 16.0))
+                    .addToStart(SizedBox(height: 50.0)),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
