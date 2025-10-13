@@ -15,6 +15,7 @@ import 'building_question1_widget.dart' show BuildingQuestion1Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class BuildingQuestion1Model extends FlutterFlowModel<BuildingQuestion1Widget> {
@@ -36,19 +37,7 @@ class BuildingQuestion1Model extends FlutterFlowModel<BuildingQuestion1Widget> {
           int index, Function(BuildingTypeStruct) updateFn) =>
       selectedTypes[index] = updateFn(selectedTypes[index]);
 
-  /// Список типов зданий
-  List<BuildingTypeStruct> buildingTypesList = [];
-  void addToBuildingTypesList(BuildingTypeStruct item) =>
-      buildingTypesList.add(item);
-  void removeFromBuildingTypesList(BuildingTypeStruct item) =>
-      buildingTypesList.remove(item);
-  void removeAtIndexFromBuildingTypesList(int index) =>
-      buildingTypesList.removeAt(index);
-  void insertAtIndexInBuildingTypesList(int index, BuildingTypeStruct item) =>
-      buildingTypesList.insert(index, item);
-  void updateBuildingTypesListAtIndex(
-          int index, Function(BuildingTypeStruct) updateFn) =>
-      buildingTypesList[index] = updateFn(buildingTypesList[index]);
+  bool isLoading = true;
 
   ///  State fields for stateful widgets in this page.
 

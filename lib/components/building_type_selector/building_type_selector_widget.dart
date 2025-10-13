@@ -67,96 +67,122 @@ class _BuildingTypeSelectorWidgetState
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(0.0),
+          bottomRight: Radius.circular(0.0),
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
       ),
       child: Stack(
         children: [
-          Builder(
-            builder: (context) {
-              final buildingTypesArray = widget!.availableTypes!.toList();
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            child: Builder(
+              builder: (context) {
+                final buildingTypesArray = widget!.availableTypes!
+                    .sortedList(
+                        keyOf: (e) => () {
+                              if (FFLocalizations.of(context).languageCode ==
+                                  'ru') {
+                                return e.titleRu;
+                              } else if (FFLocalizations.of(context)
+                                      .languageCode ==
+                                  'en') {
+                                return e.titleEn;
+                              } else {
+                                return e.titleKg;
+                              }
+                            }(),
+                        desc: false)
+                    .toList();
 
-              return ListView.builder(
-                padding: EdgeInsets.fromLTRB(
-                  0,
-                  0,
-                  0,
-                  80.0,
-                ),
-                primary: false,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: buildingTypesArray.length,
-                itemBuilder: (context, buildingTypesArrayIndex) {
-                  final buildingTypesArrayItem =
-                      buildingTypesArray[buildingTypesArrayIndex];
-                  return Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        logFirebaseEvent(
-                            'BUILDING_TYPE_SELECTOR_Container_gj3ayoh');
-                        if (_model.selectedTypes
-                            .contains(buildingTypesArrayItem)) {
-                          // Remove from seleted types
-                          logFirebaseEvent('Container_Removefromseletedtypes');
-                          _model
-                              .removeFromSelectedTypes(buildingTypesArrayItem);
-                          safeSetState(() {});
-                        } else {
-                          // Add to selected types
-                          logFirebaseEvent('Container_Addtoselectedtypes');
-                          _model.addToSelectedTypes(buildingTypesArrayItem);
-                          safeSetState(() {});
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: _model.selectedTypes
-                                  .contains(buildingTypesArrayItem)
-                              ? Color(0xFFE0F4E8)
-                              : Color(0x00000000),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 8.0, 16.0, 8.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                FFLocalizations.of(context).getVariableText(
-                                  ruText: buildingTypesArrayItem.titleRu,
-                                  enText: buildingTypesArrayItem.titleEn,
-                                  kyText: buildingTypesArrayItem.titleKg,
+                return ListView.builder(
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    0,
+                    0,
+                    80.0,
+                  ),
+                  primary: false,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: buildingTypesArray.length,
+                  itemBuilder: (context, buildingTypesArrayIndex) {
+                    final buildingTypesArrayItem =
+                        buildingTypesArray[buildingTypesArrayIndex];
+                    return Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent(
+                              'BUILDING_TYPE_SELECTOR_Container_gj3ayoh');
+                          if (_model.selectedTypes
+                              .contains(buildingTypesArrayItem)) {
+                            // Remove from seleted types
+                            logFirebaseEvent(
+                                'Container_Removefromseletedtypes');
+                            _model.removeFromSelectedTypes(
+                                buildingTypesArrayItem);
+                            safeSetState(() {});
+                          } else {
+                            // Add to selected types
+                            logFirebaseEvent('Container_Addtoselectedtypes');
+                            _model.addToSelectedTypes(buildingTypesArrayItem);
+                            safeSetState(() {});
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _model.selectedTypes
+                                    .contains(buildingTypesArrayItem)
+                                ? Color(0xFFE0F4E8)
+                                : Color(0x00000000),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 8.0, 16.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  FFLocalizations.of(context).getVariableText(
+                                    ruText: buildingTypesArrayItem.titleRu,
+                                    enText: buildingTypesArrayItem.titleEn,
+                                    kyText: buildingTypesArrayItem.titleKg,
+                                  ),
+                                  maxLines: 1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
                                 ),
-                                maxLines: 1,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                              if (_model.selectedTypes
-                                  .contains(buildingTypesArrayItem))
-                                Icon(
-                                  Icons.check,
-                                  color: FlutterFlowTheme.of(context).mainGreen,
-                                  size: 24.0,
-                                ),
-                            ].divide(SizedBox(width: 16.0)),
+                                if (_model.selectedTypes
+                                    .contains(buildingTypesArrayItem))
+                                  Icon(
+                                    Icons.check,
+                                    color:
+                                        FlutterFlowTheme.of(context).mainGreen,
+                                    size: 24.0,
+                                  ),
+                              ].divide(SizedBox(width: 16.0)),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
+                    );
+                  },
+                );
+              },
+            ),
           ),
           Align(
             alignment: AlignmentDirectional(0.0, 1.0),

@@ -217,6 +217,8 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                   logFirebaseEvent('veryBad_update_page_state');
                                   _model.availability =
                                       BuildingAvailability.veryBad;
+                                  _model.likedAnswers = [];
+                                  _model.dislikedAnswers = [];
                                   safeSetState(() {});
                                 },
                               ),
@@ -238,6 +240,8 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                   logFirebaseEvent('bad_update_page_state');
                                   _model.availability =
                                       BuildingAvailability.bad;
+                                  _model.likedAnswers = [];
+                                  _model.dislikedAnswers = [];
                                   safeSetState(() {});
                                 },
                               ),
@@ -265,6 +269,8 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                   logFirebaseEvent('neutral_update_page_state');
                                   _model.availability =
                                       BuildingAvailability.neutral;
+                                  _model.likedAnswers = [];
+                                  _model.dislikedAnswers = [];
                                   safeSetState(() {});
                                 },
                               ),
@@ -286,6 +292,8 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                   logFirebaseEvent('good_update_page_state');
                                   _model.availability =
                                       BuildingAvailability.good;
+                                  _model.likedAnswers = [];
+                                  _model.dislikedAnswers = [];
                                   safeSetState(() {});
                                 },
                               ),
@@ -306,6 +314,8 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                 'BUILDING_QUESTION2_veryGood_CALLBACK');
                             logFirebaseEvent('veryGood_update_page_state');
                             _model.availability = BuildingAvailability.veryGood;
+                            _model.likedAnswers = [];
+                            _model.dislikedAnswers = [];
                             safeSetState(() {});
                           },
                         ),

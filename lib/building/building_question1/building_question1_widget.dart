@@ -14,6 +14,7 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'building_question1_model.dart';
 export 'building_question1_model.dart';
@@ -66,6 +67,7 @@ class _BuildingQuestion1WidgetState extends State<BuildingQuestion1Widget> {
       );
       logFirebaseEvent('BuildingQuestion1_update_page_state');
       _model.selectedLocationTitle = _model.locationTitleOnLoad!;
+      _model.isLoading = false;
       safeSetState(() {});
       logFirebaseEvent('BuildingQuestion1_bottom_sheet');
       await showModalBottomSheet(
@@ -117,25 +119,11 @@ class _BuildingQuestion1WidgetState extends State<BuildingQuestion1Widget> {
                               (_model.receivedBuildingTypes)!.isNotEmpty) ==
                           true) {
                         logFirebaseEvent('_update_page_state');
-                        _model.buildingTypesList = _model.receivedBuildingTypes!
-                            .toList()
-                            .cast<BuildingTypeStruct>();
-                        safeSetState(() {});
-                      } else {
-                        logFirebaseEvent('_update_page_state');
-                        _model.buildingTypesList = FFAppState()
-                            .BuildingTypes
+                        _model.selectedTypes = _model.receivedBuildingTypes!
                             .toList()
                             .cast<BuildingTypeStruct>();
                         safeSetState(() {});
                       }
-                    } else {
-                      logFirebaseEvent('_update_page_state');
-                      _model.buildingTypesList = FFAppState()
-                          .BuildingTypes
-                          .toList()
-                          .cast<BuildingTypeStruct>();
-                      safeSetState(() {});
                     }
                   },
                 ),
@@ -196,258 +184,244 @@ class _BuildingQuestion1WidgetState extends State<BuildingQuestion1Widget> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                FFButtonWidget(
-                  onPressed: () async {
-                    logFirebaseEvent(
-                        'BUILDING_QUESTION1_ChooseLocation_ON_TAP');
-                    logFirebaseEvent('ChooseLocation_bottom_sheet');
-                    await showModalBottomSheet(
-                      isScrollControlled: true,
-                      backgroundColor:
-                          FlutterFlowTheme.of(context).primaryBackground,
-                      enableDrag: false,
-                      context: context,
-                      builder: (context) {
-                        return GestureDetector(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          },
-                          child: Padding(
-                            padding: MediaQuery.viewInsetsOf(context),
-                            child: Container(
-                              height: MediaQuery.sizeOf(context).height * 0.7,
-                              child: OsmWidget(
-                                initialLocation: _model.selectedLocation!,
-                                initialLocationTitle:
-                                    _model.selectedLocationTitle,
-                                onSelectLocation: (location, locationTitle,
-                                    buildingInfo) async {
-                                  logFirebaseEvent('_update_page_state');
-                                  _model.selectedLocation = location;
-                                  _model.selectedLocationTitle = locationTitle!;
-                                  safeSetState(() {});
-                                },
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ).then((value) => safeSetState(() {}));
-                  },
-                  text: _model.selectedLocationTitle,
-                  icon: Icon(
-                    Icons.edit,
-                    size: 15.0,
-                  ),
-                  options: FFButtonOptions(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 36.0,
-                    padding: EdgeInsets.all(0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFFEBEBEB),
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Golos',
-                          color: Color(0xFF57636B),
-                          fontSize: 12.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                    elevation: 0.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        '81dluyxt' /* Выберите тип здания */,
-                      ),
-                      textAlign: TextAlign.start,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
-                            color: Color(0xFF828282),
-                            fontSize: 13.0,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        logFirebaseEvent(
-                            'BUILDING_QUESTION1_Stack_ltzs20i0_ON_TAP');
-                        logFirebaseEvent('Stack_bottom_sheet');
-                        await showModalBottomSheet(
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          enableDrag: false,
-                          context: context,
-                          builder: (context) {
-                            return GestureDetector(
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                                FocusManager.instance.primaryFocus?.unfocus();
-                              },
-                              child: Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: Container(
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 0.6,
-                                  child: BuildingTypeSelectorWidget(
-                                    selectedTypesIn: _model.selectedTypes,
-                                    availableTypes: _model.buildingTypesList,
-                                    onSelectedTypes: (types) async {
-                                      logFirebaseEvent('_update_page_state');
-                                      _model.selectedTypes = types
-                                          .toList()
-                                          .cast<BuildingTypeStruct>();
-                                      safeSetState(() {});
-                                    },
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ).then((value) => safeSetState(() {}));
-                      },
-                      child: Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: 48.0,
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
-                              height: MediaQuery.sizeOf(context).height * 1.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(8.0),
-                                border: Border.all(
-                                  color: Color(0xFFA7A7A7),
+                if (!_model.isLoading)
+                  FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent(
+                          'BUILDING_QUESTION1_ChooseLocation_ON_TAP');
+                      logFirebaseEvent('ChooseLocation_bottom_sheet');
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor:
+                            FlutterFlowTheme.of(context).primaryBackground,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: Container(
+                                height: MediaQuery.sizeOf(context).height * 0.7,
+                                child: OsmWidget(
+                                  initialLocation: _model.selectedLocation!,
+                                  initialLocationTitle:
+                                      _model.selectedLocationTitle,
+                                  onSelectLocation: (location, locationTitle,
+                                      buildingInfo) async {
+                                    logFirebaseEvent('_update_page_state');
+                                    _model.selectedLocation = location;
+                                    _model.selectedLocationTitle =
+                                        locationTitle!;
+                                    safeSetState(() {});
+                                  },
                                 ),
                               ),
                             ),
-                            Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      _model.selectedTypes.length > 0
-                                          ? functions.getBuildingTypeNames(
-                                              _model.selectedTypes.toList(),
-                                              FFLocalizations.of(context)
-                                                  .languageCode)
-                                          : FFLocalizations.of(context)
-                                              .getVariableText(
-                                              ruText: 'Выберите тип здания',
-                                              enText: 'Select building type',
-                                              kyText: 'Имарат түрүн тандаңыз',
-                                            ),
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                    Icon(
-                                      Icons.chevron_right,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      size: 24.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                  child: FFButtonWidget(
-                    onPressed: (_model.selectedTypes.length <= 0)
-                        ? null
-                        : () async {
-                            logFirebaseEvent(
-                                'BUILDING_QUESTION1_PAGE_Next_ON_TAP');
-                            logFirebaseEvent('Next_navigate_to');
-
-                            context.pushNamed(
-                              BuildingQuestion2Widget.routeName,
-                              queryParameters: {
-                                'selectedLocation': serializeParam(
-                                  _model.selectedLocation,
-                                  ParamType.LatLng,
-                                ),
-                                'selectedLocationTitle': serializeParam(
-                                  _model.selectedLocationTitle,
-                                  ParamType.String,
-                                ),
-                                'buildingTypes': serializeParam(
-                                  _model.selectedTypes
-                                      .map((e) => e.id)
-                                      .toList(),
-                                  ParamType.String,
-                                  isList: true,
-                                ),
-                              }.withoutNulls,
-                            );
-                          },
-                    text: FFLocalizations.of(context).getText(
-                      'h2xtww2y' /* Далее */,
+                          );
+                        },
+                      ).then((value) => safeSetState(() {}));
+                    },
+                    text: _model.selectedLocationTitle,
+                    icon: Icon(
+                      Icons.edit,
+                      size: 15.0,
                     ),
                     options: FFButtonOptions(
                       width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 48.0,
+                      height: 36.0,
                       padding: EdgeInsets.all(0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0xFF53B153),
+                      color: Color(0xFFEBEBEB),
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Golos',
-                                color: Colors.white,
+                                color: Color(0xFF57636B),
+                                fontSize: 12.0,
                                 letterSpacing: 0.0,
+                                fontWeight: FontWeight.normal,
                               ),
                       elevation: 0.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                      disabledColor: Color(0xFF54626D),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                ),
+                if (!_model.isLoading)
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          FFLocalizations.of(context).getText(
+                            '81dluyxt' /* Выберите тип здания */,
+                          ),
+                          textAlign: TextAlign.start,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    color: Color(0xFF828282),
+                                    fontSize: 13.0,
+                                    letterSpacing: 0.0,
+                                  ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'BUILDING_QUESTION1_Container_t3jui4e7_ON');
+                            logFirebaseEvent('Container_bottom_sheet');
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
+                                  },
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.6,
+                                      child: BuildingTypeSelectorWidget(
+                                        selectedTypesIn: _model.selectedTypes,
+                                        availableTypes:
+                                            FFAppState().BuildingTypes,
+                                        onSelectedTypes: (types) async {
+                                          logFirebaseEvent(
+                                              '_update_page_state');
+                                          _model.selectedTypes = types
+                                              .toList()
+                                              .cast<BuildingTypeStruct>();
+                                          safeSetState(() {});
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((value) => safeSetState(() {}));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Text(
+                                _model.selectedTypes.length > 0
+                                    ? functions.getBuildingTypeNames(
+                                        _model.selectedTypes.toList(),
+                                        FFLocalizations.of(context)
+                                            .languageCode)
+                                    : FFLocalizations.of(context)
+                                        .getVariableText(
+                                        ruText: 'Выберите тип здания',
+                                        enText: 'Select building type',
+                                        kyText: 'Имарат түрүн тандаңыз',
+                                      ),
+                                textAlign: TextAlign.start,
+                                maxLines: 100,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ].divide(SizedBox(height: 16.0)),
+                    ),
+                  ),
+                if (!_model.isLoading)
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                    child: FFButtonWidget(
+                      onPressed: (_model.selectedTypes.length <= 0)
+                          ? null
+                          : () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION1_PAGE_Next_ON_TAP');
+                              logFirebaseEvent('Next_navigate_to');
+
+                              context.pushNamed(
+                                BuildingQuestion2Widget.routeName,
+                                queryParameters: {
+                                  'selectedLocation': serializeParam(
+                                    _model.selectedLocation,
+                                    ParamType.LatLng,
+                                  ),
+                                  'selectedLocationTitle': serializeParam(
+                                    _model.selectedLocationTitle,
+                                    ParamType.String,
+                                  ),
+                                  'buildingTypes': serializeParam(
+                                    _model.selectedTypes
+                                        .map((e) => e.id)
+                                        .toList(),
+                                    ParamType.String,
+                                    isList: true,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            },
+                      text: FFLocalizations.of(context).getText(
+                        'h2xtww2y' /* Далее */,
+                      ),
+                      options: FFButtonOptions(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: 48.0,
+                        padding: EdgeInsets.all(0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0xFF53B153),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Golos',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                        disabledColor: Color(0xFF54626D),
+                      ),
+                    ),
+                  ),
+                if (_model.isLoading)
+                  Lottie.asset(
+                    'assets/jsons/Animation_-_1714670498687.json',
+                    width: 200.0,
+                    height: 200.0,
+                    fit: BoxFit.contain,
+                    animate: true,
+                  ),
               ].divide(SizedBox(height: 24.0)),
             ),
           ),
