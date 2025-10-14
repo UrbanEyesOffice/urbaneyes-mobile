@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/building_type_selector/building_type_selector_widget.dart';
+import '/components/building_selector/building_selector_widget.dart';
 import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

@@ -1201,7 +1201,7 @@ class _ParkingSurveyWidgetState extends State<ParkingSurveyWidget> {
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Lottie.asset(
-                    'assets/jsons/Animation_-_1714670498687.json',
+                    'assets/jsons/UE_logo_animation.json',
                     width: 150.0,
                     height: 130.0,
                     fit: BoxFit.cover,

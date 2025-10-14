@@ -221,7 +221,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                           return Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).featuredBlue,
+                              color: listItemsItem.color,
                               borderRadius: BorderRadius.circular(16.0),
                             ),
                             child: Padding(
@@ -233,33 +233,43 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    FFLocalizations.of(context).getVariableText(
-                                      ruText: listItemsItem.name,
-                                      enText: listItemsItem.nameEn,
-                                      kyText: listItemsItem.nameKg,
-                                    ),
-                                    textAlign: TextAlign.start,
-                                    maxLines: 3,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Gerbera',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          fontSize: 24.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          FFLocalizations.of(context)
+                                              .getVariableText(
+                                            ruText: listItemsItem.name,
+                                            enText: listItemsItem.nameEn,
+                                            kyText: listItemsItem.nameKg,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          maxLines: 3,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Gerbera',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                fontSize: 24.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                         ),
-                                  ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      listItemsItem.icon,
-                                      width: 50.0,
-                                      height: 50.0,
-                                      fit: BoxFit.cover,
-                                    ),
+                                      ),
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          listItemsItem.icon,
+                                          width: 50.0,
+                                          height: 50.0,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ].divide(SizedBox(width: 8.0)),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -287,20 +297,47 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                         } else if (listItemsItem.surveyType ==
                                             1) {
                                           logFirebaseEvent(
-                                              'Button_navigate_to');
-
-                                          context.pushNamed(
-                                            QuestionWidget.routeName,
-                                            queryParameters: {
-                                              'survey': serializeParam(
-                                                listItemsItem,
-                                                ParamType.Document,
-                                              ),
-                                            }.withoutNulls,
-                                            extra: <String, dynamic>{
-                                              'survey': listItemsItem,
-                                            },
+                                              'Button_firestore_query');
+                                          _model.questionsList3 =
+                                              await queryQuestionRecordOnce(
+                                            queryBuilder: (questionRecord) =>
+                                                questionRecord
+                                                    .where(
+                                                      'survey_id',
+                                                      isEqualTo: listItemsItem
+                                                          .reference,
+                                                    )
+                                                    .where(
+                                                      'enabled',
+                                                      isEqualTo: true,
+                                                    )
+                                                    .orderBy('question_order'),
                                           );
+                                          if (_model.questionsList3!.length >
+                                              0) {
+                                            logFirebaseEvent(
+                                                'Button_navigate_to');
+
+                                            context.pushNamed(
+                                              QuestionCopyWidget.routeName,
+                                              queryParameters: {
+                                                'survey': serializeParam(
+                                                  listItemsItem,
+                                                  ParamType.Document,
+                                                ),
+                                                'questions': serializeParam(
+                                                  _model.questionsList3,
+                                                  ParamType.Document,
+                                                  isList: true,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'survey': listItemsItem,
+                                                'questions':
+                                                    _model.questionsList3,
+                                              },
+                                            );
+                                          }
                                         } else if (listItemsItem.surveyType ==
                                             3) {
                                           logFirebaseEvent(
@@ -310,6 +347,8 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                               BuildingQuestion1Widget
                                                   .routeName);
                                         }
+
+                                        safeSetState(() {});
                                       },
                                       text: FFLocalizations.of(context).getText(
                                         'h4e69wmb' /* Отметить */,
@@ -383,23 +422,43 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    FFLocalizations.of(context).getVariableText(
-                                      ruText: listItemsItem.name,
-                                      enText: listItemsItem.nameEn,
-                                      kyText: listItemsItem.nameKg,
-                                    ),
-                                    textAlign: TextAlign.start,
-                                    maxLines: 3,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Gerbera',
-                                          color: Color(0xFF06112E),
-                                          fontSize: 24.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          FFLocalizations.of(context)
+                                              .getVariableText(
+                                            ruText: listItemsItem.name,
+                                            enText: listItemsItem.nameEn,
+                                            kyText: listItemsItem.nameKg,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          maxLines: 3,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Gerbera',
+                                                color: Color(0xFF06112E),
+                                                fontSize: 24.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                         ),
+                                      ),
+                                      if (listItemsItem.icon != null &&
+                                          listItemsItem.icon != '')
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            listItemsItem.icon,
+                                            width: 50.0,
+                                            height: 50.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                    ],
                                   ),
                                   FFButtonWidget(
                                     onPressed: () async {
@@ -422,20 +481,47 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                         );
                                       } else if (listItemsItem.surveyType ==
                                           1) {
-                                        logFirebaseEvent('Button_navigate_to');
-
-                                        context.pushNamed(
-                                          QuestionWidget.routeName,
-                                          queryParameters: {
-                                            'survey': serializeParam(
-                                              listItemsItem,
-                                              ParamType.Document,
-                                            ),
-                                          }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            'survey': listItemsItem,
-                                          },
+                                        logFirebaseEvent(
+                                            'Button_firestore_query');
+                                        _model.questionsList2 =
+                                            await queryQuestionRecordOnce(
+                                          queryBuilder: (questionRecord) =>
+                                              questionRecord
+                                                  .where(
+                                                    'survey_id',
+                                                    isEqualTo:
+                                                        listItemsItem.reference,
+                                                  )
+                                                  .where(
+                                                    'enabled',
+                                                    isEqualTo: true,
+                                                  )
+                                                  .orderBy('question_order'),
                                         );
+                                        if (_model.questionsList2!.length > 0) {
+                                          logFirebaseEvent(
+                                              'Button_navigate_to');
+
+                                          context.pushNamed(
+                                            QuestionCopyWidget.routeName,
+                                            queryParameters: {
+                                              'survey': serializeParam(
+                                                listItemsItem,
+                                                ParamType.Document,
+                                              ),
+                                              'questions': serializeParam(
+                                                _model.questionsList2,
+                                                ParamType.Document,
+                                                isList: true,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'survey': listItemsItem,
+                                              'questions':
+                                                  _model.questionsList2,
+                                            },
+                                          );
+                                        }
                                       } else if (listItemsItem.surveyType ==
                                           3) {
                                         logFirebaseEvent('Button_navigate_to');
@@ -443,6 +529,8 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                         context.pushNamed(
                                             BuildingQuestion1Widget.routeName);
                                       }
+
+                                      safeSetState(() {});
                                     },
                                     text: FFLocalizations.of(context).getText(
                                       'gohqvhe4' /* Оценить */,

@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/building_type_selector/building_type_selector_widget.dart';
+import '/components/building_selector/building_selector_widget.dart';
 import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -254,105 +254,83 @@ class _BuildingQuestion1WidgetState extends State<BuildingQuestion1Widget> {
                     ),
                   ),
                 if (!_model.isLoading)
+                  Text(
+                    FFLocalizations.of(context).getText(
+                      '81dluyxt' /* Выберите тип здания */,
+                    ),
+                    textAlign: TextAlign.start,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          color: Color(0xFF828282),
+                          fontSize: 13.0,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                if (!_model.isLoading)
                   Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
                       children: [
-                        Text(
-                          FFLocalizations.of(context).getText(
-                            '81dluyxt' /* Выберите тип здания */,
-                          ),
-                          textAlign: TextAlign.start,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    color: Color(0xFF828282),
-                                    fontSize: 13.0,
-                                    letterSpacing: 0.0,
+                        Builder(
+                          builder: (context) {
+                            final buildingTypes = FFAppState()
+                                .BuildingTypes
+                                .sortedList(
+                                    keyOf: (e) => FFLocalizations.of(context)
+                                            .getVariableText(
+                                          ruText: e.titleRu,
+                                          enText: e.titleEn,
+                                          kyText: e.titleKg,
+                                        ),
+                                    desc: false)
+                                .toList();
+
+                            return Wrap(
+                              spacing: 16.0,
+                              runSpacing: 16.0,
+                              alignment: WrapAlignment.center,
+                              crossAxisAlignment: WrapCrossAlignment.start,
+                              direction: Axis.horizontal,
+                              runAlignment: WrapAlignment.start,
+                              verticalDirection: VerticalDirection.down,
+                              clipBehavior: Clip.none,
+                              children: List.generate(buildingTypes.length,
+                                  (buildingTypesIndex) {
+                                final buildingTypesItem =
+                                    buildingTypes[buildingTypesIndex];
+                                return BuildingSelectorWidget(
+                                  key: Key(
+                                      'Keyxiw_${buildingTypesIndex}_of_${buildingTypes.length}'),
+                                  isSelected: _model.selectedTypes
+                                      .contains(buildingTypesItem),
+                                  emoji: buildingTypesItem.emoji,
+                                  title: FFLocalizations.of(context)
+                                      .getVariableText(
+                                    ruText: buildingTypesItem.titleRu,
+                                    enText: buildingTypesItem.titleEn,
+                                    kyText: buildingTypesItem.titleKg,
                                   ),
-                        ),
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            logFirebaseEvent(
-                                'BUILDING_QUESTION1_Container_t3jui4e7_ON');
-                            logFirebaseEvent('Container_bottom_sheet');
-                            await showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              enableDrag: false,
-                              context: context,
-                              builder: (context) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(context).unfocus();
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
+                                  onTapAction: () async {
+                                    logFirebaseEvent(
+                                        'BUILDING_QUESTION1_Container_xiwibsnw_CA');
+                                    logFirebaseEvent(
+                                        'BuildingSelector_update_page_state');
+                                    _model.selectedTypes = [];
+                                    safeSetState(() {});
+                                    logFirebaseEvent(
+                                        'BuildingSelector_update_page_state');
+                                    _model
+                                        .addToSelectedTypes(buildingTypesItem);
+                                    safeSetState(() {});
                                   },
-                                  child: Padding(
-                                    padding: MediaQuery.viewInsetsOf(context),
-                                    child: Container(
-                                      height:
-                                          MediaQuery.sizeOf(context).height *
-                                              0.6,
-                                      child: BuildingTypeSelectorWidget(
-                                        selectedTypesIn: _model.selectedTypes,
-                                        availableTypes:
-                                            FFAppState().BuildingTypes,
-                                        onSelectedTypes: (types) async {
-                                          logFirebaseEvent(
-                                              '_update_page_state');
-                                          _model.selectedTypes = types
-                                              .toList()
-                                              .cast<BuildingTypeStruct>();
-                                          safeSetState(() {});
-                                        },
-                                      ),
-                                    ),
-                                  ),
                                 );
-                              },
-                            ).then((value) => safeSetState(() {}));
+                              }),
+                            );
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Text(
-                                _model.selectedTypes.length > 0
-                                    ? functions.getBuildingTypeNames(
-                                        _model.selectedTypes.toList(),
-                                        FFLocalizations.of(context)
-                                            .languageCode)
-                                    : FFLocalizations.of(context)
-                                        .getVariableText(
-                                        ruText: 'Выберите тип здания',
-                                        enText: 'Select building type',
-                                        kyText: 'Имарат түрүн тандаңыз',
-                                      ),
-                                textAlign: TextAlign.start,
-                                maxLines: 100,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                            ),
-                          ),
                         ),
-                      ].divide(SizedBox(height: 16.0)),
+                      ],
                     ),
                   ),
                 if (!_model.isLoading)
@@ -415,14 +393,22 @@ class _BuildingQuestion1WidgetState extends State<BuildingQuestion1Widget> {
                     ),
                   ),
                 if (_model.isLoading)
-                  Lottie.asset(
-                    'assets/jsons/Animation_-_1714670498687.json',
-                    width: 200.0,
-                    height: 200.0,
-                    fit: BoxFit.contain,
-                    animate: true,
+                  Expanded(
+                    child: Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Container(
+                        decoration: BoxDecoration(),
+                        child: Lottie.asset(
+                          'assets/jsons/UE_logo_animation.json',
+                          width: 200.0,
+                          height: 200.0,
+                          fit: BoxFit.contain,
+                          animate: true,
+                        ),
+                      ),
+                    ),
                   ),
-              ].divide(SizedBox(height: 24.0)),
+              ].divide(SizedBox(height: 8.0)),
             ),
           ),
         ),

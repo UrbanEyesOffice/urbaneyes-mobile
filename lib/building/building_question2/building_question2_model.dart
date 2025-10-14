@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/building_selector/building_selector_widget.dart';
+import '/components/negative_double_variant_widget.dart';
 import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -89,44 +90,32 @@ class BuildingQuestion2Model extends FlutterFlowModel<BuildingQuestion2Widget> {
   late BuildingSelectorModel goodModel;
   // Model for veryGood.
   late BuildingSelectorModel veryGoodModel;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel1;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel2;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel3;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel4;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel5;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel6;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel7;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel8;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel9;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel10;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel11;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel12;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel13;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel14;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel15;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel16;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel17;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel18;
-  // Model for BuildingSelector component.
-  late BuildingSelectorModel buildingSelectorModel19;
+  // Model for positiveRamp.
+  late BuildingSelectorModel positiveRampModel;
+  // Model for positiveDoorway.
+  late BuildingSelectorModel positiveDoorwayModel;
+  // Model for positiveLift.
+  late BuildingSelectorModel positiveLiftModel;
+  // Model for positiveSidewalk.
+  late BuildingSelectorModel positiveSidewalkModel;
+  // Model for positiveRestroom.
+  late BuildingSelectorModel positiveRestroomModel;
+  // Model for positiveHelp.
+  late BuildingSelectorModel positiveHelpModel;
+  // Model for positiveAll.
+  late BuildingSelectorModel positiveAllModel;
+  // Model for ramp.
+  late NegativeDoubleVariantModel rampModel;
+  // Model for doorway.
+  late NegativeDoubleVariantModel doorwayModel;
+  // Model for lift.
+  late NegativeDoubleVariantModel liftModel;
+  // Model for sidewalks.
+  late NegativeDoubleVariantModel sidewalksModel;
+  // Model for toilets.
+  late NegativeDoubleVariantModel toiletsModel;
+  // Model for help.
+  late NegativeDoubleVariantModel helpModel;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
@@ -150,44 +139,19 @@ class BuildingQuestion2Model extends FlutterFlowModel<BuildingQuestion2Widget> {
     neutralModel = createModel(context, () => BuildingSelectorModel());
     goodModel = createModel(context, () => BuildingSelectorModel());
     veryGoodModel = createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel1 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel2 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel3 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel4 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel5 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel6 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel7 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel8 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel9 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel10 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel11 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel12 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel13 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel14 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel15 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel16 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel17 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel18 =
-        createModel(context, () => BuildingSelectorModel());
-    buildingSelectorModel19 =
-        createModel(context, () => BuildingSelectorModel());
+    positiveRampModel = createModel(context, () => BuildingSelectorModel());
+    positiveDoorwayModel = createModel(context, () => BuildingSelectorModel());
+    positiveLiftModel = createModel(context, () => BuildingSelectorModel());
+    positiveSidewalkModel = createModel(context, () => BuildingSelectorModel());
+    positiveRestroomModel = createModel(context, () => BuildingSelectorModel());
+    positiveHelpModel = createModel(context, () => BuildingSelectorModel());
+    positiveAllModel = createModel(context, () => BuildingSelectorModel());
+    rampModel = createModel(context, () => NegativeDoubleVariantModel());
+    doorwayModel = createModel(context, () => NegativeDoubleVariantModel());
+    liftModel = createModel(context, () => NegativeDoubleVariantModel());
+    sidewalksModel = createModel(context, () => NegativeDoubleVariantModel());
+    toiletsModel = createModel(context, () => NegativeDoubleVariantModel());
+    helpModel = createModel(context, () => NegativeDoubleVariantModel());
   }
 
   @override
@@ -197,25 +161,19 @@ class BuildingQuestion2Model extends FlutterFlowModel<BuildingQuestion2Widget> {
     neutralModel.dispose();
     goodModel.dispose();
     veryGoodModel.dispose();
-    buildingSelectorModel1.dispose();
-    buildingSelectorModel2.dispose();
-    buildingSelectorModel3.dispose();
-    buildingSelectorModel4.dispose();
-    buildingSelectorModel5.dispose();
-    buildingSelectorModel6.dispose();
-    buildingSelectorModel7.dispose();
-    buildingSelectorModel8.dispose();
-    buildingSelectorModel9.dispose();
-    buildingSelectorModel10.dispose();
-    buildingSelectorModel11.dispose();
-    buildingSelectorModel12.dispose();
-    buildingSelectorModel13.dispose();
-    buildingSelectorModel14.dispose();
-    buildingSelectorModel15.dispose();
-    buildingSelectorModel16.dispose();
-    buildingSelectorModel17.dispose();
-    buildingSelectorModel18.dispose();
-    buildingSelectorModel19.dispose();
+    positiveRampModel.dispose();
+    positiveDoorwayModel.dispose();
+    positiveLiftModel.dispose();
+    positiveSidewalkModel.dispose();
+    positiveRestroomModel.dispose();
+    positiveHelpModel.dispose();
+    positiveAllModel.dispose();
+    rampModel.dispose();
+    doorwayModel.dispose();
+    liftModel.dispose();
+    sidewalksModel.dispose();
+    toiletsModel.dispose();
+    helpModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }

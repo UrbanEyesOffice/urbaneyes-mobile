@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/language_selector_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -7,7 +8,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
-import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
@@ -107,35 +107,133 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             ),
           ),
           actions: [
-            FFButtonWidget(
-              onPressed: () async {
-                logFirebaseEvent('EDIT_PROFILE_PAGE__BTN_ON_TAP');
-                logFirebaseEvent('Button_action_block');
-                await action_blocks.changeLanguage(context);
-              },
-              text: FFLocalizations.of(context).getText(
-                'e4oz02uo' /* Рус */,
-              ),
-              icon: Icon(
-                Icons.language_sharp,
-                size: 15.0,
-              ),
-              options: FFButtonOptions(
-                height: 40.0,
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: 'Inter',
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      letterSpacing: 0.0,
-                    ),
-                elevation: 0.0,
-                borderSide: BorderSide(
-                  color: Colors.transparent,
-                  width: 1.0,
+            Visibility(
+              visible: FFLocalizations.of(context).languageCode == 'ky',
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  logFirebaseEvent('EDIT_PROFILE_PAGE_Kyrgyz_ON_TAP');
+                  logFirebaseEvent('Kyrgyz_bottom_sheet');
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    enableDrag: false,
+                    context: context,
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: LanguageSelectorWidget(),
+                        ),
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
+                },
+                child: Container(
+                  width: 32.0,
+                  height: 32.0,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset(
+                    'assets/images/icons8-kyrgyz-48.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            Visibility(
+              visible: FFLocalizations.of(context).languageCode == 'ru',
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  logFirebaseEvent('EDIT_PROFILE_PAGE_Russian_ON_TAP');
+                  logFirebaseEvent('Russian_bottom_sheet');
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    enableDrag: false,
+                    context: context,
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: LanguageSelectorWidget(),
+                        ),
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
+                },
+                child: Container(
+                  width: 32.0,
+                  height: 32.0,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset(
+                    'assets/images/icons8---48.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: FFLocalizations.of(context).languageCode == 'en',
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  logFirebaseEvent('EDIT_PROFILE_PAGE_English_ON_TAP');
+                  logFirebaseEvent('English_bottom_sheet');
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    enableDrag: false,
+                    context: context,
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: LanguageSelectorWidget(),
+                        ),
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
+                },
+                child: Container(
+                  width: 32.0,
+                  height: 32.0,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset(
+                    'assets/images/icons8--48.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             FlutterFlowIconButton(

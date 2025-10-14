@@ -228,20 +228,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => RewardsCopyWidget(),
         ),
         FFRoute(
-          name: QuestionWidget.routeName,
-          path: QuestionWidget.routePath,
-          requireAuth: true,
-          asyncParams: {
-            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
-          },
-          builder: (context, params) => QuestionWidget(
-            survey: params.getParam(
-              'survey',
-              ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
           name: ParkingSurveyWidget.routeName,
           path: ParkingSurveyWidget.routePath,
           asyncParams: {
@@ -289,6 +275,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             buildingTypes: params.getParam<String>(
               'buildingTypes',
               ParamType.String,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: QuestionCopyWidget.routeName,
+          path: QuestionCopyWidget.routePath,
+          requireAuth: true,
+          asyncParams: {
+            'survey': getDoc(['surveys'], SurveysRecord.fromSnapshot),
+            'questions': getDocList(['question'], QuestionRecord.fromSnapshot),
+          },
+          builder: (context, params) => QuestionCopyWidget(
+            survey: params.getParam(
+              'survey',
+              ParamType.Document,
+            ),
+            questions: params.getParam<QuestionRecord>(
+              'questions',
+              ParamType.Document,
               isList: true,
             ),
           ),

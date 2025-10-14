@@ -82,6 +82,11 @@ class SurveysRecord extends FirestoreRecord {
   String get icon => _icon ?? '';
   bool hasIcon() => _icon != null;
 
+  // "color" field.
+  Color? _color;
+  Color? get color => _color;
+  bool hasColor() => _color != null;
+
   void _initializeFields() {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _name = snapshotData['name'] as String?;
@@ -96,6 +101,7 @@ class SurveysRecord extends FirestoreRecord {
     _testersOnly = snapshotData['testers_only'] as bool?;
     _featured = snapshotData['featured'] as bool?;
     _icon = snapshotData['icon'] as String?;
+    _color = getSchemaColor(snapshotData['color']);
   }
 
   static CollectionReference get collection =>
@@ -146,6 +152,7 @@ Map<String, dynamic> createSurveysRecordData({
   bool? testersOnly,
   bool? featured,
   String? icon,
+  Color? color,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -162,6 +169,7 @@ Map<String, dynamic> createSurveysRecordData({
       'testers_only': testersOnly,
       'featured': featured,
       'icon': icon,
+      'color': color,
     }.withoutNulls,
   );
 
@@ -185,7 +193,8 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e1?.surveyType == e2?.surveyType &&
         e1?.testersOnly == e2?.testersOnly &&
         e1?.featured == e2?.featured &&
-        e1?.icon == e2?.icon;
+        e1?.icon == e2?.icon &&
+        e1?.color == e2?.color;
   }
 
   @override
@@ -202,7 +211,8 @@ class SurveysRecordDocumentEquality implements Equality<SurveysRecord> {
         e?.surveyType,
         e?.testersOnly,
         e?.featured,
-        e?.icon
+        e?.icon,
+        e?.color
       ]);
 
   @override

@@ -15,11 +15,13 @@ class BuildingTypeStruct extends FFFirebaseStruct {
     String? titleRu,
     String? titleKg,
     String? titleEn,
+    String? emoji,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _id = id,
         _titleRu = titleRu,
         _titleKg = titleKg,
         _titleEn = titleEn,
+        _emoji = emoji,
         super(firestoreUtilData);
 
   // "id" field.
@@ -50,12 +52,20 @@ class BuildingTypeStruct extends FFFirebaseStruct {
 
   bool hasTitleEn() => _titleEn != null;
 
+  // "emoji" field.
+  String? _emoji;
+  String get emoji => _emoji ?? '';
+  set emoji(String? val) => _emoji = val;
+
+  bool hasEmoji() => _emoji != null;
+
   static BuildingTypeStruct fromMap(Map<String, dynamic> data) =>
       BuildingTypeStruct(
         id: data['id'] as String?,
         titleRu: data['title_ru'] as String?,
         titleKg: data['title_kg'] as String?,
         titleEn: data['title_en'] as String?,
+        emoji: data['emoji'] as String?,
       );
 
   static BuildingTypeStruct? maybeFromMap(dynamic data) => data is Map
@@ -67,6 +77,7 @@ class BuildingTypeStruct extends FFFirebaseStruct {
         'title_ru': _titleRu,
         'title_kg': _titleKg,
         'title_en': _titleEn,
+        'emoji': _emoji,
       }.withoutNulls;
 
   @override
@@ -85,6 +96,10 @@ class BuildingTypeStruct extends FFFirebaseStruct {
         ),
         'title_en': serializeParam(
           _titleEn,
+          ParamType.String,
+        ),
+        'emoji': serializeParam(
+          _emoji,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -111,6 +126,11 @@ class BuildingTypeStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        emoji: deserializeParam(
+          data['emoji'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -122,12 +142,13 @@ class BuildingTypeStruct extends FFFirebaseStruct {
         id == other.id &&
         titleRu == other.titleRu &&
         titleKg == other.titleKg &&
-        titleEn == other.titleEn;
+        titleEn == other.titleEn &&
+        emoji == other.emoji;
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([id, titleRu, titleKg, titleEn]);
+      const ListEquality().hash([id, titleRu, titleKg, titleEn, emoji]);
 }
 
 BuildingTypeStruct createBuildingTypeStruct({
@@ -135,6 +156,7 @@ BuildingTypeStruct createBuildingTypeStruct({
   String? titleRu,
   String? titleKg,
   String? titleEn,
+  String? emoji,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -145,6 +167,7 @@ BuildingTypeStruct createBuildingTypeStruct({
       titleRu: titleRu,
       titleKg: titleKg,
       titleEn: titleEn,
+      emoji: emoji,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

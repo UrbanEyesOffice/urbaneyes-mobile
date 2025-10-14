@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/building_selector/building_selector_widget.dart';
+import '/components/negative_double_variant_widget.dart';
 import '/components/osm/osm_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -210,7 +211,12 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                 isSelected: _model.availability ==
                                     BuildingAvailability.veryBad,
                                 emoji: '😡',
-                                title: 'Очень плохо',
+                                title:
+                                    FFLocalizations.of(context).getVariableText(
+                                  ruText: 'Очень плохо',
+                                  enText: 'Very bad',
+                                  kyText: 'Өтө начар',
+                                ),
                                 onTapAction: () async {
                                   logFirebaseEvent(
                                       'BUILDING_QUESTION2_PAGE_veryBad_CALLBACK');
@@ -233,7 +239,12 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                 isSelected: _model.availability ==
                                     BuildingAvailability.bad,
                                 emoji: '😔',
-                                title: 'Плохо',
+                                title:
+                                    FFLocalizations.of(context).getVariableText(
+                                  ruText: 'Плохо',
+                                  enText: 'Bad',
+                                  kyText: 'Начар',
+                                ),
                                 onTapAction: () async {
                                   logFirebaseEvent(
                                       'BUILDING_QUESTION2_PAGE_bad_CALLBACK');
@@ -262,7 +273,12 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                 isSelected: _model.availability ==
                                     BuildingAvailability.neutral,
                                 emoji: '🙄',
-                                title: 'Нейтрально',
+                                title:
+                                    FFLocalizations.of(context).getVariableText(
+                                  ruText: 'Нейтрально',
+                                  enText: 'Neutral',
+                                  kyText: 'Нейтралдуу',
+                                ),
                                 onTapAction: () async {
                                   logFirebaseEvent(
                                       'BUILDING_QUESTION2_PAGE_neutral_CALLBACK');
@@ -285,7 +301,12 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                 isSelected: _model.availability ==
                                     BuildingAvailability.good,
                                 emoji: '😌',
-                                title: 'Хорошо',
+                                title:
+                                    FFLocalizations.of(context).getVariableText(
+                                  ruText: 'Хорошо',
+                                  enText: 'Good',
+                                  kyText: 'Жакшы',
+                                ),
                                 onTapAction: () async {
                                   logFirebaseEvent(
                                       'BUILDING_QUESTION2_PAGE_good_CALLBACK');
@@ -308,7 +329,11 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                           isSelected: _model.availability ==
                               BuildingAvailability.veryGood,
                           emoji: '😍',
-                          title: 'Очень хорошо',
+                          title: FFLocalizations.of(context).getVariableText(
+                            ruText: 'Очень хорошо',
+                            enText: 'Very good',
+                            kyText: 'Өтө жакшы',
+                          ),
                           onTapAction: () async {
                             logFirebaseEvent(
                                 'BUILDING_QUESTION2_veryGood_CALLBACK');
@@ -352,25 +377,30 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                           children: [
                             Expanded(
                               child: wrapWithModel(
-                                model: _model.buildingSelectorModel1,
+                                model: _model.positiveRampModel,
                                 updateCallback: () => safeSetState(() {}),
                                 child: BuildingSelectorWidget(
                                   isSelected: _model.likedAnswers
                                       .contains(BuildingAnswers.ramp),
-                                  title: 'Наличие пандусов',
+                                  title: FFLocalizations.of(context)
+                                      .getVariableText(
+                                    ruText: 'Наличие пандусов',
+                                    enText: 'Availability of ramps',
+                                    kyText: 'Пандустардын болушу',
+                                  ),
                                   onTapAction: () async {
                                     logFirebaseEvent(
-                                        'BUILDING_QUESTION2_Container_7tqjtbpb_CA');
+                                        'BUILDING_QUESTION2_positiveRamp_CALLBACK');
                                     if (_model.likedAnswers
                                         .contains(BuildingAnswers.ramp)) {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveRamp_update_page_state');
                                       _model.removeFromLikedAnswers(
                                           BuildingAnswers.ramp);
                                       safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveRamp_update_page_state');
                                       _model.addToLikedAnswers(
                                           BuildingAnswers.ramp);
                                       safeSetState(() {});
@@ -381,25 +411,30 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                             ),
                             Expanded(
                               child: wrapWithModel(
-                                model: _model.buildingSelectorModel2,
+                                model: _model.positiveDoorwayModel,
                                 updateCallback: () => safeSetState(() {}),
                                 child: BuildingSelectorWidget(
                                   isSelected: _model.likedAnswers
                                       .contains(BuildingAnswers.doorWayWidth),
-                                  title: 'Ширина дверных проемов',
+                                  title: FFLocalizations.of(context)
+                                      .getVariableText(
+                                    ruText: 'Ширина дверных проемов',
+                                    enText: 'Width of doorways',
+                                    kyText: 'Эшиктин ачылышынын туурасы',
+                                  ),
                                   onTapAction: () async {
                                     logFirebaseEvent(
-                                        'BUILDING_QUESTION2_Container_of1jcyuw_CA');
+                                        'BUILDING_QUESTION2_positiveDoorway_CALLB');
                                     if (_model.likedAnswers.contains(
                                         BuildingAnswers.doorWayWidth)) {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveDoorway_update_page_state');
                                       _model.removeFromLikedAnswers(
                                           BuildingAnswers.doorWayWidth);
                                       safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveDoorway_update_page_state');
                                       _model.addToLikedAnswers(
                                           BuildingAnswers.doorWayWidth);
                                       safeSetState(() {});
@@ -415,25 +450,31 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                           children: [
                             Expanded(
                               child: wrapWithModel(
-                                model: _model.buildingSelectorModel3,
+                                model: _model.positiveLiftModel,
                                 updateCallback: () => safeSetState(() {}),
                                 child: BuildingSelectorWidget(
                                   isSelected: _model.likedAnswers
                                       .contains(BuildingAnswers.lift),
-                                  title: 'Доступность лифта или подъемника',
+                                  title: FFLocalizations.of(context)
+                                      .getVariableText(
+                                    ruText: 'Доступность лифта или подъемника',
+                                    enText: 'Accessibility of elevator or lift',
+                                    kyText:
+                                        'Лифт же көтөргүчтүн жеткиликтүүлүгү',
+                                  ),
                                   onTapAction: () async {
                                     logFirebaseEvent(
-                                        'BUILDING_QUESTION2_Container_3qaf7d3x_CA');
+                                        'BUILDING_QUESTION2_positiveLift_CALLBACK');
                                     if (_model.likedAnswers
                                         .contains(BuildingAnswers.lift)) {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveLift_update_page_state');
                                       _model.removeFromLikedAnswers(
                                           BuildingAnswers.lift);
                                       safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveLift_update_page_state');
                                       _model.addToLikedAnswers(
                                           BuildingAnswers.lift);
                                       safeSetState(() {});
@@ -444,25 +485,33 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                             ),
                             Expanded(
                               child: wrapWithModel(
-                                model: _model.buildingSelectorModel4,
+                                model: _model.positiveSidewalkModel,
                                 updateCallback: () => safeSetState(() {}),
                                 child: BuildingSelectorWidget(
                                   isSelected: _model.likedAnswers
                                       .contains(BuildingAnswers.sidewalk),
-                                  title: 'Состояние тротуаров и дорожек рядом',
+                                  title: FFLocalizations.of(context)
+                                      .getVariableText(
+                                    ruText:
+                                        'Состояние тротуаров и дорожек рядом',
+                                    enText:
+                                        'Condition of sidewalks and nearby paths',
+                                    kyText:
+                                        'Тротуарлардын жана жолчолордун абалы',
+                                  ),
                                   onTapAction: () async {
                                     logFirebaseEvent(
-                                        'BUILDING_QUESTION2_Container_cqzmi1gw_CA');
+                                        'BUILDING_QUESTION2_positiveSidewalk_CALL');
                                     if (_model.likedAnswers
                                         .contains(BuildingAnswers.sidewalk)) {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveSidewalk_update_page_state');
                                       _model.removeFromLikedAnswers(
                                           BuildingAnswers.sidewalk);
                                       safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveSidewalk_update_page_state');
                                       _model.addToLikedAnswers(
                                           BuildingAnswers.sidewalk);
                                       safeSetState(() {});
@@ -478,25 +527,30 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                           children: [
                             Expanded(
                               child: wrapWithModel(
-                                model: _model.buildingSelectorModel5,
+                                model: _model.positiveRestroomModel,
                                 updateCallback: () => safeSetState(() {}),
                                 child: BuildingSelectorWidget(
                                   isSelected: _model.likedAnswers
                                       .contains(BuildingAnswers.restroom),
-                                  title: 'Доступность туалетов',
+                                  title: FFLocalizations.of(context)
+                                      .getVariableText(
+                                    ruText: 'Доступность туалетов',
+                                    enText: 'Accessibility of toilets',
+                                    kyText: 'Дааратканалардын жеткиликтүүлүгү',
+                                  ),
                                   onTapAction: () async {
                                     logFirebaseEvent(
-                                        'BUILDING_QUESTION2_Container_rlhru9xz_CA');
+                                        'BUILDING_QUESTION2_positiveRestroom_CALL');
                                     if (_model.likedAnswers
                                         .contains(BuildingAnswers.restroom)) {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveRestroom_update_page_state');
                                       _model.removeFromLikedAnswers(
                                           BuildingAnswers.restroom);
                                       safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveRestroom_update_page_state');
                                       _model.addToLikedAnswers(
                                           BuildingAnswers.restroom);
                                       safeSetState(() {});
@@ -507,25 +561,30 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                             ),
                             Expanded(
                               child: wrapWithModel(
-                                model: _model.buildingSelectorModel6,
+                                model: _model.positiveHelpModel,
                                 updateCallback: () => safeSetState(() {}),
                                 child: BuildingSelectorWidget(
                                   isSelected: _model.likedAnswers
                                       .contains(BuildingAnswers.helpButton),
-                                  title: 'Кнопка вызова сотрудника',
+                                  title: FFLocalizations.of(context)
+                                      .getVariableText(
+                                    ruText: 'Кнопка вызова сотрудника',
+                                    enText: 'Call button for staff',
+                                    kyText: 'Кызматкерди чакыруу баскычы',
+                                  ),
                                   onTapAction: () async {
                                     logFirebaseEvent(
-                                        'BUILDING_QUESTION2_Container_ooylacc8_CA');
+                                        'BUILDING_QUESTION2_positiveHelp_CALLBACK');
                                     if (_model.likedAnswers
                                         .contains(BuildingAnswers.helpButton)) {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveHelp_update_page_state');
                                       _model.removeFromLikedAnswers(
                                           BuildingAnswers.helpButton);
                                       safeSetState(() {});
                                     } else {
                                       logFirebaseEvent(
-                                          'BuildingSelector_update_page_state');
+                                          'positiveHelp_update_page_state');
                                       _model.addToLikedAnswers(
                                           BuildingAnswers.helpButton);
                                       safeSetState(() {});
@@ -537,28 +596,32 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                           ].divide(SizedBox(width: 24.0)),
                         ),
                         wrapWithModel(
-                          model: _model.buildingSelectorModel7,
+                          model: _model.positiveAllModel,
                           updateCallback: () => safeSetState(() {}),
                           child: BuildingSelectorWidget(
                             isSelected: _model.likedAnswers
                                 .contains(BuildingAnswers.all),
-                            title: 'Всё вышеперечисленное',
+                            title: FFLocalizations.of(context).getVariableText(
+                              ruText: 'Всё вышеперечисленное',
+                              enText: 'All of the above',
+                              kyText: 'Жогоруда айтылгандардын баары',
+                            ),
                             onTapAction: () async {
                               logFirebaseEvent(
-                                  'BUILDING_QUESTION2_Container_glajnaau_CA');
+                                  'BUILDING_QUESTION2_positiveAll_CALLBACK');
                               if (_model.likedAnswers
                                   .contains(BuildingAnswers.all)) {
                                 logFirebaseEvent(
-                                    'BuildingSelector_update_page_state');
+                                    'positiveAll_update_page_state');
                                 _model.likedAnswers = [];
                                 safeSetState(() {});
                               } else {
                                 logFirebaseEvent(
-                                    'BuildingSelector_update_page_state');
+                                    'positiveAll_update_page_state');
                                 _model.likedAnswers = [];
                                 safeSetState(() {});
                                 logFirebaseEvent(
-                                    'BuildingSelector_update_page_state');
+                                    'positiveAll_update_page_state');
                                 _model.addToLikedAnswers(BuildingAnswers.all);
                                 safeSetState(() {});
                               }
@@ -591,554 +654,415 @@ class _BuildingQuestion2WidgetState extends State<BuildingQuestion2Widget> {
                                     fontWeight: FontWeight.w600,
                                   ),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                '71jtrfc0' /* Есть ли удобные пандусы? */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
+                        wrapWithModel(
+                          model: _model.rampModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: NegativeDoubleVariantWidget(
+                            isSelectedLeft: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noRamp1),
+                            isSelectedRight: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noRamp2),
+                            titleLeft:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Нет',
+                              enText: 'No',
+                              kyText: 'Жок',
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel8,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(BuildingAnswers.noRamp1),
-                                      title: 'Нет',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_898hxevq_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noRamp2);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noRamp1)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noRamp1);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noRamp1);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel9,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(BuildingAnswers.noRamp2),
-                                      title: 'Да, но есть трудности',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_58b6yoz1_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noRamp1);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noRamp2)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noRamp2);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noRamp2);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ].divide(SizedBox(width: 24.0)),
+                            titleRight:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Да, но есть трудности',
+                              enText: 'Yes, but there are some difficulties.',
+                              kyText: 'Ооба, бирок кээ бир кыйынчылыктар бар.',
                             ),
-                          ],
+                            question:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Есть ли удобные пандусы?',
+                              enText: 'Are there convenient ramps?',
+                              kyText: 'Ыңгайлуу пандустар барбы?',
+                            ),
+                            onSelectLeft: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_ramp_CALLBACK');
+                              logFirebaseEvent('ramp_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noRamp2);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noRamp1)) {
+                                logFirebaseEvent('ramp_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noRamp1);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('ramp_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noRamp1);
+                                safeSetState(() {});
+                              }
+                            },
+                            onSelectRight: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_ramp_CALLBACK');
+                              logFirebaseEvent('ramp_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noRamp1);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noRamp2)) {
+                                logFirebaseEvent('ramp_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noRamp2);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('ramp_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noRamp2);
+                                safeSetState(() {});
+                              }
+                            },
+                          ),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'kq4sq87v' /* Достаточна ли ширина дверных п... */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
+                        wrapWithModel(
+                          model: _model.doorwayModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: NegativeDoubleVariantWidget(
+                            isSelectedLeft: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noDoorWayWidth1),
+                            isSelectedRight: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noDoorWayWidth2),
+                            titleLeft:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Недостаточная ширина',
+                              enText: 'Insufficient width',
+                              kyText: 'Туурасы жетишсиз',
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel10,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(
-                                              BuildingAnswers.noDoorWayWidth1),
-                                      title: 'Недостаточная ширина',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_jr9sbx4h_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noDoorWayWidth2);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noDoorWayWidth1)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noDoorWayWidth1);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noDoorWayWidth1);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel11,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(
-                                              BuildingAnswers.noDoorWayWidth2),
-                                      title: 'Достаточная, но затруднён проезд',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_choch6ky_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noDoorWayWidth1);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noDoorWayWidth2)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noDoorWayWidth2);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noDoorWayWidth2);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ].divide(SizedBox(width: 24.0)),
+                            titleRight:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Достаточная, но затруднён проезд',
+                              enText: 'Sufficient, but passage is difficult',
+                              kyText: 'Туурасы жетиштүү, бирок өтүү кыйын',
                             ),
-                          ],
+                            question:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Достаточна ли ширина дверных проёмов?',
+                              enText:
+                                  'Is the width of the doorways sufficient?',
+                              kyText: 'Эшиктин ачылышынын туурасы жетиштүүбү?',
+                            ),
+                            onSelectLeft: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_doorway_CALLBACK');
+                              logFirebaseEvent('doorway_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noDoorWayWidth2);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noDoorWayWidth1)) {
+                                logFirebaseEvent('doorway_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noDoorWayWidth1);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('doorway_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noDoorWayWidth1);
+                                safeSetState(() {});
+                              }
+                            },
+                            onSelectRight: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_doorway_CALLBACK');
+                              logFirebaseEvent('doorway_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noDoorWayWidth1);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noDoorWayWidth2)) {
+                                logFirebaseEvent('doorway_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noDoorWayWidth2);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('doorway_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noDoorWayWidth2);
+                                safeSetState(() {});
+                              }
+                            },
+                          ),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'p6sx8toa' /* Доступен ли лифт или подъемник... */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
+                        wrapWithModel(
+                          model: _model.liftModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: NegativeDoubleVariantWidget(
+                            isSelectedLeft: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noLift1),
+                            isSelectedRight: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noLift2),
+                            titleLeft:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Elevator or lift is not available',
+                              enText: 'Elevator or lift is not available',
+                              kyText: 'Лифт же көтөргүч жок',
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel12,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(BuildingAnswers.noLift1),
-                                      title: 'Лифт или подъёмник отсутствует',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_2udhmiww_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noLift2);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noLift1)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noLift1);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noLift1);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel13,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(BuildingAnswers.noLift2),
-                                      title: 'Есть, но сложно воспользоваться',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_6p6vgdsq_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noLift1);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noLift2)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noLift2);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noLift2);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ].divide(SizedBox(width: 24.0)),
+                            titleRight:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Есть, но сложно пользоваться',
+                              enText: 'Available, but difficult to use',
+                              kyText: 'Бар, бирок колдонуу кыйын',
                             ),
-                          ],
+                            question:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Доступен ли лифт или подъемник?',
+                              enText: 'Is there an elevator or lift available?',
+                              kyText: 'Лифт же көтөргүч барбы?',
+                            ),
+                            onSelectLeft: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_lift_CALLBACK');
+                              logFirebaseEvent('lift_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noLift2);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noLift1)) {
+                                logFirebaseEvent('lift_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noLift1);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('lift_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noLift1);
+                                safeSetState(() {});
+                              }
+                            },
+                            onSelectRight: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_lift_CALLBACK');
+                              logFirebaseEvent('lift_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noLift1);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noLift2)) {
+                                logFirebaseEvent('lift_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noLift2);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('lift_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noLift2);
+                                safeSetState(() {});
+                              }
+                            },
+                          ),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                's0pan1xu' /* Состояние тротуаров */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
+                        wrapWithModel(
+                          model: _model.sidewalksModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: NegativeDoubleVariantWidget(
+                            isSelectedLeft: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noSidewalk1),
+                            isSelectedRight: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noSidewalk2),
+                            titleLeft:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'В плохом состоянии',
+                              enText: 'In poor condition',
+                              kyText: 'Абалы начар',
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel14,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(
-                                              BuildingAnswers.noSidewalk1),
-                                      title: 'В плохом состоянии',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_vxd8by2z_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noSidewalk2);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noSidewalk1)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noSidewalk1);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noSidewalk1);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel15,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(
-                                              BuildingAnswers.noSidewalk2),
-                                      title:
-                                          'В целом нормально, но есть препятствия',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_li0vkpqh_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noSidewalk1);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noSidewalk2)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noSidewalk2);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noSidewalk2);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ].divide(SizedBox(width: 24.0)),
+                            titleRight:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'В целом нормально, но есть препятствия',
+                              enText: 'Generally okay, but there are obstacles',
+                              kyText:
+                                  'Жалпысынан жакшы, бирок тоскоолдуктар бар',
                             ),
-                          ],
+                            question:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Состояние тротуаров',
+                              enText: 'Condition of the sidewalks',
+                              kyText: 'Тротуарлардын абалы',
+                            ),
+                            onSelectLeft: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_sidewalks_CALLBACK');
+                              logFirebaseEvent('sidewalks_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noSidewalk2);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noSidewalk1)) {
+                                logFirebaseEvent('sidewalks_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noSidewalk1);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('sidewalks_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noSidewalk1);
+                                safeSetState(() {});
+                              }
+                            },
+                            onSelectRight: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_sidewalks_CALLBACK');
+                              logFirebaseEvent('sidewalks_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noSidewalk1);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noSidewalk2)) {
+                                logFirebaseEvent('sidewalks_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noSidewalk2);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('sidewalks_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noSidewalk2);
+                                safeSetState(() {});
+                              }
+                            },
+                          ),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'fv9cruxr' /* Доступность туалетов */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
+                        wrapWithModel(
+                          model: _model.toiletsModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: NegativeDoubleVariantWidget(
+                            isSelectedLeft: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noRestroom1),
+                            isSelectedRight: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noRestroom2),
+                            titleLeft:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Туалет недоступен',
+                              enText: 'Toilet is not accessible',
+                              kyText: 'Даараткана жеткиликтүү эмес',
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel16,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(
-                                              BuildingAnswers.noRestroom1),
-                                      title: 'Туалет недоступен',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_53ex524o_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noRestroom2);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noRestroom1)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noRestroom1);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noRestroom1);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel17,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(
-                                              BuildingAnswers.noRestroom2),
-                                      title: 'Доступен, но есть трудности',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_hb36z75o_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noRestroom1);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noRestroom2)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noRestroom2);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noRestroom2);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ].divide(SizedBox(width: 24.0)),
+                            titleRight:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Доступен, но есть трудности',
+                              enText: 'Accessible, but there are difficulties',
+                              kyText: 'Жеткиликтүү, бирок кыйынчылыктар бар',
                             ),
-                          ],
+                            question:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Доступность туалетов',
+                              enText: 'Accessibility of toilets',
+                              kyText: 'Дааратканалардын жеткиликтүүлүгү',
+                            ),
+                            onSelectLeft: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_toilets_CALLBACK');
+                              logFirebaseEvent('toilets_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noRestroom2);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noRestroom1)) {
+                                logFirebaseEvent('toilets_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noRestroom1);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('toilets_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noRestroom1);
+                                safeSetState(() {});
+                              }
+                            },
+                            onSelectRight: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_toilets_CALLBACK');
+                              logFirebaseEvent('toilets_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noRestroom1);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noRestroom2)) {
+                                logFirebaseEvent('toilets_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noRestroom2);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('toilets_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noRestroom2);
+                                safeSetState(() {});
+                              }
+                            },
+                          ),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'bsr0rqew' /* Кнопка вызова сотрудника */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
+                        wrapWithModel(
+                          model: _model.helpModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: NegativeDoubleVariantWidget(
+                            isSelectedLeft: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noHelpButton1),
+                            isSelectedRight: _model.dislikedAnswers
+                                .contains(BuildingAnswers.noHelpButton2),
+                            titleLeft:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Отсутствует',
+                              enText: 'Not available',
+                              kyText: 'Жок',
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel18,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(
-                                              BuildingAnswers.noHelpButton1),
-                                      title: 'Отсутствует',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_tmu27wbw_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noHelpButton2);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noHelpButton1)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noHelpButton1);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noHelpButton1);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model.buildingSelectorModel19,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BuildingSelectorWidget(
-                                      isSelected: _model.dislikedAnswers
-                                          .contains(
-                                              BuildingAnswers.noHelpButton2),
-                                      title: 'Есть, но сложно использовать',
-                                      onTapAction: () async {
-                                        logFirebaseEvent(
-                                            'BUILDING_QUESTION2_Container_xw868h6u_CA');
-                                        logFirebaseEvent(
-                                            'BuildingSelector_update_page_state');
-                                        _model.removeFromDislikedAnswers(
-                                            BuildingAnswers.noHelpButton1);
-                                        safeSetState(() {});
-                                        if (_model.dislikedAnswers.contains(
-                                            BuildingAnswers.noHelpButton2)) {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.removeFromDislikedAnswers(
-                                              BuildingAnswers.noHelpButton2);
-                                          safeSetState(() {});
-                                        } else {
-                                          logFirebaseEvent(
-                                              'BuildingSelector_update_page_state');
-                                          _model.addToDislikedAnswers(
-                                              BuildingAnswers.noHelpButton2);
-                                          safeSetState(() {});
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ].divide(SizedBox(width: 24.0)),
+                            titleRight:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Есть, но сложно использовать',
+                              enText: 'Available, but difficult to use',
+                              kyText: 'Бар, бирок колдонуу кыйын',
                             ),
-                          ],
+                            question:
+                                FFLocalizations.of(context).getVariableText(
+                              ruText: 'Кнопка вызова сотрудника',
+                              enText: 'Call button for staff',
+                              kyText: 'Кызматкерди чакыруу баскычы',
+                            ),
+                            onSelectLeft: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_help_CALLBACK');
+                              logFirebaseEvent('help_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noHelpButton2);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noHelpButton1)) {
+                                logFirebaseEvent('help_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noHelpButton1);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('help_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noHelpButton1);
+                                safeSetState(() {});
+                              }
+                            },
+                            onSelectRight: () async {
+                              logFirebaseEvent(
+                                  'BUILDING_QUESTION2_PAGE_help_CALLBACK');
+                              logFirebaseEvent('help_update_page_state');
+                              _model.removeFromDislikedAnswers(
+                                  BuildingAnswers.noHelpButton1);
+                              safeSetState(() {});
+                              if (_model.dislikedAnswers
+                                  .contains(BuildingAnswers.noHelpButton2)) {
+                                logFirebaseEvent('help_update_page_state');
+                                _model.removeFromDislikedAnswers(
+                                    BuildingAnswers.noHelpButton2);
+                                safeSetState(() {});
+                              } else {
+                                logFirebaseEvent('help_update_page_state');
+                                _model.addToDislikedAnswers(
+                                    BuildingAnswers.noHelpButton2);
+                                safeSetState(() {});
+                              }
+                            },
+                          ),
                         ),
                       ].divide(SizedBox(height: 24.0)),
                     ),

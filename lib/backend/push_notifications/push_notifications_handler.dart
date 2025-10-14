@@ -155,12 +155,6 @@ final parametersBuilderMap =
   'RewardsPage': ParameterData.none(),
   'CollectedRewards': ParameterData.none(),
   'RewardsCopy': ParameterData.none(),
-  'question': (data) async => ParameterData(
-        allParams: {
-          'survey': await getDocumentParameter<SurveysRecord>(
-              data, 'survey', SurveysRecord.fromSnapshot),
-        },
-      ),
   'ParkingSurvey': (data) async => ParameterData(
         allParams: {
           'survey': await getDocumentParameter<SurveysRecord>(
@@ -176,6 +170,12 @@ final parametersBuilderMap =
           'selectedLocation': getParameter<LatLng>(data, 'selectedLocation'),
           'selectedLocationTitle':
               getParameter<String>(data, 'selectedLocationTitle'),
+        },
+      ),
+  'questionCopy': (data) async => ParameterData(
+        allParams: {
+          'survey': await getDocumentParameter<SurveysRecord>(
+              data, 'survey', SurveysRecord.fromSnapshot),
         },
       ),
 };

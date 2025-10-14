@@ -15,6 +15,24 @@
       ]
     },
     {
+      "collectionGroup": "question",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "survey_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "enabled",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "question_order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "rewards",
       "queryScope": "COLLECTION",
       "fields": [
@@ -38,24 +56,6 @@
         },
         {
           "fieldPath": "used_date",
-          "order": "ASCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "question",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "survey_id",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "enabled",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "question_order",
           "order": "ASCENDING"
         }
       ]

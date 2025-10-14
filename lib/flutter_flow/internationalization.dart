@@ -250,11 +250,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Edit profile',
       'ky': 'Аккаунтту өзгөртүү',
     },
-    'e4oz02uo': {
-      'ru': 'Рус',
-      'en': 'Eng',
-      'ky': 'Кыр',
-    },
   },
   // AdmiPannel
   {
@@ -631,11 +626,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'UrbanEyes',
       'ky': 'UrbanEyes',
     },
-    'qcqoiitg': {
-      'ru': 'Рус',
-      'en': 'Eng',
-      'ky': 'Кыр',
-    },
     '4h6zkdv5': {
       'ru': 'Помоги своему городу стать лучше!',
       'en': 'Help your city become a better place!',
@@ -879,34 +869,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ky': '',
     },
   },
-  // question
-  {
-    'bwsaww2r': {
-      'ru': 'Поле для комментария',
-      'en': 'Comment field',
-      'ky': 'Комментарий талаасы',
-    },
-    'pt8y2gzq': {
-      'ru': 'Далее',
-      'en': 'Next',
-      'ky': 'Андан ары',
-    },
-    'y2oxtgw9': {
-      'ru': 'Завершить',
-      'en': 'Complete',
-      'ky': 'Бүттү',
-    },
-    '8rxnnklj': {
-      'ru': 'Изменить локацию',
-      'en': 'Change location',
-      'ky': 'Жайгашкан жерди өзгөртүү',
-    },
-    'vt2xnhmk': {
-      'ru': 'Главная',
-      'en': 'Home',
-      'ky': '',
-    },
-  },
   // ParkingSurvey
   {
     'k2wz1pqr': {
@@ -1091,9 +1053,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // BuildingQuestion2
   {
     'v89opp3q': {
-      'ru': 'Как вы оцениваете доступность здания?',
-      'en': 'How do you rate the accessibility of the building?',
-      'ky': 'Сиз имараттын жеткиликтүүлүгүн кандай баалайт элеңиз?',
+      'ru': 'Как вы оцениваете доступность  этого здания?',
+      'en': 'How do you assess the accessibility of this building?',
+      'ky': 'Бул имараттын жеткиликтүүлүгүн кандай баалайсыз?',
     },
     'bgni3wvx': {
       'ru': 'Что понравилось больше всего?',
@@ -1104,36 +1066,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'С чем возникли сложности?',
       'en': 'What difficulties arose?',
       'ky': 'Кандай кыйынчылыктар болду?',
-    },
-    '71jtrfc0': {
-      'ru': 'Есть ли удобные пандусы?',
-      'en': 'Are there any convenient ramps?',
-      'ky': 'Ыңгайлуу пандустар барбы?',
-    },
-    'kq4sq87v': {
-      'ru': 'Достаточна ли ширина дверных проёмов?',
-      'en': 'Are the doorways wide enough?',
-      'ky': 'Эшиктердин кенендиги жетиштүүбү?',
-    },
-    'p6sx8toa': {
-      'ru': 'Доступен ли лифт или подъемник?',
-      'en': 'Is there a lift or elevator available?',
-      'ky': 'Лифт же лифт барбы?',
-    },
-    's0pan1xu': {
-      'ru': 'Состояние тротуаров',
-      'en': 'Condition of sidewalks',
-      'ky': 'Тротуарлардын абалы',
-    },
-    'fv9cruxr': {
-      'ru': 'Доступность туалетов',
-      'en': 'Toilet accessibility',
-      'ky': 'Ажатканалардын жеткиликтүүлүгү',
-    },
-    'bsr0rqew': {
-      'ru': 'Кнопка вызова сотрудника',
-      'en': 'Employee call button',
-      'ky': 'Кызматкерди чакыруу баскычы',
     },
     'dw0nhknb': {
       'ru': 'Опишите свой опыт',
@@ -1168,6 +1100,34 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'uadhrt9d': {
       'ru': 'Home',
       'en': '',
+      'ky': '',
+    },
+  },
+  // questionCopy
+  {
+    't2o6s7kt': {
+      'ru': 'Поле для комментария',
+      'en': 'Comment field',
+      'ky': 'Комментарий талаасы',
+    },
+    'fdrufku3': {
+      'ru': 'Далее',
+      'en': 'Next',
+      'ky': 'Андан ары',
+    },
+    'hmlcldak': {
+      'ru': 'Завершить',
+      'en': 'Complete',
+      'ky': 'Бүттү',
+    },
+    'ivx4r7eq': {
+      'ru': 'Изменить локацию',
+      'en': 'Change location',
+      'ky': 'Жайгашкан жерди өзгөртүү',
+    },
+    'yg23dy4b': {
+      'ru': 'Главная',
+      'en': 'Home',
       'ky': '',
     },
   },
@@ -1270,6 +1230,29 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Выбрать',
       'en': 'Choose',
       'ky': 'Тандоо',
+    },
+  },
+  // LanguageSelector
+  {
+    '523ytre1': {
+      'ru': 'Выберите язык',
+      'en': 'Select Language',
+      'ky': 'Тилди тандаңыз',
+    },
+    'ejavqhx7': {
+      'ru': 'Кыргызча',
+      'en': 'Кыргызча',
+      'ky': 'Кыргызча',
+    },
+    'jwzfo073': {
+      'ru': 'Русский',
+      'en': 'Русский',
+      'ky': 'Русский',
+    },
+    'anhslqbk': {
+      'ru': 'English',
+      'en': 'English',
+      'ky': 'English',
     },
   },
   // Miscellaneous

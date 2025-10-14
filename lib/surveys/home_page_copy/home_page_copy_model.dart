@@ -52,6 +52,10 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
   List<SurveysRecord>? loadedSurveys;
   // Stores action output result for [Custom Action - shuffleSurveys] action in HomePageCopy widget.
   List<SurveysRecord>? tempSurveys;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<QuestionRecord>? questionsList3;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<QuestionRecord>? questionsList2;
 
   @override
   void initState(BuildContext context) {}
